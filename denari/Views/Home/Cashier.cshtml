@@ -1,0 +1,200 @@
+﻿@using CRIMAS.Models;
+@model IEnumerable<Loan>
+
+@{
+    ViewBag.Title = "Cashier";
+    Layout = "~/Views/Shared/_CashierLayoutPage.cshtml";
+
+    var db = new CrimasDb();
+
+    string user = User.Identity.Name.ToString();
+}
+
+<div class="span12" style="padding-top: 30px; margin-left: auto; margin-right: auto; padding-left: 10px;">
+    <div id="floatdiv" style="position: relative; margin-top: 0" class="span3 cashier-common-task hidden-tablet hidden-phone">
+        <div class="cashier-common-task-header">
+            <span>
+                <img src="~/Images/Wrench.png" style="padding-right: 10px;" /><b>Common Tasks</b></span>
+        </div>
+        @*Loan agreement*@
+        <div>
+            <a href="~/Loan/">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/Loan.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Loan agreement</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <br />
+
+        @*Show Customer income analysis*@
+        <div>
+            <a href="~/IncomeAnalysis">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/Data Analysis.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Income analysis</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <br />
+        @*Enroll a new customer*@
+        <div>
+            <a href="~/Customer/create">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/customer.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Enroll a new customer.</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <br />
+        @*Credit customer account*@
+        <div>
+            <a href="~/CustomerSavings/EnterAccount">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/Accounts receivable.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Customer account status.</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <br />
+
+        @*Show daily transactions*@
+        <div>
+            <a href="~/Home/Cashier">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/Home Loan.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Daily transactions.</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <br />
+        @*shows rateable register*@
+        <div>
+            <a href="~/RateableRegister">
+                <table>
+                    <tr>
+                        <td>
+                            <img src="~/Images/Vibrate.png" /></td>
+                        <td>
+                            <label style="padding-left: 1em">Rateable register</label></td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+    </div>
+    <div class="span6 cashier-content-wrapper" style="height: auto;">
+        <div class="cashier-find-frontTile">
+            <div class="header-text">
+                <h1>Search for an existing Customer</h1>
+            </div>
+            <div style="padding-left: 20px">
+                <form method="get" action="~/Customer/FindCustomer">
+                    <input id="searchString" name="searchString" type="text" placeholder="Enter account number or name" style="height: 38px; text-align: center; width: 360px; margin-top: 13px;">
+                    <button type="submit" class="btn btn-success">
+                        <img src="~/Images/Business-Man-Search.png" />find customer</button>
+                </form>
+
+            </div>
+            <p style="text-align: center">Affordable prices. Flexible payment <a href="#">Options</a></p>
+        </div>
+        <div class="cashier-content">
+            <br />
+            <div class="subheading">
+                <span>Your Current Transactions</span>
+            </div>
+            <br />
+            <div id="LoanAgreements" class="add-user-content">
+                <div class="subheading">
+                    <label style="color: blue"><strong>Loan Agreements</strong></label>
+                </div>
+                <br />
+                <div>
+                    @{
+                       
+                        if (Model.Count() != 0)
+                        {
+                        <p>
+                            <img src="~/Images/Submit.png" /><b>You have @Model.Count() active loan agreement(s)</b></p>
+                        <table class="table table-stripped table-bordered">
+                            <tr style="background-color: #2d742d; color: whitesmoke; font-weight: bold">
+                                <td>Name</td>
+                                <td>Amount</td>
+                                <td></td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr style="color: chocolate; font-weight: bold">
+                                    <td>@item.Customername</td>
+                                    <td>@string.Format("{0:C}", @item.amount) (NGN)</td>
+                                    <td><a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-danger">View Status</a></td>
+                                </tr>
+                            }
+                        </table>
+                        }
+                        else
+                        {
+                        <p style="color: chocolate; font-weight: bold">You have no active loan agreements</p>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div id="Enrolled-Customers" class="add-user-content">
+                <div class="subheading">
+                    <label style="color: blue"><strong>Customers enrolled </strong></label>
+                </div>
+                <br />
+                <div>
+                    @{
+                        var customersEnrolled = from s in db.Customers select s;
+                      
+                        <p style="font-weight: bold; color: chocolate">
+                            <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Customers enrolled: @customersEnrolled.Count()</p>
+                    }
+                </div>
+            </div>
+            @*Manager Priviledges*@
+            @{
+                if(User.IsInRole("Manager")){
+                //
+                //Total no of users online
+                <div id="LoggedIn-cashier" class="add-user-content">
+                    <div class="subheading">
+                        <label style="color: blue"><strong>Cashier's Online </strong></label>
+                    </div>
+                    <br />
+                    <div>
+                        @{                    
+                            <p style="font-weight: bold; color: chocolate">
+                                <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Cashier's online: @customersEnrolled.Count()</p>
+                        }
+                    </div>
+                </div>
+                //
+                //View list of users and transactions they have carried out.
+                }
+            }
+        </div>
+    </div>
+</div>
+

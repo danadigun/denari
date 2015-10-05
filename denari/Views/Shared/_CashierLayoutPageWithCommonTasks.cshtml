@@ -1,0 +1,210 @@
+﻿@*this layout is for administrative user only*@
+@using CRIMAS.Models;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - CRIMAS-MPCS Ltd. Web Portal</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    <script src="~/Scripts/floating-1.12.js"></script>
+    <link href="~/Content/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+
+
+    @*  @Styles.Render("~/Content/metroui")
+    @Scripts.Render("~/bundles/metroui")*@
+
+    <script type="text/javascript">
+        floatingMenu.add('floatdiv',
+            {
+                // Represents distance from top or  
+                // bottom browser window border  
+                // depending upon property used.  
+                // Only one should be specified.  
+                // targetTop: 10,
+                targetBottom: 10,
+
+                // prohibits movement on x-axis  
+                prohibitXMovement: true,
+
+                // Remove this one if you don't  
+                // want snap effect  
+                snap: false
+            });
+    </script>
+</head>
+<body>
+    <div class="container-narrow">
+        <div class="masthead">
+            @Html.Partial("_LoginPartial")
+            <h3 class="muted">
+                @*<img src="~/windows8_icons/User_Role/reviewer/reviewer-32.png" style="margin-right: 10px;" /><b>Cashier</b>*@
+                <img src="~/Images/Crimas-header.png" />
+            </h3>
+        </div>
+        @* <hr />*@
+        @* <div class="dashHead">You are logged in as <b>@User.Identity.Name.ToString()</b></div>*@
+        <div style="margin-top: 50px;"></div>
+        @{
+            var db = new CrimasDb();
+
+            string id = User.Identity.Name.ToString();
+
+            var nFirstName = from s in db.UserProfiles where s.UserName == id select s.FirstName;
+
+            var nLastName = from s in db.UserProfiles where s.UserName == id select s.LastName;
+        }
+        <div class="cashier-toolbar">
+            <label style="float: right; padding-right: 10px; padding-top: 5px; width: 400px;">Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()&nbsp;|&nbsp;<a href="~/Account/Manage">Change your password</a></label>
+        </div>
+        <div class="cashier-menu visible-desktop hidden-phone hidden-tablet ">
+            <ul>
+                <li><a href="~/Home/Cashier">
+                    <img src="~/Images/House.png" />&nbsp;home</a></li>
+                <li><a href="#">
+                    <img src="~/Images/Help.png" />&nbsp;help</a>
+                  
+                </li>           
+            </ul>
+
+        </div>
+        <div class="cashier-main">
+
+            <div class="span12" style="padding-top: 30px; margin-left: auto; margin-right: auto; padding-left: 10px;">
+                <div id="floatdiv" style="position: relative; margin-top: 0" class="span3 cashier-common-task hidden-tablet hidden-phone">
+                    <div class="cashier-common-task-header">
+                        <span>
+                            <img src="~/Images/Wrench.png" style="padding-right: 10px;" /><b>Common Tasks</b></span>
+                    </div>
+                    @*Loan agreement*@
+                    <div>
+                        <a href="~/Loan/">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Loan.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Loan agreements</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                    <br />
+                  
+                    @*Show Customer income analysis*@
+                    <div>
+                        <a href="~/IncomeAnalysis">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Data Analysis.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Income analysis</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                    <br />
+                    @*Enroll a new customer*@
+                    <div>
+                        <a href="~/Customer/create">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/customer.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Enroll a new customer.</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                    <br />
+                    @*Credit customer account*@
+                    <div>
+                        <a href="~/CustomerSavings/EnterAccount">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Accounts receivable.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Customer account status</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                    <br />
+                   
+                    @*Show daily transactions*@
+                    <div>
+                        <a href="~/Home/Cashier">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Home Loan.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Daily transactions.</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                    <br />
+                    @*shows rateable register*@
+                    <div>
+                        <a href="~/RateableRegister">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img src="~/Images/Vibrate.png" /></td>
+                                    <td>
+                                        <label style="padding-left: 1em">Rateable register</label></td>
+                                </tr>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+                <div class="span6 cashier-content-wrapper">
+                    <div class="cashier-find-frontTile">
+                        <div class="header-text">
+                            <h1>Search for an existing Customer</h1>
+                        </div>
+                        <div style="padding-left: 20px">
+                            <form method="get" action="~/Customer/FindCustomer">
+                                <input id="searchString" name="searchString" type="text" placeholder="Enter account number or name" style="height: 38px; text-align: center; width: 360px; margin-top: 13px;">
+                                <button type="submit" class="btn btn-success"><img src="~/Images/Business-Man-Search.png"/>find customer</button>
+                            </form>
+
+                        </div>
+                        <p style="text-align: center">Affordable prices. Flexible payment <a href="#">Options</a></p>
+                    </div>
+                    <div class="cashier-content">
+                        <br />
+                        @RenderBody()
+                        @*<div class="subheading">
+                            <span>Your Current Transactions</span>
+                        </div>
+                        <br />
+                        <p style="text-align: center">You do not have any transactions at the momment.</p>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer span10" style="margin-top: 5%">
+            <hr />
+            <p style="font-size: 9pt; text-align: center">&copy; CRIMAS MPCS Limited 2013. Designed & Engineered by <a href="http://muzeolanigeria.com">muzeola nigeria Ltd.</a></p>
+        </div>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

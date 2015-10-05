@@ -1,0 +1,56 @@
+﻿@model CRIMAS.Models.LoanTransaction
+
+@{
+    ViewBag.Title = "Loan repayment";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+   <div class="subheading">
+        <span>
+            <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Customer monthly loan repayment.</span>
+    </div>
+    <br /> 
+
+    <div style="padding-left:20px">
+    <div class="add-user-heading alert alert-info">
+            <span style="float: right; padding-right: 20px"></span>
+            <p><strong>Heads Up!</strong>  Please enter account number and amount to repay customer loan for the month.</p>
+        </div><br />
+        <div class="editor-label">
+           <label><img src="~/Images/Customer-small.png" /><b>&nbsp;&nbsp;Account number:</b></label>
+        </div>
+        <div class="editor-field">
+           @* @Html.EditorFor(model => model.AccountNo, string.Empty, new {@value= ViewBag.AccountNo})*@
+            <label>@ViewBag.AccountNo</label>
+            <input type="text" name="AccountNo" value="@ViewBag.AccountNo" />
+            @Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })
+        </div>
+
+  
+        <div class="editor-label">
+           <label><b>Amount to refund:</b></label>
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.refund)
+            @Html.ValidationMessageFor(model => model.refund, string.Empty, new {@class="ValidationMessage" })
+        </div>
+        <br />
+        <p>
+            <input type="submit" class="btn btn-success" value="Make loan payment" />
+            <a href="@Url.Action("Index","Loan")" class="btn btn-info">Back to loan list</a>
+        </p>
+   </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

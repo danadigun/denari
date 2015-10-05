@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "IncomeAnalysis";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+<header>
+    <script>
+        function validateForm() {
+            var x = document.forms["analysis"]["month"].value;
+            if (x == null || x == "" || x=="--------- ----") {
+                alert("please select a valid date");
+                return false;
+            }
+        }
+</script>
+</header>
+<div class="subheading">
+    <span>
+        <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Income Analysis</span>
+</div>
+<br />
+<div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+
+    <br />
+    <p><strong>Select period for report:</strong></p>
+    <hr />
+    <form name="analysis" method="get" action="~/IncomeAnalysis/ViewIncomeAnalysis">
+        <table style="width: 90%; margin-right: auto; margin-left: auto">
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">Month & Year of report.</td>
+                <td>
+                    <input id="month" name="month" type="month" required/></td>
+
+            </tr>
+            @* <tr>
+                  <td style="text-align: right; padding: 10px; color: #808080;">To:</td>
+                 <td> <input id="dateTo" name="dateTo" type="month" /></td>
+            </tr>*@
+        </table>
+        <br />
+        <p style="text-align: center">
+            <input name="month" type="submit" class="btn btn-success" value="view income analysis report" />
+            <a href="~/Home/cashier" class="btn btn-info">
+                <img src="~/Images/Home.png" />&nbsp;Take me home</a>
+        </p>
+    </form>
+</div>

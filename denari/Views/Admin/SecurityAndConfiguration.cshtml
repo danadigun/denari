@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "SecurityAndConfiguration";
+    Layout = "~/Views/Shared/_LayoutPage1.cshtml";
+}
+
+<div class="security-header" title="Enables you to set up and edit users, roles, and access permissions.">
+    <p class="heading">
+        <img src="~/Images/glyphicons/png/glyphicons_137_cogwheels.png" style="margin-right: 10px;" />
+        <b>Security & Configuration Settings</b>
+    </p>
+  @* <span> Enables you to set up and edit users, roles, and access permissions for your site.  </span>*@
+</div>
+<div class="security-content">
+    <a href="~/AddUser/create"><img src="~/Images/user-group-icon.png" /> add new User</a><br />
+    <a href="#"><img src="~/Images/User-Files-icon.png" />View users Currently logged in</a><br />
+    <a href="~/AddUser"><img src="~/Images/edit-user-icon.png" />User Settings</a><br />
+</div>

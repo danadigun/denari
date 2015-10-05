@@ -1,0 +1,165 @@
+﻿@model IEnumerable<CRIMAS.Models.LoanTransaction>
+@using CRIMAS.Models;
+@using System.Globalization;
+@using System.Threading;
+
+@{
+    ViewBag.Title = "CheckLoanStatus";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+<div class="subheading">
+    <span>
+        <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Customer loan status</span>
+</div>
+<br />
+<div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+    <div>
+        @{
+            var db = new CrimasDb();
+
+
+            var accountno = from s in Model select s.AccountNo;
+
+            var dateCreated = from s in Model select s.DateCreated;
+
+            string acc = ViewBag.AccountNo;
+
+            var name = from s in db.Customers where s.AccountNo == acc select s.Name;
+
+            var balance = (ViewBag.totalCredits - ViewBag.totalDebits);
+
+
+            //Set Culture info for currency
+            CultureInfo cultureInfo = new CultureInfo("en-US");
+            cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+            Thread.CurrentThread.CurrentCulture = cultureInfo;   
+           
+            <div style="font-size: 16pt; text-align: left;">
+                <b>@name.FirstOrDefault()</b>
+                @{
+                    if (balance > 0)
+                    {
+                    <a href="~/LoanTransaction/Create/?accountNO=@ViewBag.AccountNo" class="btn btn-primary" style="margin-left: 300px">Re-fund </a>
+                    <br />
+                    <hr />
+                    <label class="alert-small alert-danger" style="text-align: center">
+                        <strong>Heads Up!</strong>
+                        @name.FirstOrDefault()  has accessed <strong>@ViewBag.NoOfLoanAgreements</strong> loan agreement(s).
+                    </label>
+                        var LoanAgreements = from s in db.Loans
+                                             where s.AccountNo == acc
+                                             select new
+                                             {
+                                                 amount = s.amount,
+                                                 DateCreated = s.DateOfCommencement,
+                                                 completionDate = s.DateOfTermination
+                                             };
+                   
+                    <br />
+                    <div style="font-size:12pt;">
+                        <strong>Loan agreement details:</strong><br /><br />
+                        <table class="table  table-stripped table-bordered">
+                            <tr style="background-color:#2d742d; color: whitesmoke">
+                                <td>Date</td>
+                                <td>Amount</td>
+                                <td>Completion Date</td>
+                            </tr>
+                            @foreach (var item in @LoanAgreements)
+                            {
+                                <tr style="font-weight:bold; color:chocolate">
+                                    <td>@item.DateCreated.ToShortDateString()</td>
+                                    <td>₦@item.amount (NGN)</td>
+                                    <td>@item.completionDate.ToShortDateString()</td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    } 
+                    if (balance <= 0)
+                    {                                                                  
+                    <br />
+                    <br />
+                    <label class="alert-small alert-danger" style="text-align: center"><strong>Heads Up!</strong>   @name.FirstOrDefault() has completed this loan repayment!</label>
+                    }
+                }
+            </div>
+                        
+        
+            <hr style="border-bottom-color: #CCCCCC;" />  
+                             
+        }
+
+        <div>
+            <label>Account number: <b>@accountno.LastOrDefault()</b></label>
+        </div>
+        <div>
+            <label style="color: green; font-style: italic">Last amount borrowed: <b>@ViewBag.AmountBorrowed</b></label>
+        </div>
+        @{
+            if (balance <= 0)
+            {
+            <div style="float: left; text-align: left">
+                <label style="color: blue">Balance: <b>@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+            </div>
+            <br />
+            }
+            if (balance > 0)
+            {
+            <div style="float: left;">
+                <label style="color: red">Balance: <b>-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+            </div>
+            
+            }
+        }
+
+    </div>
+    <br />
+
+    <label style="text-align: left"><b>Transaction history:</b></label>
+    <table class="table table-bordered">
+        <tr style="background-color: #2A3333; color: whitesmoke">
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th>
+                <label>refund</label>
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateCreated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.refund)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.DateOfCommencement)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfTermination)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InterestRate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdby)
+        </td>*@
+
+            </tr>
+        }
+
+    </table>
+</div>
