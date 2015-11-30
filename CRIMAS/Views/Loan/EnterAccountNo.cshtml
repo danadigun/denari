@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "EnterAccountNo";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+
+<div class="subheading">
+        <span>
+            <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Check customer loan status</span>
+    </div>
+    <br /> 
+ 
+<div style="padding-left:20px">
+    <div class="add-user-heading alert alert-info">
+            <span style="float: right; padding-right: 20px"></span>
+            <p><strong>Heads Up!</strong>  Please enter account number to check its status.</p>
+        </div><br />
+    <form method="get" action="~/Loan/CheckLoanStatus">
+        <div>
+            <label><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Cooperator's account no.</label>
+        </div>
+        <div>
+            <input type="text" id="accountno" style="width:275px" name="accountno"/>
+        </div>
+        <br />
+        <div> 
+            <input type="submit" class="btn btn-info" value="check account status"/>
+            <a href="~/Home/cashier" style="padding:10px" class="btn btn-primary"><img src="~/Images/Home.png"/>&nbsp;&nbsp;Take me home!</a><br />
+        </div>
+    </form>
+
+</div>

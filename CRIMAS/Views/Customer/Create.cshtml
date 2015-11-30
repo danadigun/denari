@@ -1,0 +1,128 @@
+﻿@model CRIMAS.Models.Customer
+
+
+@{
+    ViewBag.Title = "Add new customer";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    var CustomerAccount = new Random().Next(1, 10000000).ToString();
+}
+
+
+@using (Html.BeginForm())
+{
+   <span style="color:red">@Html.ValidationSummary()</span> 
+
+    <div class="subheading">
+        <span>
+            <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Enroll a new Customer</span>
+    </div>
+    <br />
+    
+    <div style="padding-left: 20px;">
+        <div class="add-user-heading alert alert-info">
+            <span style="float: right; padding-right: 20px"></span>
+            <p style="text-align: center">Enter details below to enroll new customer into the system.  </p>
+        </div>
+        <br />
+        <table style="width: 90%; margin-left: auto; margin-right: auto">
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Name</label>
+                </td>
+                <td> @Html.TextBoxFor(model => model.Name, string.Empty, new {@style="width:270px; text-transform:uppercase", @placeholder="Enter Account holder's full name." })</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Title</label>
+                </td>
+                <td>
+                     <select style="width:100px">
+                         <option>Mr.</option>
+                         <option>Mrs.</option>
+                         <option>Miss.</option>
+                         <option>Dr.</option>
+                         <option>Engr.</option>
+                         <option>Chief.</option>
+                         <option>Prof.</option>
+                         <option>Others</option>
+                     </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Next of Kin</label>
+                </td>
+                <td>@Html.TextBoxFor(model => model.NextOfkin, string.Empty, new {@style="width:280px", @placeholder="Next of Kin full name" })</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Office address</label>
+                </td>
+                <td>@Html.TextBoxFor(model => model.OfficeAddress, new { @style = "width:356px", @placeholder="Office address details" })</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Residential address</label>
+                </td>
+                <td>@Html.TextBoxFor(model => model.ResidentialAddress, new { @style = "width:356px", @placeholder="Residential address details." })</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">Village Clan</label>
+                </td>
+                <td>@Html.TextBoxFor(model => model.VillageClan, string.Empty, new {@placeholder="Enter village clan" })</td>
+            </tr>
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">LGA</label>
+                </td>
+                <td>
+                    <select id="LocalGovtArea" name="LocalGovtArea">
+                        <option>Abak</option>
+                        <option>Eastern Obolo</option>
+                        <option>Eket</option>
+                        <option>Esit Eket</option>
+                        <option>Essien Udim</option>
+                        <option>Etim Ekpo</option>
+                        <option>Etinan</option>
+                        <option>Ibeno</option>
+                        <option>Ibesikpo Asutan</option>
+                        <option>Ika</option>
+                        <option>Ikono</option>
+                        <option>Ikot Ekpene</option>
+                        <option>Ikot-Abasi</option>
+                        <option>Ini</option>
+                        <option>Itu</option>
+                        <option>Mbo</option>
+                        <option>Mkpat-Enin</option>
+                        <option>Nsit-Atai</option>
+                        <option>Nsit-Ibom</option>
+                        <option>Nsit-Ubium</option>
+                        <option>Obot-Akara</option>
+                        <option>Okobo</option>
+                        <option>Onna</option>
+                        <option>Oron</option>
+                        <option>Oruk Anam</option>
+                        <option>Udung-Uko</option>
+                        <option>Ukanafun</option>
+                        <option>Uruan</option>
+                        <option>Urue-Offong/Oruko</option>
+                        <option>Uyo</option>
+                        <option>Others</option>
+                    </select>
+                </td>
+            </tr>
+        </table><br />
+        <p style="text-align:center">
+            <input type="submit" class="btn btn-info" value="Enroll new customer" />
+            <a href="~/Home/cashier" style="padding: 10px" class="btn btn-primary">
+                <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a><br />
+        </p>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@

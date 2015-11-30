@@ -1,0 +1,59 @@
+﻿@using CRIMAS.Models;
+
+@{
+    ViewBag.Title = "ManageRoles";
+    Layout = "~/Views/Shared/_SecurityAndConfigurationLayoutPage.cshtml";
+}
+
+<div class="add-user-heading">
+    <span style="float: right; padding-right: 20px"><a class="btn-small btn-primary" href="~/AddUser">go back to staff list</a></span>
+    <p>Manage Roles</p>
+</div>
+<div class="add-user-content">
+    @{
+        var db = new CrimasDb();
+        
+      // WebSecurity.Crea
+    }
+    @*<p>
+      
+        <a href="~/AddUser/Create" class="btn-small btn-primary" style="text-decoration: none">+ Add new Employee</a>
+        <a href="~/AddUser/ManageRoles" class="btn-small btn-primary" style="text-decoration: none">Manage roles</a>
+    </p>
+    <div class="subheading">
+        <span>Staff currently registered</span>
+    </div>
+    <br />
+    <table class="table   table-striped">
+        <tr>
+            <th>Employee name</th>
+            <th>Id
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+          
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+               
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+</div>

@@ -1,0 +1,96 @@
+﻿@using CRIMAS.Models;
+@model IEnumerable<Loan>
+
+@{
+    ViewBag.Title = "Cashier";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    var db = new CrimasDb();
+
+    string user = User.Identity.Name.ToString();
+}
+
+<div class="span12" style="padding-top: 30px; margin-left: auto; margin-right: auto; padding-left: 10px;">
+    <div class="span6 cashier-content-wrapper" style="height: auto;">
+      
+        <div class="cashier-content">
+            <br />
+            <div class="subheading">
+                <span>Your Current Transactions</span>
+            </div>
+            <br />
+            <div id="LoanAgreements" class="add-user-content">
+                <div class="subheading">
+                    <label style="color: blue"><strong>Loan Agreements</strong></label>
+                </div>
+                <br />
+                <div>
+                    @{
+                       
+                        if (Model.Count() != 0)
+                        {
+                        <p>
+                            <img src="~/Images/Submit.png" /><b>You have @Model.Count() active loan agreement(s)</b></p>
+                        <table class="table table-stripped table-bordered">
+                            <tr style="background-color: #2d742d; color: whitesmoke; font-weight: bold">
+                                <td>Name</td>
+                                <td>Amount</td>
+                                <td></td>
+                            </tr>
+                            @foreach (var item in Model)
+                            {
+                                <tr style="color: chocolate; font-weight: bold">
+                                    <td>@item.Customername</td>
+                                    <td>@string.Format("{0:C}", @item.amount) (NGN)</td>
+                                    <td><a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-danger">View Status</a></td>
+                                </tr>
+                            }
+                        </table>
+                        }
+                        else
+                        {
+                        <p style="color: chocolate; font-weight: bold">You have no active loan agreements</p>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div id="Enrolled-Customers" class="add-user-content">
+                <div class="subheading">
+                    <label style="color: blue"><strong>Customers enrolled </strong></label>
+                </div>
+                <br />
+                <div>
+                    @{
+                        var customersEnrolled = from s in db.Customers select s;
+                      
+                        <p style="font-weight: bold; color: chocolate">
+                            <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Customers enrolled: @customersEnrolled.Count()</p>
+                    }
+                </div>
+            </div>
+            @*Manager Priviledges*@
+            @{
+                if(User.IsInRole("Manager")){
+                //
+                //Total no of users online
+                <div id="LoggedIn-cashier" class="add-user-content">
+                    <div class="subheading">
+                        <label style="color: blue"><strong>Cashier's Online </strong></label>
+                    </div>
+                    <br />
+                    <div>
+                        @{                    
+                            <p style="font-weight: bold; color: chocolate">
+                                <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Cashier's online: @customersEnrolled.Count()</p>
+                        }
+                    </div>
+                </div>
+                //
+                //View list of users and transactions they have carried out.
+                }
+            }
+        </div>
+    </div>
+</div>
+

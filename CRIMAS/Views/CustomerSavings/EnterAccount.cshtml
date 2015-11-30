@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "EnterAccount";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+<div class="subheading">
+    <span>
+        <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Check customer account status</span>
+</div>
+<br />
+
+<div style="padding-left: 20px">
+    <div class="add-user-heading alert alert-info">
+        <span style="float: right; padding-right: 20px"></span>
+        <p>Please enter account number to check account holder's status.</p>
+    </div>
+    <br />
+    <form method="get" action="~/CustomerSavings/CheckAccount">
+        <table style="width: 90%; margin-left: auto; margin-right: auto;">
+            <tr>
+                <td style="text-align: right; padding: 10px; color: #808080;">
+                    <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
+                </td>
+                <td>
+                    <div class="input-prepend">
+                        <span class="add-on">
+                            <img src="~/Images/Customer-small.png" /></span>
+                        <input type="text" id="accountno" placeholder="Enter account no." style="width: 155px" name="accountno" />
+                    </div>
+                </td>
+            </tr>           
+        </table>
+        
+        <br /><br />
+        <p style="text-align:center">
+            <input type="submit" class="btn btn-info" value="check account status" />
+            <a href="~/Home/cashier" style="padding: 10px" class="btn btn-primary">
+                <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a><br />
+        </p>
+    </form>
+
+</div>

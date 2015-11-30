@@ -1,0 +1,81 @@
+﻿@using CRIMAS.Models;
+
+
+@{
+    ViewBag.Title = "ViewRateableRegister";
+    Layout = "~/Views/Shared/_PrintLayoutPage.cshtml";
+
+
+    var db = new CrimasDb();
+
+    string val = ViewBag.Month;
+     
+
+    DateTime ReportMonth = DateTime.Parse(val);
+    int month = ReportMonth.Month;
+    int year = ReportMonth.Year;
+
+    var query = from s in db.CustomerSavings
+                where s.DateCreated.Year == year && s.DateCreated.Month == month &&
+                s.Credit != 0
+                select new
+                {
+                    Names = s.Name,
+                    AccountNo = s.AccountNo,
+                    Deposit = s.Credit,
+                    Withdrawals = s.Debit
+                };
+
+    var query2 = from s in db.CustomerSavings
+                 where s.DateCreated.Year == year && s.DateCreated.Month == month
+                 select s;
+                
+    var balanceList = query2.ToList();
+}
+<div class="muted">
+            <img src="~/Images/Crimas-header.png" />
+        </div><br /><br />
+        <p style="font-family:'Microsoft JhengHei'; font-size:18pt; border-bottom:solid 1px #808080; padding-bottom:15px">
+            <b>Rateable Deposit Register</b> <label style="float:right">Period: @ReportMonth.AddDays(5).ToLongDateString()</label>
+
+        </p>
+<div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+    <p style="padding-bottom:50px">
+        <a href="~/RateableRegister" style="float:right; margin-left:10px" class="btn-small btn-success">back</a>
+        <a HREF="javascript:window.print()" style="float:right; text-decoration:none"; class="btn-small btn-success">&nbsp;&nbsp;<img src="~/Images/Printer.png" />&nbsp;&nbsp;</a>
+
+    </p>
+    @{
+       
+        <table class="table table-bordered">
+            <tr>
+                <td><b>Names</b></td>
+                <td><b>AccountNo</b></td>
+                <td><b>Deposit</b></td>
+                <td><b>Interest</b></td>
+            </tr>
+           
+            @foreach (var item in query)
+            {
+                var totalCredits = (from s in balanceList where s.AccountNo == item.AccountNo select s.Credit).Sum();
+                var totalDebits = (from s in balanceList where s.AccountNo == item.AccountNo select s.Debit).Sum();
+
+                var nBalance = totalCredits - totalDebits;
+
+                decimal interest = (nBalance / 5000) * 100;               
+                
+                <tr>
+                <td>@item.Names</td>
+                <td>@item.AccountNo</td>
+                <td>@item.Deposit</td>
+                <td>@interest</td>
+                    </tr>
+               
+            }
+        </table>
+        
+        
+    }
+
+
+</div>

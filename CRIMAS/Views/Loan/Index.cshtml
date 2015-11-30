@@ -1,0 +1,113 @@
+﻿@model IEnumerable<CRIMAS.Models.Loan>
+
+@{
+    ViewBag.Title = "Loan agreements";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+
+<br />
+
+@if (Model.Count() == 0)
+{
+    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+       
+        <div class="card-content">
+            <span class="card-title" style="color:black">
+                <img src="~/Images/loan-agr.png" style="padding-right: 20px;" />Loan agreements<hr />
+            </span>
+            <p >
+                <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
+            </p>
+        </div>
+       
+        <p style="padding-left: 20px">
+           @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
+            <a href="~/Loan/EnterAccountNo" class="btn btn-inverse">Check loan status</a>
+            <a href="~/Home/cashier" class="btn btn-info" >Take me home</a>
+        </p>
+        <br />
+      
+    </div>
+    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+        <a href="~/Loan/create" class="btn btn-floating btn-large " style="background-color:#0d47a1">
+            <i class="large material-icons">add</i>
+        </a>
+       
+    </div>
+}
+@if (Model.Count() >= 1)
+{
+    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+
+        <div class="card-content">
+            <span class="card-title" style="color:black">
+                <img src="~/Images/loan-agr.png" style="padding-right: 20px;" />Loan agreements<hr />
+            </span>
+            <p style="padding-left: 40px; padding-top:10px; font-style:italic; border-top:solid; border-top-width:1px; border-top-color:#CCCCCC">
+                <img src="~/Images/Submit.png" />You have @Model.Count() active loan agreement(s).
+            </p>
+        </div>
+
+        <p style="padding-left: 20px">
+            @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
+            <a href="~/Loan/EnterAccountNo" class="btn btn-inverse">Check loan status</a>
+            <a href="~/Home/cashier" class="btn btn-info">Take me home</a>
+        </p>
+        <br />
+
+        @foreach (var item in Model)
+        {
+            <div style="padding-left: 20px;" class="loan-div ">
+                <br />
+                <br />
+                <p style="font-size: 18pt; font-family: 'Microsoft JhengHei'">
+                    @Html.DisplayFor(modelItem => item.Customername)
+                    <span style="float:right; padding-right:20px"><img src="~/Images/Customer(2).png" /></span>
+                </p><hr style="border-bottom-color:#CCCCCC;" />
+
+                <div style="padding-left: 20px; line-height: 7pt; font-size: 10pt; font-style: italic">
+                    <p>
+                        Account No.:<strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong>&nbsp;&nbsp;
+                        Amount: <strong style="color:red">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong>&nbsp;&nbsp;
+                        Duration:<strong> @Html.DisplayFor(modelItem => item.Duration) month(s)</strong>&nbsp;&nbsp;
+                    </p>
+                    <p>
+                        Interest rate: <strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong>
+                        Date of Commencement: <strong>@Html.DisplayFor(modelItem => item.DateOfCommencement)</strong>&nbsp;&nbsp;
+                    </p>
+                    <p>
+                        Date of Termination:<strong> @Html.DisplayFor(modelItem => item.DateOfTermination)</strong>
+                    </p>
+                    <br />
+                    <p>
+                        @* @Html.ActionLink("Edit", "Edit", new { id = item.Id})*@
+                        <a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-success">View loan status</a>
+                        @*   <a href="@Url.Action("Edit", "Loan", new { id = item.Id })" class="btn-small btn-primary">
+                        <img src="~/Images/Edit.png" />Edit</a>*@
+                        @*  @Html.ActionLink("Details", "Details", new { id = item.Id })*@
+                        @* <a href="@Url.Action("Details", "Loan", new { id = item.Id})" class="btn-small btn-primary">Detail</a> |*@
+                        @* @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                        <a href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn-small btn-danger">remove</a>
+
+                    </p>
+                    <br />
+                </div>
+            </div>
+            <br />
+        }
+
+
+    </div>
+    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+        <a href="~/Loan/create" class="btn btn-floating btn-large " style="background-color:#0d47a1">
+            <i class="large material-icons">add</i>
+        </a>
+
+    </div>
+   
+}
+
+
+
+
