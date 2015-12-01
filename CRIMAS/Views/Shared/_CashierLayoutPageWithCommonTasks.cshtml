@@ -186,6 +186,9 @@
             edge: 'right', // Choose the horizontal origin
             //closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
         });
+        $(function () {
+            $(document).tooltip();
+        });
     </script>
 
     @RenderSection("scripts", required: false)
