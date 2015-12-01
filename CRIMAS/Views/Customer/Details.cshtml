@@ -5,84 +5,42 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-<div class="subheading">
-    <span>
-        <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Enrollment details for account holder @Html.DisplayFor(model => model.AccountNo)  </span>
+<div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
+       
+            <span class="card-title" style="color:black">
+                <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Enrollment details for account holder @Html.DisplayFor(model => model.AccountNo)<hr />
+            </span>
+        
+        <br />
+        <div class="add-user-heading" style="padding-bottom: 20px;">
+            <p style="color: green">
+                <b>@Html.DisplayFor(model => model.Name)</b> has successfully been enrolled into the system. The system has assigned an account number as follows:
+            </p>
+            <div style="padding-left: 20px">
+
+                <div>
+                    <label style="font-size: 18pt; color: blue; text-align: center">@Html.DisplayFor(model => model.AccountNo)</label>
+                </div>
+                <br />
+
+            </div>
+            <p class="card-action">
+                <a href="~/Home/cashier"  class="btn btn-primary">
+                    <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!
+                </a><br />
+
+            </p>
+        </div>
+        <br />
+
+
+       
+    </div>
 </div>
-<br />
-<div class="add-user-heading" style="padding-bottom: 20px;">
-    <p style="color: green">
-        <b>@Html.DisplayFor(model => model.Name)</b> has successfully been enrolled into the system. The system has assigned an account number as follows:
-    </p>
-    <p>
-        <a href="~/Home/cashier" style="float: left; margin-right: 20px; padding: 10px" class="btn btn-primary">
-    <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a><br />
+<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+    <a title="add new customer" href="~/Customer/create" class="btn btn-floating btn-large " style="background-color:#689f38">
+        <i class="large material-icons">add</i>
+    </a>
 
-    </p>
 </div>
-<br />
-
-
-<div style="padding-left: 20px">
-    @*<div>System generated account no:</div>*@
-    <div>
-        <label style="font-size: 18pt; color: blue; text-align: center">@Html.DisplayFor(model => model.AccountNo)</label></div>
-    <br />
-    @*<span style="float: right; padding-right: 20px">
-        <a href="~/Home/Cashier" class="btn-small btn-primary">take me home</a> 
-    </span>*@
-</div>
-
-@*<div class="display-label">
-         @Html.DisplayNameFor(model => model.Name)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Name)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NextOfkin)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NextOfkin)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.OfficeAddress)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.OfficeAddress)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ResidentialAddress)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ResidentialAddress)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.VillageClan)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.VillageClan)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LocalGovtArea)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LocalGovtArea)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.DateCreated)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.DateCreated)
-    </div>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.CustomerId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>*@

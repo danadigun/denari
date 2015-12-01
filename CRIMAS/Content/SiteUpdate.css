@@ -4,6 +4,9 @@
 #nav-mobile .logo:hover {
     background: none;
 }
+#nav-mobile li{
+    color:black;
+}
 
 main, footer {
     padding-left: 340px;
@@ -55,3 +58,7 @@ main, footer {
         padding-left: 40px;
     }
 }
+
+select{
+    display: inline;
+  }

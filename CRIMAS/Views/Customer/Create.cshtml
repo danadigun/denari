@@ -11,74 +11,62 @@
 
 @using (Html.BeginForm())
 {
-   <span style="color:red">@Html.ValidationSummary()</span> 
-
-    <div class="subheading">
-        <span>
-            <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Enroll a new Customer</span>
-    </div>
-    <br />
+    <span style="color:red; text-align:center;">@Html.ValidationSummary()</span>
     
-    <div style="padding-left: 20px;">
-        <div class="add-user-heading alert alert-info">
-            <span style="float: right; padding-right: 20px"></span>
-            <p style="text-align: center">Enter details below to enroll new customer into the system.  </p>
-        </div>
-        <br />
-        <table style="width: 90%; margin-left: auto; margin-right: auto">
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">Name</label>
-                </td>
-                <td> @Html.TextBoxFor(model => model.Name, string.Empty, new {@style="width:270px; text-transform:uppercase", @placeholder="Enter Account holder's full name." })</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">Title</label>
-                </td>
-                <td>
-                     <select style="width:100px">
-                         <option>Mr.</option>
-                         <option>Mrs.</option>
-                         <option>Miss.</option>
-                         <option>Dr.</option>
-                         <option>Engr.</option>
-                         <option>Chief.</option>
-                         <option>Prof.</option>
-                         <option>Others</option>
-                     </select>
+    <br />
 
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
+    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+
+        <div class="card-content">
+            <span class="card-title" style="color:black">
+                <img src="~/Images/User Profile 1-WF.png" />Enroll a new Customer<hr />
+            </span>
+            <div class="card-panel" style="background:#827717 ; color:white">
+                Enter details below to enroll new customer into the system.
+            </div>
+
+            <br />
+            <div class="row">
+                <div class="input-field col s12">
+
+                    <label for="name" style="font-weight: bold">Name</label>
+
+                    @Html.TextBoxFor(model => model.Name, string.Empty, new { @placeholder = "Enter Account holder's full name.", @class = "validate", @id = "name" })
+                </div>
+                <div class="input-field col s12">
+                    <label style="font-weight: bold">Title</label><br /><br />
+
+                    <select>
+                        @*<option value="" disabled selected>Select Title</option>*@
+                        <option>Mr.</option>
+                        <option>Mrs.</option>
+                        <option>Miss.</option>
+                        <option>Dr.</option>
+                        <option>Engr.</option>
+                        <option>Chief.</option>
+                        <option>Prof.</option>
+                        <option>Others</option>
+                    </select><br /><br />
+                </div>
+                <div class="input-field col s12">
                     <label style="font-weight: bold">Next of Kin</label>
-                </td>
-                <td>@Html.TextBoxFor(model => model.NextOfkin, string.Empty, new {@style="width:280px", @placeholder="Next of Kin full name" })</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
+                    @Html.TextBoxFor(model => model.NextOfkin, string.Empty, new { @placeholder = "Next of Kin full name", @class = "validate" })
+                </div>
+                <div class="input-field col s12">
                     <label style="font-weight: bold">Office address</label>
-                </td>
-                <td>@Html.TextBoxFor(model => model.OfficeAddress, new { @style = "width:356px", @placeholder="Office address details" })</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
+                    @Html.TextBoxFor(model => model.OfficeAddress, new { @placeholder = "Office address details" })
+                </div>
+                <div class="input-field col s12">
                     <label style="font-weight: bold">Residential address</label>
-                </td>
-                <td>@Html.TextBoxFor(model => model.ResidentialAddress, new { @style = "width:356px", @placeholder="Residential address details." })</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
+                    @Html.TextBoxFor(model => model.ResidentialAddress, new { @placeholder = "Residential address details." })
+                </div>
+                <div class="input-field col s12">
                     <label style="font-weight: bold">Village Clan</label>
-                </td>
-                <td>@Html.TextBoxFor(model => model.VillageClan, string.Empty, new {@placeholder="Enter village clan" })</td>
-            </tr>
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">LGA</label>
-                </td>
-                <td>
+                    @Html.TextBoxFor(model => model.VillageClan, string.Empty, new { @placeholder = "Enter village clan" })
+                </div>
+                <div class="input-field col s12">
+                    <label style="font-weight: bold">LGA</label><br /><br />
+
                     <select id="LocalGovtArea" name="LocalGovtArea">
                         <option>Abak</option>
                         <option>Eastern Obolo</option>
@@ -112,17 +100,19 @@
                         <option>Uyo</option>
                         <option>Others</option>
                     </select>
-                </td>
-            </tr>
-        </table><br />
-        <p style="text-align:center">
-            <input type="submit" class="btn btn-info" value="Enroll new customer" />
-            <a href="~/Home/cashier" style="padding: 10px" class="btn btn-primary">
-                <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a><br />
-        </p>
+
+                </div>
+            </div><br />
+            <div class="card-action" style="margin-top:5em;">
+                <input type="submit" class="btn btn-info" value="Enroll new customer" />
+                <a href="~/Home/cashier" class="btn btn-primary">
+                    <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!
+                </a><br />
+            </div>
+        </div>
     </div>
 }
 
 @*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@

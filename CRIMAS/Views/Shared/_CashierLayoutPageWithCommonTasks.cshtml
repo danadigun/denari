@@ -17,7 +17,7 @@
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
 
 </head>
-<body style="font-family:'Segoe UI'; font-weight:lighter">
+<body style="font-family:'Segoe UI'">
     @{
         var db = new CrimasDb();
 
@@ -89,7 +89,7 @@
                             </a>
                         </li>
                         <li class="bold">
-                            <a class="waves-effect waves-teal" href="~/Customer/create">
+                            <a class="waves-effect waves-teal" href="~/Customer/FindCustomer?searchString=+">
                                 <img src="~/Images/User Profile 1-WF.png" />Customer
                             </a>
                         </li>
@@ -139,7 +139,7 @@
                 </a>
             </li>
             <li class="bold">
-                <a class="waves-effect waves-teal" href="~/Customer/create">
+                <a class="waves-effect waves-teal" href="~/Customer/FindCustomer?searchString=+">
                     <img src="~/Images/User Profile 1-WF.png" />Customer
                 </a>
             </li>
@@ -186,6 +186,7 @@
             edge: 'right', // Choose the horizontal origin
             //closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
         });
+        //$('select').material_select();
         $(function () {
             $(document).tooltip();
         });

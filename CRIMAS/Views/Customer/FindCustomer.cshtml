@@ -5,41 +5,79 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-<div class="subheading">
-    <span>
-        @*<img src="~/Images/Customer-small.png" style="padding-right: 20px;" />*@List of Customers Search results.</span>
+<div class="container">
+    <h5>
+      Customer(s) Search results.
+    </h5><hr />
 </div>
 <br />
-<div style="padding-left: 20px;">
-    <div>
-        
+<div >
+    <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
         <p style="padding-bottom:30px;">
             <b>Your search yielded @Model.Count() result(s)</b>
-            <span style="float:right; margin-right:20px;"><a href="~/Home/Cashier" class="btn btn-info" style="padding:10px"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
+            <span style="float:right; margin-right:20px;"><a href="~/Home/Cashier" class="btn btn-info" ><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
         </p>
     </div>
 
     @foreach (var item in Model)
     {
-        <div>
-            <img src="~/Images/Customer-small.png" />
-        </div>
-        <div class="alert alert-info" style="margin-right: 20px; padding-top: 30px; line-height: 10pt">
-            @*  <img src="~/Images/Customer-small.png" />*@
-            <div style="border-bottom: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; margin-bottom: 10px;">
-                <p style="font-size: 18pt; color: black">@Html.DisplayFor(modelItem => item.Name)</p>
+        <div class="card" style="width:70%;  border-radius:0; border-left:4px solid #689f38; margin-left:auto; margin-right:auto; height:250px;">
+            <div class="card-image waves-effect waves-block waves-light">
+                @* <img class="activator" src="images/office.jpg">*@
             </div>
-            <p style="font-style: italic; color: green">Account opening date: @item.DateCreated
-                <a href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo" class="btn-small btn-success">account status</a>
-                <a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-primary">loan status</a>
-            </p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Account number: <strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Next of kin: <strong>@Html.DisplayFor(modelItem => item.NextOfkin)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Office address: <strong>@Html.DisplayFor(modelItem => item.OfficeAddress)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Residential address: <strong>@Html.DisplayFor(modelItem => item.ResidentialAddress)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Village Clan: <strong>@Html.DisplayFor(modelItem => item.VillageClan)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Local govt. Agrea: <strong>@Html.DisplayFor(modelItem => item.LocalGovtArea)</strong></p>
-        </div>
-    }
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4">
+                    <img class="circle responsive-img valign" src="~/Images/User Profile 1-WF.png" /> @Html.DisplayFor(modelItem => item.Name)<i class="material-icons right">more_vert</i>
+                </span>
+                <br /><br />
 
+                <p style="font-style: italic; color: green;">
+                    Account opening date: @item.DateCreated<br />
+                    @Html.DisplayFor(modelItem => item.OfficeAddress)                  
+                </p>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">
+                   <i class="material-icons right">close</i>
+                </span>
+                <table class="bordered   responsive-table" style="font-size:10pt;">
+                    <thead>
+                        <tr style="font-size:9pt;">
+                            <th data-field="id">Account No.</th>
+                            <th data-field="name">Name</th>
+                            <th data-field="price">Next of kin</th>
+                            <th data-field="id">Office</th>
+                            <th data-field="name">Residence</th>
+                            <th data-field="price">Village</th>
+                            <th data-field="price">LGA</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr style="font-style:italic; color:green;">
+                            <td>@Html.DisplayFor(modelItem => item.AccountNo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                            <td>@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
+                            <td>@Html.DisplayFor(modelItem => item.VillageClan)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LocalGovtArea)</td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+                <div class="card-action">
+                    <a class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">account status</a>
+                    <a class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">loan status</a>
+                </div>
+            </div>
+        </div>
+     
+    }
+    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+        <a title="add new customer" href="~/Customer/create" class="btn btn-floating btn-large " style="background-color:#689f38">
+            <i class="large material-icons">add</i>
+        </a>
+
+    </div>
 </div>
