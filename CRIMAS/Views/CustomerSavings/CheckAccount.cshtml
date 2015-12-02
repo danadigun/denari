@@ -10,93 +10,104 @@
     
       
 }
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
 
-<div class="subheading">
-    <span>
-        <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Account holder's status of account.  </span>
-</div>
-<br />
- <a href="~/Home/cashier" style="float:right;margin-right:25px; width:290px; padding:10px" class="btn btn-primary"><img src="~/Images/Home.png"/>&nbsp;&nbsp;Take me home!</a><br /><br />
-<div class="add-user-heading" style="padding-bottom: 20px;">
-    <span style="float: right; padding-right: 20px; ">
-        <a href="~/CustomerSavings/CreditAccount" class="btn btn-info"><img src="~/Images/CreditAccount.png" />Credit account</a>
-        <a href="~/CustomerSavings/DebitAccount" class="btn btn-danger"><img src="~/Images/DebitAccount.png" />debit account</a>
-    </span>
-    <p style="margin-bottom:40px; font-style:italic">What would you like to do?</p>
+        
+            <span class="card-title" style="color:black">
+                <a href="~/Home/cashier" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
 
-</div>
-<br />
-<div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
-    <div>
-        @{
-            var accountno = from s in Model select s.AccountNo;
+                <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Account holder's status of account.<hr />
+            </span>
+       
+        <br />
 
-            var dateCreated = from s in Model select s.DateCreated;
+        <div >
+            <span style="float: right; padding-right: 20px; ">
+                <a href="~/CustomerSavings/CreditAccount" class="waves-effect waves-light btn" style="background:#7cb342">Credit account</a>
+                <a href="~/CustomerSavings/DebitAccount" class="waves-effect waves-light btn" style="background:#b71c1c ">debit account</a>
+            </span>
+            <p style="margin-bottom:40px; font-style:italic">What would you like to do?</p>
 
-            var name = from s in Model select s.Name;
-                        
-            string strAcc = accountno.LastOrDefault();
+        </div>
+        <br />
+        <div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+            <div>
+                @{
+                    var accountno = from s in Model select s.AccountNo;
 
-            var totalCredits = (from s in Model select s.Credit).Sum();
+                    var dateCreated = from s in Model select s.DateCreated;
 
-            var totalDebits = (from s in Model select s.Debit).Sum();
+                    var name = from s in Model select s.Name;
 
-            var balance = (totalCredits - totalDebits);
+                    string strAcc = accountno.LastOrDefault();
 
-            //var db = new CrimasDb();
+                    var totalCredits = (from s in Model select s.Credit).Sum();
 
-            //var CustomerName = from s in db.Customers
-            //                   where s.AccountNo == strAcc
-            //                   select s;
+                    var totalDebits = (from s in Model select s.Debit).Sum();
 
-            //Set Culture info for currency
-            CultureInfo cultureInfo = new CultureInfo("en-US");
-            cultureInfo.NumberFormat.CurrencySymbol = "₦";
+                    var balance = (totalCredits - totalDebits);
 
-            Thread.CurrentThread.CurrentCulture = cultureInfo;      
-                
-           // foreach (var item in Model)
-            //{
-                <label style="font-size:16pt; text-align:center"> <b>@name.FirstOrDefault()</b></label>    
-                <span style="color:green; font-style:italic; text-align:center"><label>Account Opening date: @dateCreated.LastOrDefault() </label></span><br />
-                  
-           // }
-        }
+                    //var db = new CrimasDb();
+
+                    //var CustomerName = from s in db.Customers
+                    //                   where s.AccountNo == strAcc
+                    //                   select s;
+
+                    //Set Culture info for currency
+                    CultureInfo cultureInfo = new CultureInfo("en-US");
+                    cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+                    Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+    // foreach (var item in Model)
+    //{
+    <label style="font-size:16pt; text-align:center"> <b>@name.FirstOrDefault()</b></label>
+                    <span style="color:green; font-style:italic; text-align:center"><label>Account Opening date: @dateCreated.LastOrDefault() </label></span><br />
+
+    // }
+                }
+            </div>
+            <div style="float: left">
+                <label>Account number: <b style="font-size:14pt; color:black">@accountno.LastOrDefault()</b></label>
+            </div>
+            @{
+                if (balance <= 0)
+                {
+                    <div style="float: right; padding-right: 20px;">
+                        balance:
+                        <label style="color: red"><b style="font-size:15pt;">-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+                    </div>
+                }
+                if (balance > 0)
+                {
+                    <div style="float: right; padding-right: 20px;">
+                        balance:
+                        <label style="color: blue"><b style="font-size:15pt;">@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+                    </div>
+                }
+            }
+
+            <br />
+            <br />
+            <label style="text-align: left"><b>Transaction history:</b></label>
+            <table class="table bordered  striped" style="font-size:10pt;">
+                <tr style="background-color: #2A3333; color: whitesmoke">
+                    <td>Date</td>
+                    <td>Credits</td>
+                    <td>Debits</td>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DateCreated</td>
+                        <td>@item.Credit</td>
+                        <td>@item.Debit</td>
+                    </tr>
+                }
+
+            </table>
+
+        </div>
     </div>
-    <div style="float: left">
-        <label>Account number: <b>@accountno.LastOrDefault()</b></label>
-    </div>
-    @{
-        if (balance <= 0)
-        {
-        <div style="float: right; padding-right: 20px;">balance:
-            <label style="color: red"><b>-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label></div>
-        }
-        if (balance > 0)
-        {
-        <div style="float: right; padding-right: 20px;">balance:
-            <label style="color: blue"><b>@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label></div>
-        }
-    }
-
-    <br />
-    <br />
-    <label style="text-align: left"><b>Transaction history:</b></label>
-    <table class="table table-bordered">
-        <tr style="background-color: #2A3333; color: whitesmoke">
-            <td>Date</td>
-            <td>Credits</td>
-            <td>Debits</td>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.DateCreated</td>
-                <td>@item.Credit</td>
-                <td>@item.Debit</td>
-            </tr>
-        }
-
-    </table>
-
 </div>

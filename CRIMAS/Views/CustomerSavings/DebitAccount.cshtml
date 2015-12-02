@@ -9,54 +9,61 @@
 @using (Html.BeginForm("DebitAccount", "CustomerSavings", FormMethod.Post,
     new { @onsubmit = "return confirm('Are you sure you want to debit this account?')" }))
 {
-    <span style="color:red">@Html.ValidationSummary()</span>
+   <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+       <div class="card-content">
+           <span style="color:red">@Html.ValidationSummary()</span>
 
-    <div class="subheading">
-        <span>
-            <img src="~/Images/Debit-black.png" style="padding-right: 20px;" />Debit customer account</span>
-    </div>
-    <br />
-     
-    <div style="padding-left: 20px;">
-        <div class="add-user-heading alert alert-error">
-            <span style="float: right; padding-right: 20px"></span>
-            <p>Please enter account number and amount you wish to debit with.</p>
-        </div><br />
-            <table style="width: 90%; margin-left: auto; margin-right: auto;">
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
-                </td>
-                <td>
-                    <div class="input-prepend">
-                        <span class="add-on">
-                            <img src="~/Images/Customer-small.png" /></span>
-                        @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px" })
-                      
-                    </div>
-                </td>
-            </tr>
-             <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">&nbsp;&nbsp;Amount</label>
-                </td>
-                <td>
-                    <div class="input-prepend" >
-                        <span class="add-on">
-                            ₦</span>
-                        @Html.TextBoxFor(model => model.Debit, new { @placeholder = "Amount to credit", @style = "width:180px" })
-                        
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <input type="hidden" id="credit" name="credit" value="0" />
-        <br />
-        <p style="text-align:center">
-            <input type="submit" class="btn btn-danger" value="Debit customer account" />
-            <a href="~/Home/cashier" style="padding:10px" class="btn btn-primary"><img src="~/Images/Home.png"/>&nbsp;&nbsp;Take me home!</a>
-        </p>
-    </div>
+          
+               <span class="card-title" style="color:black;">
+                   <a href="~/Home/cashier" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
+
+                   <img src="~/Images/Debit-black.png" style="padding-right: 20px;" />Debit customer account<hr />
+               </span>
+          
+
+           <div style="padding-left: 20px;">
+               <div class="card-panel" style="background:whitesmoke; text-align:center;">
+                  
+                   <p>Please enter account number and amount you wish to debit with.</p>
+               </div>
+               <table style="width: 90%; margin-left: auto; margin-right: auto;">
+                   <tr>
+                       <td style="text-align: right; padding: 10px; color: #808080;">
+                           <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
+                       </td>
+                       <td>
+                           <div class="input-prepend">
+                               <span class="add-on">
+                                   <img src="~/Images/Customer-small.png" />
+                               </span>
+                               @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px" , required="required"})
+
+                           </div>
+                       </td>
+                   </tr>
+                   <tr>
+                       <td style="text-align: right; padding: 10px; color: #808080;">
+                           <label style="font-weight: bold">&nbsp;&nbsp;Amount</label>
+                       </td>
+                       <td>
+                           <div class="input-prepend">
+                               <span class="add-on">
+                                   ₦
+                               </span>
+                               @Html.TextBoxFor(model => model.Debit, new { @placeholder = "Amount to credit", @style = "width:180px", required="required" })
+
+                           </div>
+                       </td>
+                   </tr>
+               </table>
+               <input type="hidden" id="credit" name="credit" value="0" />
+               <br />
+               <p style="text-align:center">
+                   <button type="submit" class="btn btn-larg waves-effect" style="background:#c62828">Debit customer account </button>
+               </p>
+           </div>
+       </div>
+   </div>
 }
 
 @*<div>

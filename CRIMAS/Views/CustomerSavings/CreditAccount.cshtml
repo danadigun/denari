@@ -11,59 +11,62 @@
 @using (Html.BeginForm("CreditAccount", "CustomerSavings", FormMethod.Post,
     new { @onsubmit = "return confirm('Are you sure you want to credit this account?')" }))
 {
-    <span style="color:red">@Html.ValidationSummary()</span>
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
+            <span style="color:red">@Html.ValidationSummary()</span>            
+                <span class="card-title" style="color:black">
+                    <a href="~/Home/cashier" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
 
-    <div class="subheading">
-        <span>
-            <img src="~/Images/Credit-black.png" style="padding-right: 20px;" />Credit customer account</span>
-    </div>
-    <br />
-     
-    <div style="padding-left: 20px;">
-        <div class="add-user-heading alert alert-info">
-            <span style="float: right; padding-right: 20px"></span>
-            <p>Please enter account number and amount you wish to credit with.</p>
+                    <img src="~/Images/Credit-black.png" style="padding-right: 20px;" />Credit customer account<hr />
+                </span>
+       
+            <div style="padding-left: 20px;">
+                <div class="card-panel" style="background:#0094ff; color:white; text-align:center;">                  
+                    Please enter account number and amount you wish to credit with.
+                </div>
+                <br />
+                <table style="width: 90%; margin-left: auto; margin-right: auto;">
+                    <tr>
+                        <td style="text-align: right; padding: 10px; color: #808080;">
+                            <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
+                        </td>
+                        <td>
+                            <div class="input-prepend">
+                                <span class="add-on">
+                                    <img src="~/Images/Customer-small.png" />
+                                </span>
+                                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px", required="required" })
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right; padding: 10px; color: #808080;">
+                            <label style="font-weight: bold">&nbsp;&nbsp;Amount</label>
+                        </td>
+                        <td>
+                            <div class="input-prepend">
+                                <span class="add-on">
+                                    ₦
+                                </span>
+                                @Html.TextBoxFor(model => model.Credit, new { @placeholder = "Amount to credit", @style = "width:180px", required="required" })
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <input type="hidden" id="Debit" name="Debit" value="0" />
+                <input type="hidden" id="Transactionby" value="@User.Identity.Name.ToString()" />
+                <input type="hidden" id="DateCreated" value="@DateTime.Now" />
+
+                <br />
+                <p style="text-align:center">
+                    <button type="submit" class="waves-effect waves-light btn" style="background:#7cb342"  >Credit customer account </button>
+                   
+                </p>
+            </div>
         </div>
-        <br />
-        <table style="width: 90%; margin-left: auto; margin-right: auto;">
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
-                </td>
-                <td>
-                    <div class="input-prepend">
-                        <span class="add-on">
-                            <img src="~/Images/Customer-small.png" /></span>
-                        @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px" })
-                      
-                    </div>
-                </td>
-            </tr>
-             <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">
-                    <label style="font-weight: bold">&nbsp;&nbsp;Amount</label>
-                </td>
-                <td>
-                    <div class="input-prepend" >
-                        <span class="add-on">
-                            ₦</span>
-                        @Html.TextBoxFor(model => model.Credit, new { @placeholder = "Amount to credit", @style = "width:180px" })
-                        
-                    </div>
-                </td>
-            </tr>
-        </table>
-    
-        <input type="hidden" id="Debit" name="Debit" value="0" />
-        <input type="hidden" id="Transactionby" value="@User.Identity.Name.ToString()"/>
-        <input type="hidden" id="DateCreated" value="@DateTime.Now"/>
-
-        <br />
-        <p style="text-align:center">
-            <input type="submit" class="btn btn-info" value="Credit customer account" />
-            <a href="~/Home/cashier" style="padding: 10px" class="btn btn-primary">
-                <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a>
-        </p>
     </div>
 }
 
