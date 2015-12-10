@@ -2,51 +2,73 @@
 
 @{
     ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-<h2>Edit</h2>
 
 @using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
+    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
+           @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>UserProfile</legend>
-
-        @Html.HiddenFor(model => model.UserId)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+            <div class="card-title" style="color:black">
+                Update user profile - @Html.DisplayFor(x=>x.UserName)
+            </div><hr />    
+            @Html.HiddenFor(model => model.UserId)          
+            
+            <div class="row">
+                <div class="col s6">
+                    <label>First name</label>
+                    <div>
+                        @Html.TextBoxFor(x => x.FirstName)
+                    </div>
+                </div>
+                <div class="col s6">
+                    <label>Last name</label>
+                    <div>
+                        @Html.TextBoxFor(x => x.LastName)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <label>Permanent Address</label>
+                    @Html.TextBoxFor(x=>x.Address)
+                </div>
+            </div>
+            <div class="row">       
+                <div class="col s6">
+                    <div>
+                        <label>Phone</label>
+                        <div>
+                            @Html.TextBoxFor(x => x.phone)
+                        </div>
+                    </div>
+                </div>
+                <div class="col s6">
+                    <div>
+                        <label>Role</label>
+                        <div>
+                            <select id="role" name="role">
+                                <option>Cashier</option>                            
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                <input type="submit" value="Save" />
+                @Html.ActionLink("Back to List", "Index")
+            </p>
+        
         </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.UserName)
-            @Html.ValidationMessageFor(model => model.UserName)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Password)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Password)
-            @Html.ValidationMessageFor(model => model.Password)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ConfirmPassword)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ConfirmPassword)
-            @Html.ValidationMessageFor(model => model.ConfirmPassword)
-        </div>
-
-        <p>
-            <input type="submit" value="Save" />
-        </p>
-    </fieldset>
+    </div>
 }
 
-<div>
+@*<div>
     @Html.ActionLink("Back to List", "Index")
-</div>
+</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -101,6 +101,7 @@ namespace CRIMAS.Controllers
 
         public ActionResult Edit(int id = 0)
         {
+
             UserProfile userprofile = db.UserProfiles.Find(id);
             if (userprofile == null)
             {
@@ -113,14 +114,25 @@ namespace CRIMAS.Controllers
         // POST: /AddUser/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(UserProfile userprofile)
+        public ActionResult Edit(UserProfile userprofile, string newPassword)
         {
-            if (ModelState.IsValid)
+
+            var User = db.UserProfiles.Find(userprofile.UserId);
+            if (User != null)
             {
-                db.Entry(userprofile).State = EntityState.Modified;
+                //User.UserName = userprofile.UserName;
+                User.phone = userprofile.phone;
+                User.FirstName = userprofile.FirstName;
+                User.LastName = userprofile.LastName;                
+                User.Address = userprofile.Address;
+                User.role = userprofile.role;
+                //User.Password = userprofile.Password;
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+           
             return View(userprofile);
         }
 
@@ -129,6 +141,7 @@ namespace CRIMAS.Controllers
 
         public ActionResult Delete(int id = 0)
         {
+
             UserProfile userprofile = db.UserProfiles.Find(id);
             if (userprofile == null)
             {
