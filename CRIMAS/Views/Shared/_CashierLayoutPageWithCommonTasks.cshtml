@@ -1,4 +1,4 @@
-﻿@*this layout is for administrative user only*@
+﻿@*this layout is for cashier users only*@
 @using CRIMAS.Models;
 
 <!DOCTYPE html>
@@ -16,6 +16,7 @@
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
 
+
 </head>
 <body style="font-family:'Segoe UI'">
     @{
@@ -31,27 +32,30 @@
         <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper" style="padding-left:10px; padding-right:20px; background-color:#01579b">
-                    <a href="#!" class="brand-logo">Logo</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <a href="#!" class="brand-logo">Crimas MPCS-MS</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><img src="~/Images/Menu-01-WF.png" /> </a>
+
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <form method="get" action="~/Customer/FindCustomer">
                                 <div class="input-field">
                                     <input style="width:400px;" id="searchString" name="searchString" type="search" placeholder="find customers.....enter name or account no." required>
-                                    <label for="search"><i class="material-icons">search</i></label>
-                                    <i class="material-icons">close</i>
+                                    <label for="search">
+                                        <img src="~/Images/Search_1-WF.png" />
+                                    </label>
+                                    @*<i class="material-icons">close</i>*@
                                 </div>
                             </form>
                         </li>
-                        <li>
-                            <a href="badges.html">
-                                <i class="small material-icons">message</i>
-                            </a>
-                        </li>
+                        @*<li>
+                                <a href="badges.html">
+                                    <i class="small material-icons">message</i>
+                                </a>
+                            </li>*@
                         <li>
                             <a class="task-collapse" data-activates="task-listings" href="collapsible.html">
-                                <i class="small material-icons">perm_identity</i>
-
+                                @*  <i class="small material-icons">perm_identity</i>*@
+                                <img src="~/Images/User Profile 1-WF(1).png" />
                             </a>
                         </li>
                     </ul>
@@ -64,101 +68,197 @@
 
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke;">
-                        <li class="logo">
-                            <img src="~/Images/Crimas-header.png" />
-
+                        <li>
+                            @*  <img src="~/Images/Crimas-header.png" />*@
                             <div>
-                                <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+                                @{
+                                    if (User.IsInRole("Admin"))
+                                    {
+                                        <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
+
+                                    }
+                                    else
+                                    {
+                                        <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+
+                                    }
+}
+                                <a class="" href="~/Account/Manage">Change password</a>
+                                @Html.Partial("_LoginPartial")
                                 <hr />
                             </div>
 
                         </li>
+                        <li>
+                            <form method="get" action="~/Customer/FindCustomer">
+                                <div class="input-field">
+                                    <input style="width:400px;" id="searchString" name="searchString" type="search" placeholder="find customers.....enter name or account no." required>
+                                    <label for="search">
+                                        <img src="~/Images/Search_1-WF.png" />
+                                    </label>
+                                    @*<i class="material-icons">close</i>*@
+                                </div>
+                            </form>
+                        </li>
                         <li class="bold">
-                            <a href="~/">
-                                <img src="~/Images/Home-WF(1).png" />Home
-                            </a>
+                            @{
+                                if (User.IsInRole("Admin"))
+                                {
+                                    <a href="~/Home/admin">
+                                        <img src="~/Images/Home-WF(1).png" />Home
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="~/Home/cashier">
+                                        <img src="~/Images/Home-WF(1).png" />Home
+                                    </a>
+                                }
+                            }
                         </li>
                         <li class="bold">
                             <a href="~/Loan/">
                                 <img src="~/Images/loan-agr.png" />Loan agreements
                             </a>
                         </li>
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="bold">
+                                    <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
+                                        <img src="~/Images/Coin-01-WF.png" /> Income Analysis
+                                    </a>
+                                </li>
+                            }
+                        }
+
                         <li class="bold">
-                            <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                                <img src="~/Images/Coin-01-WF.png" /> Income Analysis
-                            </a>
-                        </li>
-                        <li class="bold">
-                            <a class="waves-effect waves-teal" href="~/Customer/FindCustomer?searchString=+">
-                                <img src="~/Images/User Profile 1-WF.png" />Customer
+                            <a class="waves-effect waves-teal" href="~/Customer/ViewAllCustomers">
+                                <img src="~/Images/User Profile 1-WF.png" />Customers
                             </a>
                         </li>
                         <li class="bold">
                             <a class="waves-effect waves-green" href="~/CustomerSavings/EnterAccount">
-                                <img src="~/Images/User Ok-01-WF.png" />Customer Account
+                                <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                             </a>
                         </li>
-                        <li class="bold">
-                            <a class="waves-effect waves-green" href="~/Home/Cashier">
-                                <img src="~/Images/Calender Refresh-WF.png" />Daily Transaction
-                            </a>
-                        </li>
-                        <li class="bold">
-                            <a class="waves-effect waves-green" href="~/RateableRegister">
-                                <img src="~/Images/Gift-WF.png" />Rateable Register
-                            </a>
-                        </li>
+
+                        @{
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="bold">
+                                    <a class="waves-effect waves-green" href="~/RateableRegister">
+                                        <img src="~/Images/Gift-WF.png" />Rateable Register
+                                    </a>
+                                </li>
+                                <li class="bold">
+                                    <a class="waves-effect waves-green" href="~/AddUser">
+                                        <img src="~/Images/User Settings-02-WF.png" />User access management
+                                    </a>
+                                </li>
+                            }
+                        }
+
                     </ul>
+
+
+
+
+
+
+
                 </div>
             </nav>
         </div>
         <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em;">
-           
+
             <li class="logo">
                 <img src="~/Images/Crimas-header.png" />
 
+            <li>
+                @*  <img src="~/Images/Crimas-header.png" />*@
                 <div>
-                    <label style="color:black; font-weight:normal; font-style:italic">Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+                    @{
+                        if (User.IsInRole("Admin"))
+                        {
+                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
+
+                        }
+                        else
+                        {
+                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+
+                        }
+                    }
+                   
                     <hr />
                 </div>
 
             </li>
+
+
+
+            </li>
             <li class="bold">
-                <a href="~/">
-                    <img src="~/Images/Home-WF(1).png" />Home
-                </a>
+                @{
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a href="~/Home/admin">
+                            <img src="~/Images/Home-WF(1).png" />Home
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="~/Home/cashier">
+                            <img src="~/Images/Home-WF(1).png" />Home
+                        </a>
+                    }
+                }
+
             </li>
             <li class="bold">
                 <a href="~/Loan/">
                     <img src="~/Images/loan-agr.png" />Loan agreements
                 </a>
             </li>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    <li class="bold">
+                        <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
+                            <img src="~/Images/Coin-01-WF.png" /> Income Analysis
+                        </a>
+                    </li>
+                }
+            }
             <li class="bold">
-                <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                    <img src="~/Images/Coin-01-WF.png" /> Income Analysis
-                </a>
-            </li>
-            <li class="bold">
-                <a class="waves-effect waves-teal" href="~/Customer/FindCustomer?searchString=+">
-                    <img src="~/Images/User Profile 1-WF.png" />Customer
+                <a class="waves-effect waves-teal" href="~/Customer/ViewAllCustomers">
+                    <img src="~/Images/User Profile 1-WF.png" />Customers
                 </a>
             </li>
             <li class="bold">
                 <a class="waves-effect waves-green" href="~/CustomerSavings/EnterAccount">
-                    <img src="~/Images/User Ok-01-WF.png" />Customer Account
+                    <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                 </a>
             </li>
-            <li class="bold">
-                <a class="waves-effect waves-green" href="~/Home/Cashier">
-                    <img src="~/Images/Calender Refresh-WF.png" />Daily Transaction
-                </a>
-            </li>
-            <li class="bold">
-                <a class="waves-effect waves-green" href="~/RateableRegister">
-                    <img src="~/Images/Gift-WF.png" />Rateable Register
-                </a>
-            </li>
-          
+           
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    <li class="bold">
+                        <a class="waves-effect waves-green" href="~/RateableRegister">
+                            <img src="~/Images/Gift-WF.png" />Rateable Register
+                        </a>
+                    </li>
+                    <li class="bold" style="font-weight:bold;">
+                        <a class="waves-effect waves-green" href="~/AddUser">
+                            <img src="~/Images/User Settings-02-WF.png" />User access management
+                        </a>
+                    </li>
+                }
+            }
+
+
         </ul>
     </header>
     <main>
@@ -168,27 +268,31 @@
             @RenderBody()
         </div>
 
-       
+
     </main>
     <footer style="margin-top:20em;">
-        <div >
+        <div>
             <hr />
             <p style="font-size: 9pt; text-align: center">&copy; Digital Forte Enterprise Systems Limited @DateTime.Now.Year.ToString().</p>
         </div>
-       
+
     </footer>
 
 
     <script>
-        $(".button-collapse").sideNav();
+        $(".button-collapse").sideNav({
+            menuWidth: 500,
+        });
         $(".task-collapse").sideNav({
             menuWidth: 300, // Default is 240
             edge: 'right', // Choose the horizontal origin
             //closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
         });
+
+
         //$('select').material_select();
-        $(function () {
-            $(document).tooltip();
+        $('.collapsible').collapsible({
+            accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
     </script>
 

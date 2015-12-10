@@ -10,18 +10,17 @@
     string user = User.Identity.Name.ToString();
 }
 
-<div class="span12" style="padding-top: 30px; margin-left: auto; margin-right: auto; padding-left: 10px;">
-    <div class="span6 cashier-content-wrapper" style="height: auto;">
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
       
         <div class="cashier-content">
-            <br />
-            <div class="subheading">
-                <span>Your Current Transactions</span>
-            </div>
-            <br />
-            <div id="LoanAgreements" class="add-user-content">
-                <div class="subheading">
-                    <label style="color: blue"><strong>Loan Agreements</strong></label>
+            
+            <div id="LoanAgreements" >
+                <div class="card-title" style="color:black">
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;"/></a>
+
+                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
                 </div>
                 <br />
                 <div>
@@ -30,19 +29,19 @@
                         if (Model.Count() != 0)
                         {
                         <p>
-                            <img src="~/Images/Submit.png" /><b>You have @Model.Count() active loan agreement(s)</b></p>
-                        <table class="table table-stripped table-bordered">
+                           <b>You have @Model.Count() active loan agreement(s)</b></p><br />
+                        <table class="table striped" style="font-size:9pt;">
                             <tr style="background-color: #2d742d; color: whitesmoke; font-weight: bold">
-                                <td>Name</td>
+                                <td>Customer</td>
                                 <td>Amount</td>
                                 <td></td>
                             </tr>
                             @foreach (var item in Model)
                             {
                                 <tr style="color: chocolate; font-weight: bold">
-                                    <td>@item.Customername</td>
+                                    <td>@item.Customername (A/C: <i>@item.AccountNo</i>)</td>
                                     <td>@string.Format("{0:C}", @item.amount) (NGN)</td>
-                                    <td><a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-danger">View Status</a></td>
+                                    <td><a style="color:green;" class="btn btn-flat" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">View Status</a></td>
                                 </tr>
                             }
                         </table>
@@ -55,42 +54,54 @@
                 </div>
             </div>
 
-            <div id="Enrolled-Customers" class="add-user-content">
-                <div class="subheading">
-                    <label style="color: blue"><strong>Customers enrolled </strong></label>
-                </div>
-                <br />
-                <div>
-                    @{
-                        var customersEnrolled = from s in db.Customers select s;
-                      
-                        <p style="font-weight: bold; color: chocolate">
-                            <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Customers enrolled: @customersEnrolled.Count()</p>
-                    }
-                </div>
-            </div>
-            @*Manager Priviledges*@
-            @{
-                if(User.IsInRole("Manager")){
-                //
-                //Total no of users online
-                <div id="LoggedIn-cashier" class="add-user-content">
-                    <div class="subheading">
-                        <label style="color: blue"><strong>Cashier's Online </strong></label>
-                    </div>
-                    <br />
-                    <div>
-                        @{                    
-                            <p style="font-weight: bold; color: chocolate">
-                                <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Cashier's online: @customersEnrolled.Count()</p>
-                        }
-                    </div>
-                </div>
-                //
-                //View list of users and transactions they have carried out.
-                }
-            }
+          
         </div>
     </div>
+</div>
+
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
+  <div class="card-content">
+      <div id="Enrolled-Customers">
+          <div class="card-title" style="color:black">
+              <a title="Enroll new customer" href="~/Customer/create" style="float:right;margin-right:25px; background-color:#4caf50" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+
+              Customers enrolled<hr />
+          </div>
+          <br />
+          <div>
+              @{
+                  var customersEnrolled = from s in db.Customers select s;
+
+                  <p style="font-weight: bold; color: chocolate">
+                      <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Customers enrolled: @customersEnrolled.Count()
+                  </p>
+              }
+              @*Manager Priviledges*@
+              @{
+                  if (User.IsInRole("Manager"))
+                  {
+                      //
+                      //Total no of users online
+                      <div id="LoggedIn-cashier" class="add-user-content">
+                          <div class="subheading">
+                              <label style="color: blue"><strong>Cashier's Online </strong></label>
+                          </div>
+                          <br />
+                          <div>
+                              @{
+                                  <p style="font-weight: bold; color: chocolate">
+                                      <img src="~/Images/Submit.png" /><img src="~/Images/Customer-small.png" />&nbsp;&nbsp;Total No. of Cashier's online: @customersEnrolled.Count()
+                                  </p>
+                              }
+                          </div>
+                      </div>
+                      //
+                      //View list of users and transactions they have carried out.
+                  }
+              }
+          </div>
+      </div>
+
+  </div>
 </div>
 

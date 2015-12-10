@@ -62,3 +62,18 @@ main, footer {
 select{
     display: inline;
   }
+.card input[type="text"], .card input[type=number], .card input[type=email], .card select{
+    border: 1px solid#90a4ae !important;
+    padding:2px !important;
+    padding-left:10px !important;
+    margin-top:5px !important;
+}
+.card input[type="text"]:focus{
+    background:#f1f8e9;
+}
+.card .btn, .card input[type="submit"], .card input[type="button"], .card button{
+    font-size:10pt !important;
+}
+table td{
+    border-radius:0;
+}

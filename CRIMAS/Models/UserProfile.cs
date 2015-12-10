@@ -23,7 +23,8 @@ namespace CRIMAS.Models
 
        //[Required(ErrorMessage = "please enter employee's home address")]
         public string Address { get; set; }
-
+        public string phone { get; set; }
+        public string email { get; set; }
         //Security credentials
         public string role { get; set; }
 

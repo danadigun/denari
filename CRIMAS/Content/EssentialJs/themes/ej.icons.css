@@ -1,0 +1,374 @@
+.e-ribbon .clearAll:before {
+    content: "\e681";
+}
+
+.e-ribbon .strikethrough:before {
+    content: "\e633";
+}
+
+.e-ribbon .bold:before {
+    content: "\e636";
+}
+
+.e-ribbon .alignleft:before {
+    content: "\e682";
+}
+
+.e-ribbon .aligncenter:before {
+    content: "\e66d";
+}
+
+.e-ribbon .alignright:before {
+    content: "\e66b";
+}
+
+.e-ribbon .justify:before {
+    content: "\e66c";
+}
+
+.e-ribbon .e-ribbonpaste:before {
+    content: "\e645";
+    font-size: 36px;
+    position: relative;
+    left: -9px;
+    top: -4px;
+}
+
+.e-ribbon .e-ribboncut:before {
+    content: "\e680";
+}
+
+.e-ribbon .e-ribboncopy:before {
+    content: "\e646";
+}
+
+.e-ribbon .e-ribbonitalic:before {
+    content: "\e635";
+}
+
+.e-ribbon .e-ribbonunderline:before {
+    content: "\e634";
+}
+
+.e-ribbon .e-superscripticon:before {
+    content: "\e61a";
+}
+
+.e-ribbon .e-subscripticon:before {
+    content: "\e61b";
+}
+
+.e-ribbon .e-indent:before {
+    content: "\e702";
+}
+
+.e-ribbon .e-outdent:before {
+    content: "\e6fd";
+}
+
+.e-ribbon .e-bullet:before {
+    content: "\e661";
+}
+
+.e-ribbon .e-number:before {
+    content: "\e663";
+}
+
+.e-ribbon .e-table:before {
+    content: "\e72d";
+    font-size: 28px;
+    position: relative;
+    left: -8px;
+    top: -4px;
+}
+
+.e-ribbon .e-uppercase:before {
+    content: "\e616";
+}
+
+.e-ribbon .e-lowercase:before {
+    content: "\e617";
+}
+
+.e-ribbon .e-fontcolor:before {
+    content: "\e632";
+}
+
+.e-ribbon .e-fillcolor:before {
+    content: "\e618";
+}
+
+.e-ribbon .e-sort:before {
+    content: "\e714";
+}
+
+.e-ribbon .e-border:before {
+    content: "\e6a7";
+}
+
+.e-ribbon .e-picture:before {
+    content: "\e72e";
+    font-size: 28px;
+    position: relative;
+    left: -8px;
+    top: -4px;
+}
+
+.e-ribbon .e-video:before {
+    content: "\e732";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-chart:before {
+    content: "\e730";
+    font-size: 28px;
+    position: relative;
+    left: -6px;
+    top: -4px;
+}
+
+.e-ribbon .e-shape:before {
+    content: "\e72f";
+    font-size: 27px;
+    position: relative;
+    left: -8px;
+    top: -4px;
+}
+
+.e-ribbon .e-comment:before {
+    content: "\e731";
+    font-size: 28px;
+    position: relative;
+    left: -9px;
+    top: -4px;
+}
+
+.e-ribbon .e-text:before {
+    content: "\e6b5";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-hyperlink:before {
+    content: "\e734";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-datetime:before {
+    content: "\e733";
+    font-size: 28px;
+    position: relative;
+    left: -5px;
+    top: -4px;
+}
+
+.e-ribbon .e-print:before {
+    content: "\e715";
+    font-size: 30px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-equation:before {
+    content: "\e735";
+    font-size: 28px;
+    position: relative;
+    left: -9px;
+    top: -4px;
+}
+
+.e-ribbon .e-save:before {
+    content: "\e709";
+    font-size: 30px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-printlayout:before {
+    content: "\e6c7";
+    font-size: 30px;
+    position: relative;
+    left: -8px;
+    top: -4px;
+}
+
+.e-ribbon .e-new:before {
+    content: "\e646";
+    font-size: 36px;
+    position: relative;
+    left: -12px;
+    top: -4px;
+}
+
+.e-ribbon .e-zoomin:before {
+    content: "\e738";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-zoomout:before {
+    content: "\e739";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-fullscreen:before {
+    content: "\e73a";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-undo:before {
+    content: "\e736";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-redo:before {
+    content: "\e737";
+    font-size: 28px;
+    position: relative;
+    left: -7px;
+    top: -4px;
+}
+
+.e-ribbon .e-dot:before {
+    content: "\e696";
+}
+
+#design label {
+    font-weight: normal;
+    font-size: 12px;
+	margin-left:5px;
+}
+
+.e-activestyle {
+    border: 4px solid lightblue !important;
+}
+
+.e-contenteditor {
+    width: 100%;
+    height: 220px;
+    border: 1px solid #c8c3c3;
+    overflow: auto;
+}
+
+.e-contenteditor p {
+    margin: 20px;
+}
+
+.e-headings {
+    background-color: white;
+    border: 1px solid #a0a0a0;
+    height: 65px;
+}
+
+.darktheme .e-headings {
+    background-color: #1f1f1f;
+    border: 1px solid #494949;
+    height: 65px;
+}
+
+.e-headings div {
+    border: 4px solid transparent;
+    float: left;
+    padding: 4px 1px 1px 1px;
+    height: 50px;
+    margin: 1px;
+}
+
+.e-headings div:hover, #tables div:hover {
+    border-color: lightblue;
+}
+
+.e-strong {
+    font-weight: bold;
+}
+
+.e-emphasis {
+    font-style: italic;
+}
+
+.e-headings1 {
+    color: lightblue;
+}
+
+.e-ribbon .e-tables {
+    font-size: 7px;
+}
+
+#tables {
+    background-color: white;
+    border: 1px solid #a0a0a0;
+    height: 67px;
+}
+
+.darktheme #tables {
+    background-color: #1f1f1f;
+    border: 1px solid #494949;
+    height: 67px;
+}
+
+#tables > div {
+    float: left;
+    padding: 3px;
+    border: 4px solid transparent;
+}
+
+#tables td {
+    text-align: center;
+}
+
+#table1 table, #table1 td {
+   border-color: #566CE8;
+}
+
+#table2 table, #table2 td {
+    border-color: #EDB2F7;
+}
+
+#table3 table, #table3 td {
+    border-color: #E6652E;
+}
+
+#table4 table, #table4 td {
+    border-color: #7ABF41;
+}
+
+#table5 table, #table5 td {
+    border-color: #FCC474;
+}
+
+.lighttheme  .e-ribbon  .e-icon{
+	color:#515151 ;
+}
+
+.darktheme  .e-ribbon  .e-icon{
+	color:#BABABA ;
+}
+
+.darktheme .e-contenteditor{
+	border-color: #464646;
+}
+
+.darktheme .e-contextualtab{
+	background-color: #353332 !important;
+}

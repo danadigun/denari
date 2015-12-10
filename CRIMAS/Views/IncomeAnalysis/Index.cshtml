@@ -6,41 +6,162 @@
     <script>
         function validateForm() {
             var x = document.forms["analysis"]["month"].value;
-            if (x == null || x == "" || x=="--------- ----") {
+            if (x == null || x == "" || x == "--------- ----") {
                 alert("please select a valid date");
                 return false;
             }
         }
-</script>
+    </script>
 </header>
-<div class="subheading">
-    <span>
-        <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Income Analysis</span>
-</div>
-<br />
-<div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+<div class="card" style="width:85%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
 
-    <br />
-    <p><strong>Select period for report:</strong></p>
-    <hr />
-    <form name="analysis" method="get" action="~/IncomeAnalysis/ViewIncomeAnalysis">
-        <table style="width: 90%; margin-right: auto; margin-left: auto">
-            <tr>
-                <td style="text-align: right; padding: 10px; color: #808080;">Month & Year of report.</td>
-                <td>
-                    <input id="month" name="month" type="month" required/></td>
+        <div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
 
-            </tr>
-            @* <tr>
-                  <td style="text-align: right; padding: 10px; color: #808080;">To:</td>
-                 <td> <input id="dateTo" name="dateTo" type="month" /></td>
-            </tr>*@
-        </table>
-        <br />
-        <p style="text-align: center">
-            <input name="month" type="submit" class="btn btn-success" value="view income analysis report" />
-            <a href="~/Home/cashier" class="btn btn-info">
-                <img src="~/Images/Home.png" />&nbsp;Take me home</a>
-        </p>
-    </form>
+
+            @{
+
+                var db = new CRIMAS.Models.CrimasDb();
+
+                //this month report
+                //string val = DateTime.Now.Month.ToString();
+
+                //DateTime ReportMonth = DateTime.Parse(val);
+                int month = DateTime.Now.Month;
+                int year = DateTime.Now.Year;
+
+                var query = (from s in db.Loans
+                             where s.DateCreated.Year == year
+                                 && s.DateCreated.Month == month
+
+                             orderby s.DateCreated descending
+
+                             select new
+                             {
+                                 DateCreated = s.DateCreated,
+                                 Amount = s.amount,
+                                 interest = s.InterestRate,
+                                 customer = s.Customername,
+                                 customerAccount = s.AccountNo,
+                             }).ToList();
+
+                var TotalLoanDisbursments = (from s in db.Loans select s.amount).Sum();
+                var TotalExpectedIncome = (from s in db.Loans select s.amount * s.InterestRate / 100 + s.amount).Sum() - TotalLoanDisbursments;
+
+
+
+            }
+
+
+            <div style="font-family:'Microsoft JhengHei'; color:black;font-size:13pt;  ">
+                <div class="col s12">
+                    <ul class="collapsible popout" data-collapsible="accordion" style="width:98%; margin-left:auto; margin-right:auto;">
+                        <li>
+                            <div class="collapsible-header" style="border-left:3px solid green;border-top:1px solid green;border-right:1px solid green;border-bottom:1px solid green; background:#e8f5e9">
+                                Monthly Income Analysis Report as at  @DateTime.Now.ToLongDateString()
+                                <span style="float:right;"><img src="~/Images/Arrowhead down-WF.png" /></span>
+                            </div>
+                            <div class="collapsible-body" style="border-left:3px solid green">
+
+                                <div id="SelectPeriod">
+                                    <form name="analysis" method="get" action="~/IncomeAnalysis/ViewIncomeAnalysis">
+                                        <div class="row">
+                                            <div class="col s12" style="text-align:center"><br /><span><i>Select month and year of report to view</i></span><br /></div>
+                                            <div class="col s3">&nbsp;</div>
+                                            <div class="col s6">
+                                                <label>Month & Year of report.</label>
+
+                                                <input id="month" name="month" type="month" required />
+                                                <script>
+                                                        $('#month').pickadate({
+                                                            selectMonths: true, // Creates a dropdown to control month
+                                                            //selectYears: 100, // Creates a dropdown of 15 years to control year
+                                                        });
+
+                                                </script>
+
+
+                                            </div>
+                                        </div>
+                                        <div class="card-action" style="text-align: center">
+                                            <input name="month" type="submit" class="btn btn-success" value="view income analysis report" />
+                                            <a href="~/Home/cashier" class="btn btn-info">
+                                                <img src="~/Images/Home.png" />&nbsp;Take me home
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+                @*<p style="padding-bottom:50px">
+                        <a href="~/IncomeAnalysis" style="float:right; margin-left:10px" class="btn-small btn-success">back</a>
+                        <a href="javascript:window.print()" style="float:right; text-decoration:none" ; class="btn-small btn-success">&nbsp;&nbsp;<img src="~/Images/Printer.png" />&nbsp;&nbsp;</a>
+                    </p>*@
+                @{
+                    <div class="row">
+
+                        <div class="col s6 " style="text-align:center;">
+                            <div class="card-panel" style="border-left:3px solid green">
+                                <span><img src="~/Images/loan-agr.png" /></span>
+                                <h5 style="color:#e53935">@string.Format("{0:C}", @TotalLoanDisbursments)</h5>
+                                <hr />
+                                Total Loan Disbursments
+                            </div>
+                        </div>
+                        <div class="col s6 " style="text-align:center">
+                            <div class="card-panel" style="border-right:3px solid green">
+                                <span><img src="~/Images/Coin-01-WF.png" /></span>
+                                <h5 style="color:green">@string.Format("{0:C}", @TotalExpectedIncome)</h5>
+                                <hr />
+                                Expected Income
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <p class="card-title">
+                        Transaction History
+                    </p>
+                    <table class="table striped hovered" style="font-size:9pt;">
+                        <tr style="background-color: green; color: whitesmoke">
+                            <td>Date</td>
+                            <td>Customer</td>
+                            <td>Account No.</td>
+                            <td>Loan Disbursment</td>
+                            <td>Interest Rate</td>
+                            <td>Expected Income</td>
+                        </tr>
+                        @foreach (var item in query)
+                        {
+                            decimal ExpectedIncome = ((item.interest / 100) * item.Amount) + item.Amount;
+                        <tr>
+                            <td><label> @item.DateCreated</label></td>
+                            <td>@item.customer</td>
+                            <td>@item.customerAccount</td>
+                            @* @string.Format("{0:C}", @balance)*@
+                            <td>@string.Format("{0:C}", @item.Amount)</td>
+                            <td>@item.interest</td>
+                            <td>@string.Format("{0:C}", @ExpectedIncome)</td>
+                        </tr>
+                        }
+                    </table>
+                    @*<table class="table  table-stripped table-bordered" style="margin-top:-27px">
+                            <tr>
+                                <td style="width:31.25%">&nbsp;</td>
+                                <td style="width:35.7%; font-weight:bolder"><b>Total Disbursements: @string.Format("{0:C}", @TotalLoanDisbursments)</b></td>
+                                <td><label><strong>Expected Income: @string.Format("{0:C}", @TotalExpectedIncome)</strong></label></td>
+                            </tr>
+                        </table>*@
+                }
+            </div>
+
+        </div>
+
+    </div>
 </div>

@@ -2,58 +2,105 @@
 
 @{
     ViewBag.Title = "Employee list";
-    Layout = "~/Views/Shared/_SecurityAndConfigurationLayoutPage.cshtml";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    var db = new CRIMAS.Models.CrimasDb();
+    var membership = (SimpleMembershipProvider)Membership.Provider;
+
+
+
+
 }
 
-<div class="add-user-heading">
-    <span style="float: right; padding-right: 20px"><a class="btn-small btn-primary" href="~/Admin/SecurityAndConfiguration">home</a></span>
-    <p>+ Employee list in CRIMAS System</p>
-</div>
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto">
+    @*  <span style="color:red; text-align:center;">@Html.ValidationSummary()</span>*@
+    <div class="card-content">
+        <div class="card-title" style="color:black">
+            Employee list
+            <a href="~/AddUser/create" class="btn btn-primary" style="font-size:10pt; background:green; float:right;">+ add new user</a>
+            <hr />
+        </div>
 
-<div class="add-user-content">
-    <p>
-        @* @Html.ActionLink("+ Add new Employee", "Create", new {@class="btn-small btn-primary" })*@
-        <a href="~/AddUser/Create" class="btn-small btn-primary" style="text-decoration: none">+ Add new Employee</a>
-        <a href="~/AddUser/ManageRoles" class="btn-small btn-primary" style="text-decoration: none">Manage roles</a>
-    </p>
-    <div class="subheading">
-        <span>Staff currently registered</span>
+        <div class="add-user-content">
+            @using (var dataConnection = WebMatrix.Data.Database.Open("DefaultConnection"))
+            {
+                var Users = dataConnection.Query("Select * FROM webpages_UsersInRoles");
+                int i = 0;
+                <table class="striped" style="font-size:10pt;">
+                    <tr style="background:green; color:white; font-size:10pt;">
+                        <td>&nbsp;</td>
+                        <td>Employee name</td>
+                        <td>
+                            Email(username)
+                        </td>
+                        <td>
+                            Phone
+                        </td>
+                        <td>
+                            role
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    @foreach (var item in Users)
+                    {
+
+                        int userId = @item.UserId;
+                        i = i + 1;
+                        var count = i;
+                        string firstname = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.FirstName).FirstOrDefault();
+                        string lastname = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.LastName).FirstOrDefault();
+
+                        string email = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.UserName).FirstOrDefault();
+                        string phone = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.phone).FirstOrDefault();
+                        string role = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.role).FirstOrDefault();
+
+                        <tr>
+                            <td>
+                                @count.
+                            </td>
+                            <td>
+                                @{
+                                    @firstname <span>&nbsp;</span> @lastname
+                                }
+                            </td>
+
+                            <td>
+                                @email
+                            </td>
+                            <td>
+                                @phone
+                            </td>
+                            <td style="text-align:center;">
+                                @{
+                        if (role == "Cashier")
+                        {
+
+                            <img src="~/Images/cashier.png" />
+                                    <b style="color:green"> @role</b>
+
+                        }
+                        else
+                        {
+
+                            <img src="~/Images/admin.png" />
+                                    <b style="color:red">@role</b>
+
+                        }
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+
+        </div>
+
     </div>
-    <br />
-    <table class="table   table-striped">
-        <tr>
-            <th>Employee name</th>
-            <th>Id
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.ConfirmPassword)
-        </th>*@
-            <th></th>
-        </tr>
-       
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName)</td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Password)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
-                </td>
-            </tr>
-        }
-
-    </table>
 </div>

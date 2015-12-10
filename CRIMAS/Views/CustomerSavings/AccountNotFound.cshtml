@@ -3,15 +3,23 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-<div class="subheading">
-        <span>
-            <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Account holder's status of account.  </span>
+<div class="card" style="width:75%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
+        <div class="card-title" style="color:black">
+            <span>
+                <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Account holder's status of account.<hr />
+            </span>
+        </div>
+        <br />
+
+        <div class=" alert alert-error" style="padding-bottom:20px;">
+            <img src="~/Images/Warning Message.png" /><strong>ERROR!</strong>
+            <p> You are getting this error message because you have entered an invalid string or the requested account holder does not exist or has not been created.</p>
+           
+        </div>
+        <div class="card-action">
+            <a href="~/Home/cashier" style="float:right;margin-right:10px; " class="btn btn-primary"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a>
+            <a href="~/Customer/create" style="float:right;margin-right:20px; " class="btn btn-success"><img src="~/Images/Customer-white.png" />&nbsp;&nbsp;Enroll new customer</a><br /><br />
+        </div>
     </div>
-    <br /> 
- 
-<div class=" alert alert-error" style="padding-bottom:20px;"> 
-    <img src="~/Images/Warning Message.png" /><strong>Heads up!</strong>  
-    <p> You are getting this error message because you have entered an invalid string or the requested account holder does not exist or has not been created.</p>   
-    <a href="~/Home/cashier" style="float:right;margin-right:10px; padding:10px" class="btn btn-primary"><img src="~/Images/Home.png"/>&nbsp;&nbsp;Take me home!</a>
- <a href="~/Customer/create" style="float:right;margin-right:20px; padding:10px" class="btn btn-success"><img src="~/Images/Customer-white.png"/>&nbsp;&nbsp;Enroll new customer</a><br /><br />
 </div>

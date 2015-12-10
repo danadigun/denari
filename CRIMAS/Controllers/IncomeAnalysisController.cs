@@ -15,6 +15,7 @@ namespace CRIMAS.Controllers
 
         public ActionResult Index()
         {
+            SetCurrencyToNaira();
             return View();
         }
 

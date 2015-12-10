@@ -24,7 +24,7 @@ namespace CRIMAS.Controllers
         public ActionResult Index()
         {
 
-            return View(db.UserProfiles.ToList());
+            return View();
         }
 
         //
@@ -56,16 +56,11 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                //db.UserProfiles.Add(userprofile);
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
-
+                
                 try
                 {
-                    //WebSecurity.CreateUserAndAccount(userprofile.UserName, userprofile.Password, new {userprofile.FirstName, userprofile.LastName, userprofile.Address, userprofile.ConfirmPassword, userprofile.role});
-                    //db.UserProfiles.Add(userprofile);
-                    WebSecurity.CreateUserAndAccount(userprofile.UserName, userprofile.Password, new { userprofile.FirstName, userprofile.LastName, userprofile.Address, userprofile.ConfirmPassword, userprofile.role });
-                    db.UserProfiles.Add(userprofile);
+                    
+                    WebSecurity.CreateUserAndAccount(userprofile.UserName, userprofile.Password, new { userprofile.FirstName, userprofile.LastName, userprofile.Address, userprofile.phone, userprofile.email, userprofile.ConfirmPassword, userprofile.role });
                     db.SaveChanges();
 
                     var roles = (SimpleRoleProvider)Roles.Provider;
@@ -89,17 +84,14 @@ namespace CRIMAS.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", "Error Message: "+e.Message);
                 }
             }
 
             return View(userprofile);
         }
 
-        private string ErrorCodeToString(MembershipCreateStatus membershipCreateStatus)
-        {
-            return "Unable to add user";
-        }
+       
         public ActionResult ManageRoles()
         {
             return View();

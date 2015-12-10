@@ -9,47 +9,44 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
 
-   <div class="subheading">
-        <span>
-            <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Customer monthly loan repayment.</span>
-    </div>
-    <br /> 
-
-    <div style="padding-left:20px">
-    <div class="add-user-heading alert alert-info">
-            <span style="float: right; padding-right: 20px"></span>
-            <p><strong>Heads Up!</strong>  Please enter account number and amount to repay customer loan for the month.</p>
-        </div><br />
-        <div class="editor-label">
-           <label><img src="~/Images/Customer-small.png" /><b>&nbsp;&nbsp;Account number:</b></label>
-        </div>
-        <div class="editor-field">
-           @* @Html.EditorFor(model => model.AccountNo, string.Empty, new {@value= ViewBag.AccountNo})*@
-            <label>@ViewBag.AccountNo</label>
-            <input type="text" name="AccountNo" value="@ViewBag.AccountNo" />
-            @Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })
-        </div>
-
-  
-        <div class="editor-label">
-           <label><b>Amount to refund:</b></label>
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.refund)
-            @Html.ValidationMessageFor(model => model.refund, string.Empty, new {@class="ValidationMessage" })
+        <div class="card-title" style="color:black">
+            <span>
+                <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Customer monthly loan repayment.<hr />
+            </span>
         </div>
         <br />
-        <p>
+
+        <div class="row">
+            <div class="add-user-heading alert alert-info">
+                <span style="float: right; padding-right: 20px"></span>
+                <p><strong>Heads Up!</strong>  Please enter account number and amount to repay customer loan for the month.</p>
+            </div><br />
+           
+            <div class="col s6">
+                <label><img src="~/Images/Customer-small.png" /><b>&nbsp;&nbsp;Account number:</b></label>
+               @* <label>@ViewBag.AccountNo</label>*@
+                <input type="text" required name="AccountNo" value="@ViewBag.AccountNo" />
+                @Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new { @class = "ValidationMessage" })
+            </div>
+
+            <div class="col s6">
+                <label><b>Amount to refund:</b></label>
+                @Html.EditorFor(model => model.refund)
+                @Html.ValidationMessageFor(model => model.refund, string.Empty, new { @class = "ValidationMessage" })
+            </div>
+            <br />
+          
+        </div>
+        <div class="card-action">
             <input type="submit" class="btn btn-success" value="Make loan payment" />
             <a href="@Url.Action("Index","Loan")" class="btn btn-info">Back to loan list</a>
-        </p>
-   </div>
+        </div>
+    </div>
+</div>
 }
-
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

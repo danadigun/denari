@@ -1,24 +1,46 @@
 ﻿@{
     ViewBag.Title = "Admin home";
-    Layout = "~/Views/Shared/_AdminHomeLayoutPage.cshtml";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    var db = new CRIMAS.Models.CrimasDb();
 }
 
 @using CRIMAS.SupportClasses
-<div class="add-user-content">
-<div class="subheading">
-    <span>Employee services</span>
-</div>
-<br />
-    <div>
-        <span>Employees currently logged in: </span>
-    </div>
-    <div>
-        <span>Total no. of employees registered: </span>
-    </div>
-    <div>
-        <span>Total transactions carried out</span>
-    </div>
-    <div>
-        
+<div class="card" style="width:80%; margin-right:auto; margin-left:auto;">
+    <div class="card-content">
+        <div class="card-title" style="color:black">
+            Staff Strength
+            <a href="~/AddUser/create" class="btn btn-primary" style="font-size:10pt; background:green; float:right;">+ add new user</a>
+            <hr />
+        </div>
+        <div class="row">
+
+            <div class="col s4 " style="text-align:center;">
+                <div class="card-panel" style="border-left:3px solid #e53935">
+                    <span><img src="~/Images/Users-WF.png" /></span>
+                    <h5 style="color:#e53935">@db.UserProfiles.Count()</h5>
+                    <hr />
+                    Total Staff Strength
+                </div>
+            </div>
+            <div class="col s4 " style="text-align:center">
+                <div class="card-panel" style="border-right:3px solid green; background:green; color:white;">
+                    <span><img src="~/Images/Banker-01-WF.png" /></span>
+                    <h5 >@db.UserProfiles.Where(x => x.role == "Cashier").Count()</h5>
+                    <hr />
+                    Cashiers
+                </div>
+            </div>
+            <div class="col s4 " style="text-align:center">
+                <div class="card-panel" style="border-right:3px solid #827717; background:#827717; color:white;">
+                    <span><img src="~/Images/User-Lock-WF.png" /></span>
+                    <h5>@db.UserProfiles.Where(x=>x.role=="Admin").Count()</h5>
+                    <hr />
+                   Administrators
+                </div>
+            </div>
+           
+        </div>
+
     </div>
 </div>

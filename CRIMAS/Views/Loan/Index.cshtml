@@ -13,9 +13,12 @@
     <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
        
         <div class="card-content">
-            <span class="card-title" style="color:black">
-                <img src="~/Images/loan-agr.png" style="padding-right: 20px;" />Loan agreements<hr />
-            </span>
+            <div class="card-title" style="color:black">
+                <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+
+                <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+            </div>
             <p >
                 <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
             </p>
@@ -41,70 +44,90 @@
     <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
 
         <div class="card-content">
-            <span class="card-title" style="color:black">
-                <img src="~/Images/loan-agr.png" style="padding-right: 20px;" />Loan agreements<hr />
-            </span>
-            <p style="padding-left: 40px; padding-top:10px; font-style:italic; border-top:solid; border-top-width:1px; border-top-color:#CCCCCC">
+            <div class="card-title" style="color:black">
+                <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+
+                <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+            </div>
+            <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
                 <img src="~/Images/Submit.png" />You have @Model.Count() active loan agreement(s).
             </p>
         </div>
 
-        <p style="padding-left: 20px">
-            @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
-            <a href="~/Loan/EnterAccountNo" class="btn btn-inverse">Check loan status</a>
-            <a href="~/Home/cashier" class="btn btn-info">Take me home</a>
-        </p>
+       
         <br />
+        <table class="table striped bordered responsive-table" style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
+            <tr style="background:#673ab7; color:white;">
+                <td>Customer</td>
+                <td>Account No.</td>
+                <td>Loan Amount</td>
+                <td>Interest</td>
+                <td>Duration</td>
+                <td>Start</td>
+                <td>End</td>
+                <td>&nbsp;</td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername)</a>
+                    </td>
+                    <td><strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></td>
+                    <td><strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong></td>
+                    <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
+                    <td><strong> @Html.DisplayFor(modelItem => item.Duration) month(s)</strong></td>
+                    <td><strong>@Html.DisplayFor(modelItem => item.DateOfCommencement)</strong></td>
+                    <td><strong> @Html.DisplayFor(modelItem => item.DateOfTermination)</strong></td>
+                    <td><a title="Terminate or remove loan" href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn btn-floating  waves-effect waves-light" style="background:#c62828">x</a></td>
+                </tr>
+    @*<div style="padding-left: 20px; background:#ede7f6; border-left:3px solid #673ab7; ">
+        <br />
+        <br />
+        <p style="font-size: 18pt; font-family: 'Microsoft JhengHei'">
+            @Html.DisplayFor(modelItem => item.Customername)
+            <i>
+                - Account No.:<strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong>&nbsp;&nbsp;
 
-        @foreach (var item in Model)
-        {
-            <div style="padding-left: 20px;" class="loan-div ">
-                <br />
-                <br />
-                <p style="font-size: 18pt; font-family: 'Microsoft JhengHei'">
-                    @Html.DisplayFor(modelItem => item.Customername)
-                    <span style="float:right; padding-right:20px"><img src="~/Images/Customer(2).png" /></span>
-                </p><hr style="border-bottom-color:#CCCCCC;" />
+            </i>
+            <span style="float:right; padding-right:20px"><img src="~/Images/Customer(2).png" /></span>
+        </p><hr style="border-bottom-color:#CCCCCC;" />
 
-                <div style="padding-left: 20px; line-height: 7pt; font-size: 10pt; font-style: italic">
-                    <p>
-                        Account No.:<strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong>&nbsp;&nbsp;
-                        Amount: <strong style="color:red">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong>&nbsp;&nbsp;
-                        Duration:<strong> @Html.DisplayFor(modelItem => item.Duration) month(s)</strong>&nbsp;&nbsp;
-                    </p>
-                    <p>
-                        Interest rate: <strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong>
-                        Date of Commencement: <strong>@Html.DisplayFor(modelItem => item.DateOfCommencement)</strong>&nbsp;&nbsp;
-                    </p>
-                    <p>
-                        Date of Termination:<strong> @Html.DisplayFor(modelItem => item.DateOfTermination)</strong>
-                    </p>
-                    <br />
-                    <p>
-                        @* @Html.ActionLink("Edit", "Edit", new { id = item.Id})*@
-                        <a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="btn-small btn-success">View loan status</a>
-                        @*   <a href="@Url.Action("Edit", "Loan", new { id = item.Id })" class="btn-small btn-primary">
-                        <img src="~/Images/Edit.png" />Edit</a>*@
-                        @*  @Html.ActionLink("Details", "Details", new { id = item.Id })*@
-                        @* <a href="@Url.Action("Details", "Loan", new { id = item.Id})" class="btn-small btn-primary">Detail</a> |*@
-                        @* @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                        <a href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn-small btn-danger">remove</a>
-
-                    </p>
-                    <br />
-                </div>
-            </div>
+        <div style="padding-left: 20px; line-height: 7pt; font-size: 10pt; font-style: italic">
+            <p>
+                <strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong>&nbsp;&nbsp;
+                Duration:<strong> @Html.DisplayFor(modelItem => item.Duration) month(s)</strong>&nbsp;&nbsp;
+            </p>
+            <p>
+                Interest rate: <strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong>
+                Date of Commencement: <strong>@Html.DisplayFor(modelItem => item.DateOfCommencement)</strong>&nbsp;&nbsp;
+            </p>
+            <p>
+                Date of Termination:<strong> @Html.DisplayFor(modelItem => item.DateOfTermination)</strong>
+            </p>
             <br />
-        }
+            <p>
+                <a href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo" class="waves-effect waves-light btn ">View loan status</a>
 
+                <a href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="waves-effect waves-light btn" style="background:#c62828">Terminate</a>
+
+            </p>
+            <br />
+        </div>
+    </div>*@
+            }
+
+        </table>
+       
 
     </div>
-    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+    @*<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
         <a href="~/Loan/create" class="btn btn-floating btn-large " style="background-color:#0d47a1">
             <i class="large material-icons">add</i>
         </a>
 
-    </div>
+    </div>*@
    
 }
 

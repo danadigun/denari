@@ -4,94 +4,65 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
-<header>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta charset="utf-8">
-</header>
+
 
 @using (Html.BeginForm("create", "Loan", FormMethod.Post,
     new { @onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')" }))
 {
-    <span style="color:red">@Html.ValidationSummary()</span>
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
+            <span style="color:red">@Html.ValidationSummary()</span>
 
-    <div class="subheading">
-        <span> Create a new Loan agreement</span>
-    </div>
-    <br />
+            <div class="card-title" style="color:black">
+                <a href="~/Home/cashier" style="float:right;margin-right:25px; background:#6a1b9a" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
 
-    <div style="padding-left: 20px">
-        <table style="width:90%; margin-left:auto; margin-right:auto;">
-            <tr>
-                <td style="text-align:right; padding:10px; color:#808080; ">
-                   <label style="font-weight:bold">&nbsp;&nbsp;Account no.</label>
-                </td>
-                <td>
-                    <div class="input-prepend">
-                        <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
-                        @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px" })
-                        @*@Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })*@
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right; padding:10px; color:#808080;">
+                <span> <img src="~/Images/loan-agr.png" /> Create a new Loan agreement</span><hr />
+            </div>
+            <div class="card-panel" style="background:#6a1b9a ; color:white">
+                Enter details below to set up a loan for a customer.
+            </div>
+
+            <div class="row">
+                <div class="col s6">
+                    <label for="accountNo" style="font-weight:bold">Account no.</label>
+                    <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
+                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo" })
+                    @*@Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })*@
+                </div>
+                <div class="col s6">
                     <label style="font-weight:bold">Amount</label>
+                    <span class="add-on"><b>₦</b></span>
+                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new {  @placeholder = "specify amount" })
+                </div>
+                <div class="col s6">
+                        <label style="font-weight:bold">Duration [month(s)]</label>
+                      
+                            <input type="number" placeholder="specify loan duration in months" name="Duration" id="Duration" min="1"  />
+                </div>
+                <div class="col s6">
+                        <label style="font-weight:bold">Date of commencement</label>
+                      
+                        <input  id="dateOfCommencement" placeholder="Enter date of commencement of facility" type="date" name="DateOfCommencement" />
+                        <script>
+                            $('#dateOfCommencement').pickadate({
+                                selectMonths: true, // Creates a dropdown to control month
+                                //selectYears: 100, // Creates a dropdown of 15 years to control year
+                            });
 
-                </td>
-                <td>
-                    <div class="input-prepend input-append">
-                        <span class="add-on"><b>₦</b></span>
-                        @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @style = "width:140px", @placeholder = "specify amount" })
-                          <span class="add-on"><b>K</b></span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right; padding:10px; color:#808080;">
-                   <label style="font-weight:bold">Duration</label>
-                </td>
-                <td>
-                   @* @Html.TextBoxFor(model => model.Duration)*@
-                  @*  @Html.ValidationMessageFor(model => model.Duration)*@
-                    <div class="input-append">
-                        <input type="number" name="Duration" id="Duration" min="1"  style="width:60px"/>
-                        <span class="add-on">month(s)</span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right; padding:10px; color:#808080">
-                   <label style="font-weight:bold">Date of commencement</label>
-                </td>
-                <td>
-                    @*<div class="input-append date datepicker" data-date="@DateTime.Now.ToShortDateString()" data-date-format="dd-mm-yyyy">
-                        <input id="DateOfCommencement" name="DateOfCommencement" class="span2" size="16" type="text" value="@DateTime.Now.ToShortDateString()" readonly/><span class="add-on" title="Click on the calendar to add a date."><img src="~/Images/Calendar.png" /></span>
-                    </div>*@
-                    <input type="date"  name="DateOfCommencement" />
-                </td>
-            </tr>
-            <tr>
-                <td style="text-align:right; padding:10px; color:#808080">
-                    <label style="font-weight:bold">Approved intrest rate</label>
-                </td>
-                <td>
-                    <div>
-                       @* @Html.EditorFor(model => model.InterestRate)    *@
-                        <div class="input-append">
-                        <input type="number" id="InterestRate" name="InterestRate"  min="1" style="width:50px"/>
-                            <span class="add-on">%</span>
-                        </div>
-                    </div>
-                </td>
-            </tr>          
-        </table>
-       <br />
-        <br />
-        <p style="text-align:center">
-            <input type="submit" class="btn btn-success" value="Create loan agreement" />
-            <a href="~/Home/cashier" style="padding: 10px" class="btn btn-primary">
-                <img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home!</a><br />
-        </p><br />
+                        </script>
+                </div>
+                <div class="col s6">
+                        <label style="font-weight:bold">Approved interest rate %</label>
+                        <input type="number" id="InterestRate" name="InterestRate" min="1"  />                    
+                </div>
+            </div>
+           
+            <div class="card-action">
+                <button style="float:right; background:#8e24aa" type="submit" class="waves-effect waves-light btn" >Create loan agreement</button>
+                <br />
+            </div>
+
+        </div>
     </div>
 }
 @section Scripts {
@@ -106,10 +77,10 @@
         }); //Initialise any date pickers
     </script>
     @*<script>
-         $(function () {
-             $("#DateOfCommencement").datepicker();
-         });
-  </script>*@
+               $(function () {
+                   $("#DateOfCommencement").datepicker();
+               });
+        </script>*@
 
 }
 

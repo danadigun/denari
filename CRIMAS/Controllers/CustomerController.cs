@@ -54,7 +54,15 @@ namespace CRIMAS.Controllers
         //GET: /Customer/FindCustomer/?searchString=09876
         public ActionResult FindCustomer(string searchString)
         {
+            ViewBag.searchString = searchString;
+
             return View(db.Customers.Where(s => s.AccountNo == searchString||s.Name.Contains(searchString)).ToList());
+        }
+
+        //GET: /Customer/ViewAllCustomers
+        public ActionResult ViewAllCustomers()
+        {
+            return View(db.Customers.ToList());
         }
         //
         // GET: /Customer/Details/5
