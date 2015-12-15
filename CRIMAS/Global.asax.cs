@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using WebMatrix.WebData;
+using HangFire;
+using CRIMAS.Repository.artifacts;
+using HangFire.SqlServer;
 
 namespace CRIMAS
 {
@@ -15,6 +18,7 @@ namespace CRIMAS
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private BackgroundJobServer _server;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -25,6 +29,13 @@ namespace CRIMAS
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+            //initiate dividends cron-job
+            JobStorage.Current = new SqlServerStorage("DefaultConnection");
+            _server = new BackgroundJobServer();
+            _server.Start();
+
+            new DenariCronJobs().initateDividends();
         }
     }
 }

@@ -33,6 +33,18 @@ namespace CRIMAS.Controllers
                     ViewBag.ErrorTitle = "Invalid Date String!";
                     ViewBag.ErrorDescription = "You are getting this error message because the date has not been selected or is null. select a valid date.";
                     break;
+                case "1586D":
+                    ViewBag.ErrorTitle = "Empty Dividends repository";
+                    ViewBag.ErrorDescription = "You are getting this  message because there are no customer deposits with dividends for the rateable register yet.";
+                    break;
+                case "19086D":
+                    ViewBag.ErrorTitle = "You need Customers on your platform!";
+                    ViewBag.ErrorDescription = "You are getting this  message because there are no customers on your platform yet for us to manage. Enroll new customers now!";
+                    break;
+                case "19086C":
+                    ViewBag.ErrorTitle = "There are no Loans to manage!";
+                    ViewBag.ErrorDescription = "You are getting this  message because there are no Loans & deposits on your platform yet for us to manage. Enroll customers, credit their accounts and give them loans";
+                    break;
             }
             return View();
         }

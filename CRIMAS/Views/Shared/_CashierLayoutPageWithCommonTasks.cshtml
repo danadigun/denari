@@ -15,7 +15,7 @@
     <link href="~/Content/SiteUpdate.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
-
+    
 
 </head>
 <body style="font-family:'Segoe UI'">
@@ -47,11 +47,7 @@
                                 </div>
                             </form>
                         </li>
-                        @*<li>
-                                <a href="badges.html">
-                                    <i class="small material-icons">message</i>
-                                </a>
-                            </li>*@
+                     
                         <li>
                             <a class="task-collapse" data-activates="task-listings" href="collapsible.html">
                                 @*  <i class="small material-icons">perm_identity</i>*@
@@ -75,12 +71,10 @@
                                     if (User.IsInRole("Admin"))
                                     {
                                         <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
-
                                     }
                                     else
                                     {
                                         <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
-
                                     }
 }
                                 <a class="" href="~/Account/Manage">Change password</a>
@@ -142,7 +136,7 @@
                                 <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                             </a>
                         </li>
-
+                        
                         @{
                             if (User.IsInRole("Admin"))
                             {
@@ -250,7 +244,7 @@
                             <img src="~/Images/Gift-WF.png" />Rateable Register
                         </a>
                     </li>
-                    <li class="bold" style="font-weight:bold;">
+                    <li class="bold" >
                         <a class="waves-effect waves-green" href="~/AddUser">
                             <img src="~/Images/User Settings-02-WF.png" />User access management
                         </a>

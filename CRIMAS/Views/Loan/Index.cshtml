@@ -27,17 +27,12 @@
         <p style="padding-left: 20px">
            @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
             <a href="~/Loan/EnterAccountNo" class="btn btn-inverse" style="background-color:#304ffe ">Check loan status</a>
-            <a href="~/Home/cashier" class="btn btn-info" >Take me home</a>
+            <a href="~/" class="btn btn-info" >Take me home</a>
         </p>
         <br />
       
     </div>
-    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-        <a title="add new loan aggreement" href="~/Loan/create" class="btn btn-floating btn-large " style="background-color:#0d47a1">
-            <i class="large material-icons">add</i>
-        </a>
-       
-    </div>
+    
 }
 @if (Model.Count() >= 1)
 {
@@ -60,10 +55,10 @@
         <table class="table striped bordered responsive-table" style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
             <tr style="background:#673ab7; color:white;">
                 <td>Customer</td>
-                <td>Account No.</td>
+              @*  <td>Account No.</td>*@
                 <td>Loan Amount</td>
                 <td>Interest</td>
-                <td>Duration</td>
+                <td>Duration<br />(month(s))</td>
                 <td>Start</td>
                 <td>End</td>
                 <td>&nbsp;</td>
@@ -72,14 +67,14 @@
             {
                 <tr>
                     <td>
-                        <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername)</a>
+                        <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
                     </td>
-                    <td><strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></td>
+                  @*  <td><strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></td>*@
                     <td><strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong></td>
                     <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
-                    <td><strong> @Html.DisplayFor(modelItem => item.Duration) month(s)</strong></td>
-                    <td><strong>@Html.DisplayFor(modelItem => item.DateOfCommencement)</strong></td>
-                    <td><strong> @Html.DisplayFor(modelItem => item.DateOfTermination)</strong></td>
+                    <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
+                    <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
+                    <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
                     <td><a title="Terminate or remove loan" href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn btn-floating  waves-effect waves-light" style="background:#c62828">x</a></td>
                 </tr>
     @*<div style="padding-left: 20px; background:#ede7f6; border-left:3px solid #673ab7; ">

@@ -6,6 +6,8 @@
 @{
     ViewBag.Title = "CheckLoanStatus";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    var customerLoanTransactions = Model.OrderByDescending(x => x.id);
 }
 <div style="width:80%; margin-left:auto; margin-right:auto;">
     <h5>
@@ -54,22 +56,22 @@
                                     @name.FirstOrDefault()  has accessed <strong>@ViewBag.NoOfLoanAgreements</strong> loan agreement(s).
                                 </label>
                                 var LoanAgreements = (from s in db.Loans
-                                                     where s.AccountNo == acc 
-                                                     select new
-                                                     {
-                                                         Id = s.Id,
-                                                         amount = s.amount,
-                                                         DateCreated = s.DateOfCommencement,
-                                                         completionDate = s.DateOfTermination,
-                                                         status = s.LoanStatus
-                                                     }).Where(x=>x.status=="active");
+                                                      where s.AccountNo == acc
+                                                      select new
+                                                      {
+                                                          Id = s.Id,
+                                                          amount = s.amount,
+                                                          DateCreated = s.DateOfCommencement,
+                                                          completionDate = s.DateOfTermination,
+                                                          status = s.LoanStatus
+                                                      }).Where(x => x.status == "active");
 
                                                     <br />
                                                     <div style="font-size:12pt;">
                                                         <strong>Current Loan agreement details:</strong><br /><br />
                                                         <table class="table striped " style="font-size:10pt;">
                                                             <tr style="background-color:#2d742d; color: whitesmoke">
-                                                                <td>Date</td>
+                                                                <td>Date Issued</td>
                                                                 <td>Amount</td>
                                                                 <td>Completion Date</td>
                                                                 <td>&nbsp;</td>
@@ -77,12 +79,17 @@
                                                             @foreach (var item in @LoanAgreements)
                                                             {
                                                                 <tr style="font-weight:bold; color:chocolate">
-                                                                    <td>@item.DateCreated.ToShortDateString()</td>
-                                                                    <td>₦@item.amount (NGN)</td>
-                                                                    <td>@item.completionDate.ToShortDateString()</td>
+                                                                    <td>@item.DateCreated.ToLongDateString()</td>
+                                                                    <td style="color:red; font-size:14pt;">₦@item.amount (NGN)</td>
+                                                                    <td>@item.completionDate.ToLongDateString()</td>
                                                                     <td>
-                                                                        <a href="@Url.Action("Delete", "Loan", new { id =  item.Id})" class="waves-effect waves-light btn" style="background:#c62828; font-size:8pt;">Terminate</a>
+                                                                        @{
+                                                                            if (User.IsInRole("Admin"))
+                                                                            {
+                                                                                <a href="@Url.Action("Delete", "Loan", new { id =  item.Id})" class="waves-effect waves-light btn" style="background:#c62828; font-size:8pt;">Terminate</a>
 
+                                                                            }
+                                                                        }
                                                                     </td>
                                                                 </tr>
                                                             }
@@ -144,11 +151,11 @@
 
                 </tr>
 
-                @foreach (var item in Model)
+                @foreach (var item in customerLoanTransactions)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.DateCreated)
+                            @DateTime.Parse(@item.DateCreated).ToLongDateString()
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.amount)

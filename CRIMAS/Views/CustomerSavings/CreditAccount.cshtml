@@ -25,45 +25,38 @@
                     Please enter account number and amount you wish to credit with.
                 </div>
                 <br />
-                <table style="width: 90%; margin-left: auto; margin-right: auto;">
-                    <tr>
-                        <td style="text-align: right; padding: 10px; color: #808080;">
+                <div class="row">
+                    <div class="col s4">
                             <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
-                        </td>
-                        <td>
-                            <div class="input-prepend">
-                                <span class="add-on">
-                                    <img src="~/Images/Customer-small.png" />
-                                </span>
-                                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @style = "width:180px", required="required" })
+                            <div>                               
+                                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", required="required" })
+                            </div>
+                    </div>
+                    <div class="col s8">
+                            <label style="font-weight: bold">&nbsp;&nbsp;Amount [₦]</label>
+                            <div >
+                                
+                                @Html.TextBoxFor(model => model.Credit, new { @placeholder = "Amount to credit", required="required" })
 
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="text-align: right; padding: 10px; color: #808080;">
-                            <label style="font-weight: bold">&nbsp;&nbsp;Amount</label>
-                        </td>
-                        <td>
+                    </div>
+                    <div class="col s12">
+                            <label style="font-weight: bold">&nbsp;&nbsp;Transaction Message</label>
                             <div class="input-prepend">
-                                <span class="add-on">
-                                    ₦
-                                </span>
-                                @Html.TextBoxFor(model => model.Credit, new { @placeholder = "Amount to credit", @style = "width:180px", required="required" })
+                                
+                                @Html.TextBoxFor(model => model.TransactionMsg, new { @placeholder = "Please enter a discription for this transaction",  required = "required" })
 
                             </div>
-                        </td>
-                    </tr>
-                </table>
+                    </div>
+                </div>
 
-                <input type="hidden" id="Debit" name="Debit" value="0" />
-                <input type="hidden" id="Transactionby" value="@User.Identity.Name.ToString()" />
-                <input type="hidden" id="DateCreated" value="@DateTime.Now" />
+              @*  <input type="hidden" id="Debit" name="Debit" value="0" />*@
+               @* <input type="hidden" id="Transactionby" value="@User.Identity.Name.ToString()" />*@
+               @* <input type="hidden" id="DateCreated" value="@DateTime.Now" />*@
 
                 <br />
                 <p style="text-align:center">
-                    <button type="submit" class="waves-effect waves-light btn" style="background:#7cb342"  >Credit customer account </button>
-                   
+                    <button type="submit" class="waves-effect waves-light btn" style="background:#7cb342"  >Credit customer account </button>                  
                 </p>
             </div>
         </div>

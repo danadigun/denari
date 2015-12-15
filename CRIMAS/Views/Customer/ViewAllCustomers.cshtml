@@ -41,9 +41,18 @@
                           N @balance [NGN]
                         </td>
                         <td>
+                            @{
+                    if (User.IsInRole("Admin"))
+                    {
+                        <a title="remove this customer" href="~/Customer/Delete/@item.CustomerId" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#b71c1c ;  margin-right:10px; margin-top:2px; font-size:10pt;">
+                            X
+                        </a>
+                    }
+                            }
                             <a href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">
                                 <img style="margin-top:2px;" src="~/Images/View Medium icons-WF.png" />
                             </a>
+                           
                         </td>
                     </tr>
                 }

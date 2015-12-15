@@ -23,9 +23,12 @@ namespace CRIMAS.Models
 
         [Required(ErrorMessage = "Please specify the amount to debit account!")]
         public decimal Debit { get; set; }
+
+        public string TransactionMsg { get; set; } //withdrawal, deposits, monthly dividends
         //public string Balance { get; set; }
         public string Transactionby { get; set; }
         public DateTime DateCreated { get; set; }
+
 
         //relationship T<entity> id
         //public int CustomerId { get; set; }

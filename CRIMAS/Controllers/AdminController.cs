@@ -25,5 +25,11 @@ namespace CRIMAS.Controllers
             return View();
         }
 
+        public ActionResult DashboardError()
+        {
+            return View();
+        }
+
+
     }
 }

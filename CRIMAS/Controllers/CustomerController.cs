@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRIMAS.Models;
+using CRIMAS.Repository.artifacts;
 
 namespace CRIMAS.Controllers
 {
@@ -48,7 +49,8 @@ namespace CRIMAS.Controllers
 
             //var pagenatedcustomers = new PaginatedList<Customer>(customer, page ?? 0, pageSize);
 
-            return View(customer.ToList());
+            //return View(customer.ToList());
+            return RedirectToAction("ViewAllCustomers");
         }
         //
         //GET: /Customer/FindCustomer/?searchString=09876
@@ -113,6 +115,10 @@ namespace CRIMAS.Controllers
                 };
                 db.CustomerSavings.Add(credit);
                 db.SaveChanges();
+
+                //Fire and forget cron-job for dividend generation for this customer
+                //new DenariCronJobs().initateDividends(CustomerAccountNo);
+
                 return Redirect("~/Customer/Details/"+customer.CustomerId);
             }
 
@@ -149,7 +155,7 @@ namespace CRIMAS.Controllers
         
         //
         // GET: /Customer/Delete/5
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id = 0)
         {
             Customer customer = db.Customers.Find(id);
@@ -162,14 +168,18 @@ namespace CRIMAS.Controllers
 
         //
         // POST: /Customer/Delete/5
-
+        [Authorize(Roles="Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
+            CustomerSavings customerSavings = db.CustomerSavings.Find(db.CustomerSavings.Where(x => x.AccountNo == customer.AccountNo).Select(x => x.Id).FirstOrDefault());
+
             db.Customers.Remove(customer);
+            db.CustomerSavings.Remove(customerSavings);
+
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAllCustomers");
         }
 
         protected override void Dispose(bool disposing)

@@ -94,6 +94,7 @@ namespace CRIMAS.Controllers
                 //customersavings.DateCreated = DateTime.Now.ToString();
                 customersavings.DateCreated = DateTime.Now;
                 customersavings.Transactionby = User.Identity.Name.ToString();
+                customersavings.Debit = 0;
 
                 db.CustomerSavings.Add(customersavings);
                 db.SaveChanges();

@@ -10,11 +10,21 @@ namespace CRIMAS.Controllers
 {
     public class IncomeAnalysisController : Controller
     {
+        private Models.CrimasDb db;
+        public IncomeAnalysisController()
+        {
+            db = new CRIMAS.Models.CrimasDb();
+        }
         //
         // GET: /IncomeAnalysis/
 
         public ActionResult Index()
         {
+            if (db.Loans.ToList().Count == 0)
+            {
+                return Redirect("~/Error/ErrorCode?ErrorCode=19086C");
+            }
+
             SetCurrencyToNaira();
             return View();
         }

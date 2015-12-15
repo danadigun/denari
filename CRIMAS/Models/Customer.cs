@@ -28,6 +28,8 @@ namespace CRIMAS.Models
 
         [Required(ErrorMessage = "field cannot be empty")]
         public string VillageClan { get; set; }
+        public string Email { get; set; }
+        public string phone { get; set; }
 
         [Required(ErrorMessage = "field cannot be empty")]
         public string LocalGovtArea { get; set; }

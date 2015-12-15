@@ -77,3 +77,15 @@ select{
 table td{
     border-radius:0;
 }
+
+.customerMaster .cust-header td{
+    font-size:11pt;
+    font-family:'Segoe UI';
+    /*text-align:center;*/
+    
+}
+.customerMaster .sub td{
+    /*text-align:center;*/
+    font-size:17pt; 
+    font-weight:400;
+}

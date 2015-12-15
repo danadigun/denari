@@ -5,19 +5,19 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CRIMAS")]
+[assembly: AssemblyTitle("Denari")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Hewlett-Packard")]
-[assembly: AssemblyProduct("CRIMAS")]
-[assembly: AssemblyCopyright("Copyright © Hewlett-Packard 2013")]
+[assembly: AssemblyCompany("Digital Forte Enterprise Systems Limited")]
+[assembly: AssemblyProduct("Denari")]
+[assembly: AssemblyCopyright("Copyright © Digital Forte Enterprise Systems Limited 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: ComVisible(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("0801c087-2f32-4483-a138-6682ae8bf659")]

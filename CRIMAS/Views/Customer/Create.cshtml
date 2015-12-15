@@ -28,10 +28,9 @@
             <br />
             <div class="row">
                 <div class="input-field col s12">
-
                     <label for="name" style="font-weight: bold">Name</label>
 
-                    @Html.TextBoxFor(model => model.Name, string.Empty, new { @placeholder = "Enter Account holder's full name.", @class = "validate", @id = "name" })
+                    @Html.TextBoxFor(model => model.Name, string.Empty, new { @placeholder = "Enter Account holder's full name.", @class = "validate", @id = "name", required = "required" })
                 </div>
                 <div class="input-field col s12">
                     <label style="font-weight: bold">Title</label><br /><br />
@@ -50,19 +49,27 @@
                 </div>
                 <div class="input-field col s12">
                     <label style="font-weight: bold">Next of Kin</label>
-                    @Html.TextBoxFor(model => model.NextOfkin, string.Empty, new { @placeholder = "Next of Kin full name", @class = "validate" })
+                    @Html.TextBoxFor(model => model.NextOfkin, string.Empty, new { @placeholder = "Next of Kin full name", @class = "validate", required = "required" })
                 </div>
                 <div class="input-field col s12">
-                    <label style="font-weight: bold">Office address</label>
-                    @Html.TextBoxFor(model => model.OfficeAddress, new { @placeholder = "Office address details" })
+                    <label style="font-weight: bold">Employer name & address</label>
+                    @Html.TextBoxFor(model => model.OfficeAddress, new { @placeholder = "Office address details", required = "required" })
                 </div>
                 <div class="input-field col s12">
                     <label style="font-weight: bold">Residential address</label>
-                    @Html.TextBoxFor(model => model.ResidentialAddress, new { @placeholder = "Residential address details." })
+                    @Html.TextBoxFor(model => model.ResidentialAddress, new { @placeholder = "Residential address details.", required = "required" })
                 </div>
-                <div class="input-field col s12">
+                @*<div class="input-field col s12">
                     <label style="font-weight: bold">Village Clan</label>
                     @Html.TextBoxFor(model => model.VillageClan, string.Empty, new { @placeholder = "Enter village clan" })
+                </div>*@
+            <div class="input-field col s6 ">
+                <label style="font-weight: bold">Phone</label>
+                @Html.TextBoxFor(model => model.phone, new { @placeholder = "", required="required" })
+            </div>
+                <div class="input-field col s6 ">
+                    <label style="font-weight: bold">Email (optional)</label>
+                    @Html.TextBoxFor(model => model.Email, new { @placeholder = "",  })
                 </div>
                 <div class="input-field col s12">
                     <label style="font-weight: bold">LGA</label><br /><br />

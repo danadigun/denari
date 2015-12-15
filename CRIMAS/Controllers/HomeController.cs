@@ -57,7 +57,12 @@ namespace CRIMAS.Controllers
         [Authorize]
         public ActionResult Admin()
         {
-            return View();
+            if (_context.Customers.ToList().Count() == 0)
+            {
+                return Redirect("~/Error/ErrorCode?ErrorCode=19086D");
+            }
+             return View();
+
         }
 
 

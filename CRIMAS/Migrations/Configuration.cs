@@ -50,12 +50,7 @@ namespace CRIMAS.Migrations
                     VillageClan="fgfjk"
                     }
                 );
-           //context.People.AddOrUpdate(
-           //       p => p.FullName,
-           //       new Person { FullName = "Andrew Peters" },
-           //       new Person { FullName = "Brice Lambson" },
-           //       new Person { FullName = "Rowan Miller" }
-           //     );
+            
         }
         private void SeedMembership()
         {
@@ -78,47 +73,6 @@ namespace CRIMAS.Migrations
                 roles.AddUsersToRoles(new[] { "Daniel Adigun" }, new[] { "Admin" });
             }
 
-            //create manager role
-            if (!roles.RoleExists("Manager"))
-            {
-                roles.CreateRole("Manager");
-            }
-            if (membership.GetUser("Daniel Adigun", false) == null)
-            {
-                membership.CreateUserAndAccount("Daniel Adigun", "morphy");
-            }
-            if (!roles.GetRolesForUser("Daniel Adigun").Contains("Manager"))
-            {
-                roles.AddUsersToRoles(new[] { "Daniel Adigun" }, new[] { "Manager" });
-            }
-
-            //create Supervisor role
-            if (!roles.RoleExists("Supervisor"))
-            {
-                roles.CreateRole("Supervisor");
-            }
-            if (membership.GetUser("Daniel Adigun", false) == null)
-            {
-                membership.CreateUserAndAccount("Daniel Adigun", "morphy");
-            }
-            if (!roles.GetRolesForUser("Daniel Adigun").Contains("Supervisor"))
-            {
-                roles.AddUsersToRoles(new[] { "Daniel Adigun" }, new[] { "Supervisor" });
-            }
-
-            //create Supervisor role
-            if (!roles.RoleExists("Cashier"))
-            {
-                roles.CreateRole("Cashier");
-            }
-            if (membership.GetUser("Daniel Adigun", false) == null)
-            {
-                membership.CreateUserAndAccount("Daniel Adigun", "morphy");
-            }
-            if (!roles.GetRolesForUser("Daniel Adigun").Contains("Cashier"))
-            {
-                roles.AddUsersToRoles(new[] { "Daniel Adigun" }, new[] { "Cashier" });
-            }
         }
     }
 }

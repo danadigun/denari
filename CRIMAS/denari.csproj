@@ -20,6 +20,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +41,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="CronExpressionDescriptor, Version=1.10.1.0, Culture=neutral, PublicKeyToken=a2ab0e0f73f9b037, processorArchitecture=MSIL">
+      <HintPath>..\packages\CronExpressionDescriptor.1.10.1\lib\net35\CronExpressionDescriptor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Dapper, Version=1.12.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.13\lib\net40\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -48,7 +61,27 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="HangFire.Core, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HangFire.Core.0.9.1\lib\net40\HangFire.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HangFire.SqlServer, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HangFire.SqlServer.0.9.1\lib\net40\HangFire.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HangFire.Web, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HangFire.Web.0.9.1\lib\net40\HangFire.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NCrontab, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ncrontab.1.0.0\lib\NCrontab.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net40\Ninject.dll</HintPath>
     </Reference>
@@ -58,20 +91,46 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.2.1.0\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20505.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20505.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Transactions" />
@@ -80,9 +139,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -95,39 +151,16 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Optimization">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx">
       <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -180,6 +213,7 @@
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\HangFireConfig.cs" />
     <Compile Include="App_Start\MetroUICSSBundleConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -195,27 +229,13 @@
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTransactionController.cs" />
     <Compile Include="Controllers\RateableRegisterController.cs" />
+    <Compile Include="Controllers\ReconciliationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201305152159297_initial.cs" />
-    <Compile Include="Migrations\201305152159297_initial.Designer.cs">
-      <DependentUpon>201305152159297_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201308190851171_initial1.cs" />
-    <Compile Include="Migrations\201308190851171_initial1.Designer.cs">
-      <DependentUpon>201308190851171_initial1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201308190855476_initial2.cs" />
-    <Compile Include="Migrations\201308190855476_initial2.Designer.cs">
-      <DependentUpon>201308190855476_initial2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512100930022_initial-migration.cs" />
-    <Compile Include="Migrations\201512100930022_initial-migration.Designer.cs">
-      <DependentUpon>201512100930022_initial-migration.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\BankReconciliation.cs" />
     <Compile Include="Models\Borrowed.cs" />
     <Compile Include="Models\CrimasDb.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -230,14 +250,32 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repository\CustomerLoanTransactionRepository.cs" />
-    <Compile Include="Repository\CustomerRepository.cs" />
-    <Compile Include="Repository\CustomerSavingsRepository.cs" />
-    <Compile Include="Repository\ICustomerLoanTransaction.cs" />
-    <Compile Include="Repository\ICustomerRepository.cs" />
-    <Compile Include="Repository\ICustomerSavings.cs" />
-    <Compile Include="Repository\ILoan.cs" />
-    <Compile Include="Repository\LoanRepository.cs" />
+    <Compile Include="Repository\artifacts\CustomerLoanTransactionRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\artifacts\CustomerRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\artifacts\CustomerSavingsRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\artifacts\DenariCronJobs.cs" />
+    <Compile Include="Repository\contracts\ICustomerLoanTransaction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\contracts\ICustomerRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\contracts\ICustomerSavings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\contracts\IDenariCron.cs" />
+    <Compile Include="Repository\contracts\ILoan.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repository\artifacts\LoanRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Services\Currency.cs" />
     <Compile Include="Services\ICurrency.cs" />
     <Compile Include="SupportClasses\Currency.cs" />
@@ -1465,9 +1503,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
-    <Content Include="css\foundation.css" />
-    <Content Include="css\foundation.min.css" />
-    <Content Include="css\normalize.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
@@ -1543,7 +1578,10 @@
     <Content Include="Images\Arrowhead down-WF.png" />
     <Content Include="Images\ArrowHead-Left.png" />
     <Content Include="Images\ArrowHead-Right.png" />
+    <Content Include="Images\ATM-01-WF.png" />
     <Content Include="Images\ATM-02-WF.png" />
+    <Content Include="Images\ATM-03-WF.png" />
+    <Content Include="Images\balance.png" />
     <Content Include="Images\Banker-01-WF.png" />
     <Content Include="Images\bill-48.png" />
     <Content Include="Images\Business-Man-Search.png" />
@@ -1879,24 +1917,6 @@
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
     <Content Include="Images\Wrench.png" />
-    <Content Include="js\foundation.min.js" />
-    <Content Include="js\foundation\foundation.alerts.js" />
-    <Content Include="js\foundation\foundation.clearing.js" />
-    <Content Include="js\foundation\foundation.cookie.js" />
-    <Content Include="js\foundation\foundation.dropdown.js" />
-    <Content Include="js\foundation\foundation.forms.js" />
-    <Content Include="js\foundation\foundation.joyride.js" />
-    <Content Include="js\foundation\foundation.js" />
-    <Content Include="js\foundation\foundation.magellan.js" />
-    <Content Include="js\foundation\foundation.orbit.js" />
-    <Content Include="js\foundation\foundation.placeholder.js" />
-    <Content Include="js\foundation\foundation.reveal.js" />
-    <Content Include="js\foundation\foundation.section.js" />
-    <Content Include="js\foundation\foundation.tooltips.js" />
-    <Content Include="js\foundation\foundation.topbar.js" />
-    <Content Include="js\vendor\custom.modernizr.js" />
-    <Content Include="js\vendor\jquery.js" />
-    <Content Include="js\vendor\zepto.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\foundation.min.js" />
@@ -13535,26 +13555,10 @@
     <Content Include="Views\RateableRegister\Index.cshtml" />
     <Content Include="Views\RateableRegister\ViewRateableRegister.cshtml" />
     <Content Include="Views\Customer\ViewAllCustomers.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Filters\" />
+    <Content Include="Views\Admin\DashboardError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201305152159297_initial.resx">
-      <DependentUpon>201305152159297_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201308190851171_initial1.resx">
-      <DependentUpon>201308190851171_initial1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201308190855476_initial2.resx">
-      <DependentUpon>201308190855476_initial2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512100930022_initial-migration.resx">
-      <DependentUpon>201512100930022_initial-migration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
