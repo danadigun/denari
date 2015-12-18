@@ -224,14 +224,20 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerSavingsController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ExportDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncomeAnalysisController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
     <Compile Include="Controllers\LoanTransactionController.cs" />
     <Compile Include="Controllers\RateableRegisterController.cs" />
     <Compile Include="Controllers\ReconciliationController.cs" />
+    <Compile Include="Controllers\ReconcilliationSettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512172242098_iniitlaanldasf.cs" />
+    <Compile Include="Migrations\201512172242098_iniitlaanldasf.Designer.cs">
+      <DependentUpon>201512172242098_iniitlaanldasf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -260,6 +266,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repository\artifacts\DenariCronJobs.cs" />
+    <Compile Include="Repository\artifacts\Repository.cs" />
     <Compile Include="Repository\contracts\ICustomerLoanTransaction.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -276,6 +283,7 @@
     <Compile Include="Repository\artifacts\LoanRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repository\contracts\IRepository.cs" />
     <Compile Include="Services\Currency.cs" />
     <Compile Include="Services\ICurrency.cs" />
     <Compile Include="SupportClasses\Currency.cs" />
@@ -1589,6 +1597,7 @@
     <Content Include="Images\Calender Refresh-WF.png" />
     <Content Include="Images\cashier.png" />
     <Content Include="Images\cash_receiving-64.png" />
+    <Content Include="Images\Cheque-02-WF.png" />
     <Content Include="Images\clover-card.jpg" />
     <Content Include="Images\Coin-01-WF.png" />
     <Content Include="Images\coins-48.png" />
@@ -1612,6 +1621,7 @@
     <Content Include="Images\downloading_updates-48.png" />
     <Content Include="Images\edit-user-icon.png" />
     <Content Include="Images\Edit.png" />
+    <Content Include="Images\Excel Online.png" />
     <Content Include="Images\Garbage Empty.png" />
     <Content Include="Images\Gift-WF.png" />
     <Content Include="Images\glyphicons\.DS_Store" />
@@ -13556,9 +13566,16 @@
     <Content Include="Views\RateableRegister\ViewRateableRegister.cshtml" />
     <Content Include="Views\Customer\ViewAllCustomers.cshtml" />
     <Content Include="Views\Admin\DashboardError.cshtml" />
+    <Content Include="Views\ReconcilliationSettings\Index.cshtml" />
+    <Content Include="Views\Reconciliation\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512172242098_iniitlaanldasf.resx">
+      <DependentUpon>201512172242098_iniitlaanldasf.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

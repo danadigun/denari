@@ -7,12 +7,23 @@ using System.Web;
 using System.Web.Mvc;
 using CRIMAS.Models;
 using CRIMAS.Repository.artifacts;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
+using System.Collections;
 
 namespace CRIMAS.Controllers
 {
     public class CustomerController : Controller
     {
         private CrimasDb db = new CrimasDb();
+        private Repository<Customer> _customerRepository;
+        private ExportDataController _export;
+        public CustomerController()
+        {
+            _customerRepository = new Repository<Customer>();
+            _export = new ExportDataController();
+        }
 
         //
         // GET: /Customer/
@@ -106,7 +117,7 @@ namespace CRIMAS.Controllers
                 var credit = new CustomerSavings
                 {
                     AccountNo = CustomerAccountNo,
-                    Credit = 1,
+                    Credit = 0,
                     Debit=0,
                     //DateCreated=DateTime.Now.ToShortDateString(),
                     DateCreated = DateTime.Now,
@@ -182,11 +193,37 @@ namespace CRIMAS.Controllers
             return RedirectToAction("ViewAllCustomers");
         }
 
+        public ActionResult ExportData()
+        {
+           
+            Export(_customerRepository.GetAll(), "customerData");
+            return RedirectToAction("Index");
+        }
+
+        public void Export(IEnumerable obj, string filename)
+        {
+            GridView gv = new GridView();
+            gv.DataSource = obj;
+            gv.DataBind();
+
+            Response.AddHeader("content-disposition", "attachment; filename=" + filename + ".xls");
+            Response.ContentType = "application/ms-excel";
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+        }       
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
+
+
         
     }
 }

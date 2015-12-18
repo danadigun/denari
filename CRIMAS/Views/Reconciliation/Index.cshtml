@@ -1,0 +1,25 @@
+﻿@{
+    //Bank reconciliation landing page
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+<div class="card" style="width:80%; margin-left:auto; margin-right:auto">
+    <div class="card-content">
+        <div class="card-title" style="color:black"><img src="~/Images/Cheque-02-WF.png" /> Bank Reconciliation</div><hr /><br /><br />
+        <div>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div style="background:#e3f2fd; border-left:3px solid #0d47a1;" class="collapsible-header"><i class="material-icons">settings</i>Bank reconciliation settings</div>
+                            <div style="border-left: 3px solid #0d47a1;" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                        </li>
+
+                    </ul>
+                }
+            }
+        </div>
+    </div>
+</div>

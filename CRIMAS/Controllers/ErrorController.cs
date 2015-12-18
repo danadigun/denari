@@ -45,6 +45,10 @@ namespace CRIMAS.Controllers
                     ViewBag.ErrorTitle = "There are no Loans to manage!";
                     ViewBag.ErrorDescription = "You are getting this  message because there are no Loans & deposits on your platform yet for us to manage. Enroll customers, credit their accounts and give them loans";
                     break;
+                case"19086D1":
+                     ViewBag.ErrorTitle = "Yes you have Customers but no deposits!";
+                    ViewBag.ErrorDescription = "You are getting this  message because there are no Loans & deposits on your platform yet for us to manage. ";
+                    break;
             }
             return View();
         }

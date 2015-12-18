@@ -5,8 +5,8 @@
 
     var db = new CRIMAS.Models.CrimasDb();
     var customers = Model.ToList();
-    
-    
+
+
 }
 
 
@@ -14,6 +14,8 @@
     <div class="card-content">
         <div class="card-title" style="color:black">
             <span>Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
+            <a href="~/Customer/ExportData" class="btn  btn-primary" style="float:right; background:#217346" title="Export customer data to excel">
+                <img src="~/Images/Excel Online.png" />  </a>
             <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
         </div><hr />
         @{
@@ -33,12 +35,21 @@
                         <td>@item.OfficeAddress</td>
                         <td style="color:orangered; font-weight:bold">
                             @{
-                                var credit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo).Select(x => x.Credit).Sum();
-                                var debit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo).Select(x => x.Debit).Sum();
+                    var credit = 0m;
+                    var debit = 0m;
+                    if (db.CustomerSavings.Count() != 0)
+                    {
+                        var customer = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo);
+                        if (customer != null)
+                        {
+                            credit = customer.Select(x => x.Credit).DefaultIfEmpty().Sum();
+                            debit = customer.Select(x => x.Debit).DefaultIfEmpty().Sum();
+                        }
+                    }
 
-                                var balance = credit - debit;
+                    var balance = credit - debit;
                             }
-                          N @balance [NGN]
+                            N @balance [NGN]
                         </td>
                         <td>
                             @{
@@ -49,15 +60,15 @@
                         </a>
                     }
                             }
-                            <a href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">
+                            <a title="view customer account details" href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">
                                 <img style="margin-top:2px;" src="~/Images/View Medium icons-WF.png" />
                             </a>
-                           
+
                         </td>
                     </tr>
                 }
             </table>
-           
+
         }
     </div>
 </div>

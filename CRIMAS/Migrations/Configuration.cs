@@ -1,5 +1,6 @@
 namespace CRIMAS.Migrations
 {
+    using CRIMAS.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -40,17 +41,19 @@ namespace CRIMAS.Migrations
             db.Customers.AddOrUpdate(
                  p => p.Name,
                 new CRIMAS.Models.Customer {
-                    AccountNo ="",
+                    AccountNo =new Random().Next().ToString(),
                     Name="Olumide Jegede",
                     NextOfkin="Olumide Jegede",
-                    LocalGovtArea="jagsdgad",
+                    StateOfOrigin="jagsdgad",
                     OfficeAddress="dhgfjkgfabfha",
                     ResidentialAddress="dasgdfasbgfhjaf",
-                    DateCreated="today",
-                    VillageClan="fgfjk"
+                    DateCreated=DateTime.Now.ToLongDateString(),
+                    Email = "olumide@yahoo.com",
+                    phone = "070387273812"
+                    //VillageClan="fgfjk"
                     }
                 );
-            
+            db.SaveChanges();
         }
         private void SeedMembership()
         {
@@ -58,19 +61,20 @@ namespace CRIMAS.Migrations
 
             var roles = (SimpleRoleProvider)Roles.Provider;
             var membership = (SimpleMembershipProvider)Membership.Provider;
+            var _db = new CrimasDb();
 
             //Create Admin role
             if (!roles.RoleExists("Admin"))
             {
                 roles.CreateRole("Admin");
             }
-            if (membership.GetUser("Daniel Adigun", false) == null)
+            if (membership.GetUser("admin@digitalforte.ng", false) == null)
             {
-                membership.CreateUserAndAccount("Daniel Adigun", "morphy");
+                membership.CreateUserAndAccount("admin@digitalforte.ng", "pass119");
             }
-            if (!roles.GetRolesForUser("Daniel Adigun").Contains("Admin"))
+            if (!roles.GetRolesForUser("admin@digitalforte.ng").Contains("Admin"))
             {
-                roles.AddUsersToRoles(new[] { "Daniel Adigun" }, new[] { "Admin" });
+                roles.AddUsersToRoles(new[] { "admin@digitalforte.ng" }, new[] { "Admin" });
             }
 
         }

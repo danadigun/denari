@@ -32,7 +32,7 @@
         <div class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper" style="padding-left:10px; padding-right:20px; background-color:#01579b">
-                    <a href="#!" class="brand-logo">Crimas MPCS-MS</a>
+                    <a href="~/" class="brand-logo">Crimas MPCS-MS</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><img src="~/Images/Menu-01-WF.png" /> </a>
 
                     <ul class="right hide-on-med-and-down">
@@ -64,7 +64,7 @@
 
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke;">
-                        <li>
+                        <li >
                             @*  <img src="~/Images/Crimas-header.png" />*@
                             <div>
                                 @{
@@ -76,7 +76,7 @@
                                     {
                                         <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
                                     }
-}
+                                }
                                 <a class="" href="~/Account/Manage">Change password</a>
                                 @Html.Partial("_LoginPartial")
                                 <hr />
@@ -152,13 +152,12 @@
                                 </li>
                             }
                         }
-
+                        <li class="bold">
+                            <a class="waves-effect waves-green" href="~/Reconciliation">
+                                <img src="~/Images/Cheque-02-WF.png" />Bank reconciliation
+                            </a>
+                        </li>
                     </ul>
-
-
-
-
-
 
 
                 </div>
@@ -169,7 +168,7 @@
             <li class="logo">
                 <img src="~/Images/Crimas-header.png" />
 
-            <li>
+            <li class="logo">
                 @*  <img src="~/Images/Crimas-header.png" />*@
                 <div>
                     @{
@@ -251,7 +250,11 @@
                     </li>
                 }
             }
-
+            <li class="bold">
+                <a class="waves-effect waves-green" href="~/Reconciliation">
+                    <img src="~/Images/Cheque-02-WF.png" />Bank reconciliation
+                </a>
+            </li>
 
         </ul>
     </header>

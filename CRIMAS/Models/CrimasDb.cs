@@ -21,5 +21,6 @@ namespace CRIMAS.Models
             public DbSet<LoanTransaction> LoanTransactions { get; set; } 
             public DbSet<LoanInterest> LoanInterests { get; set; } //10% of loan paid upfront
             public DbSet<BankReconciliation> BankReconciliations { get; set; }
+            public DbSet<ReconciliationProperties> ReconciliationProperties { get; set; }
     }
 }

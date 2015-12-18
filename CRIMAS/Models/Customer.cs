@@ -25,14 +25,13 @@ namespace CRIMAS.Models
 
         [Required(ErrorMessage = "Residential address field cannot be empty")]
         public string ResidentialAddress { get; set; }
-
-        [Required(ErrorMessage = "field cannot be empty")]
-        public string VillageClan { get; set; }
+       
+        public string employer { get; set; }
         public string Email { get; set; }
         public string phone { get; set; }
 
         [Required(ErrorMessage = "field cannot be empty")]
-        public string LocalGovtArea { get; set; }
+        public string StateOfOrigin { get; set; }
         public string DateCreated { get; set; }//auto-generated
 
     }

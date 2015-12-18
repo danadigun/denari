@@ -1,4 +1,5 @@
 ﻿using CRIMAS.Models;
+using CRIMAS.Repository.artifacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace CRIMAS.Controllers
 {
     public class ReconciliationController : Controller
     {
-        private Models.CrimasDb _db;
+        private Repository<BankReconciliation> _repository;
+       
         public ReconciliationController()
         {
-            _db = new CRIMAS.Models.CrimasDb();
+            _repository = new Repository<BankReconciliation>();
         }
         //
         // GET: /Reconciliation/
@@ -24,16 +26,13 @@ namespace CRIMAS.Controllers
 
         //
         // GET: /Reconciliation/Details/5
-
         public ActionResult Details(int id)
         {
-            var Reconciliation = _db.BankReconciliations.Find(id);
-            return View(Reconciliation);
+            return View(_repository.GetById(id));
         }
 
         //
         // GET: /Reconciliation/Create
-
         public ActionResult Create()
         {
             return View();
@@ -41,50 +40,28 @@ namespace CRIMAS.Controllers
 
         //
         // POST: /Reconciliation/Create
-
         [HttpPost]
         public ActionResult Create(BankReconciliation reconciliation)
         {
-            try
-            {
-                // TODO: Add insert logic here
-                if (reconciliation != null)
-                {
-                    _db.BankReconciliations.Add(reconciliation);
-                    _db.SaveChanges();
-                }
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _repository.Add(reconciliation);
+            return RedirectToAction("index");
         }
-
+       
         //
         // GET: /Reconciliation/Edit/5
-
         public ActionResult Edit(int id)
         {
-            var Reconciliation = _db.BankReconciliations.Find(id);
-            return View(Reconciliation);
+            return View(_repository.GetById(id));
         }
 
         //
         // POST: /Reconciliation/Edit/5
-
         [HttpPost]
         public ActionResult Edit(int id, BankReconciliation reconciliation)
         {
             try
             {
-                // TODO: Add update logic here
-                var ReconciliationToUpdate = _db.BankReconciliations.Find(id);
-                if (ReconciliationToUpdate != null)
-                {
-                    ReconciliationToUpdate = reconciliation;
-                    _db.SaveChanges();
-                }
+                _repository.Update(reconciliation, id);
                 return RedirectToAction("Index");
             }
             catch
@@ -95,33 +72,17 @@ namespace CRIMAS.Controllers
 
         //
         // GET: /Reconciliation/Delete/5
-
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id=0)
         {
-            return View();
+            return View(_repository.GetById(id));
         }
 
-        //
-        // POST: /Reconciliation/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id)
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                var record = _db.BankReconciliations.Find(id);
-                if (record != null)
-                {
-                    _db.BankReconciliations.Remove(record);
-                    _db.SaveChanges();
-                }
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            _repository.RemoveById(id);
+            return RedirectToAction("index");
         }
+       
     }
 }

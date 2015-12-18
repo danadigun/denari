@@ -27,16 +27,10 @@
 
             <br />
             <div class="row">
-                <div class="input-field col s12">
-                    <label for="name" style="font-weight: bold">Name</label>
-
-                    @Html.TextBoxFor(model => model.Name, string.Empty, new { @placeholder = "Enter Account holder's full name.", @class = "validate", @id = "name", required = "required" })
-                </div>
-                <div class="input-field col s12">
-                    <label style="font-weight: bold">Title</label><br /><br />
-
-                    <select>
-                        @*<option value="" disabled selected>Select Title</option>*@
+                <div class="input-field col s4">
+                    @*<label style="font-weight: bold">Title</label>*@
+                    <select required>
+                        <option value="" disabled selected>Select Title</option>
                         <option>Mr.</option>
                         <option>Mrs.</option>
                         <option>Miss.</option>
@@ -45,24 +39,32 @@
                         <option>Chief.</option>
                         <option>Prof.</option>
                         <option>Others</option>
-                    </select><br /><br />
+                    </select>
+                </div>
+
+                <div class="input-field col s8">
+                    <label for="name" style="font-weight: bold">Customer full-Name</label>
+                    @Html.TextBoxFor(model => model.Name, string.Empty, new { @placeholder = "Enter Account holder's full name.", @class = "validate", @id = "name", required = "required" })
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label style="font-weight: bold">Next of Kin</label>
+                        @Html.TextBoxFor(model => model.NextOfkin, string.Empty, new { @placeholder = "Next of Kin full name", @class = "validate", required = "required" })
+                    </div>
                 </div>
                 <div class="input-field col s12">
-                    <label style="font-weight: bold">Next of Kin</label>
-                    @Html.TextBoxFor(model => model.NextOfkin, string.Empty, new { @placeholder = "Next of Kin full name", @class = "validate", required = "required" })
+                    <label style="font-weight: bold">Employer name</label>
+                    @Html.TextBoxFor(model => model.employer, new { @placeholder = "Employer name", required = "required" })
                 </div>
                 <div class="input-field col s12">
-                    <label style="font-weight: bold">Employer name & address</label>
+                    <label style="font-weight: bold">Employer address</label>
                     @Html.TextBoxFor(model => model.OfficeAddress, new { @placeholder = "Office address details", required = "required" })
                 </div>
                 <div class="input-field col s12">
                     <label style="font-weight: bold">Residential address</label>
                     @Html.TextBoxFor(model => model.ResidentialAddress, new { @placeholder = "Residential address details.", required = "required" })
                 </div>
-                @*<div class="input-field col s12">
-                    <label style="font-weight: bold">Village Clan</label>
-                    @Html.TextBoxFor(model => model.VillageClan, string.Empty, new { @placeholder = "Enter village clan" })
-                </div>*@
+               
             <div class="input-field col s6 ">
                 <label style="font-weight: bold">Phone</label>
                 @Html.TextBoxFor(model => model.phone, new { @placeholder = "", required="required" })
@@ -72,40 +74,44 @@
                     @Html.TextBoxFor(model => model.Email, new { @placeholder = "",  })
                 </div>
                 <div class="input-field col s12">
-                    <label style="font-weight: bold">LGA</label><br /><br />
+                    <label style="font-weight: bold">State of origin</label><br /><br />
 
-                    <select id="LocalGovtArea" name="LocalGovtArea">
-                        <option>Abak</option>
-                        <option>Eastern Obolo</option>
-                        <option>Eket</option>
-                        <option>Esit Eket</option>
-                        <option>Essien Udim</option>
-                        <option>Etim Ekpo</option>
-                        <option>Etinan</option>
-                        <option>Ibeno</option>
-                        <option>Ibesikpo Asutan</option>
-                        <option>Ika</option>
-                        <option>Ikono</option>
-                        <option>Ikot Ekpene</option>
-                        <option>Ikot-Abasi</option>
-                        <option>Ini</option>
-                        <option>Itu</option>
-                        <option>Mbo</option>
-                        <option>Mkpat-Enin</option>
-                        <option>Nsit-Atai</option>
-                        <option>Nsit-Ibom</option>
-                        <option>Nsit-Ubium</option>
-                        <option>Obot-Akara</option>
-                        <option>Okobo</option>
-                        <option>Onna</option>
-                        <option>Oron</option>
-                        <option>Oruk Anam</option>
-                        <option>Udung-Uko</option>
-                        <option>Ukanafun</option>
-                        <option>Uruan</option>
-                        <option>Urue-Offong/Oruko</option>
-                        <option>Uyo</option>
-                        <option>Others</option>
+                    <select id="StateOfOrigin" name="StateOfOrigin">
+                        <option value="" disabled selected>Select State</option>
+                        <option>Akwa Ibom </option>
+                        <option>Abia </option>
+                        <option>Adamawa </option>
+                        <option>Anambra </option>
+                        <option>Bauchi</option>
+                        <option>Bayelsa</option>
+                        <option>Benue </option>
+                        <option>Borno</option>
+                        <option>Cross River</option>
+                        <option>Delta</option>
+                        <option>Enugu</option>
+                        <option>Federal Capital Territory</option>
+                        <option>Gombe</option>
+                        <option>Imo</option>
+                        <option>Jigawa</option>
+                        <option>Kaduna</option>
+                        <option>Kano</option>
+                        <option>Katsina</option>
+                        <option>Kebbi</option>
+                        <option>Kogi</option>
+                        <option>Kwara</option>
+                        <option>Lagos</option>
+                        <option>Nasarawa</option>
+                        <option>Niger</option>
+                        <option>Ogun</option>
+                        <option>Ondo</option>
+                        <option>Osun</option>
+                        <option>Oyo</option>
+                        <option>Plateau</option>
+                        <option>Rivers</option>
+                        <option>Sokoto</option>
+                        <option>Taraba</option>
+                        <option>Yobe</option>
+                        <option>Zamfara</option>
                     </select>
 
                 </div>

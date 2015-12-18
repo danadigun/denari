@@ -61,6 +61,10 @@ namespace CRIMAS.Controllers
             {
                 return Redirect("~/Error/ErrorCode?ErrorCode=19086D");
             }
+            if (_context.CustomerSavings.ToList().Count() == 0)
+            {
+                return Redirect("~/Error/ErrorCode?ErrorCode=19086D1");
+            }
              return View();
 
         }

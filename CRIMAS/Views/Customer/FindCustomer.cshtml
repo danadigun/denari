@@ -68,21 +68,18 @@
                         <table class="table striped" style="font-size:10pt;">
 
                             <tr style="font-size:9pt; background-color: green; color:white;">
-
-                                <td>Next of kin</td>
-                                <td>Office</td>
+                                <td>Employer</td>
+                                <td>office address</td>
                                 <td>Residence</td>
-                                <td>Village</td>
-                                <td>LGA</td>
+                                <td>Next of kin</td>
+                                <td>State of origin</td>
                             </tr>
                             <tr style="background:gainsboro; padding-bottom:2em;">
-
-                                @* <td>@Html.DisplayFor(modelItem => item.Name)</td>*@
-                                <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                                <td>@Html.DisplayFor(modelItem => item.employer)</td>
                                 <td>@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
                                 <td>@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
-                                <td>@Html.DisplayFor(modelItem => item.VillageClan)</td>
-                                <td>@Html.DisplayFor(modelItem => item.LocalGovtArea)</td>
+                                <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                                <td>@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
                             </tr>
                         </table>
 
@@ -122,9 +119,13 @@
             <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
                 <div class="card-content">
                     @{
-            var savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Credit).Sum();
-            var savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Debit).Sum();
-
+            var savingsCredit = 0m;
+            var savingsDebit = 0m;
+            if (db.CustomerSavings.Count() != 0)
+            {
+                savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Credit).DefaultIfEmpty().Sum();
+                savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Debit).DefaultIfEmpty().Sum();
+            }
             var savingsBalance = savingsCredit - savingsDebit;
 
             <span>
@@ -139,5 +140,5 @@
         }
 
     }
-   
+
 </div>
