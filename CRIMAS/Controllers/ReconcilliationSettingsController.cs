@@ -41,18 +41,19 @@ namespace CRIMAS.Controllers
 
         //
         // POST: /ReconcilliationSettings/Create
-
         [HttpPost]
         public ActionResult Create(ReconciliationProperties properties)
         {
             try
-            {
+            {              
                 _repo.Add(properties);
-                return RedirectToAction("Index");
+                return Json(new { success = true });
+                //return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return Json(new { success = false });
+                //return View();
             }
         }
 

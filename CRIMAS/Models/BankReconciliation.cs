@@ -30,7 +30,7 @@ namespace CRIMAS.Models
     public class ReconciliationProperties
     {
         public int Id { get; set; }
-        public decimal int_cap_value { get; set; } //interest on capital from bank payable every month
+        public decimal int_cap_value { get; set; } //interest on capital from bank payable every month %
         public decimal transfer_fee { get; set; } //N100 from CBN for each transaction
         public decimal vat { get; set; } //5% on transfer fee
         public decimal sms_charge { get; set; }

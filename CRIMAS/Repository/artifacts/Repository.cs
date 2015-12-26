@@ -25,6 +25,7 @@ namespace CRIMAS.Repository.artifacts
             if (obj != null)
             {
                 _entity.Add(obj);
+                _db.SaveChanges();
             }
         }
 

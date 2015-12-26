@@ -26,7 +26,7 @@
                 <div class="col s6">
                     <label for="accountNo" style="font-weight:bold">Account no.</label>
                     <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
-                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo" })
+                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required="required" })
                     @*@Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })*@
                 </div>
                 <div class="col s6">

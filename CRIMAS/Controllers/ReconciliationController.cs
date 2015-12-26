@@ -25,6 +25,15 @@ namespace CRIMAS.Controllers
         }
 
         //
+        //GET: /Reconciliation/data
+        public ActionResult data()
+        {
+            //depositors
+            //deposits
+            //interest on capital ()
+            return View();
+        }
+        //
         // GET: /Reconciliation/Details/5
         public ActionResult Details(int id)
         {

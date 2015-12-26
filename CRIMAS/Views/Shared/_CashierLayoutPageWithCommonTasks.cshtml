@@ -15,8 +15,8 @@
     <link href="~/Content/SiteUpdate.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
-    
 
+    <link href="~/Content/validetta-v1.0.1-dist/validetta.min.css" rel="stylesheet" />
 </head>
 <body style="font-family:'Segoe UI'">
     @{
@@ -63,7 +63,7 @@
                         <li>@Html.Partial("_LoginPartial")</li>
 
                     </ul>
-                    <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke;">
+                    <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke; padding-bottom:15em;">
                         <li >
                             @*  <img src="~/Images/Crimas-header.png" />*@
                             <div>
@@ -163,11 +163,11 @@
                 </div>
             </nav>
         </div>
-        <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em;">
+        <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
 
             <li class="logo">
                 <img src="~/Images/Crimas-header.png" />
-
+            </li>
             <li class="logo">
                 @*  <img src="~/Images/Crimas-header.png" />*@
                 <div>
@@ -186,12 +186,8 @@
                    
                     <hr />
                 </div>
-
             </li>
-
-
-
-            </li>
+          
             <li class="bold">
                 @{
                     if (User.IsInRole("Admin"))
@@ -255,26 +251,19 @@
                     <img src="~/Images/Cheque-02-WF.png" />Bank reconciliation
                 </a>
             </li>
-
         </ul>
     </header>
     <main>
-
         <div class="cashier-main">
-
             @RenderBody()
         </div>
-
-
     </main>
     <footer style="margin-top:20em;">
         <div>
             <hr />
             <p style="font-size: 9pt; text-align: center">&copy; Digital Forte Enterprise Systems Limited @DateTime.Now.Year.ToString().</p>
         </div>
-
     </footer>
-
 
     <script>
         $(".button-collapse").sideNav({
@@ -286,13 +275,13 @@
             //closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
         });
 
-
         //$('select').material_select();
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
     </script>
-
+    <script src="~/Scripts/jquery.validate.js"></script>    
+    <script src="~/Scripts/AjaxScripts/BankReconciliation.js"></script>
     @RenderSection("scripts", required: false)
 
 </body>

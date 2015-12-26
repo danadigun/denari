@@ -1,24 +1,100 @@
 ﻿@{
     //Bank reconciliation landing page
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Bank reconciliation Properties";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
 <div class="card" style="width:80%; margin-left:auto; margin-right:auto">
     <div class="card-content">
-        <div class="card-title" style="color:black"><img src="~/Images/Cheque-02-WF.png" /> Bank Reconciliation</div><hr /><br /><br />
+        <div class="card-title" style="color:black"><img src="~/Images/Cheque-02-WF.png" /> Bank Reconciliation</div><hr /><br />
         <div>
             @{
-                if (User.IsInRole("Admin"))
-                {
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div style="background:#e3f2fd; border-left:3px solid #0d47a1;" class="collapsible-header"><i class="material-icons">settings</i>Bank reconciliation settings</div>
-                            <div style="border-left: 3px solid #0d47a1;" class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
-                        </li>
+                <ul class="collapsible" data-collapsible="accordion">
+                    @if (User.IsInRole("Admin"))
+                    {
 
-                    </ul>
-                }
+                        <li>
+                            <div style="background:#e3f2fd; margin-top:-1em; border-left:3px solid #0d47a1;" class="collapsible-header">I want to update the systems's Bank reconciliation properties.</div>
+                            <div style="border-left: 3px solid #0d47a1;" class="collapsible-body">
+                                <p><strong>Note!</strong> Please only update any record here after you have contacted your bank for the necessary information below.     </p>
+                                <div>
+                                    @{
+                        var db = new CRIMAS.Models.CrimasDb();
+
+                        var countOfRows = db.ReconciliationProperties.Count();
+
+                        var properties = db.ReconciliationProperties.OrderBy(x => x.Id).Skip(countOfRows - 1).FirstOrDefault();
+
+                        <form id="update_properties_form" class="row" style="padding:40px; margin-top:-40px;">
+                            <div class="col s12">
+                                <div style="margin-right:auto; margin-left:auto;" id="reconciliation_loader" class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                           </div>
+                            <div class="col s6">
+                                <label>Transfer Fee (NGN)</label>
+                                <input required  name="transfer_fee" type="text" value="@properties.transfer_fee" />
+                            </div>
+                            <div class="col s6">
+                                <label>VAT (%)</label>
+                                <input required name="vat" type="text" value="@properties.vat" />
+                            </div>
+                            <div class="col s6">
+                                <label>Per Capital Commission (NGN)</label>
+                                <input required name="per_capital_commission" type="text" value="@properties.per_capital_commission" />
+                            </div>
+                            <div class="col s6">
+                                <label>SMS Charges (NGN)</label>
+                                <input required name="sms_charge" type="text" value="@properties.sms_charge" />
+                            </div>
+                            <div class="row">
+                                <div class="col s6">
+                                    <label>interest capitalization (%)</label>
+                                    <input required name="int_cap_value" type="text" value="@properties.int_cap_value" />
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <input id="update_properties" type="submit" value="+ Add properties" class="btn btn-default" />
+                            </div>
+
+                            <div class="col s4">
+
+                            </div>
+
+                        </form>
+
+                                    }
+                                </div>
+
+                            </div>
+
+                        </li>
+                    }
+                    <li style="margin-top:0.5em;">
+                        <div style="background:#e3f2fd; border-left:3px solid #0d47a1;" class="collapsible-header">I want to view and Export bank reconciliation data</div>
+                        <div style="border-left: 3px solid #0d47a1; min-height:200px;" class="collapsible-body">
+                            <p>
+                                <strong>Note!</strong>
+                                Please only update any record here after you have contacted your bank for the necessary information below.
+                            </p>
+                            <p>
+
+                                <a class="btn btn-default" style="background:#0d47a1">View bank reconciliation data</a>
+                                <button class="btn btn-default">Export data</button>
+
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+
             }
         </div>
     </div>

@@ -1511,6 +1511,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\validetta-v1.0.1-dist\validetta.css" />
+    <Content Include="Content\validetta-v1.0.1-dist\validetta.js" />
+    <Content Include="Content\validetta-v1.0.1-dist\validetta.min.css" />
+    <Content Include="Content\validetta-v1.0.1-dist\validetta.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
@@ -1927,11 +1931,18 @@
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
     <Content Include="Images\Wrench.png" />
+    <Content Include="Scripts\AjaxScripts\BankReconciliation.js" />
+    <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\foundation.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.confirm.js" />
+    <Content Include="Scripts\jquery.confirm.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\metroui\accordion.js" />
     <Content Include="Scripts\metroui\buttonset.js" />
     <Content Include="Scripts\metroui\calendar.js" />
@@ -11210,13 +11221,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
@@ -13568,6 +13576,7 @@
     <Content Include="Views\Admin\DashboardError.cshtml" />
     <Content Include="Views\ReconcilliationSettings\Index.cshtml" />
     <Content Include="Views\Reconciliation\Index.cshtml" />
+    <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
