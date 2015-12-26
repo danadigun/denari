@@ -47,7 +47,7 @@
                                 </div>
                             </form>
                         </li>
-                     
+
                         <li>
                             <a class="task-collapse" data-activates="task-listings" href="collapsible.html">
                                 @*  <i class="small material-icons">perm_identity</i>*@
@@ -64,7 +64,7 @@
 
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke; padding-bottom:15em;">
-                        <li >
+                        <li>
                             @*  <img src="~/Images/Crimas-header.png" />*@
                             <div>
                                 @{
@@ -136,7 +136,7 @@
                                 <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                             </a>
                         </li>
-                        
+
                         @{
                             if (User.IsInRole("Admin"))
                             {
@@ -163,9 +163,12 @@
                 </div>
             </nav>
         </div>
-        <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
 
+        @*Displays on Desktop*@
+        <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
+            
             <li class="logo">
+               
                 <img src="~/Images/Crimas-header.png" />
             </li>
             <li class="logo">
@@ -183,11 +186,11 @@
 
                         }
                     }
-                   
+
                     <hr />
                 </div>
             </li>
-          
+
             <li class="bold">
                 @{
                     if (User.IsInRole("Admin"))
@@ -230,7 +233,7 @@
                     <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                 </a>
             </li>
-           
+
             @{
                 if (User.IsInRole("Admin"))
                 {
@@ -239,7 +242,7 @@
                             <img src="~/Images/Gift-WF.png" />Rateable Register
                         </a>
                     </li>
-                    <li class="bold" >
+                    <li class="bold">
                         <a class="waves-effect waves-green" href="~/AddUser">
                             <img src="~/Images/User Settings-02-WF.png" />User access management
                         </a>
@@ -279,8 +282,13 @@
         $('.collapsible').collapsible({
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
+
+      
     </script>
-    <script src="~/Scripts/jquery.validate.js"></script>    
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/material-design-table.js"></script>
+
+
     <script src="~/Scripts/AjaxScripts/BankReconciliation.js"></script>
     @RenderSection("scripts", required: false)
 

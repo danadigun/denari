@@ -1440,6 +1440,12 @@
     <Content Include="Content\EssentialJs\themes\samplecontent\wpfcontent.html" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\material-responsive-table.css">
+      <DependentUpon>material-responsive-table.less</DependentUpon>
+    </Content>
+    <Content Include="Content\material-responsive-table.min.css">
+      <DependentUpon>material-responsive-table.css</DependentUpon>
+    </Content>
     <Content Include="Content\materialize-v0.97.1\css\materialize.css" />
     <Content Include="Content\materialize-v0.97.1\css\materialize.min.css" />
     <Content Include="Content\materialize-v0.97.1\font\material-design-icons\LICENSE.txt" />
@@ -1927,6 +1933,10 @@
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.eot" />
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.ttf" />
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.woff" />
+    <Content Include="Content\material-responsive-table.less" />
+    <Content Include="Content\material-responsive-table.css.map">
+      <DependentUpon>material-responsive-table.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -1943,6 +1953,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\material-design-table.js" />
     <Content Include="Scripts\metroui\accordion.js" />
     <Content Include="Scripts\metroui\buttonset.js" />
     <Content Include="Scripts\metroui\calendar.js" />
@@ -13577,6 +13588,7 @@
     <Content Include="Views\ReconcilliationSettings\Index.cshtml" />
     <Content Include="Views\Reconciliation\Index.cshtml" />
     <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
+    <Content Include="Views\Reconciliation\data.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

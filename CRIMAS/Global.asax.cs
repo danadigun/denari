@@ -30,12 +30,13 @@ namespace CRIMAS
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-            //initiate dividends cron-job
+            //initiate all cron jobs
             JobStorage.Current = new SqlServerStorage("DefaultConnection");
             _server = new BackgroundJobServer();
             _server.Start();
 
             new DenariCronJobs().initateDividends();
+            new DenariCronJobs().generateReconciliation();
         }
     }
 }

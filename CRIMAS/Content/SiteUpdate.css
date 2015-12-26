@@ -153,3 +153,11 @@ table td{
 	margin-left: -13px;
     color:white;
 }
+
+#table th{
+    font-weight:bold;
+}
+#table td{
+    font-size:9.5pt;
+}
+

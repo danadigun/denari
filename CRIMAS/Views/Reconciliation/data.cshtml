@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Bank Reconciliation Data";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+<link href="~/Content/material-responsive-table.css" rel="stylesheet" />
+<div id="demo">
+   @* <h1>Material Design Responsive Table</h1>*@
+    <h2>Bank Reconciliation Data as at @DateTime.Now.ToLongDateString()</h2>
+
+    <!-- Responsive table starts here -->
+    <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
+    <div class="table-responsive-vertical">
+        <!-- Table starts here -->
+        <table id="table" class="table table-hover table-mc-light-blue striped" >
+            <thead>
+                <tr style="font-size:9pt; ">
+                    <th>s/no</th>
+                    <th>Date</th>
+                    <th>Beneficiary</th>
+                    <th>Deposit(NGN)</th>
+                    <th>INT CAP (%)</th>
+                    <th>Recovery Loan(NGN)</th>
+                    <th>Loans(NGN)</th>
+                    <th>Transfer Fee(NGN)</th>
+                    <th>VAT(%)</th>
+                    <th>SMS Charges(NGN)</th>
+                    <th>Withholding Tax(%)</th>
+                    <th>Other Charges</th>
+                    <th>Per Capital Commission</th>
+                    <th>Credit</th>
+                    <th>Debits</th> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td data-title="s/no">1</td>
+                    <td data-title="Date">@DateTime.Now.ToShortDateString()</td>
+                    <td data-title="Beneficiary"> Daniel Adigun</td>
+                    <td data-title="Deposit(NGN)"> 25,000</td>
+                    <td data-title="INT CAP (%)">Completed</td>
+                    <td data-title="Recovery Loan(NGN)">5,600</td>
+                    <td data-title="Loans(NGN)">5,600</td>
+                    <td data-title="Transfer Fee(NGN)">5,600</td>
+                    <td data-title="VAT(%)">5.00</td>
+                    <td data-title="SMS Charges(NGN)">100.00</td>
+                    <td data-title="Withholding Tax(%)">5.00</td>
+                    <td data-title="Other Charges">50,000.00</td>
+                    <td data-title="Per Capital Commission">1,000.00</td>
+                    <td data-title="Credit(NGN)">1,000.00</td>
+                    <td data-title="Debits(NGN)">1,000.00</td>
+                </tr>
+            
+            </tbody>
+        </table>
+    </div>
+
+   
+</div>
+
+
+@*<div class="table-responsive-vertical shadow-z-1">
+    <h1>
+        Bank Reconciliation Data
+    </h1><hr>
+    <table class="table table-hover table-mc-light-blue" style="font-size:10pt;">
+        <tr>
+            <td>s/no</td>
+            <td>Date</td>
+            <td>Beneficiary</td>
+            <td>Deposit(NGN)</td>
+            <td>INT CAP (%)</td>
+            <td>Recovery Loan(NGN)</td>
+            <td>Loans(NGN)</td>
+            <td>Transfer Fee(NGN)</td>
+            <td>VAT(%)</td>
+            <td>SMS Charges(NGN)</td>
+            <td>Withholding Tax</td>
+            <td>Other Charges</td>
+            <td>Per Capital Commission</td>
+            <td>Credit</td> 
+            <td>Debits</td> 
+        </tr>
+    </table>
+</div>*@
+
+
