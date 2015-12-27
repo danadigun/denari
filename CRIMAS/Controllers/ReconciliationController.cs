@@ -21,6 +21,7 @@ namespace CRIMAS.Controllers
 
         public ActionResult Index()
         {
+           
             return View();
         }
 

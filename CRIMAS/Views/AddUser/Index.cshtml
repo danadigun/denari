@@ -89,10 +89,16 @@
                         }
                                 }
                             </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                            <td class="add-user-actions">
+                                <a title="Edit employee records" class="btn btn-floating" style="font-size:9pt;  margin-bottom:0.2em;" href="/AddUser/Edit/@item.UserId">
+                                    <img src="~/Images/User Edit-01-WF.png" />
+                                </a>
+                                @* <a class="btn btn-default" style="font-size:9pt;  margin-bottom:0.2em;" href="/AddUser/Details/@item.UserId">+</a>*@
+                                <a title="remove employee" class="btn btn-floating" style="font-size:9pt; background:#e53935;  margin-bottom:0.2em;" href="/AddUser/Delete/@item.UserId">
+                                    <img src="~/Images/User-Delete-WF.png" />
+                                </a>
+
+
                             </td>
                         </tr>
                     }

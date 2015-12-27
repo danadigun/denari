@@ -1462,6 +1462,7 @@
     <Content Include="Content\metroui\images\preloader-w8-line-black.gif" />
     <Content Include="Content\metroui\images\preloader-w8-line-white.gif" />
     <Content Include="Content\normalize.css" />
+    <Content Include="Content\SiteUpdate-responsive.css" />
     <Content Include="Content\SiteUpdate.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -1626,6 +1627,8 @@
     <Content Include="Images\Debit-black.png" />
     <Content Include="Images\DebitAccount.png" />
     <Content Include="Images\denari.jpg" />
+    <Content Include="Images\Denari.png" />
+    <Content Include="Images\Denari.wdp" />
     <Content Include="Images\Details View.png" />
     <Content Include="Images\Document-Check.png" />
     <Content Include="Images\downloading_updates-48.png" />
@@ -1645,6 +1648,8 @@
     <Content Include="Images\loan-agr.png" />
     <Content Include="Images\Loan.png" />
     <Content Include="Images\Lock.png" />
+    <Content Include="Images\logo 6.png" />
+    <Content Include="Images\logo 8.png" />
     <Content Include="Images\Menu-01-WF.png" />
     <Content Include="Images\Money Deposit.png" />
     <Content Include="Images\moneybox-48.png" />
@@ -1662,11 +1667,13 @@
     <Content Include="Images\Search_1-WF.png" />
     <Content Include="Images\shopping-basket-icon.png" />
     <Content Include="Images\Submit.png" />
+    <Content Include="Images\User Edit-01-WF.png" />
     <Content Include="Images\User Ok-01-WF.png" />
     <Content Include="Images\User Profile 1-WF%281%29.png" />
     <Content Include="Images\User Profile 1-WF.png" />
     <Content Include="Images\User Settings-02-WF.png" />
     <Content Include="Images\user-48.png" />
+    <Content Include="Images\User-Delete-WF.png" />
     <Content Include="Images\User-Files-icon.png" />
     <Content Include="Images\user-group-icon.png" />
     <Content Include="Content\metroui\fonts\iconFont.woff" />

@@ -43,24 +43,6 @@ main, footer {
 	background-color: lightgray;
 }
 
-@media (max-width:767px) {
-    main, footer {
-        padding-left: 40px;
-    }
-}
-
-@media (max-width:921px) {
-    main, footer {
-        padding-left: 40px;
-    }
-}
-
-@media (max-width:983px) {
-    main, footer {
-        padding-left: 40px;
-    }
-}
-
 select{
     display: inline;
   }

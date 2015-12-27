@@ -13,6 +13,7 @@
 
     <link href="~/Content/materialize-v0.97.1/css/materialize.min.css" rel="stylesheet" />
     <link href="~/Content/SiteUpdate.css" rel="stylesheet" />
+    <link href="~/Content/SiteUpdate-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
 
@@ -169,7 +170,8 @@
             
             <li class="logo">
                
-                <img src="~/Images/Crimas-header.png" />
+                <img src="~/Images/Crimas-header.png" style="width:200px; height:auto;"/>
+               @* <img src="~/Images/Denari.png" />*@
             </li>
             <li class="logo">
                 @*  <img src="~/Images/Crimas-header.png" />*@
@@ -264,7 +266,10 @@
     <footer style="margin-top:20em;">
         <div>
             <hr />
-            <p style="font-size: 9pt; text-align: center">&copy; Digital Forte Enterprise Systems Limited @DateTime.Now.Year.ToString().</p>
+            <p style="font-size: 9pt; text-align: center">
+                <img src="~/Images/logo 8.png" style="width:150px; height:auto;" /><br />
+                &copy;  Digital Forte Enterprise Systems Limited @DateTime.Now.Year.ToString().
+            </p>
         </div>
     </footer>
 

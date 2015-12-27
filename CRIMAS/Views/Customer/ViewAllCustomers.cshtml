@@ -13,11 +13,14 @@
 <div class="card" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
     <div class="card-content">
         <div class="card-title" style="color:black">
-            <span>Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
-            <a href="~/Customer/ExportData" class="btn  btn-primary" style="float:right; background:#217346" title="Export customer data to excel">
-                <img src="~/Images/Excel Online.png" />  </a>
-            <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
-        </div><hr />
+            <span class="view-cistomer-header">Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
+            <span class="view-customer-controls">
+                <a href="~/ExportData/ExportCustomerData" class="btn  btn-primary" style="float:right; background:#217346" title="Export customer data to excel">
+                    <img src="~/Images/Excel Online.png" />
+                </a>
+                <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
+            </span>
+        </div>
         @{
             <table class="table striped bordered">
                 <tr style="background:#4caf50; color:white; font-weight:bold">

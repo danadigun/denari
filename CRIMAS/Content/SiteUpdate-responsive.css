@@ -1,0 +1,329 @@
+﻿@media(max-width:449px) {
+    .card {
+        width: 110% !important;
+        margin-left: -2.5em !important;
+    }
+
+    .card-panel {
+        padding: 2em;
+        font-size: 9pt;
+    }
+
+    .customerMaster td {
+        font-size: 10pt !important;
+    }
+
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+    
+    
+}
+
+@media(max-width:471px) {
+    .card {
+        width: 110% !important;
+        margin-left: -2em !important;
+        margin-right: auto !important;
+    }
+
+    .collapsible .collapsible-header {
+        font-size: 9pt !important;
+        text-align: center;
+    }
+
+    .card-panel {
+        padding: 2em;
+        font-size: 9pt;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+   
+    
+}
+
+@media(max-width:477px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:494px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-left: 2em;
+    }
+
+    .view-cistomer-header {
+        padding-left: 3em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:551px) {
+    .card {
+        width: 110% !important;
+        margin-left: -2.5em !important;
+    }
+
+    .card-panel {
+        padding: 2em;
+        font-size: 9pt;
+    }
+
+    .customerMaster td {
+        font-size: 10pt !important;
+    }
+
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:564px) {
+    .card {
+        width: 110% !important;
+        margin-left: -2.5em !important;
+    }
+
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:590px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:614px) {
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+
+    .card {
+        width: 110% !important;
+        margin-left: -2.5em !important;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:680px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-left: 0.7em;
+    }
+
+    .view-cistomer-header {
+        padding-left: 0.7em;
+    }
+    .add-user-content{
+        overflow: scroll!important; 
+    }
+}
+
+@media(max-width:686px) {
+    .collapsible .collapsible-header {
+        font-size: 9.5pt !important;
+        text-align: center;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+}
+
+@media (max-width:767px) {
+    main, footer {
+        padding-left: 40px;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+}
+
+@media(max-width:770px) {
+    .view-customer-controls {
+        display: block;
+        float: right;
+        /*padding-left:0.7em;*/
+    }
+
+    .view-cistomer-header {
+        padding-left: 3em;
+    }
+}
+
+@media(max-width:775px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-left: 2em;
+    }
+
+    .view-cistomer-header {
+        padding-left: 3em;
+    }
+}
+
+@media(max-width:803px) {
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-left: 3em;
+    }
+
+    .view-cistomer-header {
+        padding-left: 3em;
+    }
+}
+
+@media(max-width:811px) {
+    .card {
+        width: 100% !important;
+        margin-left: -2em !important;
+        margin-right: auto !important;
+    }
+
+    .view-customer-controls {
+        display: block;
+        float: left;
+        padding-bottom: 1em;
+        padding-top: 1em;
+    }
+}
+
+@media (max-width:921px) {
+    main, footer {
+        padding-left: 40px;
+    }
+}
+
+@media (max-width:983px) {
+    main, footer {
+        padding-left: 40px;
+    }
+}
+
+@media(max-width:1094px) {
+    .card {
+        width: 98% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+}
+
+
+@media(max-width:1187px) {
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+}
+
+@media(max-width:1225px) {
+    .collapsible .collapsible-header {
+        font-size: 11pt !important;
+        text-align: center;
+    }
+}
+
+
+
+@media(max-width:1024px) {
+    .collapsible .collapsible-header {
+        font-size: 9pt !important;
+        text-align: center;
+    }
+}
+
+@media(max-width:1120px) {
+    .collapsible .collapsible-header {
+        font-size: 9pt !important;
+        text-align: center;
+    }
+}
+
+
+
+
