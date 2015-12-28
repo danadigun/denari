@@ -46,7 +46,7 @@ main, footer {
 select{
     display: inline;
   }
-.card input[type="text"], .card input[type=number], .card input[type=email], .card select{
+.card input[type="text"], .card input[type=number], .card input[type=email],.card input[type=password], .card select{
     border: 1px solid#90a4ae !important;
     padding:2px !important;
     padding-left:10px !important;

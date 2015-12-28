@@ -295,6 +295,7 @@
     <Content Include="App_Data\CRIMAS_Local_log.ldf">
       <DependentUpon>CRIMAS_Local.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-datepicker\css\datepicker.css" />
     <Content Include="Content\bootstrap-datepicker\js\bootstrap-datepicker.js" />
     <Content Include="Content\bootstrap-datepicker\js\locales\bootstrap-datepicker.bg.js" />
@@ -1634,6 +1635,7 @@
     <Content Include="Images\downloading_updates-48.png" />
     <Content Include="Images\edit-user-icon.png" />
     <Content Include="Images\Edit.png" />
+    <Content Include="Images\Elegant_Background-4.jpg" />
     <Content Include="Images\Excel Online.png" />
     <Content Include="Images\Garbage Empty.png" />
     <Content Include="Images\Gift-WF.png" />
