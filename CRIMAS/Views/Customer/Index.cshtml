@@ -1,41 +1,96 @@
-﻿@model IEnumerable<CRIMAS.Models.Customer>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<CRIMAS.Models.Customer>
 
-@{
-    ViewBag.Title = "Customer List";
-    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
-}
+    @{
+        ViewBag.Title = "Customer List";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
-<div class="subheading">
-    <span>
-        @*<img src="~/Images/Customer-small.png" style="padding-right: 20px;" />*@List of Customers Search results.</span>
-</div>
-<br />
-<div style="padding-left: 20px;">
-    <div>
-        
-        <p>Your search yielded @Model.Count() result(s)
-            <span style="float:right; margin-right:20px;"><a href="~/Home/Cashier" class="btn btn-info" style="padding:10px"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
-        </p>
-    </div>
+        var db = new CRIMAS.Models.CrimasDb();
+        var customers = Model.ToList();
 
-    @foreach (var item in Model)
-    {
-        <div>
-            <img src="~/Images/Customer-small.png" />
-        </div>
-        <div class="alert alert-info" style="margin-right: 20px; padding-top: 30px; line-height: 10pt">
-            @*  <img src="~/Images/Customer-small.png" />*@
-            <div style="border-bottom: solid; border-bottom-width: 1px; border-bottom-color: #CCCCCC; margin-bottom: 10px;">
-                <p style="font-size: 18pt; color: black">@Html.DisplayFor(modelItem => item.Name)</p>
-            </div>
-            <p style="font-style: italic; color: green">Account opening date: @item.DateCreated</p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Account number: <strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Next of kin: <strong>@Html.DisplayFor(modelItem => item.NextOfkin)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Office address: <strong>@Html.DisplayFor(modelItem => item.OfficeAddress)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Residential address: <strong>@Html.DisplayFor(modelItem => item.ResidentialAddress)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Village Clan: <strong>@Html.DisplayFor(modelItem => item.VillageClan)</strong></p>
-            <p style="padding-left: 20px; color: black">&nbsp;&nbsp;Local govt. Agrea: <strong>@Html.DisplayFor(modelItem => item.LocalGovtArea)</strong></p>
-        </div>
+        string search = Convert.ToString(ViewBag.Search);
+        string sortBy = Convert.ToString(ViewBag.Sortby);
+        string sortOrder = Convert.ToString(ViewBag.SortOrder);
+        string tempSort = !string.IsNullOrEmpty(sortOrder) && sortOrder == "desc" ? "asc" : "desc";
+        int curPage = Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber;
     }
 
-</div>
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
+        <div class="card-content">
+
+            <div class="card-title" style="color:black">
+                <span class="view-cistomer-header">Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
+                <span class="view-customer-controls">
+                    <a href="~/ExportData/ExportCustomerData" class="btn  btn-primary" style="float:right; background:#217346" title="Export customer data to excel">
+                        <img src="~/Images/Excel Online.png" />
+                    </a>
+                    <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
+                </span>
+            </div>
+
+            <table class="table striped bordered">
+                <tr style="background:#4caf50; color:white; font-weight:bold">
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, search, sortBy = "name", sortOrder = tempSort })">
+                            Customer
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, search, sortBy = "account", sortOrder = tempSort })">
+                            Account No.
+                        </a>
+                    </th>
+                    <th>Employer</th>
+                    <th>Balance</th>
+                    <th>&nbsp;</th>
+                </tr>
+
+                @foreach (var item in customers)
+                {
+                    var credit = 0m;
+                    var debit = 0m;
+                    if (db.CustomerSavings.Count() != 0)
+                    {
+                        var customer = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo);
+                        if (customer != null)
+                        {
+                            credit = customer.Select(x => x.Credit).DefaultIfEmpty().Sum();
+                            debit = customer.Select(x => x.Debit).DefaultIfEmpty().Sum();
+                        }
+                    }
+
+                    var balance = credit - debit;
+
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.AccountNo</td>
+                        <td>@item.OfficeAddress</td>
+                        <td style="color:orangered; font-weight:bold">
+                            N @balance [NGN]
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a title="remove this customer" href="~/Customer/Delete/@item.CustomerId" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#b71c1c ;  margin-right:10px; margin-top:2px; font-size:10pt;">
+                                    X
+                                </a>
+                            }
+                            <a title="view customer account details" href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">
+                                <img style="margin-top:2px;" src="~/Images/View Medium icons-WF.png" />
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </table>
+            <hr />
+            <div style="text-align:center;">
+                Page @curPage of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, search, sortBy, sortOrder }))
+            </div>
+        </div>
+    </div>
+    <style>
+        .table th a {
+            color:#fff;
+        }
+    </style>

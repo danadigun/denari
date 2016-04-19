@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
 using System.Collections;
+using PagedList;
 
 namespace CRIMAS.Controllers
 {
@@ -26,50 +27,58 @@ namespace CRIMAS.Controllers
         }
 
         //
-        // GET: /Customer/
-
-        public ActionResult Index(int?page, string sortOrder, string searchString)
+        // GET:/Customer/
+        public ActionResult Index(int? page, string search, string sortBy, string sortOrder)
         {
-            ViewBag.SearchString = searchString;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
-            ViewBag.DateSortParm = sortOrder == "Date" ? "Date desc" : "Date";
-
             var customer = from s in db.Customers select s;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(search))
             {
-                customer = customer.Where(s => s.Name.ToUpper().Contains(searchString.ToUpper())
-                                    || s.AccountNo.ToUpper().Contains(searchString.ToUpper()));
+                search = search.ToUpper();
+                customer = customer.Where(s =>
+                            s.Name.ToUpper().Contains(search) ||
+                            s.AccountNo.ToUpper().Contains(search));
             }
-            switch (sortOrder)
+
+            string sort = sortBy + '-' + sortOrder;
+            switch (sort)
             {
-                case "Name desc":
+                case "name-desc":
                     customer = customer.OrderByDescending(s => s.Name);
                     break;
-                case "Date":
+                case "date":
                     customer = customer.OrderBy(s => s.DateCreated);
                     break;
-                case "Date desc":
+                case "date-desc":
                     customer = customer.OrderByDescending(s => s.DateCreated);
+                    break;
+                case "account":
+                    customer = customer.OrderBy(s => s.AccountNo);
+                    break;
+                case "account-desc":
+                    customer = customer.OrderByDescending(s => s.AccountNo);
                     break;
                 default:
                     customer = customer.OrderBy(s => s.Name);
                     break;
             }
-            //const int pageSize = 10;
 
-            //var pagenatedcustomers = new PaginatedList<Customer>(customer, page ?? 0, pageSize);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
 
-            //return View(customer.ToList());
-            return RedirectToAction("ViewAllCustomers");
+            ViewBag.Search = search;
+            ViewBag.Sortby = sortBy;
+            ViewBag.SortOrder = sortOrder;
+
+            return View(customer.ToPagedList(pageNumber, pageSize));
         }
         //
-        //GET: /Customer/FindCustomer/?searchString=09876
-        public ActionResult FindCustomer(string searchString)
+        //GET: /Customer/FindCustomer/?search=09876
+        public ActionResult FindCustomer(string search)
         {
-            ViewBag.searchString = searchString;
+            ViewBag.search = search;
 
-            return View(db.Customers.Where(s => s.AccountNo == searchString||s.Name.Contains(searchString)).ToList());
+            return View(db.Customers.Where(s => s.AccountNo == search || s.Name.Contains(search)).ToList());
         }
 
         //GET: /Customer/ViewAllCustomers
@@ -110,7 +119,7 @@ namespace CRIMAS.Controllers
 
                 customer.AccountNo = CustomerAccountNo;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
-              
+
                 db.Customers.Add(customer);
 
                 //Credit the customer's account with seed money
@@ -118,11 +127,11 @@ namespace CRIMAS.Controllers
                 {
                     AccountNo = CustomerAccountNo,
                     Credit = 0,
-                    Debit=0,
+                    Debit = 0,
                     //DateCreated=DateTime.Now.ToShortDateString(),
                     DateCreated = DateTime.Now,
                     Name = customer.Name,
-                    Transactionby = User.Identity.Name                   
+                    Transactionby = User.Identity.Name
                 };
                 db.CustomerSavings.Add(credit);
                 db.SaveChanges();
@@ -130,7 +139,7 @@ namespace CRIMAS.Controllers
                 //Fire and forget cron-job for dividend generation for this customer
                 //new DenariCronJobs().initateDividends(CustomerAccountNo);
 
-                return Redirect("~/Customer/Details/"+customer.CustomerId);
+                return Redirect("~/Customer/Details/" + customer.CustomerId);
             }
 
             return View(customer);
@@ -163,7 +172,7 @@ namespace CRIMAS.Controllers
             }
             return View(customer);
         }
-        
+
         //
         // GET: /Customer/Delete/5
         [Authorize(Roles = "Admin")]
@@ -179,7 +188,7 @@ namespace CRIMAS.Controllers
 
         //
         // POST: /Customer/Delete/5
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -190,12 +199,12 @@ namespace CRIMAS.Controllers
             db.CustomerSavings.Remove(customerSavings);
 
             db.SaveChanges();
-            return RedirectToAction("ViewAllCustomers");
+            return RedirectToAction("Index");
         }
 
         public ActionResult ExportData()
         {
-           
+
             Export(_customerRepository.GetAll(), "customerData");
             return RedirectToAction("Index");
         }
@@ -215,7 +224,7 @@ namespace CRIMAS.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
-        }       
+        }
 
         protected override void Dispose(bool disposing)
         {
@@ -224,6 +233,6 @@ namespace CRIMAS.Controllers
         }
 
 
-        
+
     }
 }

@@ -30,7 +30,7 @@ namespace CRIMAS.Controllers
         public ActionResult ExportCustomerData()
         {
             Export(_customerRepository.GetAll(), "customerData_" + DateTime.Now);
-            return Redirect("~/Customer/ViewAllCustomers");
+            return Redirect("~/Customer/Index");
         }
         public ActionResult ExportReconciliationData()
         {
