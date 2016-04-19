@@ -4,32 +4,41 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-<div class="subheading">
-    <span>
-        <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Manage your account.</span>
+<div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+    <div class="card-content">
+        <div class="card-title" style="color:black">
+            <img src="~/Images/Lock.png" alt="" style="vertical-align: -14px;" />
+            @if (ViewBag.HasLocalPassword)
+            {
+                <span>
+                    Change Password
+                </span>
+            }
+            else
+            {
+                <span>
+                    Set Password Form
+                </span>
+            }
+            <hr />
+        </div>
+        <div>
+            <p class="message-success" style="color:green; font-weight:bold">@ViewBag.StatusMessage</p>
+            
+            @if (ViewBag.HasLocalPassword)
+            {
+                <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
+
+                @Html.Partial("_ChangePasswordPartial")
+            }
+            else
+            {
+                @Html.Partial("_SetPasswordPartial")
+            }
+        </div>
+    </div>
 </div>
-<br />
-<div style="padding-left: 20px;">
-    <p class="message-success" style="color:green; font-weight:bold">@ViewBag.StatusMessage</p>
 
-    <p>You're logged in as <strong>@User.Identity.Name</strong>.</p>
-
-    @if (ViewBag.HasLocalPassword)
-    {
-        @Html.Partial("_ChangePasswordPartial")
-    }
-    else
-    { 
-        @Html.Partial("_SetPasswordPartial")
-    }
-</div>
-@*<section id="externalLogins">
-    @Html.Action("RemoveExternalLogins")
-
-    <h3>Add an external login</h3>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>*@
-
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
