@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <TargetFrameworkProfile />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -292,10 +293,6 @@
     <Compile Include="SupportClasses\HtmlExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\CRIMAS_Local.mdf" />
-    <Content Include="App_Data\CRIMAS_Local_log.ldf">
-      <DependentUpon>CRIMAS_Local.mdf</DependentUpon>
-    </Content>
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-datepicker\css\datepicker.css" />
     <Content Include="Content\bootstrap-datepicker\js\bootstrap-datepicker.js" />
@@ -13607,6 +13604,9 @@
     <EmbeddedResource Include="Migrations\201512172242098_iniitlaanldasf.resx">
       <DependentUpon>201512172242098_iniitlaanldasf.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
