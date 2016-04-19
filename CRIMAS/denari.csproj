@@ -3429,13 +3429,6 @@
     <Content Include="windows8_icons\Data_Grid\View_Details\48.png" />
     <Content Include="windows8_icons\Data_Grid\View_Details\512.png" />
     <Content Include="windows8_icons\Data_Grid\View_Details\64.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-128.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-256.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-26.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-32.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-48.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-512.png" />
-    <Content Include="windows8_icons\Debug\bug\bug-64.png" />
     <Content Include="windows8_icons\Debug\console\console-128.png" />
     <Content Include="windows8_icons\Debug\console\console-256.png" />
     <Content Include="windows8_icons\Debug\console\console-26.png" />
@@ -9919,7 +9912,6 @@
     <Content Include="windows8_icons\__MACOSX\Data_Grid\View_Details\._48.png" />
     <Content Include="windows8_icons\__MACOSX\Data_Grid\View_Details\._512.png" />
     <Content Include="windows8_icons\__MACOSX\Data_Grid\View_Details\._64.png" />
-    <Content Include="windows8_icons\__MACOSX\Debug\bug\._bug-26.png" />
     <Content Include="windows8_icons\__MACOSX\Debug\console\._console-26.png" />
     <Content Include="windows8_icons\__MACOSX\Debug\copy_link\._copy_link-26.png" />
     <Content Include="windows8_icons\__MACOSX\Debug\external_link\._external_link-26.png" />
