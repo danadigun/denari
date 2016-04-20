@@ -1,103 +1,119 @@
-﻿@model IEnumerable<CRIMAS.Models.Loan>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<CRIMAS.Models.Loan>
 
-@{
-    ViewBag.Title = "Loan agreements";
-    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
-}
+    @{
+        ViewBag.Title = "Loan agreements";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
+        int totalLoan = Convert.ToInt32(ViewBag.TotalLoan);
+        string sortBy = Convert.ToString(ViewBag.Sortby);
+        string sortOrder = Convert.ToString(ViewBag.SortOrder);
+        string tempSort = !string.IsNullOrEmpty(sortOrder) && sortOrder == "desc" ? "asc" : "desc";
+        int curPage = Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber;
+    }
 
-<br />
+    <br />
+    @if (Model.Count() == 0)
+    {
+        <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
 
-@if (Model.Count() == 0)
-{
-    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
-       
-        <div class="card-content">
-            <div class="card-title" style="color:black">
-
-                <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
-                <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
-
-                <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+            <div class="card-content">
+                <div class="card-title" style="color:black">
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                </div>
+                <p>
+                    <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
+                </p>
             </div>
-            <p >
-                <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
-            </p>
-        </div>
-       
-        <p style="padding-left: 20px">
-           @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
-            <a href="~/Loan/EnterAccountNo" class="btn btn-inverse" style="background-color:#304ffe ">Check loan status</a>
-            <a href="~/" class="btn btn-info" >Take me home</a>
-        </p>
-        <br />
-      
-    </div>
-    
-}
-@if (Model.Count() >= 1)
-{
-    <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
 
-        <div class="card-content">
-            <div class="card-title" style="color:black">
-                <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
-                <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
-                <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#1b5e20" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
-
-                <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
-            </div>
-            <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
-                <img src="~/Images/Submit.png" />You have @Model.Count() active loan agreement(s).
+            <p style="padding-left: 20px">
+                @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
+                <a href="~/Loan/EnterAccountNo" class="btn btn-inverse" style="background-color:#304ffe ">Check loan status</a>
+                <a href="~/" class="btn btn-info">Take me home</a>
             </p>
+            <br />
+
         </div>
 
-       
-        <br />
-        <table class="table striped bordered " style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
-            <tr style="background:#673ab7; color:white;">
-                <td>Customer</td>
-              @*  <td>Account No.</td>*@
-                <td>Loan Amount</td>
-                <td>Interest</td>
-                <td>Duration<br />(month(s))</td>
-                <td>Start</td>
-                <td>End</td>
-                <td>&nbsp;</td>
-            </tr>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
-                    </td>
-                  @*  <td><strong>@Html.DisplayFor(modelItem => item.AccountNo)</strong></td>*@
-                    <td><strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong></td>
-                    <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
-                    <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
-                    <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
-                    <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
-                    <td>
-                        @{
-                            if (User.IsInRole("Admin"))
+    }
+    @if (Model.Count() >= 1)
+    {
+        <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+            <div class="card-content">
+                <div class="card-title" style="color:black">
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+                    <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#1b5e20" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
+                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                </div>
+                <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
+                    <img src="~/Images/Submit.png" />You have @totalLoan active loan agreement(s).
+                </p>
+            </div>
+
+            <br />
+            <table class="table striped bordered " style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
+                <tr style="background:#673ab7; color:white;">
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "name", sortOrder = tempSort })">
+                            Customer
+                        </a>
+                        /
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "account", sortOrder = tempSort })">
+                            Account No.
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "amount", sortOrder = tempSort })">
+                            Loan Amount
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "interest", sortOrder = tempSort })">
+                            Interest
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "duration", sortOrder = tempSort })">
+                            Duration<br />(month(s))
+                        </a>
+                    </th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>&nbsp;</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
+                        </td>
+                        <td><strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong></td>
+                        <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
+                        <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
                             {
                                 <a title="Terminate or remove loan" href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn btn-floating  waves-effect waves-light" style="background:#c62828">x</a>
-
                             }
-                        }
-                    </td>
-                </tr>
-   
-            }
+                        </td>
+                    </tr>
+                }
+            </table>
+            <hr />
+            <div style="text-align:center;">
+                Page @curPage of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortBy, sortOrder }))
+            </div>
+        </div>
+    }
 
-        </table>
-       
-
-    </div>
-   
-   
-}
-
-
-
-
+    <style>
+        .table th a {
+            color: #fff;
+        }
+    </style>

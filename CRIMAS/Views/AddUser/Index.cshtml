@@ -1,31 +1,20 @@
-﻿@model IEnumerable<CRIMAS.Models.UserProfile>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<CRIMAS.Models.UserProfile>
 
-@{
-    ViewBag.Title = "Employee list";
-    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+    @{
+        ViewBag.Title = "Employee list";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+        int curPage = Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber;
+    }
 
-    var db = new CRIMAS.Models.CrimasDb();
-    var membership = (SimpleMembershipProvider)Membership.Provider;
-
-
-
-
-}
-
-<div class="card" style="width:80%; margin-left:auto; margin-right:auto">
-    @*  <span style="color:red; text-align:center;">@Html.ValidationSummary()</span>*@
-    <div class="card-content">
-        <div class="card-title" style="color:black">
-            Employee list
-            <a href="~/AddUser/create" class="btn btn-primary" style="font-size:10pt; background:green; float:right;">+ add new user</a>
-            <hr />
-        </div>
-
-        <div class="add-user-content">
-            @using (var dataConnection = WebMatrix.Data.Database.Open("DefaultConnection"))
-            {
-                var Users = dataConnection.Query("Select * FROM webpages_UsersInRoles");
-                int i = 0;
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto">
+        <div class="card-content">
+            <div class="card-title" style="color:black">
+                Employee list
+                <a href="~/AddUser/create" class="btn btn-primary" style="font-size:10pt; background:green; float:right;">+ add new user</a>
+                <hr />
+            </div>
+            <div class="add-user-content">
                 <table class="striped" style="font-size:10pt;">
                     <tr style="background:green; color:white; font-size:10pt;">
                         <td>&nbsp;</td>
@@ -41,72 +30,52 @@
                         </td>
                         <td></td>
                     </tr>
-
-                    @foreach (var item in Users)
+                    @if (Model != null)
                     {
-
-                        int userId = @item.UserId;
-                        i = i + 1;
-                        var count = i;
-                        string firstname = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.FirstName).FirstOrDefault();
-                        string lastname = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.LastName).FirstOrDefault();
-
-                        string email = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.UserName).FirstOrDefault();
-                        string phone = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.phone).FirstOrDefault();
-                        string role = db.UserProfiles.Where(x => x.UserId == userId).Select(x => x.role).FirstOrDefault();
-
-                        <tr>
-                            <td>
-                                @count.
-                            </td>
-                            <td>
-                                @{
-                                    @firstname <span>&nbsp;</span> @lastname
-                                }
-                            </td>
-
-                            <td>
-                                @email
-                            </td>
-                            <td>
-                                @phone
-                            </td>
-                            <td style="text-align:center;">
-                                @{
-                        if (role == "Cashier")
+                        int index = 0;
+                        foreach (var item in Model)
                         {
-
-                            <img src="~/Images/cashier.png" />
-                                    <b style="color:green"> @role</b>
-
+                            index = index + 1;
+                            <tr>
+                                <td>
+                                    @index.
+                                </td>
+                                <td>
+                                    @item.FirstName <span>&nbsp;</span> @item.LastName
+                                </td>
+                                <td>
+                                    @item.UserName
+                                </td>
+                                <td>
+                                    @item.phone
+                                </td>
+                                <td style="text-align:center;">
+                                    @if (item.role == "Cashier")
+                                    {
+                                        <img src="~/Images/cashier.png" /> <b style="color:green"> @item.role</b>
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/admin.png" /> <b style="color:red">@item.role</b>
+                                    }
+                                </td>
+                                <td class="add-user-actions">
+                                    <a title="Edit employee records" class="btn btn-floating" style="font-size:9pt;  margin-bottom:0.2em;" href="/AddUser/Edit/@item.UserId">
+                                        <img src="~/Images/User Edit-01-WF.png" />
+                                    </a>
+                                    <a title="remove employee" class="btn btn-floating" style="font-size:9pt; background:#e53935;  margin-bottom:0.2em;" href="/AddUser/Delete/@item.UserId">
+                                        <img src="~/Images/User-Delete-WF.png" />
+                                    </a>
+                                </td>
+                            </tr>
                         }
-                        else
-                        {
-
-                            <img src="~/Images/admin.png" />
-                                    <b style="color:red">@role</b>
-
-                        }
-                                }
-                            </td>
-                            <td class="add-user-actions">
-                                <a title="Edit employee records" class="btn btn-floating" style="font-size:9pt;  margin-bottom:0.2em;" href="/AddUser/Edit/@item.UserId">
-                                    <img src="~/Images/User Edit-01-WF.png" />
-                                </a>
-                                @* <a class="btn btn-default" style="font-size:9pt;  margin-bottom:0.2em;" href="/AddUser/Details/@item.UserId">+</a>*@
-                                <a title="remove employee" class="btn btn-floating" style="font-size:9pt; background:#e53935;  margin-bottom:0.2em;" href="/AddUser/Delete/@item.UserId">
-                                    <img src="~/Images/User-Delete-WF.png" />
-                                </a>
-
-
-                            </td>
-                        </tr>
                     }
-
                 </table>
-            }
-
+                <hr />
+                <div style="text-align:center;">
+                    Page @curPage of @Model.PageCount
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                </div>
+            </div>
         </div>
-
     </div>
-</div>

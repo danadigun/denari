@@ -9,6 +9,7 @@ using CRIMAS.Models;
 using System.Globalization;
 using System.Threading;
 using CRIMAS.Services;
+using PagedList;
 
 namespace CRIMAS.Controllers
 {
@@ -25,18 +26,47 @@ namespace CRIMAS.Controllers
         }
         //
         // GET: /Loan/
-        public ActionResult Index()
+        public ActionResult Index(int? page, string sortBy, string sortOrder)
         {
             //NOTE: Loan status can either be "active" or "completed"
 
-            string cashier = User.Identity.Name.ToString();
+            var userLoan = from s in _context.Loans
+                           where s.LoanStatus == "active"
+                           select s;
 
-            var UserLoanAgreements = from s in _context.Loans
-                                     where s.LoanStatus == "active"
-                                     select s;
+            string sort = sortBy + '-' + sortOrder;
+            switch (sort.ToLower())
+            {
+                case "name-asc": userLoan = userLoan.OrderByDescending(s => s.Customername); break;
 
-            return View(UserLoanAgreements.ToList());
-            //return View(db.Loans.ToList());
+                case "account-asc": userLoan = userLoan.OrderBy(s => s.AccountNo); break;
+                case "account-desc": userLoan = userLoan.OrderByDescending(s => s.AccountNo); break;
+
+                case "amount-asc": userLoan = userLoan.OrderBy(s => s.amount); break;
+                case "amount-desc": userLoan = userLoan.OrderByDescending(s => s.amount); break;
+
+                case "interest-asc": userLoan = userLoan.OrderBy(s => s.InterestRate); break;
+                case "interest-desc": userLoan = userLoan.OrderByDescending(s => s.InterestRate); break;
+
+                case "duration-asc": userLoan = userLoan.OrderBy(s => s.InterestRate); break;
+                case "duration-desc": userLoan = userLoan.OrderByDescending(s => s.InterestRate); break;
+
+                //case "commencement-asc": userLoan = userLoan.OrderBy(s => s.DateOfCommencement); break;
+                //case "commencement-desc": userLoan = userLoan.OrderByDescending(s => s.DateOfCommencement); break;
+
+                //case "termination-asc": userLoan = userLoan.OrderBy(s => s.DateOfTermination); break;
+                //case "termination-desc": userLoan = userLoan.OrderByDescending(s => s.DateOfTermination); break;
+
+                default: userLoan = userLoan.OrderBy(s => s.Customername); break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            ViewBag.Sortby = sortBy;
+            ViewBag.SortOrder = sortOrder;
+            ViewBag.TotalLoan = userLoan.Count();
+
+            return View(userLoan.ToPagedList(pageNumber, pageSize));
         }
         //
         // GET: /Loan/Details/5
@@ -69,7 +99,7 @@ namespace CRIMAS.Controllers
                     (from s in _context.Customers
                      where s.AccountNo == loan.AccountNo
                      select s.Name).FirstOrDefault();
-                if (loan.Customername == null || loan.Customername == "") 
+                if (loan.Customername == null || loan.Customername == "")
                 {
                     //return customer not registered errorr:09256A 
                     return Redirect("~/Error/ErrorCode?ErrorCode=09256A");
@@ -185,7 +215,7 @@ namespace CRIMAS.Controllers
             ViewBag.totalCredits = totalCredits.Sum();
             ViewBag.totalDebits = totalDebits.Sum();
 
-            
+
             //var LoanStatus = from s in db.Loans
             //                 join n in db.Borrows on s.Id equals n.id
             //                 select new
@@ -230,7 +260,7 @@ namespace CRIMAS.Controllers
             return View(_context.LoanTransactions.Where(s => s.AccountNo == accountNo).ToList());
         }
 
-       
+
         //
         // GET: /Loan/Edit/5
         public ActionResult Edit(int id = 0)

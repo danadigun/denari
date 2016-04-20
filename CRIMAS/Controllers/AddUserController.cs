@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using CRIMAS.Models;
 using System.Web.Security;
 using WebMatrix.WebData;
+using System.Collections.Generic;
+using PagedList;
 
 namespace CRIMAS.Controllers
 {
@@ -13,10 +15,19 @@ namespace CRIMAS.Controllers
         //
         // GET: /AddUser/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
+            //var dataConnection = WebMatrix.Data.Database.Open("DefaultConnection");
+            //string query = "Select UP.* FROM UserProfile UP INNER JOIN webpages_UsersInRoles UR ON UR.UserId = UP.UserId";
+            //string query = "Select UserId From webpages_UsersInRoles";
+            //var userInRoles = dataConnection.Query(query).ToArray();
 
-            return View();
+            var userProfile = db.UserProfiles.ToList();
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            return View(userProfile.ToPagedList(pageNumber, pageSize));
         }
 
         //
@@ -48,10 +59,10 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 try
                 {
-                    
+
                     WebSecurity.CreateUserAndAccount(userprofile.UserName, userprofile.Password, new { userprofile.FirstName, userprofile.LastName, userprofile.Address, userprofile.phone, userprofile.email, userprofile.ConfirmPassword, userprofile.role });
                     db.SaveChanges();
 
@@ -76,14 +87,14 @@ namespace CRIMAS.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", "Error Message: "+e.Message);
+                    ModelState.AddModelError("", "Error Message: " + e.Message);
                 }
             }
 
             return View(userprofile);
         }
 
-       
+
         public ActionResult ManageRoles()
         {
             return View();
@@ -115,7 +126,7 @@ namespace CRIMAS.Controllers
                 //User.UserName = userprofile.UserName;
                 User.phone = userprofile.phone;
                 User.FirstName = userprofile.FirstName;
-                User.LastName = userprofile.LastName;                
+                User.LastName = userprofile.LastName;
                 User.Address = userprofile.Address;
                 User.role = userprofile.role;
                 //User.Password = userprofile.Password;
@@ -124,7 +135,7 @@ namespace CRIMAS.Controllers
                 return RedirectToAction("Index");
             }
 
-           
+
             return View(userprofile);
         }
 
