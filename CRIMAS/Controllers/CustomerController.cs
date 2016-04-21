@@ -12,6 +12,8 @@ using System.IO;
 using System.Web.UI;
 using System.Collections;
 using PagedList;
+using CRIMAS.SupportClasses;
+using System.Configuration;
 
 namespace CRIMAS.Controllers
 {
@@ -111,15 +113,29 @@ namespace CRIMAS.Controllers
         // POST: /Customer/Create
 
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Create(Customer customer, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                string imageName = string.Empty;
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(customer);
+                    }
+
+                    imageName = Guid.NewGuid() + extension;
+                    customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
+                }
+
                 string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
 
                 customer.AccountNo = CustomerAccountNo;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
-
+                
                 db.Customers.Add(customer);
 
                 //Credit the customer's account with seed money
@@ -131,13 +147,19 @@ namespace CRIMAS.Controllers
                     //DateCreated=DateTime.Now.ToShortDateString(),
                     DateCreated = DateTime.Now,
                     Name = customer.Name,
-                    Transactionby = User.Identity.Name
+                    Transactionby = User.Identity.Name,
                 };
+
                 db.CustomerSavings.Add(credit);
                 db.SaveChanges();
 
                 //Fire and forget cron-job for dividend generation for this customer
                 //new DenariCronJobs().initateDividends(CustomerAccountNo);
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
+                }
 
                 return Redirect("~/Customer/Details/" + customer.CustomerId);
             }
@@ -194,6 +216,8 @@ namespace CRIMAS.Controllers
         {
             Customer customer = db.Customers.Find(id);
             CustomerSavings customerSavings = db.CustomerSavings.Find(db.CustomerSavings.Where(x => x.AccountNo == customer.AccountNo).Select(x => x.Id).FirstOrDefault());
+
+            FileHelper.DeleteBlob(BlobContainer.customer, customer.ImageUrl);
 
             db.Customers.Remove(customer);
             db.CustomerSavings.Remove(customerSavings);

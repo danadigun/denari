@@ -34,5 +34,6 @@ namespace CRIMAS.Models
         public string StateOfOrigin { get; set; }
         public string DateCreated { get; set; }//auto-generated
 
+        public string ImageUrl { get; set; }
     }
 }
