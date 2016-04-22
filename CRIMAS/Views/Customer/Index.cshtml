@@ -64,7 +64,7 @@
 
                     var balance = credit - debit;
 
-                    var imageUrl = string.IsNullOrEmpty(item.ImageUrl) ? "/images/no-image.jpg" : item.ImageUrl;
+                    var imageUrl = string.IsNullOrEmpty(item.ImageUrl) ? "/images/user-48.png" : item.ImageUrl;
 
                     <tr>
                         <td class="td-image">
@@ -113,3 +113,13 @@
                 width: 50px;
             }
     </style>
+
+<script>
+    $(document).ready(function () {
+        $(".td-image img").each(function () {
+            $(this).error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        })
+    });
+</script> 

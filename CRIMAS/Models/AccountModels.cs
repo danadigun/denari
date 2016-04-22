@@ -73,6 +73,14 @@ namespace CRIMAS.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ForgotPasswordModel
+    {
+        [Display(Name = "Email address")]
+        [Required(ErrorMessage ="Please enter email address")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Please enter a valid email address")]
+        public string Email { get; set; }
+    }
+
     public class ExternalLogin
     {
         public string Provider { get; set; }

@@ -21,13 +21,16 @@ namespace CRIMAS.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
+
             ViewBag.ReturnUrl = returnUrl;
             //return View();
             if (User.IsInRole("Admin"))
             {
                 return Redirect("~/Home/Admin");
             }
-            if (User.IsInRole("Cashier")||User.IsInRole("Manager"))
+            if (User.IsInRole("Cashier") || User.IsInRole("Manager"))
             {
                 return Redirect("~/Home/Cashier");
             }
@@ -57,6 +60,43 @@ namespace CRIMAS.Controllers
         }
 
         //
+        // GET: /Account/ForgotPassword
+
+        [AllowAnonymous]
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(ForgotPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                CrimasDb db = new CrimasDb();
+                UserProfile userprofile = db.UserProfiles.FirstOrDefault(x => x.UserName == model.Email);
+                if (userprofile != null)
+                {
+
+
+
+                    TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
+                    TempData["MessageType"] = "Success";
+                    return RedirectToAction("Login", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "There is no user exists with this email. Please enter correct email.");
+                }
+            }
+            return View(model);
+        }
+
+        //
         // POST: /Account/LogOff
 
         [HttpPost]
@@ -71,7 +111,7 @@ namespace CRIMAS.Controllers
         //
         // GET: /Account/Register
 
-        [Authorize(Roles="Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Register()
         {
             return View();

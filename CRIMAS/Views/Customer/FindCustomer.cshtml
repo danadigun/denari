@@ -1,144 +1,193 @@
 ﻿@model IEnumerable<CRIMAS.Models.Customer>
+    @{
+        ViewBag.Title = "Customer List";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
-@{
-    ViewBag.Title = "Customer List";
-    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+        var db = new CRIMAS.Models.CrimasDb();
+        var searchString = ViewBag.searchString;
 
-    var db = new CRIMAS.Models.CrimasDb();
-    var searchString = ViewBag.searchString;
+        var message = Convert.ToString(ViewBag.Message);
+        var messageType = Convert.ToString(ViewBag.MessageType);
+        var msgColor = messageType == "Success" ? "green" : "red";
 
-    ////search account balance
-    //var savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Credit).Sum();
-    //var savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Debit).Sum();
-    //var savingsBalance = savingsCredit - savingsDebit;
+        ////search account balance
+        //var savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Credit).Sum();
+        //var savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Debit).Sum();
+        //var savingsBalance = savingsCredit - savingsDebit;
 
-}
-
-@*<div class="container">
-        <h5>
-            Customer(s) Search results.
-        </h5><hr />
-    </div>
-    <br />*@
-<div style="padding-top:4em;">
-    @if (Model.Count() == 0)
-    {
-        <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
-            <p style="padding-bottom:30px;">
-                <b>Your search yielded @Model.Count() result(s)</b>
-                <span style="float:right; margin-right:20px;"><a href="~/Home/Cashier" class="btn btn-info"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
-            </p>
-        </div>
     }
-    @if (Model.Count() > 1)
-    {
-        <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
-            <p style="padding-bottom:30px;">
-                <b>Your search yielded @Model.Count() result(s). Please Enter a specific customer account number</b><br />
-                <br /><span style="float:right; "><a href="~/Home/Cashier" class="btn btn-info"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
-            </p>
+    @*<div class="container">
+            <h5>
+                Customer(s) Search results.
+            </h5><hr />
         </div>
-    }
-    else
-    {
-        foreach (var item in Model)
+        <br />*@
+    <div style="padding-top:4em;">
+        @if (Model.Count() == 0)
         {
-            <div style="width:70%;  border-radius:0;  margin-left:auto; margin-right:auto; height:250px; ">
+            <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
+                <p style="padding-bottom:30px;">
+                    <b>Your search yielded @Model.Count() result(s)</b>
+                    <span style="float:right; margin-right:20px;"><a href="~/Home/Cashier" class="btn btn-info"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
+                </p>
+            </div>
+        }
+        @if (Model.Count() > 1)
+        {
+            <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
+                <p style="padding-bottom:30px;">
+                    <b>Your search yielded @Model.Count() result(s). Please Enter a specific customer account number</b><br />
+                    <br /><span style="float:right; "><a href="~/Home/Cashier" class="btn btn-info"><img src="~/Images/Home.png" />&nbsp;&nbsp;Take me home</a></span>
+                </p>
+            </div>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                var customerLoan = db.Loans.Where(x => x.AccountNo == item.AccountNo || x.Customername.Contains(item.Name)).Where(x => x.LoanStatus == "active").ToList();
 
-                <div class="card-content">
-                    <span style="font-size:16pt;">
-                        <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
-                        <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll </a>
-                        <img class="circle responsive-img valign" src="~/Images/User Profile 1-WF.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                var savingsCredit = 0m;
+                var savingsDebit = 0m;
+                if (db.CustomerSavings.Count() != 0)
+                {
+                    savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Credit).DefaultIfEmpty().Sum();
+                    savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Debit).DefaultIfEmpty().Sum();
+                }
+                var savingsBalance = savingsCredit - savingsDebit;
+                var imageUrl = string.IsNullOrEmpty(item.ImageUrl) ? "/images/user-48.png" : item.ImageUrl;
+
+                if (!string.IsNullOrEmpty(message))
+                {
+                    <span style="color:@msgColor; text-align:center;display: block;">
+                        @Html.Raw(message)
                     </span>
+                }
 
-                    <p>
-                        <span style="font-size:15pt; ">
-                            <strong>
-                                Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
-                            </strong>
+                <div style="width:70%;  border-radius:0;  margin-left:auto; margin-right:auto; height:250px; ">
+                    <div class="card-content">
+                        <span style="font-size:16pt;">
+                            <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
+                            <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll </a>
+                            <img id="ProfileImage" class="circle responsive-img valign" src="@imageUrl" /> @Html.DisplayFor(modelItem => item.Name)<hr />
                         </span>
-                        <span style="float:right">
-                            Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
-
-                        </span>
-                        @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
-                    </p>
-                    <div style="padding-bottom:30px;">
-                        <table class="table striped" style="font-size:10pt;">
-
-                            <tr style="font-size:9pt; background-color: green; color:white;">
-                                <td>Employer</td>
-                                <td>office address</td>
-                                <td>Residence</td>
-                                <td>Next of kin</td>
-                                <td>State of origin</td>
-                            </tr>
-                            <tr style="background:gainsboro; padding-bottom:2em;">
-                                <td>@Html.DisplayFor(modelItem => item.employer)</td>
-                                <td>@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
-                                <td>@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
-                                <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
-                                <td>@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
-                            </tr>
-                        </table>
-
+                        <p>
+                            <span style="font-size:15pt; ">
+                                <strong>
+                                    Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
+                                </strong>
+                            </span>
+                            <span style="float:right">
+                                Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
+                            </span>
+                            @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
+                        </p>
+                        <div style="padding-bottom:30px;">
+                            <table class="table striped" style="font-size:10pt;">
+                                <tr style="font-size:9pt; background-color: green; color:white;">
+                                    <td>Employer</td>
+                                    <td>office address</td>
+                                    <td>Residence</td>
+                                    <td>Next of kin</td>
+                                    <td>State of origin</td>
+                                </tr>
+                                <tr style="background:gainsboro; padding-bottom:2em;">
+                                    <td>@Html.DisplayFor(modelItem => item.employer)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-
                 </div>
 
-            </div>
+                //Loans
+                <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                    <div class="card-content">
+                        @if (customerLoan.Count == 0)
+                        {
+                            <span>
+                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:green"> N 0.00 [NGN]</b>
+                            </span>
+                        }
 
-            //Loans
-            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
-                <div class="card-content">
-                    @{
-            var customerLoan = db.Loans.Where(x => x.AccountNo == @item.AccountNo || x.Customername.Contains(@item.Name)).Where(x => x.LoanStatus == "active").ToList();
-
-            if (customerLoan.Count == 0)
-            {
-                <span>
-                    <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:green"> N 0.00 [NGN]</b>
-                </span>
-            }
-
-            foreach (var record in customerLoan)
-            {
-                <span>
-                    <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:#c62828"> N @record.amount [NGN]</b>
-                    <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">loan status</a>
-                    <br /><br />
-                </span>
-            }
-                    }
-
+                        @foreach (var record in customerLoan)
+                        {
+                            <span>
+                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:#c62828"> N @record.amount [NGN]</b>
+                                <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">loan status</a>
+                                <br /><br />
+                            </span>
+                        }
+                    </div>
                 </div>
-            </div>
 
-            //account balance
-            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
-                <div class="card-content">
-                    @{
-            var savingsCredit = 0m;
-            var savingsDebit = 0m;
-            if (db.CustomerSavings.Count() != 0)
-            {
-                savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Credit).DefaultIfEmpty().Sum();
-                savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == @item.AccountNo || x.Name.Contains(@item.Name)).Select(x => x.Debit).DefaultIfEmpty().Sum();
-            }
-            var savingsBalance = savingsCredit - savingsDebit;
-
-            <span>
-                <img src="~/Images/Coin-01-WF.png" /><b>Savings balance:</b> <b style="color:blue">N @savingsBalance [NGN]</b>
-                <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">account status</a>
-                <br /><br />
-            </span>
-                    }
+                //account balance
+                <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                    <div class="card-content">
+                        <span>
+                            <img src="~/Images/Coin-01-WF.png" /><b>Savings balance:</b> <b style="color:blue">N @savingsBalance [NGN]</b>
+                            <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">account status</a>
+                            <br /><br />
+                        </span>
+                    </div>
                 </div>
-            </div>
 
+                //Image Upload
+                <div class="card" style="width:70%; margin-left:auto; margin-right:auto;padding: 0 15px;">
+                    <div class="row">
+                        @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            <div class="input-field col s6">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Select Image</span>
+                                        <input type="file" name="file" id="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-field col s3">
+                                <div class="file-field input-field">
+                                    <input type="submit" class="btn btn-primary" value="Update Image" />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+
+    <style>
+        .file-path-wrapper .file-path {
+            box-sizing: border-box;
         }
 
-    }
+        .file-field .btn, .file-field .btn-large {
+            margin-top: 5px;
+        }
 
-</div>
+        .card input[type="text"], .card input[type="number"], .card input[type="email"], .card input[type="password"], .card select {
+            box-sizing: border-box;
+        }
+
+        #ProfileImage {
+            height: 48px;
+            vertical-align: -12px;
+            width: 48px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $('#ProfileImage').error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        });
+    </script>

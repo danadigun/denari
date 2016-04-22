@@ -76,11 +76,13 @@ namespace CRIMAS.Controllers
         }
         //
         //GET: /Customer/FindCustomer/?search=09876
-        public ActionResult FindCustomer(string search)
+        public ActionResult FindCustomer(string searchString)
         {
-            ViewBag.search = search;
+            ViewBag.Message = TempData["Message"];
+            ViewBag.MessageType = TempData["MessageType"];
 
-            return View(db.Customers.Where(s => s.AccountNo == search || s.Name.Contains(search)).ToList());
+            ViewBag.search = searchString;
+            return View(db.Customers.Where(s => s.AccountNo == searchString || s.Name.Contains(searchString)).ToList());
         }
 
         //GET: /Customer/ViewAllCustomers
@@ -135,7 +137,7 @@ namespace CRIMAS.Controllers
 
                 customer.AccountNo = CustomerAccountNo;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
-                
+
                 db.Customers.Add(customer);
 
                 //Credit the customer's account with seed money
@@ -165,6 +167,45 @@ namespace CRIMAS.Controllers
             }
 
             return View(customer);
+        }
+
+        [HttpPost]
+        public ActionResult UploadImage(HttpPostedFileBase file, int customerId)
+        {
+            var customer = db.Customers.FirstOrDefault(x => x.CustomerId == customerId);
+            if (customer != null)
+            {
+                string imageName = string.Empty;
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        TempData["Message"] = "Please upload .jpg or .png image.";
+                        TempData["MessageType"] = "Error";
+                    }
+                    else
+                    {
+                        imageName = Guid.NewGuid() + extension;
+                        customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
+
+                        db.Entry(customer).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
+
+                        TempData["Message"] = "Please upload .jpg or .png image.";
+                        TempData["MessageType"] = "Success";
+                    }
+                }
+                else
+                {
+                    TempData["Message"] = "Please select .jpg or .png image.";
+                    TempData["MessageType"] = "Error";
+                }
+            }
+
+            return RedirectToAction("FindCustomer", "Customer", new { searchString = customer.AccountNo });
         }
 
         //

@@ -1698,7 +1698,6 @@
     <Content Include="Images\Money Deposit.png" />
     <Content Include="Images\moneybox-48.png" />
     <Content Include="Images\Nigerian Naira.png" />
-    <Content Include="Images\no-image.jpg" />
     <Content Include="Images\Payments.png" />
     <Content Include="Images\piggy.jpg" />
     <Content Include="Images\Power Off-01-WF.png" />
@@ -13559,6 +13558,7 @@
     <Content Include="Views\Reconciliation\Index.cshtml" />
     <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
     <Content Include="Views\Reconciliation\data.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
