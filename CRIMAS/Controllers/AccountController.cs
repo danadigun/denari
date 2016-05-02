@@ -9,6 +9,8 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using CRIMAS.Models;
+using CRIMAS.SupportClasses;
+using System.Configuration;
 
 namespace CRIMAS.Controllers
 {
@@ -81,12 +83,28 @@ namespace CRIMAS.Controllers
                 UserProfile userprofile = db.UserProfiles.FirstOrDefault(x => x.UserName == model.Email);
                 if (userprofile != null)
                 {
+                    string reseturl = Request.Url.Authority.ToString() + "/Account/ResetPassword?q=" + HttpUtility.UrlEncode(WebSecurity.GeneratePasswordResetToken(userprofile.UserName));
 
+                    string emailBody = "Hello " + userprofile.FirstName + "<br><br>";
+                    emailBody += "We are received request for reset password from crmpcs.com.<br><br>";
+                    emailBody += "Please click on below link and reset your password.<br><br>";
+                    emailBody += "<a href='" + reseturl + "' target='_blank'>" + reseturl + "<a/><br><br>";
+                    emailBody += "Thanks,<br><br> Team at crmpcs.com";
 
-
-                    TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
-                    TempData["MessageType"] = "Success";
-                    return RedirectToAction("Login", "Account");
+                    if (EmailHelper.SendMail(
+                            userprofile.UserName,
+                            ConfigurationManager.AppSettings["FromEmailForPasswordReset"],
+                            "Password reset",
+                            emailBody))
+                    {
+                        TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
+                        TempData["MessageType"] = "Success";
+                        return RedirectToAction("Login", "Account");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Oops, we are unable to send email. Please try again latter.");
+                    }
                 }
                 else
                 {
@@ -250,6 +268,43 @@ namespace CRIMAS.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ResetPassword(string q)
+        {
+            if (!string.IsNullOrEmpty(q))
+            {
+                ResetPasswordModel model = new ResetPasswordModel { Token = q };
+                return View(model);
+            }
+
+            TempData["Message"] = "The password reset link has been expired.";
+            TempData["MessageType"] = "Error";
+
+            return RedirectToAction("Login");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetPassword(ResetPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (WebSecurity.ResetPassword(model.Token, model.NewPassword))
+                {
+                    TempData["Message"] = "Your password has been reset successfully.";
+                    TempData["MessageType"] = "Success";
+                }
+                else
+                {
+                    TempData["Message"] = "The password reset link has been expired.";
+                    TempData["MessageType"] = "Error";
+                }
+            }
+
+            return RedirectToAction("Login");
         }
 
         //

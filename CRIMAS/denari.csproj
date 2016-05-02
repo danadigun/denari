@@ -331,6 +331,7 @@
     <Compile Include="Services\Currency.cs" />
     <Compile Include="Services\ICurrency.cs" />
     <Compile Include="SupportClasses\Currency.cs" />
+    <Compile Include="SupportClasses\EmailHelper.cs" />
     <Compile Include="SupportClasses\ExtendedSimpleMembershipProvider.cs" />
     <Compile Include="SupportClasses\FileHelper.cs" />
     <Compile Include="SupportClasses\HtmlExtensions.cs" />
@@ -13559,6 +13560,7 @@
     <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
     <Content Include="Views\Reconciliation\data.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -194,7 +194,7 @@ namespace CRIMAS.Controllers
 
                         FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
 
-                        TempData["Message"] = "Please upload .jpg or .png image.";
+                        TempData["Message"] = "Image has been uploaded successfully.";
                         TempData["MessageType"] = "Success";
                     }
                 }
