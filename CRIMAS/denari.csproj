@@ -2020,6 +2020,7 @@
     <Content Include="Scripts\metroui\tile-drag.js" />
     <Content Include="Scripts\metroui\tile-slider.js" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Home\SendEmail.cshtml" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-128.png" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-256.png" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-26.png" />

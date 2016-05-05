@@ -89,5 +89,11 @@ namespace CRIMAS.Controllers
             return View();
         }
 
+        public ActionResult SendEmail(string email)
+        {
+            ViewBag.IsMailSent = EmailHelper.SendMail(email, "Email Subject", "EmailBody");
+            return View();
+        }
+
     }
 }

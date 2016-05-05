@@ -175,6 +175,7 @@ namespace CRIMAS.Controllers
             var customer = db.Customers.FirstOrDefault(x => x.CustomerId == customerId);
             if (customer != null)
             {
+                string oldFileName = customer.ImageUrl;
                 string imageName = string.Empty;
                 if (file != null && file.ContentLength > 0)
                 {
@@ -193,6 +194,7 @@ namespace CRIMAS.Controllers
                         db.SaveChanges();
 
                         FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
+                        FileHelper.DeleteBlob(BlobContainer.customer, oldFileName);
 
                         TempData["Message"] = "Image has been uploaded successfully.";
                         TempData["MessageType"] = "Success";

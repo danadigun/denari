@@ -1,8 +1,6 @@
 ﻿@*this layout is for cashier users only*@
 @using CRIMAS.Models;
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8" />
@@ -10,14 +8,26 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
     <link href="~/Content/materialize-v0.97.1/css/materialize.min.css" rel="stylesheet" />
     <link href="~/Content/SiteUpdate.css" rel="stylesheet" />
     <link href="~/Content/SiteUpdate-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
-
     <link href="~/Content/validetta-v1.0.1-dist/validetta.min.css" rel="stylesheet" />
+    <style>
+        #searchString {
+            background: #fff !important;
+            margin: 0 !important;
+            color: gray;
+            width: 400px;
+            height: 64px;
+        }
+
+        nav .input-field label {
+            top: 10px !important;
+            left: 10px !important;
+        }
+    </style>
 </head>
 <body style="font-family:'Segoe UI'">
     @{
@@ -35,7 +45,6 @@
                 <div class="nav-wrapper" style="padding-left:10px; padding-right:20px; background-color:#01579b">
                     <a href="~/" class="brand-logo">Crimas MPCS-MS</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><img src="~/Images/Menu-01-WF.png" /> </a>
-
                     <ul class="right hide-on-med-and-down">
                         <li>
                             <form method="get" action="~/Customer/FindCustomer">
@@ -48,7 +57,6 @@
                                 </div>
                             </form>
                         </li>
-
                         <li>
                             <a class="task-collapse" data-activates="task-listings" href="collapsible.html">
                                 @*  <i class="small material-icons">perm_identity</i>*@
@@ -62,7 +70,6 @@
                         </li>
                         <li><a class="" href="~/Account/Manage">Change password</a></li>
                         <li>@Html.Partial("_LoginPartial")</li>
-
                     </ul>
                     <ul class="side-nav" id="mobile-demo" style="padding-top:3em; background:whitesmoke; padding-bottom:15em;">
                         <li>
@@ -82,7 +89,6 @@
                                 @Html.Partial("_LoginPartial")
                                 <hr />
                             </div>
-
                         </li>
                         <li>
                             <form method="get" action="~/Customer/FindCustomer">
@@ -126,7 +132,6 @@
                                 </li>
                             }
                         }
-
                         <li class="bold">
                             <a class="waves-effect waves-teal" href="~/Customer/Index">
                                 <img src="~/Images/User Profile 1-WF.png" />Customers
@@ -137,7 +142,6 @@
                                 <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                             </a>
                         </li>
-
                         @{
                             if (User.IsInRole("Admin"))
                             {
@@ -160,18 +164,16 @@
                         </li>
                     </ul>
 
-
                 </div>
             </nav>
         </div>
-
         @*Displays on Desktop*@
         <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
-            
+
             <li class="logo">
-               
-                <img src="~/Images/Crimas-header.png" style="width:200px; height:auto;"/>
-               @* <img src="~/Images/Denari.png" />*@
+
+                <img src="~/Images/Crimas-header.png" style="width:200px; height:auto;" />
+                @* <img src="~/Images/Denari.png" />*@
             </li>
             <li class="logo">
                 @*  <img src="~/Images/Crimas-header.png" />*@
@@ -188,11 +190,9 @@
 
                         }
                     }
-
                     <hr />
                 </div>
             </li>
-
             <li class="bold">
                 @{
                     if (User.IsInRole("Admin"))
@@ -208,7 +208,6 @@
                         </a>
                     }
                 }
-
             </li>
             <li class="bold">
                 <a href="~/Loan/">
@@ -235,7 +234,6 @@
                     <img src="~/Images/User Ok-01-WF.png" />Customer Savings
                 </a>
             </li>
-
             @{
                 if (User.IsInRole("Admin"))
                 {
@@ -272,7 +270,6 @@
             </p>
         </div>
     </footer>
-
     <script>
         $(".button-collapse").sideNav({
             menuWidth: 500,
@@ -288,14 +285,12 @@
             accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
         });
 
-      
+
     </script>
     <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/material-design-table.js"></script>
 
-
     <script src="~/Scripts/AjaxScripts/BankReconciliation.js"></script>
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

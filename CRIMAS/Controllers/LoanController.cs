@@ -90,9 +90,17 @@ namespace CRIMAS.Controllers
         [HttpPost]
         public ActionResult Create(Loan loan)
         {
-
             if (ModelState.IsValid)
             {
+                var deposit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Sum(x => x.Credit - x.Debit);
+                var percent = loan.amount * Convert.ToDecimal(0.10);
+
+                if (deposit <= percent)
+                {
+                    ModelState.AddModelError("No 10% Deposit", "This customer has no 10% deposit in his/her account.");
+                    return View(loan);
+                }
+
                 loan.LoanStatus = "active"; //set loan status to active
 
                 loan.Customername =

@@ -93,7 +93,6 @@ namespace CRIMAS.Controllers
 
                     if (EmailHelper.SendMail(
                             userprofile.UserName,
-                            ConfigurationManager.AppSettings["FromEmailForPasswordReset"],
                             "Password reset",
                             emailBody))
                     {
