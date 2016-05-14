@@ -5,63 +5,98 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-
 @using (Html.BeginForm("create", "Loan", FormMethod.Post,
-    new { @onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')" }))
+                            new { enctype = "multipart/form-data", @onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')" }))
 {
     <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
         <div class="card-content">
             <span style="color:red">@Html.ValidationSummary()</span>
-
             <div class="card-title" style="color:black">
                 <a href="~/Home/cashier" style="float:right;margin-right:25px; background:#6a1b9a" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
-
                 <span> <img src="~/Images/loan-agr.png" /> Create a new Loan agreement</span><hr />
             </div>
             <div class="card-panel" style="background:#6a1b9a ; color:white">
                 Enter details below to set up a loan for a customer.
             </div>
-
             <div class="row">
                 <div class="col s6">
                     <label for="accountNo" style="font-weight:bold">Account no.</label>
                     <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
-                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required="required" })
+                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required = "required" })
                     @*@Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })*@
                 </div>
                 <div class="col s6">
                     <label style="font-weight:bold">Amount</label>
                     <span class="add-on"><b>₦</b></span>
-                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new {  @placeholder = "specify amount" })
+                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @placeholder = "specify amount" })
                 </div>
                 <div class="col s6">
-                        <label style="font-weight:bold">Duration [month(s)]</label>
-                      
-                            <input type="number" placeholder="specify loan duration in months" name="Duration" id="Duration" min="1"  />
+                    <label style="font-weight:bold">Duration [month(s)]</label>
+                    @Html.TextBoxFor(model => model.Duration, new { @placeholder = "Specify loan duration in months.", type = "number", min = "1", required = "required" })
+                    @*<input type="number" placeholder="specify loan duration in months" name="Duration" id="Duration" min="1" value="@Model.Duration" />*@
                 </div>
                 <div class="col s6">
-                        <label style="font-weight:bold">Date of commencement</label>
-                      
-                        <input  id="dateOfCommencement" placeholder="Enter date of commencement of facility" type="date" name="DateOfCommencement" />
-                        <script>
-                            $('#dateOfCommencement').pickadate({
-                                selectMonths: true, // Creates a dropdown to control month
-                                //selectYears: 100, // Creates a dropdown of 15 years to control year
-                            });
+                    <label style="font-weight:bold">Date of commencement</label>
+                    @Html.TextBoxFor(model => model.DateOfCommencement, new { @placeholder = "Enter date of commencement of facility.", type = "date", required = "required" })
+                    @*<input id="dateOfCommencement" placeholder="Enter date of commencement of facility" type="date" name="DateOfCommencement" value="@Model.DateOfCommencement" />*@
+                    <script>
+                        $('#DateOfCommencement').pickadate({
+                            selectMonths: true, // Creates a dropdown to control month
+                            //selectYears: 100, // Creates a dropdown of 15 years to control year
+                        });
 
-                        </script>
+                    </script>
                 </div>
                 <div class="col s6">
-                        <label style="font-weight:bold">Approved interest rate %</label>
-                        <input type="number" id="InterestRate" name="InterestRate" min="1"  />                    
+                    <label style="font-weight:bold">Approved interest rate %</label>
+                    @Html.TextBoxFor(model => model.InterestRate, new { @placeholder = "Specify interest rate.", type = "number", min = "1", required = "required" })
+                    @*<input type="number" id="InterestRate" name="InterestRate" min="1" />*@
                 </div>
+
+                <div class="col s12">
+                    <label style="font-weight:bold">Upload Signed Agreement Form</label>
+                    <div class="file-field">
+                        <div class="btn">
+                            <span>Image</span>
+                            <input type="file" name="fileAgreement" id="fileAgreement">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input id="ImgAgreementUrl" name="ImgAgreementUrl" class="file-path validate" type="text" placeholder="Upload Signed Agreement Form">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12">
+                    <label style="font-weight:bold">Upload Signed Irrevocable Authority Form</label>
+                    <div class="file-field">
+                        <div class="btn">
+                            <span>Image</span>
+                            <input type="file" name="fileIrrevocable" id="fileIrrevocable">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input id="ImgIrrevocableUrl" name="ImgIrrevocableUrl" class="file-path validate" type="text" placeholder="Upload Signed Irrevocable Authority Form">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12">
+                    <label style="font-weight:bold">Upload Duly Signed Guarantors Forms</label>
+                    <div class="file-field">
+                        <div class="btn">
+                            <span>Image</span>
+                            <input type="file" name="fileGuarantors" id="fileGuarantors">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input id="ImgGuarantorsUrl" name="ImgGuarantorsUrl" class="file-path validate" type="text" placeholder="Duly Signed Guarantors Forms">
+                        </div>
+                    </div>
+                </div>
+
             </div>
-           
             <div class="card-action">
-                <button style="float:right; background:#8e24aa" type="submit" class="waves-effect waves-light btn" >Create loan agreement</button>
+                <button style="float:right; background:#8e24aa" type="submit" class="waves-effect waves-light btn">Create loan agreement</button>
                 <br />
             </div>
-
         </div>
     </div>
 }
@@ -69,18 +104,26 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/bundles/jqueryui")
-    <script src="~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 
+    <script src="~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript">
         $('.datepicker').datepicker({
             format: 'dd/mm/yyyy'
         }); //Initialise any date pickers
     </script>
     @*<script>
-               $(function () {
-                   $("#DateOfCommencement").datepicker();
-               });
-        </script>*@
-
+            $(function () {
+                $("#DateOfCommencement").datepicker();
+            });
+    </script>*@
 }
 
+<style>
+    .file-path-wrapper .file-path {
+        box-sizing: border-box;
+    }
+
+    .file-field .btn, .file-field .btn-large {
+        margin-top: 5px;
+    }
+</style>

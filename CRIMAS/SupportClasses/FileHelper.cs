@@ -764,5 +764,6 @@ namespace CRIMAS.SupportClasses
 
 public enum BlobContainer
 {
-    customer
+    customer,
+    loan
 }

@@ -31,6 +31,19 @@ namespace CRIMAS.Models
         public string createdby { get; set; }
 
         public string LoanStatus { get; set; }//active or in-active
+
+        [StringLength(200)]
+        [Required(ErrorMessage = "Please upload image for signed agreement form.")]
+        public string ImgAgreementUrl { get; set; }
+
+        [StringLength(200)]
+        [Required(ErrorMessage = "Please upload image for signed irrevocable authority form.")]
+        public string ImgIrrevocableUrl { get; set; }
+
+        [StringLength(200)]
+        [Required(ErrorMessage = "Please upload image for duly signed guarantors forms.")]
+        public string ImgGuarantorsUrl { get; set; }
+
     }
     public class LoanTransaction
     {

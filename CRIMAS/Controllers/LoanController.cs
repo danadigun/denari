@@ -10,6 +10,9 @@ using System.Globalization;
 using System.Threading;
 using CRIMAS.Services;
 using PagedList;
+using System.IO;
+using System.Configuration;
+using CRIMAS.SupportClasses;
 
 namespace CRIMAS.Controllers
 {
@@ -88,10 +91,68 @@ namespace CRIMAS.Controllers
         //
         // POST: /Loan/Create
         [HttpPost]
-        public ActionResult Create(Loan loan)
+        public ActionResult Create(Loan loan, HttpPostedFileBase fileAgreement, HttpPostedFileBase fileIrrevocable, HttpPostedFileBase fileGuarantors)
         {
             if (ModelState.IsValid)
             {
+                #region  Validate File Type
+
+                string fileAgreementName, fileIrrevocableName, fileGuarantorsName, extension;
+                if (fileAgreement != null && fileAgreement.ContentLength > 0)
+                {
+                    extension = Path.GetExtension(fileAgreement.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(loan);
+                    }
+                    fileAgreementName = Guid.NewGuid() + extension;
+                    loan.ImgAgreementUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileAgreementName;
+                }
+                else
+                {
+                    ModelState.AddModelError("Invalid Image", "Please upload image for signed agreement form.");
+                    return View(loan);
+                }
+
+                if (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
+                {
+                    extension = Path.GetExtension(fileIrrevocable.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(loan);
+                    }
+
+                    fileIrrevocableName = Guid.NewGuid() + extension;
+                    loan.ImgIrrevocableUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileIrrevocableName;
+                }
+                else
+                {
+                    ModelState.AddModelError("Invalid Image", "Please upload image for signed irrevocable authority form.");
+                    return View(loan);
+                }
+
+                if (fileGuarantors != null && fileGuarantors.ContentLength > 0)
+                {
+                    extension = Path.GetExtension(fileGuarantors.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(loan);
+                    }
+
+                    fileGuarantorsName = Guid.NewGuid() + extension;
+                    loan.ImgGuarantorsUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileGuarantorsName;
+                }
+                else
+                {
+                    ModelState.AddModelError("Invalid Image", "Please upload image for signed irrevocable authority form.");
+                    return View(loan);
+                }
+
+                #endregion
+
                 var deposit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Sum(x => x.Credit - x.Debit);
                 var percent = loan.amount * Convert.ToDecimal(0.10);
 
@@ -152,6 +213,26 @@ namespace CRIMAS.Controllers
                 _context.Loans.Add(loan);
                 _context.LoanTransactions.Add(loanTransaction);
                 _context.SaveChanges();
+
+                #region Save Images
+
+                if (fileAgreement != null && fileAgreement.ContentLength > 0)
+                {
+                    FileHelper.UploadImage(fileAgreement.InputStream, fileAgreementName, BlobContainer.loan);
+                }
+
+                if (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
+                {
+                    FileHelper.UploadImage(fileIrrevocable.InputStream, fileIrrevocableName, BlobContainer.loan);
+                }
+
+                if (fileGuarantors != null && fileGuarantors.ContentLength > 0)
+                {
+                    FileHelper.UploadImage(fileGuarantors.InputStream, fileGuarantorsName, BlobContainer.loan);
+                }
+
+                #endregion
+
                 return RedirectToAction("Index");
             }
 

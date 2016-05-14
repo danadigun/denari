@@ -63,7 +63,10 @@
                                                           amount = s.amount,
                                                           DateCreated = s.DateOfCommencement,
                                                           completionDate = s.DateOfTermination,
-                                                          status = s.LoanStatus
+                                                          status = s.LoanStatus,
+                                                          ImgAgreementUrl = s.ImgAgreementUrl,
+                                                          ImgIrrevocableUrl = s.ImgIrrevocableUrl,
+                                                          ImgGuarantorsUrl = s.ImgGuarantorsUrl
                                                       }).Where(x => x.status == "active");
 
                                                     <br />
@@ -74,6 +77,9 @@
                                                                 <td>Date Issued</td>
                                                                 <td>Amount</td>
                                                                 <td>Completion Date</td>
+                                                                    <td>
+                                                                        Forms
+                                                                    </td>
                                                                 <td>&nbsp;</td>
                                                             </tr>
                                                             @foreach (var item in @LoanAgreements)
@@ -82,15 +88,32 @@
                                                                     <td>@item.DateCreated.ToLongDateString()</td>
                                                                     <td style="color:red; font-size:14pt;">₦@item.amount (NGN)</td>
                                                                     <td>@item.completionDate.ToLongDateString()</td>
+                                                                        <td>
+                                                                            @if (!string.IsNullOrEmpty(item.ImgAgreementUrl))
+                                                                            {
+                                                                                <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form" 
+                                                                                     src="@item.ImgAgreementUrl" height="30" width="30" />
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(item.ImgIrrevocableUrl))
+                                                                            {
+                                                                                <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form" 
+                                                                                     src="@item.ImgIrrevocableUrl" height="30" width="30" />
+                                                                            }
+                                                                            @if (!string.IsNullOrEmpty(item.ImgGuarantorsUrl))
+                                                                            {
+                                                                                <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms" 
+                                                                                     src="@item.ImgGuarantorsUrl" height="30" width="30" />
+                                                                            }
+                                                                        </td>
                                                                     <td>
                                                                         @{
                                                                             if (User.IsInRole("Admin"))
                                                                             {
                                                                                 <a href="@Url.Action("Delete", "Loan", new { id =  item.Id})" class="waves-effect waves-light btn" style="background:#c62828; font-size:8pt;">Terminate</a>
-
                                                                             }
                                                                         }
                                                                     </td>
+                                                                    
                                                                 </tr>
                                                             }
 
@@ -127,7 +150,6 @@
                         <div style="float: left; font-size:12pt;">
                             <label style="color: red">Loan Balance: <b>-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
                         </div>
-
                     }
                 }
 
@@ -163,8 +185,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.refund)
                         </td>
-
-
                     </tr>
                 }
 
@@ -173,3 +193,23 @@
 
     </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.materialboxed').materialbox();
+        });
+
+    </script>
+}
+<style>
+    .material-placeholder{
+        float:left;
+        margin:0 2px;
+    }
+    .card
+    {
+        overflow: inherit !important;
+    }
+</style>
