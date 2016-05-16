@@ -13,6 +13,9 @@ using PagedList;
 using System.IO;
 using System.Configuration;
 using CRIMAS.SupportClasses;
+using System.Threading.Tasks;
+using System.Net.Http;
+using System.Net;
 
 namespace CRIMAS.Controllers
 {
@@ -152,6 +155,12 @@ namespace CRIMAS.Controllers
                 }
 
                 #endregion
+
+                if(!_context.Customers.Any(x=>x.AccountNo == loan.AccountNo))
+                {
+                    ModelState.AddModelError("Account Not Exists", "Account does not exists.");
+                    return View(loan);
+                }
 
                 var deposit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Sum(x => x.Credit - x.Debit);
                 var percent = loan.amount * Convert.ToDecimal(0.10);
@@ -399,6 +408,23 @@ namespace CRIMAS.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public virtual ActionResult Download(string imageUrl)
+        {
+            var spreadSheetStream = new MemoryStream(new WebClient().DownloadData(imageUrl));
+
+            string contentType = "";
+            switch (Path.GetExtension(imageUrl))
+            {
+                case ".jpeg": contentType = "image/jpeg"; break;
+                case ".jpg": contentType = "image/jpeg"; break;
+                case ".png": contentType = "image/png"; break;
+                default: contentType = "image/png"; break;
+            }
+
+            return File(spreadSheetStream.ToArray(), contentType, Path.GetFileName(imageUrl));
+        }
+        
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();

@@ -5,52 +5,62 @@
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 }
 
-@using (Html.BeginForm("create", "Loan", FormMethod.Post,
-                            new { enctype = "multipart/form-data", @onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')" }))
+@*@onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')"*@
+
+@using (Html.BeginForm("create", "Loan", FormMethod.Post, new { id = "formCreateLoan", enctype = "multipart/form-data" }))
 {
     <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
         <div class="card-content">
-            <span style="color:red">@Html.ValidationSummary()</span>
+
             <div class="card-title" style="color:black">
                 <a href="~/Home/cashier" style="float:right;margin-right:25px; background:#6a1b9a" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
                 <span> <img src="~/Images/loan-agr.png" /> Create a new Loan agreement</span><hr />
             </div>
+
             <div class="card-panel" style="background:#6a1b9a ; color:white">
                 Enter details below to set up a loan for a customer.
             </div>
+
+            <span style="color:red">@Html.ValidationSummary()</span>
+
             <div class="row">
+
                 <div class="col s6">
                     <label for="accountNo" style="font-weight:bold">Account no.</label>
                     <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
                     @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required = "required" })
-                    @*@Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new {@class="ValidationMessage" })*@
+                    @*@Html.ValidationMessageFor(m => m.AccountNo, String.Empty, new { @class = "ValidationMessage" })*@
                 </div>
+
                 <div class="col s6">
                     <label style="font-weight:bold">Amount</label>
                     <span class="add-on"><b>₦</b></span>
-                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @placeholder = "specify amount" })
+                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @placeholder = "specify amount", required = "required" })
+                    @*@Html.ValidationMessageFor(m => m.amount, String.Empty, new { @class = "ValidationMessage" })*@
                 </div>
+
                 <div class="col s6">
                     <label style="font-weight:bold">Duration [month(s)]</label>
                     @Html.TextBoxFor(model => model.Duration, new { @placeholder = "Specify loan duration in months.", type = "number", min = "1", required = "required" })
-                    @*<input type="number" placeholder="specify loan duration in months" name="Duration" id="Duration" min="1" value="@Model.Duration" />*@
+                    @*@Html.ValidationMessageFor(m => m.Duration, String.Empty, new { @class = "ValidationMessage" })*@
                 </div>
+
                 <div class="col s6">
                     <label style="font-weight:bold">Date of commencement</label>
                     @Html.TextBoxFor(model => model.DateOfCommencement, new { @placeholder = "Enter date of commencement of facility.", type = "date", required = "required" })
-                    @*<input id="dateOfCommencement" placeholder="Enter date of commencement of facility" type="date" name="DateOfCommencement" value="@Model.DateOfCommencement" />*@
-                    <script>
-                        $('#DateOfCommencement').pickadate({
-                            selectMonths: true, // Creates a dropdown to control month
-                            //selectYears: 100, // Creates a dropdown of 15 years to control year
-                        });
-
-                    </script>
+                    @*@Html.ValidationMessageFor(m => m.DateOfCommencement, String.Empty, new { @class = "ValidationMessage" })*@
                 </div>
+                <script>
+                    $('#DateOfCommencement').pickadate({
+                        selectMonths: true, // Creates a dropdown to control month
+                        //selectYears: 100, // Creates a dropdown of 15 years to control year
+                    });
+                </script>
+
                 <div class="col s6">
                     <label style="font-weight:bold">Approved interest rate %</label>
                     @Html.TextBoxFor(model => model.InterestRate, new { @placeholder = "Specify interest rate.", type = "number", min = "1", required = "required" })
-                    @*<input type="number" id="InterestRate" name="InterestRate" min="1" />*@
+                    @*@Html.ValidationMessageFor(m => m.InterestRate, String.Empty, new { @class = "ValidationMessage" })*@
                 </div>
 
                 <div class="col s12">
@@ -61,8 +71,10 @@
                             <input type="file" name="fileAgreement" id="fileAgreement">
                         </div>
                         <div class="file-path-wrapper">
-                            <input id="ImgAgreementUrl" name="ImgAgreementUrl" class="file-path validate" type="text" placeholder="Upload Signed Agreement Form">
+                            <input id="ImgAgreementUrl" name="ImgAgreementUrl" class="file-path validate" type="text" placeholder="Upload Signed Agreement Form" required="required">
+                            @*@Html.TextBoxFor(model => model.ImgAgreementUrl, new { @class = "file-path validate", @placeholder = "Upload Signed Agreement Form", required = "required" })*@
                         </div>
+                        @*@Html.ValidationMessageFor(m => m.ImgAgreementUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
@@ -74,8 +86,10 @@
                             <input type="file" name="fileIrrevocable" id="fileIrrevocable">
                         </div>
                         <div class="file-path-wrapper">
-                            <input id="ImgIrrevocableUrl" name="ImgIrrevocableUrl" class="file-path validate" type="text" placeholder="Upload Signed Irrevocable Authority Form">
+                            <input id="ImgIrrevocableUrl" name="ImgIrrevocableUrl" class="file-path validate" type="text" placeholder="Upload Signed Irrevocable Authority Form" required="required">
+                            @*@Html.TextBoxFor(model => model.ImgIrrevocableUrl, new { @class = "file-path validate", @placeholder = "Upload Signed Irrevocable Authority Form", required = "required" })*@
                         </div>
+                        @*@Html.ValidationMessageFor(m => m.ImgIrrevocableUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
@@ -87,8 +101,10 @@
                             <input type="file" name="fileGuarantors" id="fileGuarantors">
                         </div>
                         <div class="file-path-wrapper">
-                            <input id="ImgGuarantorsUrl" name="ImgGuarantorsUrl" class="file-path validate" type="text" placeholder="Duly Signed Guarantors Forms">
+                            <input id="ImgGuarantorsUrl" name="ImgGuarantorsUrl" class="file-path validate" type="text" placeholder="Duly Signed Guarantors Forms" required="required">
+                            @*@Html.TextBoxFor(model => model.ImgGuarantorsUrl, new { @class = "file-path validate", @placeholder = "Duly Signed Guarantors Forms", required = "required" })*@
                         </div>
+                        @*@Html.ValidationMessageFor(m => m.ImgGuarantorsUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
@@ -101,21 +117,24 @@
     </div>
 }
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/bundles/jqueryui")
 
-    <script src="~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript">
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy'
-        }); //Initialise any date pickers
-    </script>
-    @*<script>
-            $(function () {
-                $("#DateOfCommencement").datepicker();
+    <script>
+        $(document).ready(function () {
+            $('#formCreateLoan').submit(function () {
+                if ($('#DateOfCommencement').val() != "") {
+                    return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront');
+                }
+                else {
+                    alert("Please select the date loan deduction commences. ");
+                    return false;
+                }
             });
-    </script>*@
+        })
+    </script>
 }
 
 <style>

@@ -144,3 +144,9 @@ table td{
     font-size:9.5pt;
 }
 
+.ValidationMessage {
+    color: red;
+    font-size: 10pt;
+    font-weight: lighter;
+    font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
