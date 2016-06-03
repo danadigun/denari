@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿@model IEnumerable<CRIMAS.Models.LoanTransaction>
 @using CRIMAS.Models;
 @using System.Globalization;
@@ -174,6 +175,280 @@
 
     </div>
 </div>
+=======
+﻿@model IEnumerable<CRIMAS.Models.LoanTransaction>
+    @using CRIMAS.Models;
+    @using System.Globalization;
+    @using System.Threading;
+    @{
+        ViewBag.Title = "CheckLoanStatus";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+        var customerLoanTransactions = Model.OrderByDescending(x => x.id);
+    }
+    <div style="width:80%; margin-left:auto; margin-right:auto;">
+        <h5>
+            <img src="~/Images/loan-agr.png" style="padding-right: 10px;" />Customer loan status
+        </h5>
+    </div>
+    <br />
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
+            <div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+                <div>
+                    @{
+                        var db = new CrimasDb();
+
+                        var loans = from s in db.Loans select s;
+                        var accountno = from s in Model select s.AccountNo;
+
+                        var dateCreated = from s in Model select s.DateCreated;
+
+                        string acc = ViewBag.AccountNo;
+
+                        var name = from s in db.Customers where s.AccountNo == acc select s.Name;
+                        var imageUrl = db.Customers.Where(x => x.AccountNo == acc).Select(x => x.ImageUrl).FirstOrDefault();
+                        var CustomerImageUrl = string.IsNullOrEmpty(imageUrl) ? "/images/user-48.png" : imageUrl;
+
+
+                        var balance = (ViewBag.totalCredits - ViewBag.totalDebits);
+                        
+                        //Monthly Installment
+                        var customerLoan = db.Loans.Where(x => x.AccountNo == acc).Select(x => x).Where(x => x.LoanStatus == "active").FirstOrDefault();
+                        var installment = (Convert.ToDecimal(customerLoan.amount) / Convert.ToDecimal(customerLoan.Duration)) + (customerLoan.InterestRate * 0.01m * customerLoan.amount);
+                        
+                        //Total Loan amont due:
+                        var amountDue = Convert.ToDecimal(installment * Convert.ToDecimal(customerLoan.Duration));
+                        
+                        //Total interest Due: 
+                        var interestDue = Convert.ToDecimal(amountDue - Convert.ToDecimal(customerLoan.amount));
+                            
+                        //Set Culture info for currency
+                        CultureInfo cultureInfo = new CultureInfo("en-US");
+                        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+                        Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+                        <div style="font-size: 16pt; text-align: left;">
+                            <span class="card-title" style="color:#4a148c">
+                               <span class="td-image"><img src="@imageUrl" alt="No Image" /></span>  @name.FirstOrDefault()  
+                            </span>
+                            @{
+                                if (balance > 0)
+                                {
+                                    <a href="~/Home/cashier" style="float:right;margin-right:25px;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
+                                    <a href="~/LoanTransaction/Create/?accountNO=@ViewBag.AccountNo" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px;">Make payment </a>
+                                    <br />
+                                    <hr />
+                                    <b>Account No.: @ViewBag.AccountNo</b>
+                                    <span style="float:right; text-align:right">
+                                        <span style="font-size:12pt;">Interest Due:  &nbsp;<b style="color:blue">₦@interestDue.ToString("#,##0.00")</b></span><br />
+                                        <span style="font-size:12pt;" >Monthly Installments:  &nbsp;<b style="color:blue" >₦@installment.ToString("#,##0.00")</b></span><br />
+                                        <span style="font-size:12pt;">Duration:  &nbsp;<b style="color:blue">@customerLoan.Duration months</b></span><br />
+                                        <span style="padding: 5px; background-color: #b2dfdb; font-size: 12pt;">Total Repayment: &nbsp;<b style="color: #004d40;">₦@amountDue.ToString("#,##0.00")</b></span><br /><br />
+                                    </span>
+                                    <br />
+                                    <label class="alert-small alert-danger" style="text-align: center">
+                                        <strong>Heads Up!</strong>
+                                        @name.FirstOrDefault()  has accessed <strong>@ViewBag.NoOfLoanAgreements</strong> loan agreement(s).
+                                    </label>
+                                    var LoanAgreements = (from s in db.Loans
+                                                          where s.AccountNo == acc
+                                                          select new
+                                                          {
+                                                              Id = s.Id,
+                                                              amount = s.amount,
+                                                              DateCreated = s.DateOfCommencement,
+                                                              completionDate = s.DateOfTermination,
+                                                              status = s.LoanStatus,
+                                                              ImgAgreementUrl = s.ImgAgreementUrl,
+                                                              ImgIrrevocableUrl = s.ImgIrrevocableUrl,
+                                                              ImgGuarantorsUrl = s.ImgGuarantorsUrl
+                                                          }).Where(x => x.status == "active");
+
+                                    <br />
+                                    <div style="font-size:12pt;">
+                                        <strong>Current Loan agreement details:</strong><br /><br />
+                                        <table class="table striped " style="font-size:10pt;">
+                                            <tr style="background-color:#2d742d; color: whitesmoke">
+                                                <td>Date Issued</td>
+                                                <td>Amount</td>
+                                                <td>Completion Date</td>
+                                                <td>
+                                                    Forms
+                                                </td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            @foreach (var item in @LoanAgreements)
+                                            {
+                                                <tr style="font-weight:bold; color:chocolate">
+                                                    <td>@item.DateCreated.ToLongDateString()</td>
+                                                    <td style="color:red; font-size:14pt;">₦@item.amount.ToString("#,##0.00") (NGN)</td>
+                                                    <td>@item.completionDate.ToLongDateString()</td>
+                                                    <td>
+                                                        @if (!string.IsNullOrEmpty(item.ImgAgreementUrl))
+                                                        {
+                                                            <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
+                                                                 src="@item.ImgAgreementUrl" height="30" width="30" />
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(item.ImgIrrevocableUrl))
+                                                        {
+                                                            <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
+                                                                 src="@item.ImgIrrevocableUrl" height="30" width="30" />
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(item.ImgGuarantorsUrl))
+                                                        {
+                                                            <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
+                                                                 src="@item.ImgGuarantorsUrl" height="30" width="30" />
+                                                        }
+                                                    </td>
+                                                    <td>
+                                                        @{
+                                                            if (User.IsInRole("Admin"))
+                                                            {
+                                                                <a href="@Url.Action("Delete", "Loan", new { id =  item.Id})" class="waves-effect waves-light btn" style="background:#c62828; font-size:8pt;">Terminate</a>
+                                                            }
+                                                        }
+                                                    </td>
+
+                                                </tr>
+                                                            }
+                                        </table>
+                                    </div>
+                                                            }
+                                                            if (balance <= 0)
+                                                            {
+                                                                <br />
+                                                                <br />
+                                                                                <label class="alert-small alert-danger" style="text-align: center"><strong>Heads Up!</strong>   @name.FirstOrDefault() has completed this loan repayment!</label>
+                                                            }
+                            }
+                        </div>
+
+                        <hr style="border-bottom-color: #CCCCCC;" />
+
+                    }
+
+                    @*<div>
+                        <label style="color: green; font-style: italic">Last amount borrowed: <b>@ViewBag.AmountBorrowed</b></label>
+                    </div>*@
+                    @*@{
+                        if (balance <= 0)
+                        {
+                            <div style="float: left; text-align: left; font-size:12pt;">
+                                <label style="color: blue">Balance: <b>@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+                            </div>
+                            <br />
+                        }
+                        if (balance > 0)
+                        {
+                            <div style="float: left; font-size:12pt;">
+                                <label style="color: red">Loan Balance: <b>-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
+                            </div>
+                        }
+                    }*@
+                </div>
+                <br />
+                <br />
+                <div style="font-size:12pt;">
+                    <strong>Transaction details:</strong><br /><br />
+                </div>
+                <table class="table striped" style="font-size:10pt;">
+                    <tr style="background-color: #2A3333; color: whitesmoke">
+                        <td>
+                            @Html.DisplayNameFor(model => model.DateCreated)
+                        </td>
+                        <td>
+                            Dr
+                        </td>
+                        <td>
+                            <label>Cr</label>
+                        </td>
+                    </tr>
+                    @foreach (var item in customerLoanTransactions)
+                    {
+                        <tr>
+                            <td>
+                                @DateTime.Parse(@item.DateCreated).ToLongDateString()
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.refund)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('.materialboxed').materialbox();
+
+                $('.material-placeholder').each(function () {
+                    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
+                    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
+                    $(this).append(a);
+                });
+            });
+
+        </script>
+    }
+    <style>
+        .material-placeholder {
+            float: left;
+            margin: 0 5px;
+        }
+
+            .material-placeholder img {
+                float: left;
+            }
+
+            .material-placeholder a {
+                float: left;
+            }
+
+                .material-placeholder a i {
+                    font-size: 20px;
+                    margin: 13px 0 0 2px;
+                }
+
+        .card {
+            overflow: inherit !important;
+        }
+    </style>
+
+<style>
+    /*.table th a {
+        color: #fff;
+    }*/
+
+    .td-image {
+        padding: 4px;
+    }
+
+        .td-image img {
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            height: 50px;
+            width: 50px;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".td-image img").each(function () {
+            $(this).error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        })
+    });
+</script> 
+>>>>>>> 392e659... Fixed installmental payments, display true representation of loans
 =======
 ﻿@model IEnumerable<CRIMAS.Models.LoanTransaction>
     @using CRIMAS.Models;

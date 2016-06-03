@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿@model IEnumerable<CRIMAS.Models.Loan>
 
 @{
@@ -102,6 +103,177 @@
 
 
 
+=======
+﻿@using PagedList.Mvc
+@using CRIMAS.Models;
+@model PagedList.IPagedList<CRIMAS.Models.Loan>
+
+    @{
+        ViewBag.Title = "Loan agreements";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+        int totalLoan = Convert.ToInt32(ViewBag.TotalLoan);
+        string sortBy = Convert.ToString(ViewBag.Sortby);
+        string sortOrder = Convert.ToString(ViewBag.SortOrder);
+        string tempSort = !string.IsNullOrEmpty(sortOrder) && sortOrder == "desc" ? "asc" : "desc";
+        int curPage = Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber;
+    }
+
+    <br />
+    @if (Model.Count() == 0)
+    {
+        <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+
+            <div class="card-content">
+                <div class="card-title" style="color:black">
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                </div>
+                <p>
+                    <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
+                </p>
+            </div>
+
+            <p style="padding-left: 20px">
+                @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
+                <a href="~/Loan/EnterAccountNo" class="btn btn-inverse" style="background-color:#304ffe ">Check loan status</a>
+                <a href="~/" class="btn btn-info">Take me home</a>
+            </p>
+            <br />
+
+        </div>
+
+    }
+    @if (Model.Count() >= 1)
+    {
+        <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
+            <div class="card-content">
+                <div class="card-title" style="color:black">
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+                    <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#1b5e20" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
+                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                </div>
+                <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
+                    <img src="~/Images/Submit.png" />You have @totalLoan active loan agreement(s).
+                </p>
+            </div>
+
+            <br />
+            <table class="table striped bordered " style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
+                <tr style="background:#673ab7; color:white;">
+                    <th>&nbsp;</th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "name", sortOrder = tempSort })">
+                            Customer
+                        </a>
+                        /
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "account", sortOrder = tempSort })">
+                            Account No.
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "amount", sortOrder = tempSort })">
+                            Loan Amount
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "interest", sortOrder = tempSort })">
+                            Interest
+                        </a>
+                    </th>
+                    <th>
+                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "duration", sortOrder = tempSort })">
+                            Duration<br />(month(s))
+                        </a>
+                    </th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Monthly<br />Installment</th>
+                    <th style="width:48px;">&nbsp;</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    var db = new CrimasDb();
+                    string accountNo = item.AccountNo;
+                    var ImageUrl = db.Customers.Where(x => x.AccountNo == accountNo).Select(x => x.ImageUrl).FirstOrDefault();
+                    var CustomerImageUrl = string.IsNullOrEmpty(ImageUrl) ? "/images/user-48.png" : ImageUrl;
+                    
+                    var totalCredits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.amount);
+                    var totalDebits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.refund);
+                    decimal balance = (totalCredits - totalDebits);
+
+                    var installment = (Convert.ToDecimal(item.amount) / Convert.ToDecimal(item.Duration)) + (item.InterestRate * 0.01m * item.amount);
+
+                    if(installment > balance)
+                    {
+                        installment = balance;
+                    }
+
+                    <tr>
+                        <td class="td-image">
+                            <img src="@CustomerImageUrl" alt="No Image" />
+                        </td>
+                        <td>
+                            <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
+                        </td>
+                        <td><strong style="color:red; font-size:15pt;">₦ @item.amount.ToString("#,##0.00")</strong></td>
+                        <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
+                        <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
+                        <td style="font-size:12pt; text-align:center; width:10%;">
+                            <strong>
+                               @* @string.Format("{0:0.00}", installment)*@
+                                ₦@installment.ToString("#,##0.00")
+                            </strong>
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a title="Terminate or remove loan" href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn btn-floating  waves-effect waves-light" style="background:#c62828">x</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+            <hr />
+            <div style="text-align:center;">
+                Page @curPage of @Model.PageCount
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortBy, sortOrder }))
+            </div>
+        </div>
+    }
+
+
+<style>
+    .table th a {
+        color: #fff;
+    }
+
+    .td-image {
+        padding: 4px;
+    }
+
+        .td-image img {
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            height: 50px;
+            width: 50px;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".td-image img").each(function () {
+            $(this).error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        })
+    });
+</script> 
+>>>>>>> 392e659... Fixed installmental payments, display true representation of loans
 =======
 ﻿@using PagedList.Mvc
 @using CRIMAS.Models;
