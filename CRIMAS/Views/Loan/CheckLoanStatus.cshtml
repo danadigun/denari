@@ -29,10 +29,22 @@
                         string acc = ViewBag.AccountNo;
 
                         var name = from s in db.Customers where s.AccountNo == acc select s.Name;
+                        var imageUrl = db.Customers.Where(x => x.AccountNo == acc).Select(x => x.ImageUrl).FirstOrDefault();
+                        var CustomerImageUrl = string.IsNullOrEmpty(imageUrl) ? "/images/user-48.png" : imageUrl;
+
 
                         var balance = (ViewBag.totalCredits - ViewBag.totalDebits);
-
-
+                        
+                        //Monthly Installment
+                        var customerLoan = db.Loans.Where(x => x.AccountNo == acc).Select(x => x).Where(x => x.LoanStatus == "active").FirstOrDefault();
+                        var installment = (Convert.ToDecimal(customerLoan.amount) / Convert.ToDecimal(customerLoan.Duration)) + (customerLoan.InterestRate * 0.01m * customerLoan.amount);
+                        
+                        //Total Loan amont due:
+                        var amountDue = Convert.ToDecimal(installment * Convert.ToDecimal(customerLoan.Duration));
+                        
+                        //Total interest Due: 
+                        var interestDue = Convert.ToDecimal(amountDue - Convert.ToDecimal(customerLoan.amount));
+                            
                         //Set Culture info for currency
                         CultureInfo cultureInfo = new CultureInfo("en-US");
                         cultureInfo.NumberFormat.CurrencySymbol = "₦";
@@ -40,7 +52,9 @@
                         Thread.CurrentThread.CurrentCulture = cultureInfo;
 
                         <div style="font-size: 16pt; text-align: left;">
-                            <span class="card-title" style="color:#4a148c">@name.FirstOrDefault()  </span>
+                            <span class="card-title" style="color:#4a148c">
+                               <span class="td-image"><img src="@imageUrl" alt="No Image" /></span>  @name.FirstOrDefault()  
+                            </span>
                             @{
                                 if (balance > 0)
                                 {
@@ -48,7 +62,14 @@
                                     <a href="~/LoanTransaction/Create/?accountNO=@ViewBag.AccountNo" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px;">Make payment </a>
                                     <br />
                                     <hr />
-                                    <b>Account No.: @ViewBag.AccountNo</b><br />
+                                    <b>Account No.: @ViewBag.AccountNo</b>
+                                    <span style="float:right; text-align:right">
+                                        <span style="font-size:12pt;">Interest Due:  &nbsp;<b style="color:blue">₦@interestDue.ToString("#,##0.00")</b></span><br />
+                                        <span style="font-size:12pt;" >Monthly Installments:  &nbsp;<b style="color:blue" >₦@installment.ToString("#,##0.00")</b></span><br />
+                                        <span style="font-size:12pt;">Duration:  &nbsp;<b style="color:blue">@customerLoan.Duration months</b></span><br />
+                                        <span style="padding: 5px; background-color: #b2dfdb; font-size: 12pt;">Total Repayment: &nbsp;<b style="color: #004d40;">₦@amountDue.ToString("#,##0.00")</b></span><br /><br />
+                                    </span>
+                                    <br />
                                     <label class="alert-small alert-danger" style="text-align: center">
                                         <strong>Heads Up!</strong>
                                         @name.FirstOrDefault()  has accessed <strong>@ViewBag.NoOfLoanAgreements</strong> loan agreement(s).
@@ -84,7 +105,7 @@
                                             {
                                                 <tr style="font-weight:bold; color:chocolate">
                                                     <td>@item.DateCreated.ToLongDateString()</td>
-                                                    <td style="color:red; font-size:14pt;">₦@item.amount (NGN)</td>
+                                                    <td style="color:red; font-size:14pt;">₦@item.amount.ToString("#,##0.00") (NGN)</td>
                                                     <td>@item.completionDate.ToLongDateString()</td>
                                                     <td>
                                                         @if (!string.IsNullOrEmpty(item.ImgAgreementUrl))
@@ -130,10 +151,10 @@
 
                     }
 
-                    <div>
+                    @*<div>
                         <label style="color: green; font-style: italic">Last amount borrowed: <b>@ViewBag.AmountBorrowed</b></label>
-                    </div>
-                    @{
+                    </div>*@
+                    @*@{
                         if (balance <= 0)
                         {
                             <div style="float: left; text-align: left; font-size:12pt;">
@@ -147,7 +168,7 @@
                                 <label style="color: red">Loan Balance: <b>-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
                             </div>
                         }
-                    }
+                    }*@
                 </div>
                 <br />
                 <br />
@@ -160,10 +181,10 @@
                             @Html.DisplayNameFor(model => model.DateCreated)
                         </td>
                         <td>
-                            @Html.DisplayNameFor(model => model.amount)
+                            Dr
                         </td>
                         <td>
-                            <label>refund</label>
+                            <label>Cr</label>
                         </td>
                     </tr>
                     @foreach (var item in customerLoanTransactions)
@@ -222,3 +243,30 @@
             overflow: inherit !important;
         }
     </style>
+
+<style>
+    /*.table th a {
+        color: #fff;
+    }*/
+
+    .td-image {
+        padding: 4px;
+    }
+
+        .td-image img {
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            height: 50px;
+            width: 50px;
+        }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".td-image img").each(function () {
+            $(this).error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        })
+    });
+</script> 
