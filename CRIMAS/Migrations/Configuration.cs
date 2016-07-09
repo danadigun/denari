@@ -29,32 +29,12 @@ namespace CRIMAS.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            SeedCustomer();
+           
 
             SeedMembership();
         }
 
-        private void SeedCustomer()
-        {
-            var db = new CRIMAS.Models.CrimasDb();
-
-            db.Customers.AddOrUpdate(
-                 p => p.Name,
-                new CRIMAS.Models.Customer {
-                    AccountNo =new Random().Next().ToString(),
-                    Name="Olumide Jegede",
-                    NextOfkin="Olumide Jegede",
-                    StateOfOrigin="jagsdgad",
-                    OfficeAddress="dhgfjkgfabfha",
-                    ResidentialAddress="dasgdfasbgfhjaf",
-                    DateCreated=DateTime.Now.ToLongDateString(),
-                    Email = "olumide@yahoo.com",
-                    phone = "070387273812"
-                    //VillageClan="fgfjk"
-                    }
-                );
-            db.SaveChanges();
-        }
+       
         private void SeedMembership()
         {
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);

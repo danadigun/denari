@@ -278,9 +278,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201512172242098_iniitlaanldasf.cs" />
-    <Compile Include="Migrations\201512172242098_iniitlaanldasf.Designer.cs">
-      <DependentUpon>201512172242098_iniitlaanldasf.cs</DependentUpon>
+    <Compile Include="Migrations\201607082200014_GeneratedSchemaForNewServer.cs" />
+    <Compile Include="Migrations\201607082200014_GeneratedSchemaForNewServer.Designer.cs">
+      <DependentUpon>201607082200014_GeneratedSchemaForNewServer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1989,6 +1989,7 @@
     <Content Include="Content\material-responsive-table.css.map">
       <DependentUpon>material-responsive-table.css</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -13567,12 +13568,12 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512172242098_iniitlaanldasf.resx">
-      <DependentUpon>201512172242098_iniitlaanldasf.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <EmbeddedResource Include="Migrations\201607082200014_GeneratedSchemaForNewServer.resx">
+      <DependentUpon>201607082200014_GeneratedSchemaForNewServer.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
