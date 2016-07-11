@@ -30,7 +30,7 @@ namespace CRIMAS.Models
         public decimal InterestRate { get; set; }
         public string createdby { get; set; }
 
-        public string LoanStatus { get; set; }//active or in-active
+        public string LoanStatus { get; set; }//active or completed
 
         [StringLength(200)]
         [Required(ErrorMessage = "Please upload image for signed agreement form.")]

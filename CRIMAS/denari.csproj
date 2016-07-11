@@ -278,9 +278,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607082200014_GeneratedSchemaForNewServer.cs" />
-    <Compile Include="Migrations\201607082200014_GeneratedSchemaForNewServer.Designer.cs">
-      <DependentUpon>201607082200014_GeneratedSchemaForNewServer.cs</DependentUpon>
+    <Compile Include="Migrations\201607102254485_AddFormUrlToLoanTable.cs" />
+    <Compile Include="Migrations\201607102254485_AddFormUrlToLoanTable.Designer.cs">
+      <DependentUpon>201607102254485_AddFormUrlToLoanTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1481,6 +1481,10 @@
     <Content Include="Content\EssentialJs\themes\samplecontent\mvccontent.html" />
     <Content Include="Content\EssentialJs\themes\samplecontent\twitter.html" />
     <Content Include="Content\EssentialJs\themes\samplecontent\wpfcontent.html" />
+    <Content Include="Content\font-awesome-4.6.3\css\font-awesome.css" />
+    <Content Include="Content\font-awesome-4.6.3\css\font-awesome.min.css" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\material-responsive-table.css">
@@ -1566,7 +1570,10 @@
     <Content Include="Content\validetta-v1.0.1-dist\validetta.js" />
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.css" />
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.js" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -1989,6 +1996,44 @@
     <Content Include="Content\material-responsive-table.css.map">
       <DependentUpon>material-responsive-table.css</DependentUpon>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\font-awesome-4.6.3\fonts\FontAwesome.otf" />
+    <Content Include="Content\font-awesome-4.6.3\less\animated.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\bordered-pulled.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\core.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\fixed-width.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\font-awesome.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\icons.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\larger.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\list.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\mixins.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\path.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\rotated-flipped.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\screen-reader.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\stacked.less" />
+    <Content Include="Content\font-awesome-4.6.3\less\variables.less" />
+    <Content Include="Content\font-awesome-4.6.3\scss\font-awesome.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_animated.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_bordered-pulled.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_core.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_fixed-width.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_icons.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_larger.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_list.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_mixins.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_path.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_rotated-flipped.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_screen-reader.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_stacked.scss" />
+    <Content Include="Content\font-awesome-4.6.3\scss\_variables.scss" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -13563,6 +13608,7 @@
     <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
     <Content Include="Views\Reconciliation\data.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Loan\history.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -13571,8 +13617,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607082200014_GeneratedSchemaForNewServer.resx">
-      <DependentUpon>201607082200014_GeneratedSchemaForNewServer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607102254485_AddFormUrlToLoanTable.resx">
+      <DependentUpon>201607102254485_AddFormUrlToLoanTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

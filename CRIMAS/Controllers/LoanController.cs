@@ -424,7 +424,16 @@ namespace CRIMAS.Controllers
 
             return File(spreadSheetStream.ToArray(), contentType, Path.GetFileName(imageUrl));
         }
-        
+
+        /// <summary>
+        /// Return all Loans both active and completed
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult history()
+        {
+            var loans = _context.Loans;
+            return View(loans);
+        }
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();

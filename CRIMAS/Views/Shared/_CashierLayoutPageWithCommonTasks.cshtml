@@ -14,6 +14,7 @@
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
     <link href="~/Content/validetta-v1.0.1-dist/validetta.min.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <style>
         #searchString {
             background: #fff !important;
@@ -106,61 +107,83 @@
                                 if (User.IsInRole("Admin"))
                                 {
                                     <a href="~/Home/admin">
-                                        <img src="~/Images/Home-WF(1).png" />Home
+                                        <i class="fa fa-home" aria-hidden="true"></i>Home
                                     </a>
                                 }
                                 else
                                 {
                                     <a href="~/Home/cashier">
-                                        <img src="~/Images/Home-WF(1).png" />Home
+                                        <i class="fa fa-home" aria-hidden="true"></i>Home
                                     </a>
                                 }
                             }
                         </li>
-                        <li class="bold">
-                        
-                            <a href="~/Loan/">
-                                <img src="~/Images/loan-agr.png" />Loan agreements
-                            </a>
+
+                        <li class="bold no-padding" style="margin-bottom:1em">
+                            <ul class="collapsible collapsible-accordion">
+                                <li>
+                                    @*  <a class="collapsible-header"><img src="~/Images/loan-agr.png" />Loan management</a>*@
+                                    <a class="collapsible-header"><i class="fa fa-bolt" aria-hidden="true"></i> Loan management</a>
+
+                                    <div class="collapsible-body">
+                                        <ul>
+                                            <li>
+
+                                                <a href="~/Loan/">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i> Loan agreements
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="~/LoanTransaction/Create/">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>  Loan deductions
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="~/Loan/history">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>  Loan History
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+
                         </li>
                         @{
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="bold">
                                     <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                                        <img src="~/Images/Coin-01-WF.png" /> Income Analysis
+                                        <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
                                     </a>
                                 </li>
                             }
                         }
                         <li class="bold">
                             <a class="waves-effect waves-teal" href="~/Customer/Index">
-                                <img src="~/Images/User Profile 1-WF.png" />Customers
+                                <i class="fa fa-users" aria-hidden="true"></i>Customers
                             </a>
                         </li>
                         <li class="bold">
                             <a class="waves-effect waves-green" href="~/CustomerSavings/EnterAccount">
-                                <img src="~/Images/User Ok-01-WF.png" />Customer Savings
+                                <i class="fa fa-server" aria-hidden="true"></i>Customer Savings
                             </a>
                         </li>
                         @{
                             if (User.IsInRole("Admin"))
                             {
-                                @*<li class="bold">
-                                    <a class="waves-effect waves-green" href="~/RateableRegister">
-                                        <img src="~/Images/Gift-WF.png" />Rateable Register
-                                    </a>
-                                </li>*@
+
                                 <li class="bold">
                                     <a class="waves-effect waves-green" href="~/AddUser">
-                                        <img src="~/Images/User Settings-02-WF.png" />User access management
+                                        <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
                                     </a>
                                 </li>
                             }
                         }
                         <li class="bold">
                             <a class="waves-effect waves-green" href="~/Reconciliation">
-                                <img src="~/Images/Cheque-02-WF.png" />Bank reconciliation
+                                <i class="fa fa-undo" aria-hidden="true"></i>Bank reconciliation
                             </a>
                         </li>
                     </ul>
@@ -168,12 +191,13 @@
                 </div>
             </nav>
         </div>
+
         @*Displays on Desktop*@
         <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
 
             <li class="logo">
-
-                <img src="~/Images/Crimas-header.png" style="width:200px; height:auto;" />
+                <h4 style="color:#01579b; padding-bottom:20px;">CRMPCS <small><i><b>Portal</b></i></small></h4>
+                @*   <img src="~/Images/Crimas-header.png" style="width:200px; height:auto;" />*@
                 @* <img src="~/Images/Denari.png" />*@
             </li>
             <li class="logo">
@@ -182,7 +206,7 @@
                     @{
                         if (User.IsInRole("Admin"))
                         {
-                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
+                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:#01579b">[Administrator]</b></label>
 
                         }
                         else
@@ -199,60 +223,83 @@
                     if (User.IsInRole("Admin"))
                     {
                         <a href="~/Home/admin">
-                            <img src="~/Images/Home-WF(1).png" />Home
+                            <i class="fa fa-home" aria-hidden="true"></i>Home
                         </a>
                     }
                     else
                     {
                         <a href="~/Home/cashier">
-                            <img src="~/Images/Home-WF(1).png" />Home
+                            <i class="fa fa-home" aria-hidden="true"></i>Home
                         </a>
                     }
                 }
             </li>
-            <li class="bold">
-                <a href="~/Loan/">
-                    <img src="~/Images/loan-agr.png" />Loan agreements
-                </a>
+
+            <li class="bold no-padding" style="margin-bottom:1em">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        @*  <a class="collapsible-header"><img src="~/Images/loan-agr.png" />Loan management</a>*@
+                        <a class="collapsible-header"><i class="fa fa-bolt" aria-hidden="true"></i> Loan management</a>
+
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+
+                                    <a href="~/Loan/">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Loan agreements
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/LoanTransaction/Create/">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>  Loan deductions
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="~/Loan/history">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>  Loan History
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
             </li>
             @{
                 if (User.IsInRole("Admin"))
                 {
                     <li class="bold">
                         <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                            <img src="~/Images/Coin-01-WF.png" /> Income Analysis
+                            <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
                         </a>
                     </li>
                 }
             }
             <li class="bold">
                 <a class="waves-effect waves-teal" href="~/Customer/Index">
-                    <img src="~/Images/User Profile 1-WF.png" />Customers
+                    <i class="fa fa-users" aria-hidden="true"></i>Customers
                 </a>
             </li>
             <li class="bold">
                 <a class="waves-effect waves-green" href="~/CustomerSavings/EnterAccount">
-                    <img src="~/Images/User Ok-01-WF.png" />Customer Savings
+                    <i class="fa fa-server" aria-hidden="true"></i>Customer Savings
                 </a>
             </li>
             @{
                 if (User.IsInRole("Admin"))
                 {
-                    @*<li class="bold">
-                        <a class="waves-effect waves-green" href="~/RateableRegister">
-                            <img src="~/Images/Gift-WF.png" />Rateable Register
-                        </a>
-                    </li>*@
+
                     <li class="bold">
                         <a class="waves-effect waves-green" href="~/AddUser">
-                            <img src="~/Images/User Settings-02-WF.png" />User access management
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
                         </a>
                     </li>
                 }
             }
             <li class="bold">
                 <a class="waves-effect waves-green" href="~/Reconciliation">
-                    <img src="~/Images/Cheque-02-WF.png" />Bank reconciliation
+                    <i class="fa fa-undo" aria-hidden="true"></i>Bank reconciliation
                 </a>
             </li>
         </ul>

@@ -1,0 +1,108 @@
+﻿@model IEnumerable<CRIMAS.Models.Loan>
+@{
+    ViewBag.Title = "history";
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+
+
+<div style="width:70%; margin-left:auto; margin-right:auto; padding-top:50px;">
+    <h4 style="font-weight: lighter; color: #0d47a1"><i class="fa fa-history" aria-hidden="true"></i> Loan history</h4>
+    @*@{
+            foreach (var item in Model)
+            {
+                <ul>
+                    <li>Loan @item.Id</li>
+                </ul>
+            }
+        }*@
+    <div class="loan-history row">
+        <div class="col s12">
+            <ul class="tabs">
+                @{
+                    var completedLoans = Model.Where(x => x.LoanStatus == "completed");
+                    var pendingLoans = Model.Where(x => x.LoanStatus == "active");
+                    
+                    
+                }
+                <li class="tab col s3"><a class="active" href="#completed">Completed Loans (<b>@completedLoans.Count()</b>)</a></li>
+                <li class="tab col s3"><a href="#pending">Pending Loans(<b>@pendingLoans.Count()</b>)</a></li>
+
+            </ul>
+        </div>
+        <div id="completed" class="col s12">
+            <table class="table stripped">
+                <thead>
+                    <tr>
+                        <th data-field="id">&nbsp;</th>
+                        <th data-field="accountNo">Account No</th>
+                        <th data-field="amount">Amount</th>
+                        <th data-field="date">Date issued</th>
+                        <th data-field="Duration">Duration(months)</th>
+                        <th data-field="interest">Interest(%)</th>
+                        <th data-field="loanStatus">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        var sn = 1;
+                        foreach (var loan in completedLoans)
+                        {
+                            <tr>
+                                <td>@sn.</td>
+                                <td>@loan.AccountNo</td>
+                                <td>@loan.amount</td>
+                                <td>@loan.DateCreated</td>
+                                <td>@loan.Duration</td>
+                                <td>@loan.InterestRate</td>
+                                <td style="color:#177a4e"><b>@loan.LoanStatus <i class="fa fa-check" aria-hidden="true"></i></b></td>
+                            </tr>
+                            sn++;
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        <div id="pending" class="col s12">
+
+            <table class="table stripped">
+                <thead>
+                    <tr>
+                        <th data-field="id">&nbsp;</th>
+                        <th data-field="accountNo">Account No</th>
+                        <th data-field="amount">Amount</th>
+                        <th data-field="date">Date issued</th>
+                        <th data-field="Duration">Duration(months)</th>
+                        <th data-field="interest">Interest(%)</th>
+                        <th data-field="loanStatus">Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @{
+                        var sn_active = 1;
+                        foreach (var loan in pendingLoans)
+                        {
+                            <tr>
+                                <td>@sn_active</td>
+                                <td>@loan.AccountNo</td>
+                                <td>@loan.amount</td>
+                                <td>@loan.DateCreated</td>
+                                <td>@loan.Duration</td>
+                                <td>@loan.InterestRate</td>
+                                <td style="color:red"><b>@loan.LoanStatus <i class="fa fa-bolt" aria-hidden="true"></i></b></td>
+                            </tr>
+                            sn_active++;
+                        }
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
