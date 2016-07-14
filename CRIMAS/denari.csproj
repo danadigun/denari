@@ -262,19 +262,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AddUserController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
-    <Compile Include="Controllers\CustomerSavingsController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\ExportDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IncomeAnalysisController.cs" />
-    <Compile Include="Controllers\LoanController.cs" />
-    <Compile Include="Controllers\LoanTransactionController.cs" />
-    <Compile Include="Controllers\RateableRegisterController.cs" />
-    <Compile Include="Controllers\ReconciliationController.cs" />
-    <Compile Include="Controllers\ReconcilliationSettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -566,6 +554,10 @@
     <Content Include="Content\bootstrap-material\bootstrap\js\tooltip.js" />
     <Content Include="Content\bootstrap-material\bootstrap\js\transition.js" />
     <Content Include="Content\bootstrap-material\bootstrap\package.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EssentialJs\css\mobile\android-theme-dark\ej.mobile.android-dark.min.css" />
     <Content Include="Content\EssentialJs\css\mobile\android-theme-dark\ej.mobile.core.min.css" />
     <Content Include="Content\EssentialJs\css\mobile\android-theme-light\ej.mobile.android-light.min.css" />
@@ -872,6 +864,10 @@
     <Content Include="Content\EssentialJs\js\external\jsviews.js" />
     <Content Include="Content\EssentialJs\js\external\properties.js" />
     <Content Include="Content\EssentialJs\js\external\qunit-1.11.0.js" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="Content\EssentialJs\js\external\_references.js" />
     <Content Include="Content\EssentialJs\js\mobile\ej.mobile.accordion.min.js" />
     <Content Include="Content\EssentialJs\js\mobile\ej.mobile.all.min.js" />
@@ -1567,6 +1563,7 @@
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.css" />
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.js" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -1728,6 +1725,9 @@
     <Content Include="Images\User-Search01-WF.png" />
     <Content Include="Images\Users-WF.png" />
     <Content Include="Images\View Medium icons-WF.png" />
+    <Content Include="img\logo 6.png" />
+    <Content Include="img\logo 8.png" />
+    <Content Include="img\Logo-color6.jpg" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1989,6 +1989,11 @@
     <Content Include="Content\material-responsive-table.css.map">
       <DependentUpon>material-responsive-table.css</DependentUpon>
     </Content>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="img\Thumbs.db" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -2020,7 +2025,6 @@
     <Content Include="Scripts\metroui\tile-drag.js" />
     <Content Include="Scripts\metroui\tile-slider.js" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Home\SendEmail.cshtml" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-128.png" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-256.png" />
     <Content Include="windows8_icons\Accommodation\apartment\apartment-26.png" />
@@ -11256,7 +11260,6 @@
     <Content Include="Images\orderedList7.png" />
     <Content Include="Images\orderedList8.png" />
     <Content Include="Images\orderedList9.png" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
@@ -11266,20 +11269,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Shared\_LayoutPage1.cshtml" />
-    <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\AddUser\Index.cshtml" />
-    <Content Include="Views\AddUser\Details.cshtml" />
-    <Content Include="Views\AddUser\Create.cshtml" />
-    <Content Include="Views\AddUser\Edit.cshtml" />
-    <Content Include="Views\AddUser\Delete.cshtml" />
     <Content Include="windows8_icons\!free_license.pdf" />
     <Content Include="windows8_icons\!paid_license.pdf" />
     <Content Include="windows8_icons\Accommodation\.DS_Store" />
@@ -13507,61 +13497,8 @@
     <Content Include="windows8_icons\__MACOSX\Wedding\wedding_photo\._.DS_Store" />
     <Content Include="windows8_icons\__MACOSX\Wedding\wedding_rings\._.DS_Store" />
     <Content Include="windows8_icons\__MACOSX\Window_Controls\._.DS_Store" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
-    <Content Include="Views\Admin\SecurityAndConfiguration.cshtml" />
-    <Content Include="Views\Shared\_SecurityAndConfigurationLayoutPage.cshtml" />
-    <Content Include="Views\AddUser\ManageRoles.cshtml" />
-    <Content Include="Views\Shared\_AdminHomeLayoutPage.cshtml" />
-    <Content Include="Views\Home\Cashier.cshtml" />
-    <Content Include="Views\Shared\_CashierLayoutPageWithCommonTasks.cshtml" />
-    <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\Details.cshtml" />
-    <Content Include="Views\Customer\Create.cshtml" />
-    <Content Include="Views\Customer\Edit.cshtml" />
-    <Content Include="Views\Customer\Delete.cshtml" />
-    <Content Include="Views\Savings\Index.cshtml" />
-    <Content Include="Views\Savings\Details.cshtml" />
-    <Content Include="Views\Savings\Create.cshtml" />
-    <Content Include="Views\Savings\Edit.cshtml" />
-    <Content Include="Views\Savings\Delete.cshtml" />
-    <Content Include="Views\CustomerSavings\Index.cshtml" />
-    <Content Include="Views\CustomerSavings\Details.cshtml" />
-    <Content Include="Views\CustomerSavings\Create.cshtml" />
-    <Content Include="Views\CustomerSavings\Edit.cshtml" />
-    <Content Include="Views\CustomerSavings\Delete.cshtml" />
-    <Content Include="Views\CustomerSavings\EnterAccount.cshtml" />
-    <Content Include="Views\CustomerSavings\CheckAccount.cshtml" />
-    <Content Include="Views\CustomerSavings\CreditAccount.cshtml" />
-    <Content Include="Views\CustomerSavings\DebitAccount.cshtml" />
-    <Content Include="Views\CustomerSavings\DebitDetails.cshtml" />
-    <Content Include="Views\CustomerSavings\AccountNotFound.cshtml" />
-    <Content Include="Views\Loan\Index.cshtml" />
-    <Content Include="Views\Loan\Details.cshtml" />
-    <Content Include="Views\Loan\Create.cshtml" />
-    <Content Include="Views\Loan\Edit.cshtml" />
-    <Content Include="Views\Loan\Delete.cshtml" />
-    <Content Include="Views\Loan\CheckLoanStatus.cshtml" />
-    <Content Include="Views\Loan\EnterAccountNo.cshtml" />
-    <Content Include="Views\Loan\LoanCreditSuccess.cshtml" />
-    <Content Include="Views\LoanTransaction\Index.cshtml" />
-    <Content Include="Views\LoanTransaction\Details.cshtml" />
-    <Content Include="Views\LoanTransaction\Create.cshtml" />
-    <Content Include="Views\LoanTransaction\Edit.cshtml" />
-    <Content Include="Views\LoanTransaction\Delete.cshtml" />
-    <Content Include="Views\Customer\FindCustomer.cshtml" />
-    <Content Include="Views\Error\ErrorCode.cshtml" />
-    <Content Include="Views\IncomeAnalysis\Index.cshtml" />
-    <Content Include="Views\IncomeAnalysis\ViewIncomeAnalysis.cshtml" />
-    <Content Include="Views\Shared\_PrintLayoutPage.cshtml" />
-    <Content Include="Views\RateableRegister\Index.cshtml" />
-    <Content Include="Views\RateableRegister\ViewRateableRegister.cshtml" />
-    <Content Include="Views\Customer\ViewAllCustomers.cshtml" />
-    <Content Include="Views\Admin\DashboardError.cshtml" />
-    <Content Include="Views\ReconcilliationSettings\Index.cshtml" />
-    <Content Include="Views\Reconciliation\Index.cshtml" />
-    <Content Include="Views\ReconcilliationSettings\Create.cshtml" />
-    <Content Include="Views\Reconciliation\data.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Home\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
