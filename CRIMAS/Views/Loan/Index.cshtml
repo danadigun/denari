@@ -1,3 +1,4 @@
+
 ﻿@using PagedList.Mvc
 @using CRIMAS.Models;
 @model PagedList.IPagedList<CRIMAS.Models.Loan>
@@ -57,6 +58,7 @@
             <br />
             <table class="table striped bordered " style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
                 <tr style="background:#673ab7; color:white;">
+                    <th>&nbsp;</th>
                     <th>
                         <a href="@Url.Action("Index", new { page = curPage, sortBy = "name", sortOrder = tempSort })">
                             Customer
@@ -90,11 +92,14 @@
                 {
                     var db = new CrimasDb();
                     string accountNo = item.AccountNo;
+                    var ImageUrl = db.Customers.Where(x => x.AccountNo == accountNo).Select(x => x.ImageUrl).FirstOrDefault();
+                    var CustomerImageUrl = string.IsNullOrEmpty(ImageUrl) ? "/images/user-48.png" : ImageUrl;
+                    
                     var totalCredits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.amount);
                     var totalDebits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.refund);
                     decimal balance = (totalCredits - totalDebits);
 
-                    var installment = Convert.ToDecimal(item.amount) / Convert.ToDecimal(item.Duration);
+                    var installment = (Convert.ToDecimal(item.amount) / Convert.ToDecimal(item.Duration)) + (item.InterestRate * 0.01m * item.amount);
 
                     if(installment > balance)
                     {
@@ -102,17 +107,21 @@
                     }
 
                     <tr>
+                        <td class="td-image">
+                            <img src="@CustomerImageUrl" alt="No Image" />
+                        </td>
                         <td>
                             <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
                         </td>
-                        <td><strong style="color:red; font-size:15pt;">₦ @Html.DisplayFor(modelItem => item.amount) (NGN)</strong></td>
+                        <td><strong style="color:red; font-size:15pt;">₦ @item.amount.ToString("#,##0.00")</strong></td>
                         <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
                         <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
                         <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
                         <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
                         <td style="font-size:12pt; text-align:center; width:10%;">
                             <strong>
-                                @string.Format("{0:0.00}", installment)
+                               @* @string.Format("{0:0.00}", installment)*@
+                                ₦@installment.ToString("#,##0.00")
                             </strong>
                         </td>
                         <td>
@@ -132,8 +141,30 @@
         </div>
     }
 
-    <style>
-        .table th a {
-            color: #fff;
+
+<style>
+    .table th a {
+        color: #fff;
+    }
+
+    .td-image {
+        padding: 4px;
+    }
+
+        .td-image img {
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            height: 50px;
+            width: 50px;
         }
-    </style>
+</style>
+
+<script>
+    $(document).ready(function () {
+        $(".td-image img").each(function () {
+            $(this).error(function () {
+                $(this).attr('src', '/images/user-48.png');
+            });
+        })
+    });
+</script> 
