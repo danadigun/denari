@@ -1,22 +1,389 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
+
     <title>Denari - B2B Cooperative Management platform</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/landing.css" rel="stylesheet" />
+  @*  <link href="~/Content/Site.css" rel="stylesheet" />*@
+    <link href="~/Content/font-awesome-4.6.3/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
 
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
 </head>
 <body>
-    <section id="top">
-        <img src="~/img/Logo-color6.jpg" />
-        <span style="display:block; text-align:center; padding-top:40px;">
-            <small>An Official product of Digital forte Enterprise Systems Limited. (c) 2016</small>
+    <nav>
+        <ul>
+            <li class="brand">
+                <img src="~/img/Logo-color6.jpg" />
+            </li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Advantages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Testimonial</a></li>
+            <li><a href="#">Contact</a></li>
 
-        </span>
-        <h2>Welcome to Denari landing page.</h2>
+        </ul>
+        <div class="button">
+            <a class="btn-open" href="#"></a>
+        </div>
+    </nav>
+    <div class="overlay">
+        <div class="wrap">
+            <ul class="wrap-nav">
+                <li>
+                    <a href="#">About</a>
+                    <ul>
+                        <li><a href="#">About Company</a></li>
+                        <li><a href="#">Designers</a></li>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">Pets</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                    <ul>
+                        <li><a href="https://www.google.hr/">Web Design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Apps</a></li>
+                        <li><a href="#">Graphic design</a></li>
+                        <li><a href="#">Branding</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Work</a>
+                    <ul>
+                        <li><a href="#">Web</a></li>
+                        <li><a href="#">Graphic</a></li>
+                        <li><a href="#">Apps</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="social">
+                <a href="#">
+                    <div class="social-icon">
+                        <i class="fa fa-facebook"></i>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="social-icon">
+                        <i class="fa fa-twitter"></i>
+                    </div>
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+    <section id="top">
+        <div class="row">
+            <div class=" col-xs-12 col-md-8">
+                <div class="hero-heading">
+                    <h1>Lending<br /> Management <br />Platform</h1>
+                    <div class="hero-sub-heading">
+                        <span>For African</span>
+
+                        <h3>Cooperative Societies,</h3>
+                        <h3>Lending Organizations</h3>
+                        <img src="~/img/naira coins.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="hero-call-to col-xs-12 col-md-4">
+                <div class="signup">
+                    <h2>sign up for free</h2>
+                    <p>Get 30 Days unlimited Access</p>
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="name" placeholder="Name*">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="email" placeholder="Email*">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="phone" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="companyName" placeholder="Company Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="Location" placeholder="Location">
+                        </div>
+                        <button type="submit" class="btn btn-default">Request Demo access</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
-    <section id="main">
-        <h1>Launching soon!</h1>
+    <section id="banner">
+        <div style="text-align:center;">
+            <span style="margin-left:-40em;">Why denari <a href="#" class="down"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a> Learn More..</span>
+        </div>
     </section>
+
+    <!--Key features-->
+    <section id="key-features">
+        <h1>Key Features</h1>
+        <div class="row">
+            <div class="col-xs-12 col-md-4 features">
+                <p>
+                    <i class="fa fa-universal-access" aria-hidden="true"></i>
+                </p>
+                <p>
+                    Provides complete visibility into member Transactions and lending
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <p>
+                    <i class="fa fa-credit-card" aria-hidden="true"></i>
+                </p>
+                <p>
+                    Seamless Integration with existing payment platforms in africa
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <p>
+                    <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
+                </p>
+                <p>
+                    Intuitive reporting provides 360 degree view of your business
+                </p>
+            </div>
+        </div>
+        <div id="down-benefits" class="toggle-down visible-lg hidden-sm">
+            <a href="#" class="down"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <!--Benefits-->
+    <section id="benefits">
+        <h1><i class="fa fa-cube" aria-hidden="true"></i></h1>
+        <h1 style="margin-top:-1em; margin-bottom:1em;">Benefits</h1>
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <h4>
+                    Increased Customer Base
+                </h4>
+                <p>
+                    With a trusted platform like denari your organization can begin to scale and expand customer base and reach.
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <h4>
+                    Manage Risk Better
+                </h4>
+                <p>
+                    with deeper insights into customer lending profile, credit unions can effectively manage associated risks
+                </p>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <h4>
+                    Lower Service Cost
+                </h4>
+                <p>
+                    Real-time access to cooperative accounts and all the right tools for applying for loans and withdrawals online.
+                </p>
+            </div>
+        </div>
+        <div id="down-about" class="toggle-down visible-lg hidden-sm">
+            <a href="#" class="down"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <!--About Denari-->
+    <section id="about">
+        <div class="row">
+            <div class="col-xs-12 col-md-5 about-image">
+
+                <img src="~/img/dreamstime_xl_50592602.jpg" />
+            </div>
+            <div class="col-xs-12 col-md-7">
+                <h1>About Denari <br />& Our Company</h1>
+                <div class="about-content">
+                    <p>
+                        Denari is a complete B2B Cooperative Business Management Platform targeted at small
+                        and medium scale Cooperatives and credit unions in Africa. Denari is engineered to
+                        remove the enormous complexities associated with operating a cooperative society,
+                        credit union or lending organization in Africa.
+                    </p>
+
+                    <p>
+                        At Our company, Digital Forte Enterprise Systems Limited, we have a pragmatic approach
+                        to enterprise innovation and the IS business which equals happy and satisfied customers.
+                        With a modest team of highly dedicated staff we provide support to Africa's rising businesses
+
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div id="down-stats" style="text-align:center" class="toggle-down visible-lg hidden-sm">
+            <a href="#" class="down"><i class="fa fa-angle-double-down" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+
+    <!--Statistics-->
+    @*<section id="stats">
+        <div class="col-md-3">
+            <h1>12,000,000</h1>
+            <p>
+                Cooperative members
+                accross Africa
+            </p>
+        </div>
+        <div class="col-md-3">
+            <h1>50,000</h1>
+            <p>
+                Cooperatives &
+                credit unions
+            </p>
+        </div>
+        <div class="col-md-3">
+            <h1>7.000m</h1>
+            <p>
+                was generated in 2013
+            </p>
+        </div>
+        <div class="col-md-3">
+            <h1>200+</h1>
+            <p>
+                years history of cooperatives and credit unions.
+            </p>
+        </div>
+    </section>*@
+
+
+    <!--Pricing-->
+    <section id="pricing">
+
+        <h1>Pricing</h1>
+        <div class="pricing-table row">
+            <div class="col-md-3" style="margin-right:-4.5em;">
+                <div class="price-component">
+                    <p class="price-header">
+                        <h2>30 Days trial</h2>
+                        <span>No members restriction</span>
+                    </p><hr />
+                    <p class="price-content" style="font-size:14pt; font-weight:bold;">
+                        N0.000
+                    </p>
+                    <hr />
+                    <button class="btn btn-default">Sign Up</button>
+                </div>
+
+            </div>
+            <div class="col-md-3" style="margin-right:-4.2em;">
+                <div class="price-component most-popular">
+                    <p class="price-header">
+                        <h2>bronze</h2>
+                        <span>0-500 Members</span>
+                    </p><hr />
+                    <p class="price-content" style="font-size:14pt; font-weight:bold;">
+                        N25,250/Month
+                    </p>
+                    <hr />
+                    <button class="btn btn-default">Sign Up</button>
+                </div>
+
+            </div>
+            <div class="col-md-3" style="margin-right:-4.5em;">
+                <div class="price-component">
+                    <p class="price-header">
+                        <h2>silver</h2>
+                        <span>501 - 1000 Members</span>
+                    </p><hr />
+                    <p class="price-content" style="font-size:14pt; font-weight:bold;">
+                        N32,250/Month
+                    </p>
+                    <hr />
+                    <button class="btn btn-default">Sign Up</button>
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                <div class="price-component">
+                    <p class="price-header">
+                        <h2>Gold</h2>
+                        <span>Above 1000 Members</span>
+                    </p><hr />
+                    <p class="price-content" style="font-size:14pt; font-weight:bold;">
+                        N45,250/Month
+                    </p>
+                    <hr />
+                    <button class="btn btn-default">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--Subscribe to newsletter-->
+    <section class="newsletter">
+        <h3>Subscribe to our newsletter</h3>
+        <form class="form-inline">
+            <div class="form-group">
+                <div class="input-group input-append">
+                    <span class="input-group-addon">
+                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                    </span>
+                    <input style="width:400px;" type="text" class="form-control" placeholder="Enter your email">
+                </div>
+            </div>
+            <button class="btn btn-default">Subscribe now</button>
+        </form>
+    </section>
+
+    <!--ToDO: Latest Posts-->
+    <!--ToDO:FAQs-->
+
+    <!--Footer-->
+    <section class="footer">
+
+    </section>
+    <script>
+        $(document).ready(function () {
+            $(".button a").click(function () {
+                $(".overlay").fadeToggle(200);
+                $(this).toggleClass('btn-open').toggleClass('btn-close');
+            });
+        });
+        $('.overlay').on('click', function () {
+            $(".overlay").fadeToggle(200);
+            $(".button a").toggleClass('btn-open').toggleClass('btn-close');
+            open = false;
+        });
+
+        $('.down').on('click', function () {
+            $('html, body').animate({
+                scrollTop: $("#key-features").offset().top
+            }, 1000);
+        });
+
+        $('#down-benefits').on('click', function () {
+            $('html, body').animate({
+                scrollTop: $("#benefits").offset().top
+            }, 700);
+        });
+
+        $('#down-about').on('click', function () {
+            $('html, body').animate({
+                scrollTop: $("#about").offset().top
+            }, 700);
+        });
+
+        $('#down-stats').on('click', function () {
+            $('html, body').animate({
+                scrollTop: $("#pricing").offset().top
+            }, 700);
+        })
+
+
+
+    </script>
+
 </body>
+
+
 </html>
