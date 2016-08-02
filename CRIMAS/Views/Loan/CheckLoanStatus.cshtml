@@ -29,22 +29,23 @@
                         string acc = ViewBag.AccountNo;
 
                         var name = from s in db.Customers where s.AccountNo == acc select s.Name;
-                        var imageUrl = db.Customers.Where(x => x.AccountNo == acc).Select(x => x.ImageUrl).FirstOrDefault();
-                        var CustomerImageUrl = string.IsNullOrEmpty(imageUrl) ? "/images/user-48.png" : imageUrl;
+                        var customerId = db.Customers.Where(x => x.AccountNo == acc).Select(x => x.CustomerId).FirstOrDefault();
+                        var customerImage = db.Customers.Where(x => x.AccountNo == acc).Select(x => x.image).FirstOrDefault();
+                        //var CustomerImageUrl = string.IsNullOrEmpty(imageUrl) ? "/images/user-48.png" : imageUrl;
 
 
                         var balance = (ViewBag.totalCredits - ViewBag.totalDebits);
-                        
+
                         //Monthly Installment
                         var customerLoan = db.Loans.Where(x => x.AccountNo == acc).Select(x => x).Where(x => x.LoanStatus == "active").FirstOrDefault();
                         var installment = (Convert.ToDecimal(customerLoan.amount) / Convert.ToDecimal(customerLoan.Duration)) + (customerLoan.InterestRate * 0.01m * customerLoan.amount);
-                        
+
                         //Total Loan amont due:
                         var amountDue = Convert.ToDecimal(installment * Convert.ToDecimal(customerLoan.Duration));
-                        
+
                         //Total interest Due: 
                         var interestDue = Convert.ToDecimal(amountDue - Convert.ToDecimal(customerLoan.amount));
-                            
+
                         //Set Culture info for currency
                         CultureInfo cultureInfo = new CultureInfo("en-US");
                         cultureInfo.NumberFormat.CurrencySymbol = "₦";
@@ -53,7 +54,18 @@
 
                         <div style="font-size: 16pt; text-align: left;">
                             <span class="card-title" style="color:#4a148c">
-                               <span class="td-image"><img src="@imageUrl" alt="No Image" /></span>  @name.FirstOrDefault()  
+                                @{
+                                    if (customerImage != null)
+                                    {
+                                        <span class="td-image"><img src="~/Customer/RetrieveImage/@customerId" alt="No Image" /></span>  @name.FirstOrDefault()
+
+                                    }
+                                    else
+                                    {
+                                        <span class="td-image"><img src="~/images/user-48.png" alt="No Image" /></span>  @name.FirstOrDefault()
+
+                                    }
+                                }
                             </span>
                             @{
                                 if (balance > 0)

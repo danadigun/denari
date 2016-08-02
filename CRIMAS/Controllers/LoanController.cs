@@ -314,13 +314,6 @@ namespace CRIMAS.Controllers
             ViewBag.totalDebits = totalDebits.Sum();
 
 
-            //var LoanStatus = from s in db.Loans
-            //                 join n in db.Borrows on s.Id equals n.id
-            //                 select new
-            //                 {
-            //                     accountNo = s.AccountNo,
-            //                     AmountBorrowed = n.amountborrowed
-            //                 };
             var BorrowedAmount = from s in _context.Borrows where s.accountNo == accountNo select s.amountborrowed;
 
             //if customer has never borrowed
