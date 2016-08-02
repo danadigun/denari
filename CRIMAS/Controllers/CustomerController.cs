@@ -80,7 +80,7 @@ namespace CRIMAS.Controllers
         {
             ViewBag.Message = TempData["Message"];
             ViewBag.MessageType = TempData["MessageType"];
-
+            
             ViewBag.search = searchString;
             return View(db.Customers.Where(s => s.AccountNo == searchString || s.Name.Contains(searchString)).ToList());
         }
@@ -130,7 +130,9 @@ namespace CRIMAS.Controllers
                     }
 
                     imageName = Guid.NewGuid() + extension;
-                    customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
+                    file = Request.Files["file"];
+                    this.UploadImage(file, customer.CustomerId);
+                    //customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
                 }
 
                 string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
@@ -173,10 +175,11 @@ namespace CRIMAS.Controllers
         public ActionResult UploadImage(HttpPostedFileBase file, int customerId)
         {
             var customer = db.Customers.FirstOrDefault(x => x.CustomerId == customerId);
+
+            
             if (customer != null)
             {
-                string oldFileName = customer.ImageUrl;
-                string imageName = string.Empty;
+              
                 if (file != null && file.ContentLength > 0)
                 {
                     string extension = Path.GetExtension(file.FileName);
@@ -187,14 +190,10 @@ namespace CRIMAS.Controllers
                     }
                     else
                     {
-                        imageName = Guid.NewGuid() + extension;
-                        customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
-
+                       
+                        customer.image = ConvertToBytes(file);                      
                         db.Entry(customer).State = EntityState.Modified;
                         db.SaveChanges();
-
-                        FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
-                        FileHelper.DeleteBlob(BlobContainer.customer, oldFileName);
 
                         TempData["Message"] = "Image has been uploaded successfully.";
                         TempData["MessageType"] = "Success";
@@ -210,8 +209,41 @@ namespace CRIMAS.Controllers
             return RedirectToAction("FindCustomer", "Customer", new { searchString = customer.AccountNo });
         }
 
+        public ActionResult RetrieveImage(int id)
+        {
+            byte[] cover = GetImageFromDataBase(id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            var q = from temp in db.Customers where temp.CustomerId == Id select temp.image;
+            byte[] cover = q.First();
+            return cover;
+        }
+        /// <summary>
+        /// Converts Image to bytes
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private byte[] ConvertToBytes(HttpPostedFileBase file)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(file.InputStream);
+            imageBytes = reader.ReadBytes((int)file.ContentLength);
+            return imageBytes;
+        }
+
         //
         // GET: /Customer/Edit/5
+
 
         public ActionResult Edit(int id = 0)
         {

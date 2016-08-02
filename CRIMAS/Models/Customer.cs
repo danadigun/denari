@@ -35,5 +35,8 @@ namespace CRIMAS.Models
         public string DateCreated { get; set; }//auto-generated
 
         public string ImageUrl { get; set; }
+
+
+        public byte[] image { get; set; }
     }
 }

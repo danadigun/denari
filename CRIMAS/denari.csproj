@@ -278,9 +278,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201607102254485_AddFormUrlToLoanTable.cs" />
-    <Compile Include="Migrations\201607102254485_AddFormUrlToLoanTable.Designer.cs">
-      <DependentUpon>201607102254485_AddFormUrlToLoanTable.cs</DependentUpon>
+    <Compile Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.cs" />
+    <Compile Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.Designer.cs">
+      <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -2034,7 +2034,7 @@
     <Content Include="Content\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_variables.scss" />
-    <None Include="Properties\PublishProfiles\local.pubxml" />
+    <None Include="Properties\PublishProfiles\denari-crimas-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -13617,8 +13617,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607102254485_AddFormUrlToLoanTable.resx">
-      <DependentUpon>201607102254485_AddFormUrlToLoanTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.resx">
+      <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

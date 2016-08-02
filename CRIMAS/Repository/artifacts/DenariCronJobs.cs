@@ -64,7 +64,7 @@ namespace CRIMAS.Repository.artifacts
        
         public void generateReconciliation()
         {
-            RecurringJob.AddOrUpdate(() => getReconciliation(), Cron.Monthly);
+            //RecurringJob.AddOrUpdate(() => getReconciliation(), Cron.Monthly);
         }
 
         public void getReconciliation()
