@@ -690,7 +690,13 @@ nav {
     }
 
 .footer {
-    height:45vh;
+    height:10vh;
     background-color:#333;
     color:white;
+}
+
+.footer > p{
+    text-align: center;
+    color:white;
+    padding: 28px 9px;
 }

@@ -80,6 +80,10 @@
       <HintPath>..\packages\HangFire.Web.0.9.1\lib\net40\HangFire.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Mandrill.API, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mandrill.API.0.0.2\lib\net40\Mandrill.API.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
       <Private>True</Private>
@@ -132,6 +136,10 @@
     </Reference>
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=104.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.104.0\lib\net4\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -1735,7 +1743,6 @@
     <Content Include="img\naira coins.png" />
     <Content Include="img\dreamstime_l_31990443.jpg" />
     <Content Include="img\dreamstime_xl_50592602.jpg" />
-    <Content Include="img\africa.jpg" />
     <Content Include="img\africa2.jpg" />
     <Content Include="img\logo 6.png" />
     <Content Include="img\logo 8.png" />
@@ -2039,6 +2046,7 @@
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_variables.scss" />
+    <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -2055,6 +2063,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\AjaxScripts\landing.js" />
     <Content Include="Scripts\material-design-table.js" />
     <Content Include="Scripts\metroui\accordion.js" />
     <Content Include="Scripts\metroui\buttonset.js" />
