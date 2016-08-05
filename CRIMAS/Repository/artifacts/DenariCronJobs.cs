@@ -22,7 +22,7 @@ namespace CRIMAS.Repository.artifacts
         public void initateDividends()
         {
             //RecurringJob.AddOrUpdate(() => getDividend(accountNo), Cron.Monthly); 
-            RecurringJob.AddOrUpdate(() => getDividend(), Cron.Monthly);
+           // RecurringJob.AddOrUpdate(() => getDividend(), Cron.Monthly);
         }
 
         public void getDividend()

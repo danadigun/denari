@@ -86,7 +86,7 @@ namespace CRIMAS.Controllers
                     string reseturl = Request.Url.Authority.ToString() + "/Account/ResetPassword?q=" + HttpUtility.UrlEncode(WebSecurity.GeneratePasswordResetToken(userprofile.UserName));
 
                     string emailBody = "Hello " + userprofile.FirstName + "<br><br>";
-                    emailBody += "We are received request for reset password from crmpcs.com.<br><br>";
+                    emailBody += "You have received request for reset password from crmpcs.com.<br><br>";
                     emailBody += "Please click on below link and reset your password.<br><br>";
                     emailBody += "<a href='" + reseturl + "' target='_blank'>" + reseturl + "<a/><br><br>";
                     emailBody += "Thanks,<br><br> Team at crmpcs.com";
@@ -96,7 +96,7 @@ namespace CRIMAS.Controllers
                             "Password reset",
                             emailBody))
                     {
-                        TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
+                        TempData["Message"] = "We have sent a password reset link to your email. Please check your email account.";
                         TempData["MessageType"] = "Success";
                         return RedirectToAction("Login", "Account");
                     }
@@ -107,7 +107,7 @@ namespace CRIMAS.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "There is no user exists with this email. Please enter correct email.");
+                    ModelState.AddModelError("", "This user doesn't exist in our system . Please enter a correct email.");
                 }
             }
             return View(model);

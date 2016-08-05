@@ -282,6 +282,10 @@
     <Compile Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.Designer.cs">
       <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608050905407_added_tables_for_dividend_management.cs" />
+    <Compile Include="Migrations\201608050905407_added_tables_for_dividend_management.Designer.cs">
+      <DependentUpon>201608050905407_added_tables_for_dividend_management.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BankReconciliation.cs" />
@@ -290,6 +294,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerLoanTransaction.cs" />
     <Compile Include="Models\CustomerSavings.cs" />
+    <Compile Include="Models\DividendManagementModels.cs" />
     <Compile Include="Models\Loan.cs" />
     <Compile Include="Models\LoanInterest.cs" />
     <Compile Include="Models\UserProfile.cs" />
@@ -309,6 +314,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repository\artifacts\DenariCronJobs.cs" />
+    <Compile Include="Repository\artifacts\DividendManagement.cs" />
     <Compile Include="Repository\artifacts\Repository.cs" />
     <Compile Include="Repository\artifacts\UserProfileManagement.cs" />
     <Compile Include="Repository\contracts\ICustomerLoanTransaction.cs">
@@ -13619,6 +13625,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.resx">
       <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608050905407_added_tables_for_dividend_management.resx">
+      <DependentUpon>201608050905407_added_tables_for_dividend_management.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -7,6 +7,7 @@
     var messageType = Convert.ToString(ViewBag.MessageType);
     var msgColor = messageType == "Success" ? "green" : "red";
 }
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="~/Content/materialize-v0.97.1/css/materialize.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
 <link href="~/Content/SiteUpdate.css" rel="stylesheet" />
@@ -14,9 +15,7 @@
 <link href="~/Content/animate.css" rel="stylesheet" />
 <section id="loginForm">
     <div class="card animated bounce" style="width:30%; margin-left:auto; margin-right:auto">
-        <h2 style="text-align: center">
-            <img src="~/Images/Crimas-header.png" style="width:230px; height:auto;" />
-        </h2>
+        <h1 style="color:#01579b; padding-bottom:20px; text-align:center; font-weight:bold">CRMPCS <small style="color:#01579b; margin-left:-8pt"><i><b>Portal</b></i></small></h1>
 
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
         {
@@ -25,9 +24,7 @@
             <span style="color: palevioletred" class="validationSummary">
                 @Html.ValidationSummary(true)
             </span>
-            <p class="card-title" style="font-size:16pt; text-align:center; font-family:'Segoe UI'; color:black ">
-                Please Sign in
-            </p>
+           
             <hr />
 
             <div class="row" style="padding:20px; padding-right:30px;">
@@ -47,8 +44,8 @@
                 </div>
                 <div class="col s12">
                     <input type="submit" class="btn btn-success" style="width: 120px; font-size: 12pt; background:#1565c0" value="Login" />
-                    @*<a style="margin-top: 3px; float: right;" href="@Url.Action("ForgotPassword","Account")">Forgot password?</a>*@
-                    <a style="margin-top: 3px; float: right;" href="#">Forgot password?</a>
+                    <a style="margin-top: 3px; float: right;" href="@Url.Action("ForgotPassword","Account")">Forgot password?</a>
+                   @* <a style="margin-top: 3px; float: right;" href="#">Forgot password?</a>*@
                 </div>
             </div>
         }
@@ -72,9 +69,23 @@
 <style>
     body {
         background-image: url('../../Images/Elegant_Background-4.jpg');
+        font-family: 'Raleway', sans-serif;
     }
 
     .footer a {
         color: white;
+    }
+    .validation-summary-errors > ul > li {
+        text-align: center;
+        background:#bdcfe3;
+        color:#000000;
+       
+        font-size:11pt;
+        margin-right:20px;
+        padding:1em 2em;
+    }
+    .field-validation-error{
+        font-weight:bold;
+        color:#f57f17;
     }
 </style>
