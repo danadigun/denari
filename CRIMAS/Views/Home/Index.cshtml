@@ -11,6 +11,8 @@
   
 
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+  
 </head>
 <body>
     <nav>
@@ -95,7 +97,7 @@
                 <div class="signup">
                     <h2>sign up for free</h2>
                     <p>Get 30 Days unlimited Access</p>
-                    <form name="request-demo">
+                    <form name="request-demo" action="~/Home/requestConfirm" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" id="name" placeholder="Name*" required>
                         </div>
@@ -386,7 +388,7 @@
 
 
     </script>
-    <script src="~/Scripts/AjaxScripts/landing.js"></script>
+  @*  <script src="~/Scripts/AjaxScripts/landing.js"></script>*@
 </body>
 
 

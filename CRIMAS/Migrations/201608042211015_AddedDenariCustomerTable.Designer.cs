@@ -7,13 +7,13 @@ namespace CRIMAS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class AddedDenariCustomerTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedDenariCustomerTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "201606061533158_InitialMigration"; }
+            get { return "201608042211015_AddedDenariCustomerTable"; }
         }
         
         string IMigrationMetadata.Source

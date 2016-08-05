@@ -271,18 +271,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Migrations\201608042211015_AddedDenariCustomerTable.cs" />
+    <Compile Include="Migrations\201608042211015_AddedDenariCustomerTable.Designer.cs">
+      <DependentUpon>201608042211015_AddedDenariCustomerTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequestDemoModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606061533158_InitialMigration.cs" />
-    <Compile Include="Migrations\201606061533158_InitialMigration.Designer.cs">
-      <DependentUpon>201606061533158_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\BankReconciliation.cs" />
     <Compile Include="Models\Borrowed.cs" />
-    <Compile Include="Models\CrimasDb.cs" />
+    <Compile Include="Models\DenariDb.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerLoanTransaction.cs" />
     <Compile Include="Models\CustomerSavings.cs" />
@@ -13553,6 +13554,7 @@
     <Content Include="windows8_icons\__MACOSX\Window_Controls\._.DS_Store" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Home\index.cshtml" />
+    <Content Include="Views\Home\requestConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -13561,8 +13563,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606061533158_InitialMigration.resx">
-      <DependentUpon>201606061533158_InitialMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608042211015_AddedDenariCustomerTable.resx">
+      <DependentUpon>201608042211015_AddedDenariCustomerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -16,7 +16,7 @@ namespace CRIMAS.SupportClasses
                     message.Subject = emailSubj;
                     message.Body = emailBody;
                     message.IsBodyHtml = true;
-                    //smtp.EnableSsl = true; //For gmail account
+                    smtp.EnableSsl = true; //For gmail account
                     smtp.Send(message);
                     return true;
                 }

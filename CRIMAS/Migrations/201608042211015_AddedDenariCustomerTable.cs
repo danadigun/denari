@@ -3,7 +3,7 @@ namespace CRIMAS.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialMigration : DbMigration
+    public partial class AddedDenariCustomerTable : DbMigration
     {
         public override void Up()
         {
@@ -88,6 +88,19 @@ namespace CRIMAS.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.DenariCustomers",
+                c => new
+                    {
+                        id = c.Int(nullable: false, identity: true),
+                        name = c.String(),
+                        phone = c.String(),
+                        email = c.String(),
+                        CompanyName = c.String(),
+                        Location = c.String(),
+                    })
+                .PrimaryKey(t => t.id);
+            
+            CreateTable(
                 "dbo.LoanInterests",
                 c => new
                     {
@@ -170,6 +183,7 @@ namespace CRIMAS.Migrations
             DropTable("dbo.LoanTransactions");
             DropTable("dbo.Loans");
             DropTable("dbo.LoanInterests");
+            DropTable("dbo.DenariCustomers");
             DropTable("dbo.CustomerSavings");
             DropTable("dbo.Customers");
             DropTable("dbo.CustomerLoanTransactions");
