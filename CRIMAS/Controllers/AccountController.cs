@@ -89,7 +89,7 @@ namespace CRIMAS.Controllers
                     emailBody += "You have received request for reset password from crmpcs.com.<br><br>";
                     emailBody += "Please click on below link and reset your password.<br><br>";
                     emailBody += "<a href='" + reseturl + "' target='_blank'>" + reseturl + "<a/><br><br>";
-                    emailBody += "Thanks,<br><br> Team at crmpcs.com";
+                    emailBody += "Thanks,<br><br> <b>Digital Forte Enterprise</b>";
 
                     if (EmailHelper.SendMail(
                             userprofile.UserName,

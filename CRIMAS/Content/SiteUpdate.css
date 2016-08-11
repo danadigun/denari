@@ -130,23 +130,23 @@ table td {
     color: #0d47a1;
 }
 
-.loan-history {
+.denari-table {
     padding-top: 70px;
 }
 
-    .loan-history .tabs a {
+    .denari-table .tabs a {
         color: #0d47a1;
     }
 
-        .loan-history .tabs a:hover {
+        .denari-table .tabs a:hover {
             color: #0d47a1;
             font-weight: bold;
         }
 
-    .loan-history .indicator {
+    .denari-table  .indicator {
         background-color: #0d47a1 !important;
     }
-    .loan-history #completed, #pending{
+    .denari-table .denari-table-content{
         padding-top:40px;
     }
 /*Validation styling*/
@@ -200,4 +200,15 @@ table td {
     font-size: 10pt;
     font-weight: lighter;
     font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sweet-alert button{
+    background-color:#0d47a1 !important;
+    border-radius:0px !important;
+}
+.sweet-alert .sa-icon.sa-success {
+    border-color: #00a9e8 !important;
+}
+#pay-dividend .btn{
+    background-color:#0d47a1;
 }

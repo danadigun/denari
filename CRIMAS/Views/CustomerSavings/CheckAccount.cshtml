@@ -1,115 +1,211 @@
 ﻿@model IEnumerable<CRIMAS.Models.CustomerSavings>
-@using CRIMAS.Models;
-@using System.Globalization;
-@using System.Threading;
+    @using CRIMAS.Models;
+    @using System.Globalization;
+    @using System.Threading;
 
-@{
-    ViewBag.Title = "CheckAccount";
-    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+    @{
+        ViewBag.Title = "CheckAccount";
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
 
-    var savingsTransactions = Model.OrderByDescending(x=>x.DateCreated);
-}
-<div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
-    <div class="card-content">
+        var savingsTransactions = Model.OrderByDescending(x => x.DateCreated);
 
-        
-            <span class="card-title" style="color:black">
+        var db = new CrimasDb();
+
+        var accountno = from s in Model select s.AccountNo;
+        var acc = (from s in Model select s.AccountNo).FirstOrDefault();
+
+        var dateCreated = from s in Model select s.DateCreated;
+
+        var name = from s in Model select s.Name;
+
+        string strAcc = accountno.LastOrDefault();
+
+        var totalCredits = (from s in Model select s.Credit).Sum();
+
+        var totalDebits = (from s in Model select s.Debit).Sum();
+
+        var balance = (totalCredits - totalDebits);
+
+        var total_dividend = db.Dividends.Where(x => x.accountNo == acc).Select(x => x.amount).Sum();
+
+        var net_total = (balance + total_dividend);
+
+        //Set Culture info for currency
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+    }
+    
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
+
+
+            <div class="card-title details" style="color:black; padding-left:20px;">
                 <a href="~/" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
 
-                <img src="~/Images/Customer-small.png" style="padding-right: 20px;" />Account holder's status of account.<hr />
-            </span>
-       
-        <br />
+                <span class="card-panel hoverable" style="float:right; font-size:16pt; margin-right:50px; background-color:whitesmoke; width:200px">
+                    @{
+                        if (total_dividend <= 0)
+                        {
+                    <span>
+                         Dividends:<br />
+                        <label style="color: red"><b style="font-size:15pt;">-@string.Format("{0:C}", @total_dividend)</b> </label>
+                    </span>
+                        }
+                        if (total_dividend > 0)
+                        {
+                    <span>
+                         Dividends:<br />
+                        <label style="color: blue"><b style="font-size:15pt;">@string.Format("{0:C}", @total_dividend)</b> </label>
+                    </span>
+                        }
+                    }
+                </span>
+                <span class="card-panel hoverable" style="float:right; font-size:16pt; margin-right:20px; background-color:whitesmoke; width:200px">
+                    @{
+                        if (balance <= 0)
+                        {
+                    <span>
+                        Savings :<br />
+                        <label style="color: red"><b style="font-size:15pt;">-@string.Format("{0:C}", @balance)</b> </label>
+                    </span>
+                        }
+                        if (balance > 0)
+                        {
+                    <span>
+                        Savings :<br />
+                        <label style="color: blue"><b style="font-size:15pt;">@string.Format("{0:C}", @balance)</b> </label>
+                    </span>
+                        }
+                    }
+                </span>
 
-        <div >
-            <span style="float: right; padding-right: 20px; ">
-                <a href="~/CustomerSavings/CreditAccount" class="waves-effect waves-light btn" style="background:#7cb342">Credit account</a>
-                <a href="~/CustomerSavings/DebitAccount" class="waves-effect waves-light btn" style="background:#b71c1c ">debit account</a>
-            </span>
-            <p style="margin-bottom:40px; font-style:italic">What would you like to do?</p>
-
-        </div>
-        <br />
-        <div style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
-            <div>
                 @{
-                    var accountno = from s in Model select s.AccountNo;
+                    
 
-                    var dateCreated = from s in Model select s.DateCreated;
+                    var customer = db.Customers.Where(x => x.AccountNo == acc).FirstOrDefault();
 
-                    var name = from s in Model select s.Name;
+                    <h3 style="text-align:left;">
+                        @{
+                            if (customer.image != null)
+                            {
+                                <img class="cust-img card-panel hoverable" src="~/Customer/RetrieveImage/@customer.CustomerId" />
+                            }
+                            else
+                            {
+                                <img class="cust-img card-panel hoverable" src="~/images/user-48.png" />
+                            }
 
-                    string strAcc = accountno.LastOrDefault();
 
-                    var totalCredits = (from s in Model select s.Credit).Sum();
 
-                    var totalDebits = (from s in Model select s.Debit).Sum();
 
-                    var balance = (totalCredits - totalDebits);
 
-                    //var db = new CrimasDb();
+                        }
+                    </h3>
 
-                    //var CustomerName = from s in db.Customers
-                    //                   where s.AccountNo == strAcc
-                    //                   select s;
+                    <h3 style="text-align:left; line-height:10pt;  margin-top:-0.5em;">
+                        <span style="font-size:16pt; font-family: 'Raleway', sans-serif; text-transform:capitalize"> <b>@name.FirstOrDefault()</b></span><br />
+                        <span style="color:green; font-style:italic; text-align:center"><label>Account Opening date: @dateCreated.LastOrDefault() </label></span><br />
 
-                    //Set Culture info for currency
-                    CultureInfo cultureInfo = new CultureInfo("en-US");
-                    cultureInfo.NumberFormat.CurrencySymbol = "₦";
+                        <label> <b style="font-size:14pt; color:#0078d7">@accountno.LastOrDefault()</b></label>
 
-                    Thread.CurrentThread.CurrentCulture = cultureInfo;
-
-    // foreach (var item in Model)
-    //{
-    <label style="font-size:16pt; text-align:center"> <b>@name.FirstOrDefault()</b></label>
-                    <span style="color:green; font-style:italic; text-align:center"><label>Account Opening date: @dateCreated.LastOrDefault() </label></span><br />
-
-    // }
+                    </h3>
                 }
+
+
             </div>
-            <div style="float: left">
-                <label>Account number: <b style="font-size:14pt; color:black">@accountno.LastOrDefault()</b></label>
+
+            <div style="margin-top:-8em; padding-right:7em;">
+
+                <span style="float: right; padding-right: 20px; ">
+                    <span style="display:block; padding-bottom:20px; font-size:19pt; color:#3e7157; font-weight:bold;">Total Balance:&nbsp; @string.Format("{0:C}", @net_total)</span>
+                    <a href="~/CustomerSavings/CreditAccount" class="waves-effect waves-light btn" style="background:#7cb342; width:253px;">Credit account</a>
+                    <a href="~/CustomerSavings/DebitAccount" class="waves-effect waves-light btn" style="background:#b71c1c ">debit account</a>
+                </span>
+
             </div>
-            @{
-                if (balance <= 0)
-                {
-                    <div style="float: right; padding-right: 20px;">
-                        balance:
-                        <label style="color: red"><b style="font-size:15pt;">-@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
-                    </div>
-                }
-                if (balance > 0)
-                {
-                    <div style="float: right; padding-right: 20px;">
-                        balance:
-                        <label style="color: blue"><b style="font-size:15pt;">@string.Format("{0:C}", @balance)</b> <b>(NGN)</b></label>
-                    </div>
-                }
-            }
 
-            <br />
-            <br />
-            <label style="text-align: left"><b>Transaction history:</b></label>
-            <table class="table bordered  striped" style="font-size:10pt;">
-                <tr style="background-color: #2A3333; color: whitesmoke">
-                    <td>Date</td>
-                    <td>Credits</td>
-                    <td>Debits</td>
-                    <td>Msgs</td>
-                </tr>
-                @foreach (var item in savingsTransactions)
-                {
-                    <tr>
-                        <td>@item.DateCreated.ToLongDateString()</td>
-                        <td>@item.Credit</td>
-                        <td>@item.Debit</td>
-                        <td><i>@item.TransactionMsg</i></td>
-                    </tr>
-                }
+            <div class="denari-table row" style="margin-top:7em;">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="active" href="#transactions">Transactions</a></li>
+                        <li class="tab col s3"><a href="#dividends">Dividends earned.</a></li>
 
-            </table>
+                    </ul>
+                </div>
+                <div id="transactions" class="denari-table-content" style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+
+                    <br />
+                    <br />
+                    <h5 style="text-align: left; font-weight:lighter">Transaction history:</h5>
+                    <table class="table bordered  striped" style="font-size:10pt;">
+                        <tr style="background-color: #2A3333; color: whitesmoke">
+                            <td>Date</td>
+                            <td>Credits</td>
+                            <td>Debits</td>
+                            <td>Msgs</td>
+                        </tr>
+                        @foreach (var item in savingsTransactions)
+                        {
+                            <tr>
+                                <td>@item.DateCreated.ToLongDateString()</td>
+                                <td>@item.Credit</td>
+                                <td>@item.Debit</td>
+                                <td><i>@item.TransactionMsg</i></td>
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+                <div id="dividends" class="denari-table-content" style="padding-left: 20px; padding-bottom: 20px; padding-right: 20px">
+                   <div>
+                       <br />
+                       <br />
+                       <h5 style="text-align: left; font-weight:lighter">Dividends:</h5>
+                       <table id="dividend-list" class="table bordered stripped" >
+                        
+                               <tr style="background-color: #2A3333; color: whitesmoke">
+                                   <td>&nbsp;</td>
+                                   <td >Amount</td>
+                                   <td >% percentage</td>
+                                   <td >Date issued</td>
+
+                               </tr>
+
+                      
+                           <tbody>
+                               @{
+                                   var dividends = db.Dividends.Where(x => x.accountNo == acc);
+                                   var count = 1;
+                                   foreach (var item in dividends)
+                                   {
+                                      <tr>
+                                          <td>@count</td>
+                                          <td>@item.amount</td>
+                                          <td>@item.percentage</td>
+                                          <td>@item.dateCreated</td>
+                                      </tr>
+                                      count++;
+                                   }
+                               }
+                           </tbody>
+
+                       </table>
+                   </div>
+                </div>
+            </div>
 
         </div>
     </div>
-</div>
+    <style>
+        .cust-img{
+            width:170px;
+            height:auto;
+            border:1px solid #808080;
+        }
+    </style>
+   

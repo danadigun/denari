@@ -1,0 +1,75 @@
+﻿@{
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+
+<div>
+    <div class="center-align" style="padding-top:5em;">
+
+        <form id="pay-dividend" class="card" style="width:40%; padding:10px 10px;  margin-left:auto; margin-right:auto;">
+            <h2>
+                <i class="fa fa-gift" aria-hidden="true" style="color:#01579b"></i>
+            </h2>
+            <h4>
+                Pay Dividend
+            </h4>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input style="width:95%" placeholder="% percentage dividend to pay for the month. e.g. 10, 2.5 etc.." id="percentage" name="percentage" type="number" class="validate" required>
+                </div>
+                <div class="input-field col s12">
+                    <button class="btn" style="width:100%">Pay dividends </button>
+                </div>
+            </div>
+
+            <div id="spinner-pay" style="padding-top:1em;">
+                <p>Initiating payment..</p>
+
+                <div class="progress" style="margin-bottom:-0.3em; background-color:none;">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<style>
+    .progress {
+        background-color: none !important;
+    }
+</style>
+<script>
+    $(document).ready(function (event) {
+
+        $('#spinner-pay').hide();
+
+        $('.btn').click(function (event) {
+            $('#pay-dividend').validate({
+                submitHandler: function (form) {
+                    $('#spinner-pay').show();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/div?percentage=' + $('input[name=percentage]').val(),
+
+
+                    }).done(function (response) {
+                        $('#spinner-pay').hide();
+
+                        swal("Transaction Successful!", "Dividends have successfully been paid to all!", "success")
+                        $('#pay-dividend').trigger('reset');
+
+
+                    }).fail(function (error) {
+                        $('#spinner-pay').hide();
+
+                        swal("Transaction Failed!", "Unable to initiate payment", "error")
+                    })
+                     .always(function (result) { console.log('Request done!') });
+                }
+            })
+        })
+    })
+
+    
+</script>

@@ -35,12 +35,6 @@ namespace CRIMAS.Controllers
             }
             return RedirectToAction("AccountNotFound");
 
-            //{
-            //    //return RedirectToAction("AccountNotFound");
-            //    return View(customerAccount.ToList());
-            //}
-            //}
-            //return View();
         }
         //
         //GET: /CustomerSavings/AccountNotFound

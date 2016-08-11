@@ -266,6 +266,8 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\CustomerSavingsController.cs" />
+    <Compile Include="Controllers\Api\DividendApiController.cs" />
+    <Compile Include="Controllers\DividendController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\ExportDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -278,13 +280,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.cs" />
-    <Compile Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.Designer.cs">
-      <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608050905407_added_tables_for_dividend_management.cs" />
-    <Compile Include="Migrations\201608050905407_added_tables_for_dividend_management.Designer.cs">
-      <DependentUpon>201608050905407_added_tables_for_dividend_management.cs</DependentUpon>
+    <Compile Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.cs" />
+    <Compile Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.Designer.cs">
+      <DependentUpon>201608092051471_AddedForeignKeyToDivdendTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -1518,6 +1516,9 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\SiteUpdate-responsive.css" />
     <Content Include="Content\SiteUpdate.css" />
+    <Content Include="Content\sweetAlert\sweetalert-dev.js" />
+    <Content Include="Content\sweetAlert\sweetalert.css" />
+    <Content Include="Content\sweetAlert\sweetalert.min.js" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -13615,6 +13616,9 @@
     <Content Include="Views\Reconciliation\data.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Loan\history.cshtml" />
+    <Content Include="Views\Dividend\post.cshtml" />
+    <Content Include="Views\Dividend\postSuccess.cshtml" />
+    <Content Include="Views\Shared\_spinner_partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -13623,11 +13627,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608021349505_AddedImageUrlFieldToCustomerDatabase.resx">
-      <DependentUpon>201608021349505_AddedImageUrlFieldToCustomerDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608050905407_added_tables_for_dividend_management.resx">
-      <DependentUpon>201608050905407_added_tables_for_dividend_management.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.resx">
+      <DependentUpon>201608092051471_AddedForeignKeyToDivdendTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

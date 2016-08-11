@@ -1,5 +1,8 @@
 ﻿@*this layout is for cashier users only*@
 @using CRIMAS.Models;
+@using System.Globalization;
+@using System.Threading;
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +16,11 @@
     <link href="~/Content/SiteUpdate-responsive.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Content/materialize-v0.97.1/js/materialize.js"></script>
+    <script src="~/Content/sweetAlert/sweetalert.min.js"></script>
+
     <link href="~/Content/validetta-v1.0.1-dist/validetta.min.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/sweetAlert/sweetalert.css" rel="stylesheet" />
     <style>
         #searchString {
             background: #fff !important;
@@ -32,6 +38,14 @@
 </head>
 <body style="font-family:'Segoe UI'">
     @{
+
+        //Set Culture info for currency
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+
         var db = new CrimasDb();
 
         string id = User.Identity.Name.ToString();
@@ -77,14 +91,14 @@
                             @*  <img src="~/Images/Crimas-header.png" />*@
                             <div>
                                 @{
-                                    if (User.IsInRole("Admin"))
-                                    {
-                                        <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
-                                    }
-                                    else
-                                    {
-                                        <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
-                                    }
+                                if (User.IsInRole("Admin"))
+                                {
+                                <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:orangered">[Administrator]</b></label>
+                                }
+                                else
+                                {
+                                <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+                                }
                                 }
                                 <a class="" href="~/Account/Manage">Change password</a>
                                 @Html.Partial("_LoginPartial")
@@ -104,18 +118,18 @@
                         </li>
                         <li class="bold">
                             @{
-                                if (User.IsInRole("Admin"))
-                                {
-                                    <a href="~/Home/admin">
-                                        <i class="fa fa-home" aria-hidden="true"></i>Home
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a href="~/Home/cashier">
-                                        <i class="fa fa-home" aria-hidden="true"></i>Home
-                                    </a>
-                                }
+                            if (User.IsInRole("Admin"))
+                            {
+                            <a href="~/Home/admin">
+                                <i class="fa fa-home" aria-hidden="true"></i>Home
+                            </a>
+                            }
+                            else
+                            {
+                            <a href="~/Home/cashier">
+                                <i class="fa fa-home" aria-hidden="true"></i>Home
+                            </a>
+                            }
                             }
                         </li>
 
@@ -151,14 +165,14 @@
 
                         </li>
                         @{
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li class="bold">
-                                    <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                                        <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
-                                    </a>
-                                </li>
-                            }
+                        if (User.IsInRole("Admin"))
+                        {
+                        <li class="bold">
+                            <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
+                                <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
+                            </a>
+                        </li>
+                        }
                         }
                         <li class="bold">
                             <a class="waves-effect waves-teal" href="~/Customer/Index">
@@ -171,15 +185,15 @@
                             </a>
                         </li>
                         @{
-                            if (User.IsInRole("Admin"))
-                            {
+                        if (User.IsInRole("Admin"))
+                        {
 
-                                <li class="bold">
-                                    <a class="waves-effect waves-green" href="~/AddUser">
-                                        <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
-                                    </a>
-                                </li>
-                            }
+                        <li class="bold">
+                            <a class="waves-effect waves-green" href="~/AddUser">
+                                <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
+                            </a>
+                        </li>
+                        }
                         }
                         <li class="bold">
                             <a class="waves-effect waves-green" href="~/Reconciliation">
@@ -204,34 +218,34 @@
                 @*  <img src="~/Images/Crimas-header.png" />*@
                 <div>
                     @{
-                        if (User.IsInRole("Admin"))
-                        {
-                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:#01579b">[Administrator]</b></label>
+                    if (User.IsInRole("Admin"))
+                    {
+                    <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:#01579b">[Administrator]</b></label>
 
-                        }
-                        else
-                        {
-                            <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+                    }
+                    else
+                    {
+                    <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
 
-                        }
+                    }
                     }
                     <hr />
                 </div>
             </li>
             <li class="bold">
                 @{
-                    if (User.IsInRole("Admin"))
-                    {
-                        <a href="~/Home/admin">
-                            <i class="fa fa-home" aria-hidden="true"></i>Home
-                        </a>
-                    }
-                    else
-                    {
-                        <a href="~/Home/cashier">
-                            <i class="fa fa-home" aria-hidden="true"></i>Home
-                        </a>
-                    }
+                if (User.IsInRole("Admin"))
+                {
+                <a href="~/Home/admin">
+                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                </a>
+                }
+                else
+                {
+                <a href="~/Home/cashier">
+                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                </a>
+                }
                 }
             </li>
 
@@ -267,14 +281,14 @@
 
             </li>
             @{
-                if (User.IsInRole("Admin"))
-                {
-                    <li class="bold">
-                        <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
-                            <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
-                        </a>
-                    </li>
-                }
+            if (User.IsInRole("Admin"))
+            {
+            <li class="bold">
+                <a href="~/IncomeAnalysis" class="waves-effect waves-teal">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
+                </a>
+            </li>
+            }
             }
             <li class="bold">
                 <a class="waves-effect waves-teal" href="~/Customer/Index">
@@ -289,13 +303,34 @@
             @{
                 if (User.IsInRole("Admin"))
                 {
+                    <li class="bold no-padding" style="margin-bottom:1em">
+                        <ul class="collapsible collapsible-accordion">
+                            <li>
+                              
+                                <a class="collapsible-header"><i class="fa fa-gift" aria-hidden="true"></i> Dividend management</a>
 
-                    <li class="bold">
-                        <a class="waves-effect waves-green" href="~/AddUser">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
-                        </a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                       
+                                        <li>
+                                            <a href="~/dividend/post">
+                                                <i class="fa fa-plus" aria-hidden="true"></i>  pay dividends
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+
                     </li>
-                }
+
+            <li class="bold">
+                <a class="waves-effect waves-green" href="~/AddUser">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
+                </a>
+            </li>
+            }
             }
             <li class="bold">
                 <a class="waves-effect waves-green" href="~/Reconciliation">

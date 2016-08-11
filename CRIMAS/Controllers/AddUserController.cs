@@ -69,6 +69,9 @@ namespace CRIMAS.Controllers
                     var roles = (SimpleRoleProvider)Roles.Provider;
                     var membership = (SimpleMembershipProvider)Membership.Provider;
 
+                    //update userprofile table
+                    db.UserProfiles.Add(userprofile);
+
                     //Add user to selected role
                     if (!roles.RoleExists(userprofile.role))
                     {

@@ -1,5 +1,9 @@
 ﻿@using PagedList.Mvc
+@using System.Globalization;
+@using System.Threading;
 @model PagedList.IPagedList<CRIMAS.Models.Customer>
+
+
 
     @{
         ViewBag.Title = "Customer List";
@@ -13,6 +17,12 @@
         string sortOrder = Convert.ToString(ViewBag.SortOrder);
         string tempSort = !string.IsNullOrEmpty(sortOrder) && sortOrder == "desc" ? "asc" : "desc";
         int curPage = Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber;
+
+        //Set Culture info for currency
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
     }
 
     <div class="card" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
@@ -86,7 +96,7 @@
                         <td>@item.AccountNo</td>
                         <td>@item.OfficeAddress</td>
                         <td style="color:orangered; font-weight:bold">
-                            N @balance [NGN]
+                           @string.Format("{0:C}", @balance)
                         </td>
                         <td>
                             @if (User.IsInRole("Admin"))

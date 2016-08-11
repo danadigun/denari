@@ -8,6 +8,7 @@ namespace CRIMAS.Models
     public class Dividends
     {
         public int id { get; set; }
+        public int dividend_id { get; set; }
         public decimal percentage { get; set; }
         public decimal amount { get; set; }
         public string accountNo { get; set; }
@@ -18,6 +19,7 @@ namespace CRIMAS.Models
     public class DividendSummary
     {
         public int id { get; set; }
+        public int dividend_id { get; set; }
         public DateTime dateCreated { get; set; }
         public decimal total_amount { get; set; }
         public decimal percentage { get; set; }

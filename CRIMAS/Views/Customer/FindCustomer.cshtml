@@ -1,4 +1,7 @@
-﻿@model IEnumerable<CRIMAS.Models.Customer>
+﻿@using System.Globalization;
+@using System.Threading;
+
+@model IEnumerable<CRIMAS.Models.Customer>
     @{
         ViewBag.Title = "Customer List";
         Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
@@ -10,18 +13,14 @@
         var messageType = Convert.ToString(ViewBag.MessageType);
         var msgColor = messageType == "Success" ? "green" : "red";
 
-        ////search account balance
-        //var savingsCredit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Credit).Sum();
-        //var savingsDebit = db.CustomerSavings.Where(x => x.AccountNo == searchString || x.Name.Contains(searchString)).Select(x => x.Debit).Sum();
-        //var savingsBalance = savingsCredit - savingsDebit;
+        //Set Culture info for currency
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
 
     }
-    @*<div class="container">
-            <h5>
-                Customer(s) Search results.
-            </h5><hr />
-        </div>
-        <br />*@
+   
     <div style="padding-top:4em;">
         @if (Model.Count() == 0)
         {
@@ -123,14 +122,14 @@
                         @if (customerLoan.Count == 0)
                         {
                             <span>
-                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:green"> N 0.00 [NGN]</b>
+                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:green"> @string.Format("{0:C}", 0.00)</b>
                             </span>
                         }
 
                         @foreach (var record in customerLoan)
                         {
                             <span>
-                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:#c62828"> N @record.amount [NGN]</b>
+                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:#c62828"> @string.Format("{0:C}", @record.amount)</b>
                                 <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">loan status</a>
                                 <br /><br />
                             </span>
@@ -142,7 +141,7 @@
                 <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
                     <div class="card-content">
                         <span>
-                            <img src="~/Images/Coin-01-WF.png" /><b>Savings balance:</b> <b style="color:blue">N @savingsBalance [NGN]</b>
+                            <img src="~/Images/Coin-01-WF.png" /><b>Savings balance:</b> <b style="color:blue">@string.Format("{0:C}", @savingsBalance)</b>
                             <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">account status</a>
                             <br /><br />
                         </span>
@@ -151,9 +150,11 @@
 
                 //Image Upload
                 <div class="card" style="width:70%; margin-left:auto; margin-right:auto;padding: 0 15px;">
-                    <div class="row">
+                    <div class="row" style="text-align:center">
+                       
                         @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                         {
+                            <p style="">Update Customer Image</p>
                             <div class="input-field col s6">
                                 <div class="file-field input-field">
                                     <div class="btn">
@@ -161,7 +162,7 @@
                                         <input type="file" name="file" id="file">
                                     </div>
                                     <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                                        <input  class="file-path validate" type="text" placeholder="  update customer profile image">
                                     </div>
                                 </div>
                             </div>
