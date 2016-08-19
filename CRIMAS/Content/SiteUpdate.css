@@ -143,11 +143,12 @@ table td {
             font-weight: bold;
         }
 
-    .denari-table  .indicator {
+    .denari-table .indicator {
         background-color: #0d47a1 !important;
     }
-    .denari-table .denari-table-content{
-        padding-top:40px;
+
+    .denari-table .denari-table-content {
+        padding-top: 40px;
     }
 /*Validation styling*/
 
@@ -202,13 +203,25 @@ table td {
     font-family: 'segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.sweet-alert button{
-    background-color:#0d47a1 !important;
-    border-radius:0px !important;
+.sweet-alert button {
+    background-color: #0d47a1 !important;
+    border-radius: 0px !important;
 }
+
 .sweet-alert .sa-icon.sa-success {
     border-color: #00a9e8 !important;
 }
-#pay-dividend .btn{
-    background-color:#0d47a1;
+
+#pay-dividend .btn {
+    background-color: #0d47a1;
 }
+
+
+.btn {
+    background-color: #0078d7;
+    color: white;
+}
+
+    .btn:hover {
+        background-color: #3b90d3;
+    }

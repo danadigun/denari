@@ -27,7 +27,8 @@
 
         var balance = (totalCredits - totalDebits);
 
-        var total_dividend = db.Dividends.Where(x => x.accountNo == acc).Select(x => x.amount).Sum();
+        //var total_dividend =  db.Dividends.Where(x => x.accountNo == acc).Select(x => x.amount).Sum() ?? 0;
+        var total_dividend = (from d in db.Dividends where d.accountNo == acc select (Decimal?)d.amount).Sum() ?? 0;
 
         var net_total = (balance + total_dividend);
 
@@ -86,7 +87,7 @@
                 @{
                     
 
-                    var customer = db.Customers.Where(x => x.AccountNo == acc).FirstOrDefault();
+                    var customer = db.Customers.Where(x => x.AccountNo == acc).SingleOrDefault();
 
                     <h3 style="text-align:left;">
                         @{

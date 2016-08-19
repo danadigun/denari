@@ -95,9 +95,7 @@
                                                               DateCreated = s.DateOfCommencement,
                                                               completionDate = s.DateOfTermination,
                                                               status = s.LoanStatus,
-                                                              ImgAgreementUrl = s.ImgAgreementUrl,
-                                                              ImgIrrevocableUrl = s.ImgIrrevocableUrl,
-                                                              ImgGuarantorsUrl = s.ImgGuarantorsUrl
+                                                             
                                                           }).Where(x => x.status == "active");
 
                                     <br />
@@ -120,21 +118,18 @@
                                                     <td style="color:red; font-size:14pt;">₦@item.amount.ToString("#,##0.00") (NGN)</td>
                                                     <td>@item.completionDate.ToLongDateString()</td>
                                                     <td>
-                                                        @if (!string.IsNullOrEmpty(item.ImgAgreementUrl))
-                                                        {
+                                                       
                                                             <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
-                                                                 src="@item.ImgAgreementUrl" height="30" width="30" />
-                                                        }
-                                                        @if (!string.IsNullOrEmpty(item.ImgIrrevocableUrl))
-                                                        {
+                                                                 src="~/Loan/RetrieveAgreement?loan_id=@item.Id" height="30" width="30" />
+                                                       
+                                                      
                                                             <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
-                                                                 src="@item.ImgIrrevocableUrl" height="30" width="30" />
-                                                        }
-                                                        @if (!string.IsNullOrEmpty(item.ImgGuarantorsUrl))
-                                                        {
+                                                                 src="~/Loan/RetrieveAgreement?loan_id=@item.Id" height="30" width="30" />
+                                                       
+                                                       
                                                             <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
-                                                                 src="@item.ImgGuarantorsUrl" height="30" width="30" />
-                                                        }
+                                                                 src="~/Loan/RetrieveAgreement?loan_id=@item.Id" height="30" width="30" />
+                                                        
                                                     </td>
                                                     <td>
                                                         @{
@@ -223,11 +218,11 @@
             $(document).ready(function () {
                 $('.materialboxed').materialbox();
 
-                $('.material-placeholder').each(function () {
-                    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
-                    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
-                    $(this).append(a);
-                });
+                //$('.material-placeholder').each(function () {
+                //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
+                //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
+                //    $(this).append(a);
+                //});
             });
 
         </script>

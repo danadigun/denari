@@ -1,0 +1,163 @@
+﻿@using CRIMAS.Models;
+
+@{ 
+
+    var db = new CrimasDb();
+
+    string id = User.Identity.Name.ToString();
+
+    var nFirstName = from s in db.UserProfiles where s.UserName == id select s.FirstName;
+
+    var nLastName = from s in db.UserProfiles where s.UserName == id select s.LastName;
+}
+
+<ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
+    <li class="logo">
+        <h4 style="color:#01579b; padding-bottom:20px;">CRMPCS <small><i><b>Portal</b></i></small></h4>
+
+    </li>
+    <li class="logo">    
+        <div>
+            @{
+                if (User.IsInRole("Admin"))
+                {
+                    <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault() <b style="color:#01579b">[Administrator]</b></label>
+
+                }
+                else
+                {
+                    <label>Welcome, @nFirstName.FirstOrDefault()&nbsp;@nLastName.FirstOrDefault()</label>
+
+                }
+            }
+            <hr />
+        </div>
+    </li>
+    <li class="bold">
+        @{
+            if (User.IsInRole("Admin"))
+            {
+                <a href="~/Home/admin">
+                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                </a>
+            }
+            else
+            {
+                <a href="~/Home/cashier">
+                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                </a>
+            }
+        }
+    </li>
+    <li class="bold no-padding" style="margin-bottom:1em">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header"><i class="fa fa-bolt" aria-hidden="true"></i> Loan management</a>
+
+                <div class="collapsible-body">
+                    <ul>
+                        <li>
+                            <a href="~/Loan/create">
+                                <i class="fa fa-plus" aria-hidden="true"></i> New Loan
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Loan/">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Outstanding loans
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/LoanTransaction/Create/">
+                                <i class="fa fa-plus" aria-hidden="true"></i>  Amortization
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Loan/history">
+                                <i class="fa fa-plus" aria-hidden="true"></i>  History
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+
+    </li>
+    @{
+        if (User.IsInRole("Admin"))
+        {
+            <li class="bold">
+                <a href="~/IncomeAnalysis">
+                    <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
+                </a>
+            </li>
+        }
+    }
+    <li class="bold">
+        <ul class="collapsible collapsible-accordion">
+            <li style="margin-left:-15px; margin-bottom:10px;">
+                <a class="collapsible-header"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
+
+                <div class="collapsible-body">
+                    <ul>
+                        <li>
+
+                            <a href="~/Customer/Index">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Customers
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/Customer/Create/">
+                                <i class="fa fa-plus" aria-hidden="true"></i>  Enroll new customer
+                            </a>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+    <li class="bold">
+        <a href="~/CustomerSavings/EnterAccount">
+            <i class="fa fa-server" aria-hidden="true"></i>Customer Savings
+        </a>
+    </li>
+    @{
+        if (User.IsInRole("Admin"))
+        {
+            <li class="bold no-padding" style="margin-bottom:1em">
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+
+                        <a class="collapsible-header"><i class="fa fa-gift" aria-hidden="true"></i> Dividend management</a>
+
+                        <div class="collapsible-body">
+                            <ul>
+
+                                <li>
+                                    <a href="~/dividend/post">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>  pay dividends
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="bold">
+                        <a class="waves-effect waves-green" href="~/AddUser">
+                            <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
+                        </a>
+                    </li>
+        }
+    }
+    @*<li class="bold">
+        <a class="waves-effect waves-green" href="~/Reconciliation">
+            <i class="fa fa-undo" aria-hidden="true"></i>Bank reconciliation
+        </a>
+    </li>*@
+</ul>
+

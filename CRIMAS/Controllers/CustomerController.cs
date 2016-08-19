@@ -119,21 +119,7 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                string imageName = string.Empty;
-                if (file != null && file.ContentLength > 0)
-                {
-                    string extension = Path.GetExtension(file.FileName);
-                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
-                    {
-                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
-                        return View(customer);
-                    }
-
-                    imageName = Guid.NewGuid() + extension;
-                    file = Request.Files["file"];
-                    this.UploadImage(file, customer.CustomerId);
-                    //customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
-                }
+                
 
                 string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
 
@@ -157,13 +143,26 @@ namespace CRIMAS.Controllers
                 db.CustomerSavings.Add(credit);
                 db.SaveChanges();
 
+                //upload image
+                string imageName = string.Empty;
+                if (file != null && file.ContentLength > 0)
+                {
+                    string extension = Path.GetExtension(file.FileName);
+                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(customer);
+                    }
+
+                    imageName = Guid.NewGuid() + extension;
+                    file = Request.Files["file"];
+                    this.UploadImage(file, customer.CustomerId);
+                    //customer.ImageUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.customer.ToString() + "/" + imageName;
+                }
                 //Fire and forget cron-job for dividend generation for this customer
                 //new DenariCronJobs().initateDividends(CustomerAccountNo);
 
-                if (file != null && file.ContentLength > 0)
-                {
-                    FileHelper.UploadImage(file.InputStream, imageName, BlobContainer.customer);
-                }
+
 
                 return Redirect("~/Customer/Details/" + customer.CustomerId);
             }

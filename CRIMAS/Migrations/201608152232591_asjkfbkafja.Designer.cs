@@ -7,13 +7,13 @@ namespace CRIMAS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedForeignKeyToDivdendTable : IMigrationMetadata
+    public sealed partial class asjkfbkafja : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedForeignKeyToDivdendTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(asjkfbkafja));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608092051471_AddedForeignKeyToDivdendTable"; }
+            get { return "201608152232591_asjkfbkafja"; }
         }
         
         string IMigrationMetadata.Source

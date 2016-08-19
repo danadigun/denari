@@ -1,0 +1,111 @@
+﻿@using System.Globalization;
+@using System.Threading;
+
+@model IEnumerable<CRIMAS.Models.LoanTransaction>
+    @{
+        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+        //Set Culture info for currency
+        CultureInfo cultureInfo = new CultureInfo("en-US");
+        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+        int loan_id = Convert.ToInt32(ViewBag.LoanId);
+
+        var _context = new CRIMAS.Models.CrimasDb();
+        var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
+        int i = 1;
+
+        decimal total_Cr = 0;
+        decimal total_Dr = 0;
+    }
+
+
+    <div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
+         
+      
+         <!--Loan Details-->
+        <div class="card">
+            <div class="card-content">
+               <br /> <h5>Loan Details</h5><hr /><br />
+                <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
+
+                <table class="table bordered striped">
+                    <tr>
+                       
+                        <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:#0078d7; color:white; width:30%;">Principal Amount</td>
+                        <td style="float:right; padding-right:40px; font-weight:bold; font-size:17pt;">@string.Format("{0:C}", loan.amount)</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:#0078d7; color:white;">Interest </td>
+                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration)) (@loan.InterestRate %)</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:#0078d7; color:white;">Principal + Interest </td>
+                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount + (loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration))) </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:#0078d7; color:white;">Tenure</td>
+                        <td style="float:right; padding-right:40px; font-size:14pt;">@loan.Duration Months</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+        <br />
+
+        <!--Loan Statement-->
+       <div class="card">
+           <div class="card-content">
+               <h5>Loan Statement</h5><hr />
+               <table class="table bordered striped">
+                   <tr style="background-color:#0078d7; color:white;">
+                       <td>S/N</td>
+                       <td>Date</td>
+                       <td>Transaction Msg</td>
+                       <td>Cr</td>
+                       <td>Dr</td>
+                       <td>Balance</td>
+                   </tr>
+                   @foreach (var transaction in Model)
+                   {
+                       <tr>
+                           <td>@i</td>
+                           <td>@transaction.DateCreated</td>
+                           <td>@transaction.Narration</td>
+                           <td>@transaction.Cr</td>
+                           <td>@transaction.Dr</td>
+
+                           @if ((transaction.Cr - transaction.Dr) < 0)
+                           {
+                               <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
+                           }
+                           else
+                           {
+                               <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
+                           }
+
+                       </tr>
+                       i++;
+
+                       total_Cr = total_Cr + transaction.Cr;
+                       total_Dr = total_Dr + transaction.Dr;
+                   }
+                   <tr>
+                       <td>&nbsp;</td>
+                       <td><b>Total</b></td>
+                       <td>&nbsp;</td>
+                       <td><b> @string.Format("{0:C}",@total_Cr)</b></td>
+                       <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
+                       <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
+                   </tr>
+               </table>
+
+           </div>
+       </div>
+    </div>

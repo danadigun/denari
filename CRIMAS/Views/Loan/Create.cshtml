@@ -13,11 +13,11 @@
         <div class="card-content">
 
             <div class="card-title" style="color:black">
-                <a href="~/Home/cashier" style="float:right;margin-right:25px; background:#6a1b9a" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
+                <a href="~/Home/cashier" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
                 <span> <img src="~/Images/loan-agr.png" /> Create a new Loan agreement</span><hr />
             </div>
 
-            <div class="card-panel" style="background:#6a1b9a ; color:white">
+            <div class="card-panel" style="background-color:#0078d7; color:white;">
                 Enter details below to set up a loan for a customer.
             </div>
 
@@ -72,9 +72,7 @@
                         </div>
                         <div class="file-path-wrapper">
                             <input id="ImgAgreementUrl" name="ImgAgreementUrl" class="file-path validate" type="text" placeholder="Upload Signed Agreement Form" required="required">
-                            @*@Html.TextBoxFor(model => model.ImgAgreementUrl, new { @class = "file-path validate", @placeholder = "Upload Signed Agreement Form", required = "required" })*@
                         </div>
-                        @*@Html.ValidationMessageFor(m => m.ImgAgreementUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
@@ -87,9 +85,7 @@
                         </div>
                         <div class="file-path-wrapper">
                             <input id="ImgIrrevocableUrl" name="ImgIrrevocableUrl" class="file-path validate" type="text" placeholder="Upload Signed Irrevocable Authority Form" required="required">
-                            @*@Html.TextBoxFor(model => model.ImgIrrevocableUrl, new { @class = "file-path validate", @placeholder = "Upload Signed Irrevocable Authority Form", required = "required" })*@
                         </div>
-                        @*@Html.ValidationMessageFor(m => m.ImgIrrevocableUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
@@ -102,15 +98,13 @@
                         </div>
                         <div class="file-path-wrapper">
                             <input id="ImgGuarantorsUrl" name="ImgGuarantorsUrl" class="file-path validate" type="text" placeholder="Duly Signed Guarantors Forms" required="required">
-                            @*@Html.TextBoxFor(model => model.ImgGuarantorsUrl, new { @class = "file-path validate", @placeholder = "Duly Signed Guarantors Forms", required = "required" })*@
                         </div>
-                        @*@Html.ValidationMessageFor(m => m.ImgGuarantorsUrl, String.Empty, new { @class = "ValidationMessage" })*@
                     </div>
                 </div>
 
             </div>
             <div class="card-action">
-                <button style="float:right; background:#8e24aa" type="submit" class="waves-effect waves-light btn">Create loan agreement</button>
+                <button style="float:right;" type="submit" class="waves-effect waves-light btn">Create loan agreement</button>
                 <br />
             </div>
         </div>

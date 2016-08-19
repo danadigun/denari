@@ -57,7 +57,7 @@ namespace CRIMAS.Controllers
                 if (CustomerAccount.Count() != 0)
                 {
                     loantransaction.DateCreated = DateTime.Now.ToShortDateString();
-                    loantransaction.amount = 0;
+                    loantransaction.Cr = 0;
                     loantransaction.createdby = User.Identity.Name.ToString();
 
                     db.LoanTransactions.Add(loantransaction);

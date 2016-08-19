@@ -17,7 +17,7 @@
     @if (Model.Count() == 0)
     {
         <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
-
+        
             <div class="card-content">
                 <div class="card-title" style="color:black">
                     <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
@@ -30,7 +30,6 @@
             </div>
 
             <p style="padding-left: 20px">
-                @* <a href="~/Loan/create" class="btn btn-primary"><img src="~/Images/Add.png" />Add new</a>*@
                 <a href="~/Loan/EnterAccountNo" class="btn btn-inverse" style="background-color:#304ffe ">Check loan status</a>
                 <a href="~/" class="btn btn-info">Take me home</a>
             </p>
@@ -44,73 +43,84 @@
         <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
             <div class="card-content">
                 <div class="card-title" style="color:black">
-                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
-                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
-                    <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#1b5e20" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
+                    <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
+                    <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#0078d7; color:white;" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
+                    <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#0078d7; color:white;" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
                     <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
                 </div>
                 <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
-                    <img src="~/Images/Submit.png" />You have @totalLoan active loan agreement(s).
+                    <img src="~/Images/Submit.png" />You have @totalLoan outstanding loan agreement(s).
                 </p>
             </div>
 
             <br />
             <table class="table striped bordered " style="font-size:9pt; width:95%; margin-left:auto; margin-right:auto;">
-                <tr style="background:#673ab7; color:white;">
-                    <th>&nbsp;</th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "name", sortOrder = tempSort })">
+                <tr style="background-color:#0078d7; color:white;">
+                    <td>&nbsp;</td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, sortBy = "name", sortOrder = tempSort })">
                             Customer
                         </a>
                         /
-                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "account", sortOrder = tempSort })">
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, sortBy = "account", sortOrder = tempSort })">
                             Account No.
+                            <i style="margin-left:30px;" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
-                    </th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "amount", sortOrder = tempSort })">
-                            Loan Amount
+
+                    </td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, sortBy = "amount", sortOrder = tempSort })">
+                            Loan Amount 
+                            <i style="margin-left:30px;" class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
-                    </th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "interest", sortOrder = tempSort })">
+                    </td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, sortBy = "interest", sortOrder = tempSort })">
                             Interest
                         </a>
-                    </th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, sortBy = "duration", sortOrder = tempSort })">
+                    </td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, sortBy = "duration", sortOrder = tempSort })">
                             Duration<br />(month(s))
                         </a>
-                    </th>
-                    <th>Start</th>
-                    <th>End</th>
-                    <th>Monthly<br />Installment</th>
-                    <th style="width:48px;">&nbsp;</th>
+                    </td>
+                    <td>Start</td>
+                    <td>End</td>
+                    <td>Monthly<br />Installment</td>
+                    <td style="width:48px;">&nbsp;</td>
                 </tr>
                 @foreach (var item in Model)
                 {
                     var db = new CrimasDb();
                     string accountNo = item.AccountNo;
-                    var ImageUrl = db.Customers.Where(x => x.AccountNo == accountNo).Select(x => x.ImageUrl).FirstOrDefault();
-                    var CustomerImageUrl = string.IsNullOrEmpty(ImageUrl) ? "/images/user-48.png" : ImageUrl;
-                    
-                    var totalCredits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.amount);
-                    var totalDebits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.refund);
+                    var customerId = db.Customers.FirstOrDefault(x => x.AccountNo == accountNo).CustomerId;
+                    var CustomerImage = db.Customers.FirstOrDefault(x => x.AccountNo == accountNo).image;
+
+                    var totalCredits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.Cr);
+                    var totalDebits = db.LoanTransactions.Where(x => x.AccountNo == accountNo).Sum(x => x.Dr);
                     decimal balance = (totalCredits - totalDebits);
 
-                    var installment = (Convert.ToDecimal(item.amount) / Convert.ToDecimal(item.Duration)) + (item.InterestRate * 0.01m * item.amount);
+                    var installment = (item.amount + (item.InterestRate * 0.01m * item.amount * Convert.ToDecimal(item.Duration)))/ Convert.ToDecimal(item.Duration);
 
-                    if(installment > balance)
-                    {
-                        installment = balance;
-                    }
+
 
                     <tr>
                         <td class="td-image">
-                            <img src="@CustomerImageUrl" alt="No Image" />
+                            @{
+                                if (CustomerImage != null)
+                                {
+                                    <img src="~/Customer/RetrieveImage/@customerId" alt="No Image" />
+
+                                }
+                                else
+                                {
+                                    <img src="/images/user-48.png" alt="No Image" />
+
+                                }
+                            }
                         </td>
                         <td>
-                            <a title="check loan status" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
+                            <a title="check loan status" href="~/Loan/statement?loanId=@item.Id"> @Html.DisplayFor(modelItem => item.Customername) (@Html.DisplayFor(modelItem => item.AccountNo))</a>
                         </td>
                         <td><strong style="color:red; font-size:15pt;">₦ @item.amount.ToString("#,##0.00")</strong></td>
                         <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
@@ -159,11 +169,11 @@
 </style>
 
 <script>
-    $(document).ready(function () {
-        $(".td-image img").each(function () {
-            $(this).error(function () {
-                $(this).attr('src', '/images/user-48.png');
-            });
-        })
-    });
+    //$(document).ready(function () {
+    //    $(".td-image img").each(function () {
+    //        $(this).error(function () {
+    //            $(this).attr('src', '/images/user-48.png');
+    //        });
+    //    })
+    //});
 </script> 

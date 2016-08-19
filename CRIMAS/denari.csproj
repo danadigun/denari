@@ -280,9 +280,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.cs" />
-    <Compile Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.Designer.cs">
-      <DependentUpon>201608092051471_AddedForeignKeyToDivdendTable.cs</DependentUpon>
+    <Compile Include="Migrations\201608152232591_asjkfbkafja.cs" />
+    <Compile Include="Migrations\201608152232591_asjkfbkafja.Designer.cs">
+      <DependentUpon>201608152232591_asjkfbkafja.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -11324,7 +11324,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_LayoutPage1.cshtml" />
     <Content Include="Views\Home\Admin.cshtml" />
@@ -13619,6 +13618,11 @@
     <Content Include="Views\Dividend\post.cshtml" />
     <Content Include="Views\Dividend\postSuccess.cshtml" />
     <Content Include="Views\Shared\_spinner_partial.cshtml" />
+    <Content Include="Views\Loan\load.cshtml" />
+    <Content Include="Views\Loan\statement.cshtml" />
+    <Content Include="Views\Shared\_desktopSideMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_mobileSideMenuPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -13627,8 +13631,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608092051471_AddedForeignKeyToDivdendTable.resx">
-      <DependentUpon>201608092051471_AddedForeignKeyToDivdendTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608152232591_asjkfbkafja.resx">
+      <DependentUpon>201608152232591_asjkfbkafja.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -94,69 +94,13 @@ namespace CRIMAS.Controllers
         //
         // POST: /Loan/Create
         [HttpPost]
+
         public ActionResult Create(Loan loan, HttpPostedFileBase fileAgreement, HttpPostedFileBase fileIrrevocable, HttpPostedFileBase fileGuarantors)
         {
             if (ModelState.IsValid)
             {
-                #region  Validate File Type
 
-                string fileAgreementName, fileIrrevocableName, fileGuarantorsName, extension;
-                if (fileAgreement != null && fileAgreement.ContentLength > 0)
-                {
-                    extension = Path.GetExtension(fileAgreement.FileName);
-                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
-                    {
-                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
-                        return View(loan);
-                    }
-                    fileAgreementName = Guid.NewGuid() + extension;
-                    loan.ImgAgreementUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileAgreementName;
-                }
-                else
-                {
-                    ModelState.AddModelError("Invalid Image", "Please upload image for signed agreement form.");
-                    return View(loan);
-                }
-
-                if (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
-                {
-                    extension = Path.GetExtension(fileIrrevocable.FileName);
-                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
-                    {
-                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
-                        return View(loan);
-                    }
-
-                    fileIrrevocableName = Guid.NewGuid() + extension;
-                    loan.ImgIrrevocableUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileIrrevocableName;
-                }
-                else
-                {
-                    ModelState.AddModelError("Invalid Image", "Please upload image for signed irrevocable authority form.");
-                    return View(loan);
-                }
-
-                if (fileGuarantors != null && fileGuarantors.ContentLength > 0)
-                {
-                    extension = Path.GetExtension(fileGuarantors.FileName);
-                    if (extension != ".jpg" && extension != ".jpeg" && extension != ".png")
-                    {
-                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
-                        return View(loan);
-                    }
-
-                    fileGuarantorsName = Guid.NewGuid() + extension;
-                    loan.ImgGuarantorsUrl = ConfigurationManager.AppSettings["Azure:StorageUrl"] + BlobContainer.loan.ToString() + "/" + fileGuarantorsName;
-                }
-                else
-                {
-                    ModelState.AddModelError("Invalid Image", "Please upload image for signed irrevocable authority form.");
-                    return View(loan);
-                }
-
-                #endregion
-
-                if(!_context.Customers.Any(x=>x.AccountNo == loan.AccountNo))
+                if (!_context.Customers.Any(x => x.AccountNo == loan.AccountNo))
                 {
                     ModelState.AddModelError("Account Not Exists", "Account does not exists.");
                     return View(loan);
@@ -182,8 +126,10 @@ namespace CRIMAS.Controllers
                     //return customer not registered errorr:09256A 
                     return Redirect("~/Error/ErrorCode?ErrorCode=09256A");
                 }
+
                 //if we get here customer has been enrolled
                 loan.createdby = User.Identity.Name.ToString();
+
                 //loan.DateCreated = DateTime.Now.ToShortDateString();
                 loan.DateCreated = DateTime.Now;
 
@@ -201,15 +147,7 @@ namespace CRIMAS.Controllers
                     amountborrowed = loan.amount
                 };
 
-                //create a loan transaction record             
-                var loanTransaction = new LoanTransaction
-                {
-                    DateCreated = DateTime.Now.ToShortDateString(),
-                    AccountNo = loan.AccountNo,
-                    amount = loan.amount,
-                    refund = decimal.Parse("0"),//credit
-                    createdby = User.Identity.Name.ToString()
-                };
+
 
                 //customer must pay 10% of loan upfront. create loan interest record.
                 var loanInterest = new LoanInterest
@@ -217,28 +155,88 @@ namespace CRIMAS.Controllers
                     accountNo = loan.AccountNo,
                     intrestAmount = Decimal.Parse("0.1") * loan.amount,
                 };
+
                 _context.LoanInterests.Add(loanInterest);
                 _context.Borrows.Add(amountBorred);
+
+                #region  Validate & upload scanned documents
+
+
+                string extension_fileAgreementName = string.Empty;
+                string extension_fileIrrevocableName = string.Empty;
+                string extension_fileGuarantorsName = string.Empty;
+
+                if ((fileAgreement != null && fileAgreement.ContentLength > 0)
+                    && (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
+                    && (fileGuarantors != null && fileGuarantors.ContentLength > 0))
+                {
+                    //check extensions
+                    extension_fileAgreementName = Path.GetExtension(fileAgreement.FileName);
+                    extension_fileIrrevocableName = Path.GetExtension(fileIrrevocable.FileName);
+                    extension_fileGuarantorsName = Path.GetExtension(fileGuarantors.FileName);
+
+                    bool checkAgreement = (extension_fileAgreementName != ".jpg" && extension_fileAgreementName != ".jpeg" && extension_fileAgreementName != ".png");
+                    bool checkIrrevocable = (extension_fileIrrevocableName != ".jpg" && extension_fileIrrevocableName != ".jpeg" && extension_fileIrrevocableName != ".png");
+                    bool checkGuarantor = (extension_fileGuarantorsName != ".jpg" && extension_fileGuarantorsName != ".jpeg" && extension_fileGuarantorsName != ".png");
+
+                    if (checkAgreement && checkIrrevocable && checkGuarantor)
+                    {
+                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                        return View(loan);
+                    }
+                    else
+                    {
+                        using (var reader = new BinaryReader(fileAgreement.InputStream))
+                        {
+                            loan.ImgAgreement = reader.ReadBytes(fileAgreement.ContentLength);
+
+                        }
+                        using (var reader = new BinaryReader(fileIrrevocable.InputStream))
+                        {
+                            loan.ImgIrrevocable = reader.ReadBytes(fileIrrevocable.ContentLength);
+                        }
+
+                        using (var reader = new BinaryReader(fileGuarantors.InputStream))
+                        {
+                            loan.ImgGuarantors = reader.ReadBytes(fileGuarantors.ContentLength);
+
+                        }
+                    }
+
+                }
+                else
+                {
+                    ModelState.AddModelError("Invalid Image", "Please upload all three (3) scanned documents to proceed.");
+                    return View(loan);
+                }
+
+                ////create a loan transaction record  for principal loan disbursement & total interest due                   
+
+                loan.LoanTransactions = new List<LoanTransaction> {
+                    new LoanTransaction {
+                         DateCreated = DateTime.Now.ToShortDateString(),
+                         AccountNo = loan.AccountNo,
+                         Cr = loan.amount, //Dr
+                         Dr = decimal.Parse("0"),//Cr
+                         createdby = User.Identity.Name.ToString(),
+                         Narration = "Loan Disbursement",
+                         Loan = loan
+                    },
+                    new LoanTransaction
+                    {
+                        DateCreated = DateTime.Now.ToShortDateString(),
+                        AccountNo = loan.AccountNo,
+                        Cr = (loan.amount * (loan.InterestRate / 100) * decimal.Parse(loan.Duration)), //Dr
+                        Dr = decimal.Parse("0"),//Cr
+                        createdby = User.Identity.Name.ToString(),
+                        Narration = "Interest Due",
+                        Loan = loan
+                    }
+
+                };
                 _context.Loans.Add(loan);
-                _context.LoanTransactions.Add(loanTransaction);
                 _context.SaveChanges();
 
-                #region Save Images
-
-                if (fileAgreement != null && fileAgreement.ContentLength > 0)
-                {
-                    FileHelper.UploadImage(fileAgreement.InputStream, fileAgreementName, BlobContainer.loan);
-                }
-
-                if (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
-                {
-                    FileHelper.UploadImage(fileIrrevocable.InputStream, fileIrrevocableName, BlobContainer.loan);
-                }
-
-                if (fileGuarantors != null && fileGuarantors.ContentLength > 0)
-                {
-                    FileHelper.UploadImage(fileGuarantors.InputStream, fileGuarantorsName, BlobContainer.loan);
-                }
 
                 #endregion
 
@@ -246,6 +244,76 @@ namespace CRIMAS.Controllers
             }
 
             return View(loan);
+        }
+
+
+        public ActionResult RetrieveAgreement(int loan_id)
+        {
+            byte[] cover = GetAgreementFromDataBase(loan_id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public ActionResult RetrieveIrrevocable(int loan_id)
+        {
+            byte[] cover = GetIrrevocableFromDataBase(loan_id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public ActionResult RetrieveGurantor(int loan_id)
+        {
+            byte[] cover = GetGurantorFromDataBase(loan_id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[] GetAgreementFromDataBase(int Id)
+        {
+            var q = from temp in _context.Loans where temp.Id == Id select temp.ImgAgreement;
+            byte[] cover = q.First();
+            return cover;
+        }
+        public byte[] GetIrrevocableFromDataBase(int Id)
+        {
+            var q = from temp in _context.Loans where temp.Id == Id select temp.ImgIrrevocable;
+            byte[] cover = q.First();
+            return cover;
+        }
+        public byte[] GetGurantorFromDataBase(int Id)
+        {
+            var q = from temp in _context.Loans where temp.Id == Id select temp.ImgGuarantors;
+            byte[] cover = q.First();
+            return cover;
+        }
+
+        /// <summary>
+        /// Converts Image to bytes
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        private byte[] ConvertToBytes(HttpPostedFileBase file)
+        {
+            byte[] imageBytes = null;
+            BinaryReader reader = new BinaryReader(file.InputStream);
+            imageBytes = reader.ReadBytes((int)file.ContentLength);
+            return imageBytes;
         }
         //
         // GET: /Loan/CreditLoan
@@ -301,8 +369,8 @@ namespace CRIMAS.Controllers
             ViewBag.AccountNo = accountNo;
             ViewBag.NoOfLoanAgreements = _context.Loans.Where(s => s.AccountNo == accountNo).Count();
 
-            var totalCredits = (from s in _context.LoanTransactions where s.AccountNo == accountNo select s.amount);
-            var totalDebits = (from s in _context.LoanTransactions where s.AccountNo == accountNo select s.refund);
+            var totalCredits = (from s in _context.LoanTransactions where s.AccountNo == accountNo select s.Cr);
+            var totalDebits = (from s in _context.LoanTransactions where s.AccountNo == accountNo select s.Dr);
 
             //check if materialized value is null 
             if (totalCredits.Count() == 0)
@@ -419,6 +487,17 @@ namespace CRIMAS.Controllers
         }
 
         /// <summary>
+        /// returns loan statement
+        /// </summary>
+        /// <param name="loanId"></param>
+        /// <returns></returns>
+        public ActionResult statement(int loanId)
+        {
+            ViewBag.LoanId = loanId;
+            return View(_context.LoanTransactions.Where(x => x.Loan.Id == loanId).ToList());
+        }
+
+        /// <summary>
         /// Return all Loans both active and completed
         /// </summary>
         /// <returns></returns>
@@ -431,6 +510,146 @@ namespace CRIMAS.Controllers
         {
             _context.Dispose();
             base.Dispose(disposing);
+        }
+
+
+
+        /// <summary>
+        /// test script
+        /// </summary>
+        /// <returns></returns>
+
+        [HttpPost]
+        public ActionResult load()
+        {
+            var loan_accounts = _context.Loans.Select(x => x.AccountNo).ToList();
+            foreach(var account in loan_accounts)
+            {
+                RunLoanUpdateScript(account);             
+            }
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+
+        }
+        [HttpPost]
+        public ActionResult loadSingle(string account_no)
+        {         
+                RunLoanUpdateScript(account_no);
+           
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+        }
+
+        private void RunLoanUpdateScript(string account_no)
+        {
+            int i = 0;
+            int t = 0;
+            using (var ctx = new CrimasDb())
+            {
+                var LoansByAccountNo = _context.Loans.Where(x => x.AccountNo == account_no).ToList();
+                var LoanTransactionByAccountNo = _context.LoanTransactions.Where(x => x.AccountNo == account_no).ToList();
+
+
+                //var loan = LoansByAccountNo[i];
+                var _transaction = LoanTransactionByAccountNo[t];
+                int flag = 0;
+
+                while (true)
+                {
+                    foreach (var transaction in LoanTransactionByAccountNo)
+                    {
+                        if (flag == 1 || flag == 0) { i = 0; }
+
+                        if (flag > 1) { i = flag - 2; }
+
+                        //if (flag == LoansByAccountNo.Count()) { i = LoansByAccountNo.Count() - 1; }
+
+                        if (transaction.Cr == 0 && transaction.Dr == 0)
+                        {
+                            transaction.Loan = null;
+                            _context.SaveChanges();
+                        }
+
+                        if (transaction.Dr > 0 && transaction.Cr == 0)
+                        {
+                            if (flag == 1 || flag == 0)
+                            {
+                                ++flag;
+                                transaction.Loan = LoansByAccountNo[i];
+                                transaction.Narration = "Loan Disbursement";
+
+                                //insert a record for Interest due
+                                //ctx.LoanTransactions.Add(new LoanTransaction
+                                //{
+                                //    AccountNo = transaction.AccountNo,
+                                //    Dr = 0, //intersest due
+                                //    Cr = LoansByAccountNo[i].amount * (LoansByAccountNo[i].InterestRate * 0.01m) * Convert.ToDecimal(LoansByAccountNo[i].Duration),
+                                //    createdby = "admin@digitalforte.ng",
+                                //    DateCreated = DateTime.Now.ToString(),
+                                //    Loan = LoansByAccountNo[i],
+                                //    Narration = "Interest Due"
+                                //});
+                                _context.SaveChanges();
+                            }
+
+                            if (flag > 1)
+                            {
+                                i = flag - 1;
+
+                                transaction.Loan = LoansByAccountNo[i];
+                                transaction.Narration = "Loan Disbursement";
+                                transaction.createdby = "admin@digitalforte.ng";
+                                _context.SaveChanges();
+
+                                flag++;
+                            }
+                        }
+                        if (transaction.Dr == 0 && transaction.Cr > 0)
+                        {
+
+                            transaction.Loan = LoansByAccountNo[i];
+                            transaction.Narration = "Loan Repayment";
+                            transaction.createdby = "admin@digitalforte.ng";
+                            _context.SaveChanges();
+                        }
+                    }
+                    break;
+                }
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult fix(string account_no)
+        {
+            var _transaction = _context.LoanTransactions.Where(x => x.AccountNo == account_no && x.Cr == 0 && x.Dr != 0).ToList();
+
+            foreach(var tx in _transaction)
+            {
+                _context.Loans.Add(new Loan
+                {
+                    AccountNo = tx.AccountNo,
+                    amount = tx.Dr,
+                    createdby = tx.createdby,
+                    LoanStatus = "completed",
+                    DateCreated = DateTime.Now,
+                    Duration = "10",
+                    Customername = _context.Customers.Where(x => x.AccountNo == account_no).Select(x => x.Name).FirstOrDefault(),
+                    InterestRate = 10,
+                    DateOfCommencement = DateTime.Now,    
+                    ImgAgreement = null,
+                    ImgGuarantors = null,
+                    DateOfTermination = DateTime.Now.AddDays(10),
+                    ImgIrrevocable = null,
+                    LoanTransactions = _transaction
+                               
+                });
+              
+            }
+            _context.SaveChanges();
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+
         }
     }
 }

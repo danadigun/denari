@@ -19,8 +19,13 @@
 
         Thread.CurrentThread.CurrentCulture = cultureInfo;
 
+
+        decimal encumbered = 0;
+        decimal outstanding_totalInterest = 0;
+        decimal outstanding_totalPrincipalPlusInterest = 0;
+
     }
-   
+
     <div style="padding-top:4em;">
         @if (Model.Count() == 0)
         {
@@ -31,6 +36,7 @@
                 </p>
             </div>
         }
+        <!--Check if there are more than one customer with thesame ID-->
         @if (Model.Count() > 1)
         {
             <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
@@ -45,6 +51,8 @@
             foreach (var item in Model)
             {
                 var customerLoan = db.Loans.Where(x => x.AccountNo == item.AccountNo || x.Customername.Contains(item.Name)).Where(x => x.LoanStatus == "active").ToList();
+                encumbered = customerLoan.Select(x => x.amount).Sum() * 0.1m;
+
 
                 var savingsCredit = 0m;
                 var savingsDebit = 0m;
@@ -63,119 +71,215 @@
                     </span>
                 }
 
-                <div style="width:70%;  border-radius:0;  margin-left:auto; margin-right:auto; height:250px; ">
-                    <div class="card-content">
-                        <span style="font-size:16pt;">
-                            <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
-                            <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll </a>
-                          
-                            @{
+                <div style="width:70%;  border-radius:0;  margin-left:auto; margin-right:auto; ">
 
-                                if (item.image != null)
-                                {
-                                    <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                    <span style="font-size:16pt;">
+                        <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
+                        @*   <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll </a>*@
+
+                        @{
+
+                            if (item.image != null)
+                            {
+                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
                                 }
                                 else
                                 {
-                                    <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
                                 }
 
+                        }
+                    </span>
+                    <p>
+                        <span style="font-size:15pt; ">
+                            <strong>
+                                Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
+                            </strong>
+                        </span>
+                        <span style="float:right">
+                            Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
+                        </span>
+                        @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
+                    </p>
+
+                </div>
+                
+              
+                            //account Summary
+                            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                                <div class="card-content">
+                                    <h5>
+                                        <img src="~/Images/Coin-01-WF.png" />Account Summary
+                                        <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">view account status</a>
+                                    </h5><hr /><br />
+
+
+                                    <table class="table bordered striped">
+                                        <tr>
+                                            <td>Total Regular Savings to Date:</td>
+                                            <td><b style="color:blue">@string.Format("{0:C}", @savingsBalance)</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Encumbered savings:</td>
+                                            <td><b style="color:blue">@string.Format("{0:C}", encumbered)</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Balance:</b></td>
+                                            <td><b style="color:blue">@string.Format("{0:C}", @savingsBalance - encumbered)</b></td>
+                                        </tr>
+                                    </table>
+
+
+                                </div>
+                            </div>
+
+                            //Loans
+                            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                                <div class="card-content">
+                                    <h5>
+                                        <img src="~/Images/loan-agr.png" />Outstanding loans
+                                        @* <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">view status</a>*@
+                                    </h5><hr /><br />
+                                    <table class="table bordered striped" style="font-size:10pt;">
+                                        <tr style="background-color:#0078d7; color:white;">
+                                            <td>Date Issued</td>
+                                            <td>Principal + Interest</td>
+                                            <td>Interest</td>
+                                            <td>Total Paid</td>
+                                            <td>Outstanding</td>
+                                            <td>Encumbered</td>
+                                            <td>Loan Statement</td>
+                                        </tr>
+
+                                        @foreach (var record in customerLoan)
+                                            {
+
+                                            <tr>
+                                                <td>@record.DateCreated.ToLongDateString()</td>
+                                                <td>
+                                                    @string.Format("{0:C}",
+                                                          record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
+                                                </td>
+                                                <td>
+                                                    @string.Format("{0:C}",
+                                                         (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
+
+                                                </td>
+                                                <td>
+                                                    @*  @record.LoanTransactions.Select(x => x.refund).FirstOrDefault();*@
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    @string.Format("{0:C}", (record.amount * 0.1m))
+                                                </td>
+                                                <td>
+                                                    <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
+
+                                                </td>
+                                            </tr>
+                                                outstanding_totalInterest = outstanding_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                                outstanding_totalPrincipalPlusInterest = outstanding_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                            }
+                                        <tr>
+                                            <td><b>Total:</b></td>
+                                            <td>
+                                                <b>@string.Format("{0:C}", outstanding_totalPrincipalPlusInterest)</b>
+                                            </td>
+                                            <td>
+                                                <b>@string.Format("{0:C}", @outstanding_totalInterest)</b>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                                <b>@string.Format("{0:C}", encumbered)</b>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+
+                            //Customer personal details
+                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%;  margin-left:auto; margin-right:auto;">
+                                <li class="row" style="text-align:center">
+                                    <div class="collapsible-header">
+                                        <p>
+                                            <span style="font-size:16pt;">Customer personal details</span>
+                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
+                                        </p>
+                                    </div>
+                                    <div class="collapsible-body card-content">
+                                        <table class="table striped" style="font-size:10pt;">
+
+                                            <tr>
+                                                <td><b>Employer</b></td>
+                                                <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.employer)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Office Address</b></td>
+                                                <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Residence</b></td>
+                                                <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Next of Kin</b></td>
+                                                <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>State of origin</b></td>
+                                                <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </li>
+                            </ul>
+
+                            //Image Upload
+                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%; margin-left:auto; margin-right:auto;">
+                                <li class="row" style="text-align:center">
+                                    <div class="collapsible-header">
+                                        <p>
+                                            <span style="font-size:16pt;">
+                                                Click here to update customer profile image</span>
+                                                <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
+                                        </p>
+                                    </div>
+                                    <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto">
+                                        @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            {
+
+                                            <div class="input-field col s9">
+                                                <div class="file-field input-field">
+                                                    <div class="btn">
+                                                        <span>Select Image</span>
+                                                        <input type="file" name="file" id="file">
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text" placeholder="  update customer profile image">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="input-field col s3">
+                                                <div class="file-field input-field">
+                                                    <input type="submit" class="btn btn-primary" value="Update Image" />
+                                                </div>
+                                            </div>
+                                            }
+                                    </div>
+                                </li>
+                            </ul>
+
+
+                                }
                             }
-                        </span>
-                        <p>
-                            <span style="font-size:15pt; ">
-                                <strong>
-                                    Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
-                                </strong>
-                            </span>
-                            <span style="float:right">
-                                Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
-                            </span>
-                            @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
-                        </p>
-                        <div style="padding-bottom:30px;">
-                            <table class="table striped" style="font-size:10pt;">
-                                <tr style="font-size:9pt; background-color: green; color:white;">
-                                    <td>Employer</td>
-                                    <td>office address</td>
-                                    <td>Residence</td>
-                                    <td>Next of kin</td>
-                                    <td>State of origin</td>
-                                </tr>
-                                <tr style="background:gainsboro; padding-bottom:2em;">
-                                    <td>@Html.DisplayFor(modelItem => item.employer)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.NextOfkin)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                //Loans
-                <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
-                    <div class="card-content">
-                        @if (customerLoan.Count == 0)
-                        {
-                            <span>
-                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:green"> @string.Format("{0:C}", 0.00)</b>
-                            </span>
-                        }
-
-                        @foreach (var record in customerLoan)
-                        {
-                            <span>
-                                <img src="~/Images/loan-agr.png" /><b>Active Loans:</b><b style="color:#c62828"> @string.Format("{0:C}", @record.amount)</b>
-                                <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">loan status</a>
-                                <br /><br />
-                            </span>
-                        }
-                    </div>
-                </div>
-
-                //account balance
-                <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
-                    <div class="card-content">
-                        <span>
-                            <img src="~/Images/Coin-01-WF.png" /><b>Savings balance:</b> <b style="color:blue">@string.Format("{0:C}", @savingsBalance)</b>
-                            <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">account status</a>
-                            <br /><br />
-                        </span>
-                    </div>
-                </div>
-
-                //Image Upload
-                <div class="card" style="width:70%; margin-left:auto; margin-right:auto;padding: 0 15px;">
-                    <div class="row" style="text-align:center">
-                       
-                        @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            <p style="">Update Customer Image</p>
-                            <div class="input-field col s6">
-                                <div class="file-field input-field">
-                                    <div class="btn">
-                                        <span>Select Image</span>
-                                        <input type="file" name="file" id="file">
-                                    </div>
-                                    <div class="file-path-wrapper">
-                                        <input  class="file-path validate" type="text" placeholder="  update customer profile image">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="input-field col s3">
-                                <div class="file-field input-field">
-                                    <input type="submit" class="btn btn-primary" value="Update Image" />
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
-            }
-        }
     </div>
 
 
@@ -197,12 +301,22 @@
             vertical-align: -12px;
             width: 48px;
         }
+
+        .collapsible-header, .collapsible-body {
+            border-bottom: none !important;
+        }
     </style>
 
     <script>
         $(document).ready(function () {
+            $('.collapsible').collapsible({
+                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });
+
             $('#ProfileImage').error(function () {
                 $(this).attr('src', '/images/user-48.png');
             });
         });
+
+
     </script>

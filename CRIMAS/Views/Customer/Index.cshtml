@@ -31,31 +31,31 @@
             <div class="card-title" style="color:black">
                 <span class="view-cistomer-header">Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
                 <span class="view-customer-controls">
-                    <a href="~/ExportData/ExportCustomerData" class="btn  btn-primary" style="float:right; background:#217346" title="Export customer data to excel">
+                    <a href="~/ExportData/ExportCustomerData" class="btn  btn-primary" style="float:right;" title="Export customer data to excel">
                         <img src="~/Images/Excel Online.png" />
                     </a>
-                    <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
+                    <a href="~/Customer/Create" class="btn btn-primary" style="float:right;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll new customer </a>
                 </span>
             </div>
 
-            <table class="table striped bordered">
-                <tr style="background:#4caf50; color:white; font-weight:bold">
-                    <th>
+            <table class="table striped table-bordered" >
+                <tr style="font-size:9pt; background-color: #0078d7; color:white;">
+                    <td>
                         Image
-                    </th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, search, sortBy = "name", sortOrder = tempSort })">
-                            Customer
+                    </td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, search, sortBy = "name", sortOrder = tempSort })">
+                            Customer <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
-                    </th>
-                    <th>
-                        <a href="@Url.Action("Index", new { page = curPage, search, sortBy = "account", sortOrder = tempSort })">
-                            Account No.
+                    </td>
+                    <td>
+                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, search, sortBy = "account", sortOrder = tempSort })">
+                            Account No. <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
-                    </th>
-                    <th>Employer</th>
-                    <th>Balance</th>
-                    <th>&nbsp;</th>
+                    </td>
+                    <td>Employer</td>
+                    <td>Balance</td>
+                    <td>&nbsp;</td>
                 </tr>
 
                 @foreach (var item in customers)
@@ -105,7 +105,7 @@
                                     X
                                 </a>
                             }
-                            <a title="view customer account details" href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">
+                            <a title="view customer account details" href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right;  margin-right:10px; margin-top:2px; font-size:10pt;">
                                 <img style="margin-top:2px;" src="~/Images/View Medium icons-WF.png" />
                             </a>
                         </td>
