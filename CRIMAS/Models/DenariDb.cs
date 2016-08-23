@@ -6,25 +6,16 @@ using System.Web;
 
 namespace CRIMAS.Models
 {
-    public class CrimasDb : DbContext
+    public class DenariDb : DbContext
     {
-         public CrimasDb()
-                : base("name=DefaultConnection")
-            {
-            }
-            public DbSet<UserProfile> UserProfiles { get; set; } //user profiles
-            public DbSet<Customer> Customers { get; set; } //customers
-            public DbSet<CustomerSavings> CustomerSavings { get; set; } //customer savings
-            public DbSet<CustomerLoanTransaction> CustomerLoanTransactions { get; set; } //Loan amount per customer
-            public DbSet<Loan> Loans { get; set; } //all loans
-            public DbSet<Borrowed> Borrows { get; set; } //amount customer borrowed
-            public DbSet<LoanTransaction> LoanTransactions { get; set; } 
-            public DbSet<LoanInterest> LoanInterests { get; set; } //10% of loan paid upfront
-            public DbSet<BankReconciliation> BankReconciliations { get; set; }
-            public DbSet<ReconciliationProperties> ReconciliationProperties { get; set; }
-            public DbSet<DenariCustomer> DenariCustomers { get; set; }
+        public DenariDb()
+               : base("name=DefaultConnection")
+        {
+        }
+        public DbSet<UserProfile> UserProfiles { get; set; } //user profiles
+        public DbSet<DenariCustomer> DenariCustomers { get; set; }
+        public DbSet<CustomerTransaction> CustomerTransactions { get; set; }
     }
-
     public class DenariCustomer
     {
         public int id { get; set; }
@@ -33,5 +24,16 @@ namespace CRIMAS.Models
         public string email { get; set; }
         public string CompanyName { get; set; }
         public string Location { get; set; }
+        public bool hasPayed { get; set; }
+        List<CustomerTransaction> transactions { get; set; }
+    }
+
+    public class CustomerTransaction
+    {
+        public int id { get; set; }
+        public string transactionId { get; set; }
+        public int amount { get; set; }
+        public string subscription_type { get; set; }
+        public DenariCustomer customer { get; set; }
     }
 }

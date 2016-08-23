@@ -1,127 +1,33 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <link href='https://fonts.googleapis.com/css?family=Josefin+Sans' rel='stylesheet' type='text/css'>
-
-    <title>Denari - B2B Cooperative Management platform</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/landing.css" rel="stylesheet" />
-  @*  <link href="~/Content/Site.css" rel="stylesheet" />*@
-    <link href="~/Content/font-awesome-4.6.3/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+﻿@{ 
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    ViewBag.Title = "Cooperative Business Management platform";
+}
+   
   
-
-    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-
-  
-</head>
-<body>
-    <nav>
-        <ul>
-            <li class="brand">
-                <img src="~/img/Logo-color6.jpg" />
-            </li>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Advantages</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Testimonial</a></li>
-            <li><a href="#">Contact</a></li>
-
-        </ul>
-        <div class="button">
-            <a class="btn-open" href="#"></a>
-        </div>
-    </nav>
-    <div class="overlay">
-        <div class="wrap">
-            <ul class="wrap-nav">
-                <li>
-                    <a href="#">About</a>
-                    <ul>
-                        <li><a href="#">About Company</a></li>
-                        <li><a href="#">Designers</a></li>
-                        <li><a href="#">Developers</a></li>
-                        <li><a href="#">Pets</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                    <ul>
-                        <li><a href="https://www.google.hr/">Web Design</a></li>
-                        <li><a href="#">Development</a></li>
-                        <li><a href="#">Apps</a></li>
-                        <li><a href="#">Graphic design</a></li>
-                        <li><a href="#">Branding</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Work</a>
-                    <ul>
-                        <li><a href="#">Web</a></li>
-                        <li><a href="#">Graphic</a></li>
-                        <li><a href="#">Apps</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="social">
-                <a href="#">
-                    <div class="social-icon">
-                        <i class="fa fa-facebook"></i>
+    <section id="top" class="animated fadeIn">
+        <div class="row ">
+            <div class=" col-xs-12 col-md-12 col-lg-12 ">
+                <div class="animated slideInUp fadeIn hero-heading">
+                  @*  <h1>Lending  Management Platform</h1>*@
+                    <div class="hero-sub-heading" style="font-weight:bold">
+                        <span>We provide Nigerian</span>
+                        <h3>Cooperative Societies & Lending Organizations</h3>
+                        <h3 style="font-weight:bold;">With seemless automation</h3>
                     </div>
-                </a>
-                <a href="#">
-                    <div class="social-icon">
-                        <i class="fa fa-twitter"></i>
-                    </div>
-                </a>
-
-
-            </div>
-        </div>
-    </div>
-    <section id="top">
-        <div class="row">
-            <div class=" col-xs-12 col-md-8">
-                <div class="hero-heading">
-                    <h1>Lending<br /> Management <br />Platform</h1>
-                    <div class="hero-sub-heading">
-                        <span>For African</span>
-
-                        <h3>Cooperative Societies,</h3>
-                        <h3>Lending Organizations</h3>
-                        <img src="~/img/naira coins.png" />
+                    <div class="form-inline getStarted" style="padding-top:5em;">
+                        <form method="post" action="~/" class="form-group">
+                                <input required name="email" type="text" class="form-control" placeholder="Your Email Address" />
+                                <button class="btn btn-primary">Get Started</button>                          
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="hero-call-to col-xs-12 col-md-4">
-                <div class="signup">
-                    <h2>sign up for free</h2>
-                    <p>Get 30 Days unlimited Access</p>
-                    <form name="request-demo" action="~/Home/requestConfirm" method="post">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="name" placeholder="Name*" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="email" placeholder="Email*" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="phone" placeholder="Phone Number" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="companyName" placeholder="Company Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="Location" placeholder="Location" required>
-                        </div>
-                        <button id="requestDemo" type="submit" class="btn btn-default">Request Demo access</button>
-                    </form>
-                </div>
-            </div>
+          
         </div>
     </section>
     <section id="banner">
         <div style="text-align:center;">
-            <span style="margin-left:-40em;">Why denari <a href="#" class="down"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a> Learn More..</span>
+            <span >Why denari <a href="#" class="down"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a> Learn More..</span>
         </div>
     </section>
 
@@ -340,12 +246,6 @@
     <!--ToDO: Latest Posts-->
     <!--ToDO:FAQs-->
 
-    <!--Footer-->
-    <section class="footer">
-        <p>
-            (c) 2016 All rights reserved by Digital Forte Enterprise Systems Ltd.
-        </p>
-    </section>
     <script>
         $(document).ready(function () {
             $(".button a").click(function () {
@@ -388,8 +288,3 @@
 
 
     </script>
-  @*  <script src="~/Scripts/AjaxScripts/landing.js"></script>*@
-</body>
-
-
-</html>

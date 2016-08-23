@@ -1,0 +1,205 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    ViewBag.Title = "Process denari order";
+
+    string user_email = ViewBag.email;
+}
+
+
+@*<h1>Request Access</h1>*@
+
+<section class="setup">
+    <div class="row">
+        <div class="col-lg-5 notice visible-desktop hidden-md hidden-sm hidden-xs">
+            <h1>Request a denari deployment</h1>
+            <p>We just need a few details from you and we'll spin up your servers in 0 - 72hrs</p>
+            <div class="payments">
+                <h3>We accept</h3>
+                <i class="fa fa-cc-mastercard" aria-hidden="true"></i>
+                <i class="fa fa-cc-visa" aria-hidden="true"></i>
+                <i class="fa fa-cc-paypal" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="signup" style="width: 70%; margin-right:auto; margin-left:auto;">
+                @*  <p>We just need a few details to get your deployement ready.</p>*@
+                <form id="form-access" style="padding:20px;">
+                    <h2><i class="fa fa-hourglass-start" aria-hidden="true"></i> Denari Setup</h2><hr />
+                    <div class="form-group">
+                        <label style="font-weight:bold; font-size:14pt; color:#01579b ">Business details</label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Contact Person fullname" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" value="@user_email" class="form-control" id="email" placeholder="Email*" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="CompanyName" placeholder="Business Name" required>
+                    </div>
+                    <div class="form-group" style="padding-top:20px">
+                        <label style="font-weight:bold; font-size:14pt; color:#01579b ">Please tell us your location</label>
+                        <select class="form-control" id="Location" placeholder="Location" required>
+                            <option>Lagos</option>
+                        </select>
+
+                    </div>
+                    <div class="control-group" style="margin-bottom:100px;">
+                        <label style="font-weight:bold; font-size:14pt; color:#01579b; padding-bottom:20px ">Please select your subscription plan</label>
+                        <label class="control control--radio">
+                            Bronze subscription at <b>N25,000[NGN]/month</b>
+                            <input type="radio" name="subscription_type" value="2525000" required/>
+                            <div class="control__indicator"></div>
+                        </label>
+                        <label class="control control--radio">
+                            Silver subscription at <b>N32,250[NGN]/month</b>
+                            <input type="radio" name="subscription_type" value="3225000" required/>
+                            <div class="control__indicator"></div>
+                        </label>
+                        <label class="control control--radio">
+                            Gold subscription at <b>N42,250[NGN]/month</b>
+                            <input type="radio" name="subscription_type" value="4225000" required/>
+                            <div class="control__indicator"></div>
+                        </label>
+                    </div>
+
+                    <button id="requestaccess" type="submit" class="btn btn-default">pay & set up your denari account now!</button>
+
+                </form>
+                <span id="spinner" style="color:#01579b; font-size:16pt; text-align:center;">
+                    Please wait we are getting things ready..<img src="~/img/hourglass.gif" />
+
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            var transactionId = '';
+
+            $('#spinner').hide();
+
+            $('#requestaccess').click(function (event) {
+
+                var paystack_CallBack_url = 'http://localhost:3330/Home/requestConfirm';
+
+                transactionId = Math.floor((Math.random() * 1000000000) + 1);
+                
+
+                $('#form-access').validate({
+
+                    submitHandler: function (form) {
+                        $('#form-access').hide();
+                        $('#spinner').fadeIn();
+
+                        var customer = {
+                            name: $('#name').val(),
+                            email: $('#email').val(),
+                            phone: $('#phone').val(),
+                            CompanyName: $('#CompanyName').val(),
+                            Location: $('#Location').val()
+                        }
+
+                        
+                        $.ajax({
+                            type: 'POST',
+                            url: '/api/setup?subscription_type=' + $('input[name=subscription_type]').val() +'&transactionId='+transactionId,
+                            data: customer
+
+                        }).done(function (response) {
+                            $('#spinner').hide();
+
+                            if (response === false) {
+                                alert('This customer already exists: ' + response)
+                                $('#spinner').hide();
+                                $('#form-access').show();
+                            } else {
+
+                                payWithPaystack(customer, $('input[name=subscription_type]').val(), paystack_CallBack_url)
+                                //alert('Succefully added customer. transaction was: ' + response)
+                            }
+
+                        }).fail(function (error) {
+
+                            $('#spinner').hide();
+                            $('#form-access').show();
+                            alert('unable to add customer')
+
+                        }).always(function () {
+                            console.log('request done!')
+                        })
+                    }
+                })
+            })
+
+            function payWithPaystack(customer, amount, callBack_url) {
+
+                var plan_id = null;
+
+                if (amount == 2525000) {
+                    plan_id = "PLN_cpc7iw5spqbp3ca";
+                }
+                if (amount == 3225000) {
+                    plan_id = "PLN_vpkimf42dcbh7tr";
+                }
+                if (amount == 4225000) {
+                    plan_id = "PLN_ivl2z1avnxp0efl";
+                }
+
+
+                var handler = PaystackPop.setup({
+                    key: 'pk_test_33cbda191c2e8d9ff0df16e596f0da6040f32ca8',
+                    email: customer.email,
+                    amount: amount,
+                    //plan: plan_id,
+                    ref: transactionId,
+                    callback: function (response) {
+                        //alert('success. transaction ref is ' + response.trxref);
+                        
+                        //show busy
+                        $('#form-access').hide();
+                        $('#spinner').fadeIn();
+
+                        //update transaction as succeeded
+                        var subscription = {
+                            customer: customer.email,
+                            plan: plan_id
+                        }
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'https://api.paystack.co/subscription',
+                            headers: {
+                                'Authorization': 'Bearer sk_test_bfc2efc6a434147ebaef9e1bd7c4699512424c69',
+                            },
+                            data: subscription
+
+                        }).done(function () {
+
+                            //show busy
+                            $('#form-access').hide();
+                            $('#spinner').fadeIn();
+
+
+                            //redirect user to success page
+                            $(location).attr('href', callBack_url)
+                        })
+                       
+                    },
+                    onClose: function () {
+                        alert('window closed');
+                    }
+                });
+                handler.openIframe();
+            }
+        })
+    </script>
+</section>
+
+
+
+

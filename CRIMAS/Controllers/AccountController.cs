@@ -9,7 +9,7 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
 using CRIMAS.Models;
-using CRIMAS.SupportClasses;
+//using CRIMAS.SupportClasses;
 using System.Configuration;
 
 namespace CRIMAS.Controllers
@@ -79,7 +79,7 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                CrimasDb db = new CrimasDb();
+                DenariDb db = new DenariDb();
                 UserProfile userprofile = db.UserProfiles.FirstOrDefault(x => x.UserName == model.Email);
                 if (userprofile != null)
                 {
@@ -91,19 +91,19 @@ namespace CRIMAS.Controllers
                     emailBody += "<a href='" + reseturl + "' target='_blank'>" + reseturl + "<a/><br><br>";
                     emailBody += "Thanks,<br><br> Team at crmpcs.com";
 
-                    if (EmailHelper.SendMail(
-                            userprofile.UserName,
-                            "Password reset",
-                            emailBody))
-                    {
-                        TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
-                        TempData["MessageType"] = "Success";
-                        return RedirectToAction("Login", "Account");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Oops, we are unable to send email. Please try again latter.");
-                    }
+                    //if (EmailHelper.SendMail(
+                    //        userprofile.UserName,
+                    //        "Password reset",
+                    //        emailBody))
+                    //{
+                    //    TempData["Message"] = "We have sent password reset link to your email. Please check your email account.";
+                    //    TempData["MessageType"] = "Success";
+                    //    return RedirectToAction("Login", "Account");
+                    //}
+                    //else
+                    //{
+                    //    ModelState.AddModelError("", "Oops, we are unable to send email. Please try again latter.");
+                    //}
                 }
                 else
                 {
@@ -369,7 +369,7 @@ namespace CRIMAS.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (CrimasDb db = new CrimasDb())
+                using (DenariDb db = new DenariDb())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Check if user already exists

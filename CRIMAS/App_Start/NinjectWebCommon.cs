@@ -10,9 +10,9 @@ namespace CRIMAS.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
-    using CRIMAS.Services;
+    //using CRIMAS.Services;
     using CRIMAS.Models;
-    using CRIMAS.Repository;
+    //using CRIMAS.Repository;
 
     public static class NinjectWebCommon 
     {
@@ -64,9 +64,7 @@ namespace CRIMAS.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ICurrency>().To<Currency>().InRequestScope();
-            kernel.Bind<CrimasDb>().To<CrimasDb>().InRequestScope();
-            kernel.Bind<ILoan>().To<LoanRepository>().InRequestScope();
+            kernel.Bind<DenariDb>().To<DenariDb>().InRequestScope();
         }        
     }
 }

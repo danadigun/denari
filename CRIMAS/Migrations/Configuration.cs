@@ -5,14 +5,14 @@ namespace CRIMAS.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CRIMAS.Models.CrimasDb>
+    internal sealed class Configuration : DbMigrationsConfiguration<CRIMAS.Models.DenariDb>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CRIMAS.Models.CrimasDb context)
+        protected override void Seed(CRIMAS.Models.DenariDb context)
         {
             //  This method will be called after migrating to the latest version.
 

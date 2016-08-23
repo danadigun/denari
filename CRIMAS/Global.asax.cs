@@ -8,8 +8,9 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using WebMatrix.WebData;
 using HangFire;
-using CRIMAS.Repository.artifacts;
+//using CRIMAS.Repository.artifacts;
 using HangFire.SqlServer;
+using System.Net;
 
 namespace CRIMAS
 {
@@ -21,6 +22,10 @@ namespace CRIMAS
         private BackgroundJobServer _server;
         protected void Application_Start()
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                     | SecurityProtocolType.Tls 
+                        | SecurityProtocolType.Ssl3;
+
             AreaRegistration.RegisterAllAreas();
             WebSecurity.InitializeDatabaseConnection("DefaultConnection", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
@@ -30,13 +35,7 @@ namespace CRIMAS
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-            //initiate all cron jobs
-            JobStorage.Current = new SqlServerStorage("DefaultConnection");
-            _server = new BackgroundJobServer();
-            _server.Start();
-
-            new DenariCronJobs().initateDividends();
-            new DenariCronJobs().generateReconciliation();
+           
         }
     }
 }

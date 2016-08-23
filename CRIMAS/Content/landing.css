@@ -5,6 +5,8 @@ body {
     background: #fff;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 12px;
+
+    padding-bottom: 100px; 
 }
 
 ul {
@@ -286,98 +288,96 @@ nav {
     }
 
 #top {
-    background: #f7f7f7;
+    background-image: linear-gradient( rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45) ), url('../img/dreamstimelarge_41957280.jpg');
     text-align: center;
     padding-top: 10em;
     padding-bottom: 10em;
-    padding-left: 15em;
+    /*padding-left: 15em;*/
     /*padding-right: 30em;*/
     height: 80vh;
+    color: white;
 }
 
-    #top .row {
-        background-image: url(../img/africa3.jpg);
-        background-repeat: no-repeat;
-        background-position: center;
-        background-position-y: -25pt;
-        height: 80vh;
-        width: 100vh;
-        background-size: 700px 700px;
-    }
+.layer {
+    background-color: rgba(248, 247, 216, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-    #top .hero-heading {
-        /*margin-top:-12em;*/
-    }
+#top .row {
+    /*background-image: url(../img/africa3.jpg);*/
+}
 
-        #top .hero-heading h1 {
-            color: white;
-            font-size: 35pt !important;
-            margin-left: 4em;
-            margin-top: 2em;
-            font-weight: bold;
-        }
-
-    #top .hero-call-to {
-        /*float: right;*/
-    }
+#top .hero-heading {
+    /*margin-top:-12em;*/
+    text-align: center;
+}
 
     #top .hero-heading h1 {
-        font-size: 74pt;
-        padding-left: 20px;
-        color: #f0f0f0;
+        /*color: white;*/
+        font-size: 35pt !important;
+        margin-top: 2em;
+        /*font-weight: bold;*/
     }
 
-    #top .signup {
-        text-align: left;
-        margin-left: 30em;
-        width: 400px;
-        background-color: #c7ced4;
-        padding: 20px;
-        height: 80vh;
-        margin-top: -11.6vh;
-        padding-top: 10vh;
+#top .hero-call-to {
+    /*float: right;*/
+}
+
+
+#top .signup {
+    /*text-align: left;*/
+    /*margin-left: 30em;*/
+    /*width: 400px;*/
+    background-color: #c7ced4;
+    padding: 20px;
+    height: 80vh;
+    /*margin-top: -11.6vh;*/
+    /*padding-top: 10vh;*/
+}
+
+    #top .signup h2 {
+        text-transform: uppercase;
+        text-align: center;
+        color: #01579b;
     }
 
-        #top .signup h2 {
-            text-transform: uppercase;
-            text-align: center;
-            color: #01579b;
-        }
+    #top .signup p {
+        text-align: center;
+        color: #575757;
+        font-size: 16pt;
+        padding-bottom: 40px;
+    }
 
-        #top .signup p {
-            text-align: center;
-            color: #575757;
-            font-size: 16pt;
-            padding-bottom: 40px;
-        }
+    #top .signup button {
+        width: 100%;
+    }
 
-        #top .signup button {
-            width: 100%;
-        }
+    #top .signup .btn-default {
+        background-color: #d94100;
+        color: white;
+        border-color: #d94100;
+        height: 50px;
+        font-size: 14pt;
+        border-radius: 0px;
+    }
 
-        #top .signup .btn-default {
-            background-color: #d94100;
-            color: white;
-            border-color: #d94100;
-            height: 50px;
-            font-size: 14pt;
-            border-radius: 0px;
-        }
+    #top .signup .form-control {
+        border-radius: 0;
+    }
 
-        #top .signup .form-control {
-            border-radius: 0;
-        }
-
-        #top .signup input {
-            height: 50px;
-            font-size: 14pt;
-        }
+    #top .signup input {
+        height: 50px;
+        font-size: 14pt;
+    }
 
 .hero-heading .hero-sub-heading {
     /*padding-left:1em;*/
     text-align: center;
-    padding-top: 10em;
-    margin-right: 20em;
+    /*margin-right: 20em;*/
     /*color:#01579b;*/
 }
 
@@ -690,13 +690,209 @@ nav {
     }
 
 .footer {
-    height:10vh;
-    background-color:#333;
-    color:white;
+    height: 10vh;
+    background-color: #333;
+    color: white;
 }
 
-.footer > p{
-    text-align: center;
-    color:white;
-    padding: 28px 9px;
+    .footer > p {
+        text-align: center;
+        color: white;
+        padding: 28px 9px;
+    }
+
+.getStarted {
+    font-size: 17pt !important;
+}
+
+    .getStarted input {
+        width: 300px !important;
+        height: 50px !important;
+        font-size: 15pt;
+    }
+
+    .getStarted .btn {
+        height: 50px !important;
+        font-size: 15pt;
+    }
+
+.setup {
+    padding-top: 5em;
+    background-image: linear-gradient( rgba(255,250,250, 0.45), rgba(255,250,250, 0.45) ), url('../img/dreamstime_xl_50592602.jpg');
+}
+
+    .setup .signup {
+        background: white;
+        padding: 20px;
+        /*box-shadow: 2px 2px 2px whitesmoke;*/
+        border: 1px solid gainsboro;
+    }
+
+        .setup .signup h2 {
+            color: #01579b;
+            font-weight: bold;
+        }
+
+        .setup .signup p {
+            padding-bottom: 10px;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+    .setup .notice {
+        text-align: center;
+        background-color: #01579b;
+        color: white;
+        height: 100vh;
+        margin-top: -6vh;
+        padding: 100px;
+    }
+
+        .setup .notice .payments {
+            padding-top: 150px;
+        }
+
+            .setup .notice .payments .fa {
+                font-size: 70pt;
+                color: white;
+                padding: 20px;
+            }
+
+        .setup .notice h1 {
+            padding-top: 10vh;
+            font-size: 35pt;
+        }
+
+        .setup .notice p {
+            font-size: 17pt;
+        }
+
+    .setup input, .setup select, .getStarted input {
+        height: 50px !important;
+        font-size: 16pt;
+        border: #01579b solid 1px;
+        border-radius: 0px;
+        color: #575757;
+        background: #fafafa;
+        /*font-weight:bold;*/
+    }
+
+        .getStarted input:active {
+            border: #01579b solid 2px !important;
+        }
+
+    .setup .btn {
+        background: #01579b;
+        height: 50px;
+        color: white;
+        font-size: 16pt;
+        width: 100%;
+    }
+
+/*radio buttons*/
+.control-group {
+    display: inline-block;
+    /*width: 200px;*/
+    width:100%;
+    height: 210px;
+    margin: 10px;
+    padding: 30px;
+    text-align: left;
+    vertical-align: top;
+    /*background: #fff;*/
+    /*box-shadow: 0 1px 2px rgba(0,0,0,.1);*/
+}
+
+.control {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+    .control input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+    }
+
+.control__indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: #e6e6e6;
+}
+
+.control--radio .control__indicator {
+    border-radius: 50%;
+}
+/* Hover and focus states */
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+	background: #ccc;
+}
+
+/* Checked state */
+.control input:checked ~ .control__indicator {
+	background: #01579b;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #01579b;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control__indicator {
+	pointer-events: none;
+	opacity: .6;
+	background: #e6e6e6;
+}
+
+/* Check mark */
+.control__indicator:after {
+	position: absolute;
+	display: none;
+	content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+/* Checkbox tick */
+.control--checkbox .control__indicator:after {
+	top: 4px;
+	left: 8px;
+	width: 3px;
+	height: 8px;
+	transform: rotate(45deg);
+	/*border: solid #fff;*/
+	/*border-width: 0 2px 2px 0;*/
+}
+
+/* Disabled tick colour */
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control--radio .control__indicator:after {
+	top: 7px;
+	left: 7px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+/* Disabled circle colour */
+.control--radio input:disabled ~ .control__indicator:after {
+	background: #7b7b7b;
 }

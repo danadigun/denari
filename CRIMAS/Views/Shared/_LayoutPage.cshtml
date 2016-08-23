@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/landing.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome-4.6.3/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/animate.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+</head>
+<body>
+    <nav >
+        <ul>
+            <li class="brand" style="float:left;">
+                <img style="width:150px; height:auto;" src="~/img/Logo-color6.jpg" />
+            </li>
+            <li><a href="~/">Home</a></li>
+            <li><a href="#">Advantages</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Testimonial</a></li>
+            <li><a href="#">Contact</a></li>
+
+        </ul>
+        <div class="button">
+            <a class="btn-open" href="#"></a>
+        </div>
+    </nav>
+    <div class="overlay">
+        <div class="wrap">
+            <ul class="wrap-nav">
+                <li>
+                    <a href="#">About</a>
+                    <ul>
+                        <li><a href="#">About Company</a></li>
+                        <li><a href="#">Designers</a></li>
+                        <li><a href="#">Developers</a></li>
+                        <li><a href="#">Pets</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                    <ul>
+                        <li><a href="https://www.google.hr/">Web Design</a></li>
+                        <li><a href="#">Development</a></li>
+                        <li><a href="#">Apps</a></li>
+                        <li><a href="#">Graphic design</a></li>
+                        <li><a href="#">Branding</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Work</a>
+                    <ul>
+                        <li><a href="#">Web</a></li>
+                        <li><a href="#">Graphic</a></li>
+                        <li><a href="#">Apps</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="social">
+                <a href="#">
+                    <div class="social-icon">
+                        <i class="fa fa-facebook"></i>
+                    </div>
+                </a>
+                <a href="#">
+                    <div class="social-icon">
+                        <i class="fa fa-twitter"></i>
+                    </div>
+                </a>
+
+
+            </div>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+    <!--Footer-->
+    <section class="footer navbar-fixed-bottom">
+        <p>
+            (c) 2016 All rights reserved by Digital Forte Enterprise Systems Ltd.
+        </p>
+    </section>
+
+</body>
+</html>

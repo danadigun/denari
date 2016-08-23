@@ -1,17 +1,20 @@
 ﻿@{
-    Layout = null;
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    ViewBag.Title = "Successful transaction";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        Thank you for requesting a demo access!
-    </div>
-</body>
-</html>
+<div style="width:70%; margin-left:auto; margin-right:auto; padding:50px;">
+    <h1 style="text-align:center; font-size:50pt; color:#01579b">
+        <i class="fa fa-check" style="font-weight:lighter; font-size:70pt" aria-hidden="true"></i><br />
+        Your order has been successfully processed!
+    </h1>
+    <p style="padding:50px;  text-align:center; font-size:25pt;">
+        Your transaction has completed successfully. We've sent an email of the transaction order to you and
+        have commenced immediate setup of your system. It'll be ready within 0-72hours. You will recieve
+        an email notification from us containing the url to your system and  authentiation credentials.
+    </p>
+    <p style="text-align:center">
+        <a href="~/" class="btn btn-primary" style="width:30%; font-size:15pt;">Take me home</a>
+    </p>
+</div>
