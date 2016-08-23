@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44326</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -280,9 +280,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608152232591_asjkfbkafja.cs" />
-    <Compile Include="Migrations\201608152232591_asjkfbkafja.Designer.cs">
-      <DependentUpon>201608152232591_asjkfbkafja.cs</DependentUpon>
+    <Compile Include="Migrations\201608231529467_InitialMigration.cs" />
+    <Compile Include="Migrations\201608231529467_InitialMigration.Designer.cs">
+      <DependentUpon>201608231529467_InitialMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -13631,8 +13631,8 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608152232591_asjkfbkafja.resx">
-      <DependentUpon>201608152232591_asjkfbkafja.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201608231529467_InitialMigration.resx">
+      <DependentUpon>201608231529467_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
