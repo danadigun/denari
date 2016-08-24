@@ -5,6 +5,62 @@
     Responsive design for mobile phones 
 */
 
+
+/*Iphone 4 & 5 (320 X 480)*/
+@media screen and (max-width:321px){
+     .newsletter {
+        margin-top: 120em;
+        height: 50vh;
+        padding-right: 3em;
+        padding-left: 3em;
+    }
+
+        .newsletter input, .btn {
+            width: 100%;
+            border-radius: 0px;
+        }
+
+     .newsletter input {
+       width: 200px !important; 
+    }
+
+     #pricing{
+         padding-right:24em;
+     }
+}
+@media screen and (max-width:320) {
+        .newsletter {
+        margin-top: 120em;
+        height: 50vh;
+        padding-right: 3em;
+        padding-left: 3em;
+    }
+
+        .newsletter input, .btn {
+            width: 100%;
+            border-radius: 0px;
+        }
+
+     .newsletter input {
+       width: 200px !important; 
+    }
+
+     #pricing{
+         padding-right:24em;
+     }
+}
+
+
+/*Galaxy S6, Xperia (360 X 640)*/
+@media screen and (max-width:360) {
+    form#form-access {
+        padding: 0px !important;
+        width: 100%;
+        /* background-color: aliceblue; */
+    }
+}
+
+
 /**Iphone 6*/
 @media screen and (max-width:375px) {
     form#form-access {
@@ -98,58 +154,6 @@
     }
 }
 
-/*Iphone 4 & 5 (320 X 480)*/
-@media screen and (max-width:321px){
-     .newsletter {
-        margin-top: 120em;
-        height: 50vh;
-        padding-right: 3em;
-        padding-left: 3em;
-    }
-
-        .newsletter input, .btn {
-            width: 100%;
-            border-radius: 0px;
-        }
-
-     .newsletter input {
-       width: 200px !important; 
-    }
-
-     #pricing{
-         padding-right:24em;
-     }
-}
-@media screen and (max-width:320) {
-        .newsletter {
-        margin-top: 120em;
-        height: 50vh;
-        padding-right: 3em;
-        padding-left: 3em;
-    }
-
-        .newsletter input, .btn {
-            width: 100%;
-            border-radius: 0px;
-        }
-
-     .newsletter input {
-       width: 200px !important; 
-    }
-
-     #pricing{
-         padding-right:24em;
-     }
-}
-
-/*Galaxy S6, Xperia (360 X 640)*/
-@media screen and (max-width:360) {
-    form#form-access {
-        padding: 0px !important;
-        width: 100%;
-        /* background-color: aliceblue; */
-    }
-}
 
 /*Lumia 920 (384 X 640)*/
 @media screen and (max-width:385px){
