@@ -168,7 +168,7 @@
 
         <h1>Pricing</h1>
         <div class="pricing-table row">
-            <div class="col-md-3" style="margin-right:-4.5em;">
+            @*<div class="col-md-3" style="margin-right:-4.5em;">
                 <div class="price-component">
                     <p class="price-header">
                         <h2>30 Days trial</h2>
@@ -181,8 +181,8 @@
                     <button class="btn btn-default">Sign Up</button>
                 </div>
 
-            </div>
-            <div class="col-md-3" style="margin-right:-4.2em;">
+            </div>*@
+            <div class="col-md-3 price-bronze" >
                 <div class="price-component most-popular">
                     <p class="price-header">
                         <h2>bronze</h2>
@@ -196,7 +196,7 @@
                 </div>
 
             </div>
-            <div class="col-md-3" style="margin-right:-4.5em;">
+            <div class="col-md-3" >
                 <div class="price-component">
                     <p class="price-header">
                         <h2>silver</h2>
@@ -210,7 +210,7 @@
                 </div>
 
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 last-price">
                 <div class="price-component">
                     <p class="price-header">
                         <h2>Gold</h2>
@@ -247,17 +247,7 @@
     <!--ToDO:FAQs-->
 
     <script>
-        $(document).ready(function () {
-            $(".button a").click(function () {
-                $(".overlay").fadeToggle(200);
-                $(this).toggleClass('btn-open').toggleClass('btn-close');
-            });
-        });
-        $('.overlay').on('click', function () {
-            $(".overlay").fadeToggle(200);
-            $(".button a").toggleClass('btn-open').toggleClass('btn-close');
-            open = false;
-        });
+      
 
         $('.down').on('click', function () {
             $('html, body').animate({

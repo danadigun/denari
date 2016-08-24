@@ -2,13 +2,15 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/landing.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.6.3/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/landing-responsive.css" rel="stylesheet" />
 
+    <link href="~/Content/landing-responsive-phones.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="https://js.paystack.co/v1/inline.js"></script>
@@ -16,17 +18,18 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 </head>
 <body>
-    <nav >
+    <nav>
         <ul>
             <li class="brand" style="float:left;">
                 <img style="width:150px; height:auto;" src="~/img/Logo-color6.jpg" />
             </li>
-            <li><a href="~/">Home</a></li>
-            <li><a href="#">Advantages</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Testimonial</a></li>
-            <li><a href="#">Contact</a></li>
+            <li class="hidden-xs hidden-md hidden-sm"><a href="~/">Home</a></li>
+            <li class="hidden-xs hidden-md hidden-sm"><a href="#">Features & benefits</a></li>
+            @* <li class="hidden-xs hidden-md hidden-sm"><a href="#">Blog</a></li>*@
+            <li class="hidden-xs hidden-md hidden-sm"><a href="#">FAQ</a></li>
+            @* <li class="hidden-xs hidden-md hidden-sm"><a href="#">Contact</a></li>*@
+            <li class="hidden-xs hidden-md hidden-sm"><a href="~/home/start" class="btn btn-primary">Place an order</a></li>
+
 
         </ul>
         <div class="button">
@@ -37,30 +40,30 @@
         <div class="wrap">
             <ul class="wrap-nav">
                 <li>
-                    <a href="#">About</a>
+                    <a href="#">About Denari</a>
                     <ul>
-                        <li><a href="#">About Company</a></li>
-                        <li><a href="#">Designers</a></li>
-                        <li><a href="#">Developers</a></li>
-                        <li><a href="#">Pets</a></li>
+                        <li><a href="#">The Company</a></li>
+                        <li><a href="#">Features & Benefits</a></li>
+                        @*<li><a href="#">Developers</a></li>
+                        <li><a href="#">Pets</a></li>*@
                     </ul>
                 </li>
                 <li>
                     <a href="#">Services</a>
                     <ul>
-                        <li><a href="https://www.google.hr/">Web Design</a></li>
-                        <li><a href="#">Development</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        @*<li><a href="#">Development</a></li>
                         <li><a href="#">Apps</a></li>
                         <li><a href="#">Graphic design</a></li>
-                        <li><a href="#">Branding</a></li>
+                        <li><a href="#">Branding</a></li>*@
                     </ul>
                 </li>
                 <li>
-                    <a href="#">Work</a>
+                    <a href="#">Order</a>
                     <ul>
-                        <li><a href="#">Web</a></li>
-                        <li><a href="#">Graphic</a></li>
-                        <li><a href="#">Apps</a></li>
+                        <li><a href="~/home/start" class="btn btn-primary">Place an order</a></li>
+                        @*<li><a href="#">Graphic</a></li>
+                        <li><a href="#">Apps</a></li>*@
                     </ul>
                 </li>
             </ul>
@@ -90,5 +93,19 @@
         </p>
     </section>
 
+    <script>
+        $(document).ready(function () {
+            $(".button a").click(function () {
+                $(".overlay").fadeToggle(200);
+                $(this).toggleClass('btn-open').toggleClass('btn-close');
+            });
+        });
+        $('.overlay').on('click', function () {
+            $(".overlay").fadeToggle(200);
+            $(".button a").toggleClass('btn-open').toggleClass('btn-close');
+            open = false;
+        });
+
+    </script>
 </body>
 </html>

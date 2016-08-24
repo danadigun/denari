@@ -16,8 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44326</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -1459,6 +1458,8 @@
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
+    <Content Include="Content\landing-responsive-phones.css" />
+    <Content Include="Content\landing-responsive.css" />
     <Content Include="Content\landing.css" />
     <Content Include="Content\material-responsive-table.css">
       <DependentUpon>material-responsive-table.less</DependentUpon>
