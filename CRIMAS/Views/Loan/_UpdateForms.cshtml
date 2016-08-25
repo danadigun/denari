@@ -1,0 +1,45 @@
+﻿
+@using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
+{
+    <span style="color:red">@Html.ValidationSummary()</span>
+                        <table class="table bordered striped">
+                            <input type="hidden" name="loan_id" value="@loan_id" />
+                            <tr>
+                                <td><b>Signed Loan application agreement form</b></td>
+                                <td>
+                                    <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
+                                         src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
+                                </td>
+                                <td>
+                                    <input type="file" name="fileAgreement" id="fileAgreement">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Signed Irrevocable authority form</b></td>
+                                <td>
+                                    <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
+                                         src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
+                                </td>
+                                <td>
+                                    <input type="file" name="fileIrrevocable" id="fileIrrevocable">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Signed Guarantor's forms</b></td>
+                                <td>
+                                    <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
+                                         src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
+                                </td>
+                                <td>
+                                    <input type="file" name="fileGuarantors" id="fileGuarantors">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button class="btn btn-primary" type="submit">update all forms</button>
+                                </td>
+                                <td>&nbsp;</td>
+                            </tr>
+
+                        </table>
+}

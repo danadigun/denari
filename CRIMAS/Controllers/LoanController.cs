@@ -246,6 +246,73 @@ namespace CRIMAS.Controllers
             return View(loan);
         }
 
+        public ActionResult UpdateForms(int loan_id, HttpPostedFileBase fileAgreement, HttpPostedFileBase fileIrrevocable, HttpPostedFileBase fileGuarantors)
+        {
+            #region  Validate & upload scanned documents
+            var loan = _context.Loans.Where(x => x.Id == loan_id).FirstOrDefault();
+
+            string extension_fileAgreementName = string.Empty;
+            string extension_fileIrrevocableName = string.Empty;
+            string extension_fileGuarantorsName = string.Empty;
+
+            if ((fileAgreement != null && fileAgreement.ContentLength > 0)
+                && (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
+                && (fileGuarantors != null && fileGuarantors.ContentLength > 0))
+            {
+                //check extensions
+                extension_fileAgreementName = Path.GetExtension(fileAgreement.FileName);
+                extension_fileIrrevocableName = Path.GetExtension(fileIrrevocable.FileName);
+                extension_fileGuarantorsName = Path.GetExtension(fileGuarantors.FileName);
+
+                bool checkAgreement = (extension_fileAgreementName != ".jpg" && extension_fileAgreementName != ".jpeg" && extension_fileAgreementName != ".png");
+                bool checkIrrevocable = (extension_fileIrrevocableName != ".jpg" && extension_fileIrrevocableName != ".jpeg" && extension_fileIrrevocableName != ".png");
+                bool checkGuarantor = (extension_fileGuarantorsName != ".jpg" && extension_fileGuarantorsName != ".jpeg" && extension_fileGuarantorsName != ".png");
+
+                if (checkAgreement && checkIrrevocable && checkGuarantor)
+                {
+                    ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
+                    return View();
+                }
+                else
+                {
+                    using (var reader = new BinaryReader(fileAgreement.InputStream))
+                    {
+                        loan.ImgAgreement = reader.ReadBytes(fileAgreement.ContentLength);
+                        _context.SaveChanges();
+
+                    }
+                    using (var reader = new BinaryReader(fileIrrevocable.InputStream))
+                    {
+                        loan.ImgIrrevocable = reader.ReadBytes(fileIrrevocable.ContentLength);
+                        _context.SaveChanges();
+                    }
+
+                    using (var reader = new BinaryReader(fileGuarantors.InputStream))
+                    {
+                        loan.ImgGuarantors = reader.ReadBytes(fileGuarantors.ContentLength);
+                        _context.SaveChanges();
+
+                    }
+                }
+
+            }
+            else
+            {
+                ModelState.AddModelError("Invalid Image", "Please upload all three (3) scanned documents to proceed.");
+                return View();
+            }
+
+           
+            //_context.Loans.Add(loan);
+            _context.SaveChanges();
+
+            TempData["msg"] = "<script>swal(\"Good job!\""+","+"\"documents successfully uploaded \")</script>";
+
+
+
+            return Redirect("~/Loan/statement?loanId="+loan_id);
+            #endregion
+        }
 
         public ActionResult RetrieveAgreement(int loan_id)
         {
@@ -496,6 +563,8 @@ namespace CRIMAS.Controllers
             ViewBag.LoanId = loanId;
             return View(_context.LoanTransactions.Where(x => x.Loan.Id == loanId).ToList());
         }
+
+       
 
         /// <summary>
         /// Return all Loans both active and completed

@@ -23,17 +23,17 @@
 
 
     <div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
-         
-      
-         <!--Loan Details-->
+
+
+        <!--Loan Details-->
         <div class="card">
             <div class="card-content">
-               <br /> <h5>Loan Details</h5><hr /><br />
+                <br /> <h5>Loan Details</h5><hr /><br />
                 <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
 
                 <table class="table bordered striped">
                     <tr>
-                       
+
                         <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
                         <td>&nbsp;</td>
                     </tr>
@@ -57,55 +57,160 @@
                 </table>
             </div>
         </div>
-        <br />
 
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header"><i class="material-icons">filter_drama</i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
+                <div class="collapsible-body">
+                    <div style="padding:50px;">
+                        @Html.Raw(TempData["msg"])
+                        @using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
+                        {
+                            <span style="color:red">@Html.ValidationSummary()</span>
+                            <table class="table bordered striped">
+                                <input type="hidden" name="loan_id" value="@loan_id" />
+                                <tr>
+                                    <td><b>Signed Loan application agreement form</b></td>
+                                    <td>
+                                        <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
+                                             src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
+                                    </td>
+                                    <td>
+                                        <input type="file" name="fileAgreement" id="fileAgreement" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Signed Irrevocable authority form</b></td>
+                                    <td>
+                                        <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
+                                             src="~/Loan/RetrieveIrrevocable?loan_id=@loan_id" height="30" width="30" />
+                                    </td>
+                                    <td>
+                                        <input type="file" name="fileIrrevocable" id="fileIrrevocable" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><b>Signed Guarantor's forms</b></td>
+                                    <td>
+                                        <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
+                                             src="~/Loan/RetrieveGurantor?loan_id=@loan_id" height="30" width="30" />
+                                    </td>
+                                    <td>
+                                        <input type="file" name="fileGuarantors" id="fileGuarantors" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary" type="submit">update all forms</button>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+
+                            </table>
+                        }
+                    </div>
+
+
+
+                </div>
+            </li>
+
+        </ul>
         <!--Loan Statement-->
-       <div class="card">
-           <div class="card-content">
-               <h5>Loan Statement</h5><hr />
-               <table class="table bordered striped">
-                   <tr style="background-color:#0078d7; color:white;">
-                       <td>S/N</td>
-                       <td>Date</td>
-                       <td>Transaction Msg</td>
-                       <td>Cr</td>
-                       <td>Dr</td>
-                       <td>Balance</td>
-                   </tr>
-                   @foreach (var transaction in Model)
-                   {
-                       <tr>
-                           <td>@i</td>
-                           <td>@transaction.DateCreated</td>
-                           <td>@transaction.Narration</td>
-                           <td>@transaction.Cr</td>
-                           <td>@transaction.Dr</td>
+        <div class="card">
+            <div class="card-content">
+                <h5>Loan Statement</h5><hr />
+                <table class="table bordered striped">
+                    <tr style="background-color:#0078d7; color:white;">
+                        <td>S/N</td>
+                        <td>Date</td>
+                        <td>Transaction Msg</td>
+                        <td>Cr</td>
+                        <td>Dr</td>
+                        <td>Balance</td>
+                    </tr>
+                    @foreach (var transaction in Model)
+                    {
+                    <tr>
+                        <td>@i</td>
+                        <td>@transaction.DateCreated</td>
+                        <td>@transaction.Narration</td>
+                        <td>@transaction.Cr</td>
+                        <td>@transaction.Dr</td>
 
-                           @if ((transaction.Cr - transaction.Dr) < 0)
-                           {
-                               <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
-                           }
-                           else
-                           {
-                               <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
-                           }
+                        @if ((transaction.Cr - transaction.Dr) < 0)
+                            {
+                            <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
+                            }
+                            else
+                            {
+                            <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
+                            }
 
-                       </tr>
-                       i++;
+                    </tr>
+                        i++;
 
-                       total_Cr = total_Cr + transaction.Cr;
-                       total_Dr = total_Dr + transaction.Dr;
-                   }
-                   <tr>
-                       <td>&nbsp;</td>
-                       <td><b>Total</b></td>
-                       <td>&nbsp;</td>
-                       <td><b> @string.Format("{0:C}",@total_Cr)</b></td>
-                       <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
-                       <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
-                   </tr>
-               </table>
+                        total_Cr = total_Cr + transaction.Cr;
+                        total_Dr = total_Dr + transaction.Dr;
+                    }
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td><b>Total</b></td>
+                        <td>&nbsp;</td>
+                        <td><b> @string.Format("{0:C}", @total_Cr)</b></td>
+                        <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
+                        <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
+                    </tr>
+                </table>
 
-           </div>
-       </div>
+            </div>
+
+
+        </div>
+
+
+
     </div>
+    @section Scripts {
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('.materialboxed').materialbox();
+
+                //$('.material-placeholder').each(function () {
+                //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
+                //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
+                //    $(this).append(a);
+                //});
+
+            });
+
+
+         
+
+        </script>
+    }
+    <style>
+        .material-placeholder {
+            float: left;
+            margin: 0 5px;
+        }
+
+            .material-placeholder img {
+                float: left;
+            }
+
+            .material-placeholder a {
+                float: left;
+            }
+
+                .material-placeholder a i {
+                    font-size: 20px;
+                    margin: 13px 0 0 2px;
+                }
+
+        .card {
+            overflow: inherit !important;
+        }
+    </style>
+   

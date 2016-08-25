@@ -13623,6 +13623,7 @@
     <Content Include="Views\Shared\_desktopSideMenuPartial.cshtml" />
     <Content Include="Views\Shared\_mobileSideMenuPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Loan\_UpdateForms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
