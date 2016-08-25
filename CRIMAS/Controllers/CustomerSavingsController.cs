@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CRIMAS.Models;
+using CRIMAS.Models.ViewModels;
 
 namespace CRIMAS.Controllers
 {
@@ -26,15 +27,25 @@ namespace CRIMAS.Controllers
         //
         public ActionResult CheckAccount(string accountno)
         {
-            //Check if customer is registered in the system
-            var customerAccount = db.Customers.Where(m => m.AccountNo == accountno);
+           
+            CheckAccountViewModel viewmodel = new CheckAccountViewModel();
 
-            if (customerAccount.Count() != 0)
-            {
-                return View(db.CustomerSavings.Where(m=>m.AccountNo==accountno).ToList());
-            }
-            return RedirectToAction("AccountNotFound");
+            var customerSavings = db.CustomerSavings.Where(x => x.AccountNo == accountno).ToList();
+            var orderedSavings = db.CustomerSavings.Where(x => x.AccountNo == accountno).OrderByDescending(x => x.DateCreated);
+            var customerName = db.Customers.FirstOrDefault(x => x.AccountNo == accountno).Name;
+            var customerDividend = (from d in db.Dividends where d.accountNo == accountno select (Decimal?)d.amount).Sum() ?? 0;
+            var customer = db.Customers.Where(x => x.AccountNo == accountno).SingleOrDefault();
+            var dividend_list = db.Dividends.Where(x => x.accountNo == accountno).ToList();
 
+            viewmodel.account = accountno;
+            viewmodel.name = customerName;
+            viewmodel.customer = customer;
+            viewmodel.total_dividend = customerDividend;
+            viewmodel.customerSavings = customerSavings;
+            viewmodel.orderedCustomerSavings = orderedSavings;
+            viewmodel.dividendList = dividend_list;
+
+            return View(viewmodel);
         }
         //
         //GET: /CustomerSavings/AccountNotFound
