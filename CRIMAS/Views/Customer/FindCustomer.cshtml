@@ -24,6 +24,9 @@
         decimal outstanding_totalInterest = 0;
         decimal outstanding_totalPrincipalPlusInterest = 0;
 
+        decimal finished_totalInterest = 0;
+        decimal finished_totalPrincipalPlusInterest = 0;
+
     }
 
     <div style="padding-top:4em;">
@@ -53,6 +56,10 @@
                 var customerLoan = db.Loans.Where(x => x.AccountNo == item.AccountNo || x.Customername.Contains(item.Name)).Where(x => x.LoanStatus == "active").ToList();
                 encumbered = customerLoan.Select(x => x.amount).Sum() * 0.1m;
 
+                var finishedLoan = db.Loans.Where(x => x.AccountNo == item.AccountNo || x.Customername.Contains(item.Name)).Where(x => x.LoanStatus == "completed").ToList();
+
+
+
 
                 var savingsCredit = 0m;
                 var savingsDebit = 0m;
@@ -81,14 +88,14 @@
 
                             if (item.image != null)
                             {
-                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                                <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
-                                }
-                                else
-                                {
-                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                            }
+                            else
+                            {
+                                <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
-                                }
+                            }
 
                         }
                     </span>
@@ -105,8 +112,8 @@
                     </p>
 
                 </div>
-                
-              
+
+
                             //account Summary
                             <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
                                 <div class="card-content">
@@ -138,10 +145,9 @@
                             //Loans
                             <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
                                 <div class="card-content">
-                                    <h5>
-                                        <img src="~/Images/loan-agr.png" />Outstanding loans
-                                        @* <a style="float:right" class="btn btn-fab" href="~/Loan/CheckLoanStatus?accountno=@item.AccountNo">view status</a>*@
-                                    </h5><hr /><br />
+                                    <h5 style="text-align:right">
+                                       Outstanding loans <img src="~/Images/loan-agr.png" />
+                                    </h5><br />
                                     <table class="table bordered striped" style="font-size:10pt;">
                                         <tr style="background-color:#0078d7; color:white;">
                                             <td>Date Issued</td>
@@ -154,7 +160,7 @@
                                         </tr>
 
                                         @foreach (var record in customerLoan)
-                                            {
+                                        {
 
                                             <tr>
                                                 <td>@record.DateCreated.ToLongDateString()</td>
@@ -179,9 +185,9 @@
 
                                                 </td>
                                             </tr>
-                                                outstanding_totalInterest = outstanding_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
-                                                outstanding_totalPrincipalPlusInterest = outstanding_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
-                                            }
+                                            outstanding_totalInterest = outstanding_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                            outstanding_totalPrincipalPlusInterest = outstanding_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                        }
                                         <tr>
                                             <td><b>Total:</b></td>
                                             <td>
@@ -199,17 +205,94 @@
                                         </tr>
                                     </table>
 
-
-
                                 </div>
                             </div>
+
+                            //finished loans
+                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%;  margin-left:auto; margin-right:auto;">
+                                <li class="row" style="text-align:center">
+                                    <div class="collapsible-header">
+                                        <h5 style="padding-bottom:0.2em;">
+                                            <span style="float:right; color:rgb(1, 87, 155); padding-right:2em;">
+                                                Finished loans <i style="margin-top:-0.2em;" class="fa fa-th-list" aria-hidden="true"></i>
+                                                @*<img src="~/Images/loan-agr.png" />*@
+                                            </span>
+                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
+                                        </h5><br />
+                                    </div>
+                                    <div class="collapsible-body card-content">
+                                        <div >
+                                            <div class="card-content">
+                                              
+                                                <table class="table bordered striped" style="font-size:10pt;">
+                                                    <tr style="background-color:gray; color:white;">
+                                                        <td>Date Issued</td>
+                                                        <td>Principal + Interest</td>
+                                                        <td>Interest</td>
+                                                        <td>Total Paid</td>
+                                                        <td>Outstanding</td>
+                                                        <td>Encumbered</td>
+                                                        <td>Loan Statement</td>
+                                                    </tr>
+
+                                                    @foreach (var record in finishedLoan)
+                                                    {
+
+                                                                    <tr>
+                                                                        <td>@record.DateCreated.ToLongDateString()</td>
+                                                                        <td>
+                                                                            @string.Format("{0:C}",
+                                                          record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
+                                                                        </td>
+                                                                        <td>
+                                                                            @string.Format("{0:C}",
+                                                         (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
+
+                                                                        </td>
+                                                                        <td>
+                                                                            @*  @record.LoanTransactions.Select(x => x.refund).FirstOrDefault();*@
+                                                                        </td>
+                                                                        <td></td>
+                                                                        <td>
+                                                                            @string.Format("{0:C}", (record.amount * 0.1m))
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
+
+                                                                        </td>
+                                                                    </tr>
+                                            finished_totalInterest = finished_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                            finished_totalPrincipalPlusInterest = finished_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                        }
+                                                    <tr>
+                                                        <td><b>Total:</b></td>
+                                                        <td>
+                                                            <b>@string.Format("{0:C}", outstanding_totalPrincipalPlusInterest)</b>
+                                                        </td>
+                                                        <td>
+                                                            <b>@string.Format("{0:C}", @outstanding_totalInterest)</b>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <b>@string.Format("{0:C}", encumbered)</b>
+                                                        </td>
+                                                        <td></td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
 
                             //Customer personal details
                             <ul class="card collapsible" data-collapsible="accordion" style="width:70%;  margin-left:auto; margin-right:auto;">
                                 <li class="row" style="text-align:center">
                                     <div class="collapsible-header">
-                                        <p>
-                                            <span style="font-size:16pt;">Customer personal details</span>
+                                        <p >
+                                           <span style="font-size:16pt; float:right; color:rgb(1, 87, 155); padding-right:2em;">Customer personal details <i class="fa fa-user" aria-hidden="true"></i></span>
                                             <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
                                         </p>
                                     </div>
@@ -247,14 +330,15 @@
                                 <li class="row" style="text-align:center">
                                     <div class="collapsible-header">
                                         <p>
-                                            <span style="font-size:16pt;">
-                                                Click here to update customer profile image</span>
-                                                <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
+                                            <span style="font-size:16pt; float:right; color:rgb(1, 87, 155);padding-right:2em;">
+                                                Click here to update customer profile image <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                            </span>
+                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
                                         </p>
                                     </div>
                                     <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto">
                                         @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                            {
+                                        {
 
                                             <div class="input-field col s9">
                                                 <div class="file-field input-field">
@@ -272,7 +356,7 @@
                                                     <input type="submit" class="btn btn-primary" value="Update Image" />
                                                 </div>
                                             </div>
-                                            }
+                                        }
                                     </div>
                                 </li>
                             </ul>
@@ -308,15 +392,15 @@
     </style>
 
     <script>
-        $(document).ready(function () {
-            $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-            });
+                                                          $(document).ready(function () {
+                                                              $('.collapsible').collapsible({
+                                                                  accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                                                              });
 
-            $('#ProfileImage').error(function () {
-                $(this).attr('src', '/images/user-48.png');
-            });
-        });
+                                                              $('#ProfileImage').error(function () {
+                                                                  $(this).attr('src', '/images/user-48.png');
+                                                              });
+                                                          });
 
 
     </script>
