@@ -85,27 +85,29 @@
                 </span>
 
                 @{
-                    
+
 
                     var customer = db.Customers.Where(x => x.AccountNo == acc).SingleOrDefault();
 
                     <h3 style="text-align:left;">
-                        @{
-                            if (customer.image != null)
+                        @{try
                             {
-                                <img class="cust-img card-panel hoverable" src="~/Customer/RetrieveImage/@customer.CustomerId" />
+                                if (!customer.image.Equals(null))
+                                {
+                                    <img class="cust-img card-panel hoverable" src="~/Customer/RetrieveImage/@customer.CustomerId" />
+                                }
+                                else
+                                {
+                                    <img class="cust-img card-panel hoverable" src="~/images/user-48.png" />
+                                }
+
                             }
-                            else
+                            catch
                             {
                                 <img class="cust-img card-panel hoverable" src="~/images/user-48.png" />
+                                }
                             }
-
-
-
-
-
-                        }
-                    </h3>
+                </h3>
 
                     <h3 style="text-align:left; line-height:10pt;  margin-top:-0.5em;">
                         <span style="font-size:16pt; font-family: 'Raleway', sans-serif; text-transform:capitalize"> <b>@name.FirstOrDefault()</b></span><br />

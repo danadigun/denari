@@ -29,7 +29,7 @@
 
     }
 
-    <div style="padding-top:4em;">
+       <div style="width:70%; margin-left:auto; margin-right:auto; padding-top:4em;">
         @if (Model.Count() == 0)
         {
             <div class="card-panel" style="width:70%; margin-left:auto; margin-right:auto; ">
@@ -78,44 +78,42 @@
                     </span>
                 }
 
-                <div style="width:70%;  border-radius:0;  margin-left:auto; margin-right:auto; ">
+                            <div style="  border-radius:0; ">
 
-                    <span style="font-size:16pt;">
-                        <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
-                        @*   <a href="~/Customer/Create" class="btn btn-primary" style="float:right; background:#6200ea;  margin-right:10px; margin-top:2px; font-size:10pt;">+ enroll </a>*@
+                                <span style="font-size:16pt;">
+                                    <a href="~/Home/cashier" style="float:right;margin-right:25px; font-size:10pt;" class="btn btn-floating  waves-effect waves-light blue"><img src="~/Images/Home.png" /></a>
+                                   
 
-                        @{
+                                        @if (item.image != null)
+                                        {
+                                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
-                            if (item.image != null)
-                            {
-                                <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                                        }
+                                        else
+                                        {
+                                            <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
-                            }
-                            else
-                            {
-                                <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                                        }
 
-                            }
+                                    
+                                </span>
+                                <p>
+                                    <span style="font-size:15pt; ">
+                                        <strong>
+                                            Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
+                                        </strong>
+                                    </span>
+                                    <span style="float:right">
+                                        Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
+                                    </span>
+                                    @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
+                                </p>
 
-                        }
-                    </span>
-                    <p>
-                        <span style="font-size:15pt; ">
-                            <strong>
-                                Account No.: @Html.DisplayFor(modelItem => item.AccountNo)
-                            </strong>
-                        </span>
-                        <span style="float:right">
-                            Account opening date: <i> @DateTime.Parse(@item.DateCreated.ToString()).ToLongDateString()</i><br /><br />
-                        </span>
-                        @*    @Html.DisplayFor(modelItem => item.OfficeAddress)*@
-                    </p>
-
-                </div>
+                        </div>
 
 
                             //account Summary
-                            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                            <div class="card" >
                                 <div class="card-content">
                                     <h5>
                                         <img src="~/Images/Coin-01-WF.png" />Account Summary
@@ -143,11 +141,11 @@
                             </div>
 
                             //Loans
-                            <div class="card" style="width:70%; margin-left:auto; margin-right:auto">
+                            <div class="card" >
                                 <div class="card-content">
-                                    <h5 style="text-align:right">
-                                       Outstanding loans <img src="~/Images/loan-agr.png" />
-                                    </h5><br />
+                                    <h5 >
+                                        <img src="~/Images/loan-agr.png" /> Outstanding loans 
+                                    </h5><hr /><br />
                                     <table class="table bordered striped" style="font-size:10pt;">
                                         <tr style="background-color:#0078d7; color:white;">
                                             <td>Date Issued</td>
@@ -209,16 +207,14 @@
                             </div>
 
                             //finished loans
-                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%;  margin-left:auto; margin-right:auto;">
-                                <li class="row" style="text-align:center">
-                                    <div class="collapsible-header">
-                                        <h5 style="padding-bottom:0.2em;">
-                                            <span style="float:right; color:rgb(1, 87, 155); padding-right:2em;">
-                                                Finished loans <i style="margin-top:-0.2em;" class="fa fa-th-list" aria-hidden="true"></i>
-                                                @*<img src="~/Images/loan-agr.png" />*@
+                            <ul class="card collapsible" data-collapsible="accordion" >
+                                <li>
+                                    <div class="collapsible-header">                                      
+                                            <span style="float:right; padding-right:2em;">
+                                               <b> Finished loans </b>
                                             </span>
-                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
-                                        </h5><br />
+                                        <i class="material-icons">restore</i>
+                                        
                                     </div>
                                     <div class="collapsible-body card-content">
                                         <div >
@@ -288,13 +284,11 @@
                             </ul>
 
                             //Customer personal details
-                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%;  margin-left:auto; margin-right:auto;">
-                                <li class="row" style="text-align:center">
-                                    <div class="collapsible-header">
-                                        <p >
-                                           <span style="font-size:16pt; float:right; color:rgb(1, 87, 155); padding-right:2em;">Customer personal details <i class="fa fa-user" aria-hidden="true"></i></span>
-                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
-                                        </p>
+                            <ul class="card collapsible" data-collapsible="accordion" >
+                                <li >
+                                    <div class="collapsible-header">                                        
+                                           <span style=" float:right; padding-right:2em;"><b>Customer personal details</b> </span>
+                                        <i class="material-icons">perm_identity</i>
                                     </div>
                                     <div class="collapsible-body card-content">
                                         <table class="table striped" style="font-size:10pt;">
@@ -326,34 +320,34 @@
                             </ul>
 
                             //Image Upload
-                            <ul class="card collapsible" data-collapsible="accordion" style="width:70%; margin-left:auto; margin-right:auto;">
-                                <li class="row" style="text-align:center">
-                                    <div class="collapsible-header">
-                                        <p>
-                                            <span style="font-size:16pt; float:right; color:rgb(1, 87, 155);padding-right:2em;">
-                                                Click here to update customer profile image <i class="fa fa-user-plus" aria-hidden="true"></i>
+                            <ul class="card collapsible" data-collapsible="accordion" >
+                                <li style="text-align:center">
+                                    <div class="collapsible-header">                                      
+                                            <span style="float:right;padding-right:2em;">
+                                               <b> Update customer profile image </b>
                                             </span>
-                                            <i class="fa fa-chevron-down" style="color:gray; font-weight:lighter"></i>
-                                        </p>
+                                        <i class="material-icons">filter_drama</i>
+                                        
                                     </div>
-                                    <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto">
+                                    <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto; padding-bottom:3em;">
+                                        <br />
                                         @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                                         {
 
                                             <div class="input-field col s9">
                                                 <div class="file-field input-field">
                                                     <div class="btn">
-                                                        <span>Select Image</span>
+                                                        <span>+</span>
                                                         <input type="file" name="file" id="file">
                                                     </div>
                                                     <div class="file-path-wrapper">
-                                                        <input class="file-path validate" type="text" placeholder="  update customer profile image">
+                                                        <input class="file-path validate" type="text" placeholder="  select customer profile image">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="input-field col s3">
+                                            <div class="input-field col s12" style="padding-bottom:3em;">
                                                 <div class="file-field input-field">
-                                                    <input type="submit" class="btn btn-primary" value="Update Image" />
+                                                    <input style="width:100%" type="submit" class="btn btn-primary" value="Update Image" />
                                                 </div>
                                             </div>
                                         }
@@ -364,6 +358,7 @@
 
                                 }
                             }
+       
     </div>
 
 

@@ -57,6 +57,7 @@
                 </table>
             </div>
         </div>
+        <span style="color:red">@Html.ValidationSummary()</span>
 
         <ul class="collapsible" data-collapsible="accordion">
             <li>
@@ -66,7 +67,6 @@
                         @Html.Raw(TempData["msg"])
                         @using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
                         {
-                            <span style="color:red">@Html.ValidationSummary()</span>
                             <table class="table bordered striped">
                                 <input type="hidden" name="loan_id" value="@loan_id" />
                                 <tr>
