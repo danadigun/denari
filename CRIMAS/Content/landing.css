@@ -543,7 +543,7 @@ nav {
     #pricing .price-component {
         border: 1px solid gainsboro;
         width: 300px;
-        height: 300px;
+        /*height: 300px;*/
         padding: 20px;
         background-color: #f5f5f5;
     }
@@ -564,11 +564,19 @@ nav {
 }
 
 .most-popular {
-    background-color: white !important;
+    background-color: #ffb74d !important;
     height: 350px !important;
     margin-top: -3em;
+    color:black;
+    border:1px solid #ffb74d !important;
 }
-
+.silver {
+    background-color: #757575   !important;
+    height: 350px !important;
+    margin-top: -3em;
+    color:white;
+    border:1px solid #757575   !important;
+}
     .most-popular .btn-default {
         background-color: #d9a400;
         color: white;

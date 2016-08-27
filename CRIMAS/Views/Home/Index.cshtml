@@ -39,7 +39,7 @@
                 <p>
                     <i class="fa fa-universal-access" aria-hidden="true"></i>
                 </p>
-                <p>
+                <p style="font-size:15pt;">
                     Provides complete visibility into member Transactions and lending
                 </p>
             </div>
@@ -47,7 +47,7 @@
                 <p>
                     <i class="fa fa-credit-card" aria-hidden="true"></i>
                 </p>
-                <p>
+                <p style="font-size:15pt;">
                     Seamless Integration with existing payment platforms in africa
                 </p>
             </div>
@@ -55,7 +55,7 @@
                 <p>
                     <i class="fa fa-circle-o-notch" aria-hidden="true"></i>
                 </p>
-                <p>
+                <p style="font-size:15pt;">
                     Intuitive reporting provides 360 degree view of your business
                 </p>
             </div>
@@ -74,7 +74,7 @@
                 <h4>
                     Increased Customer Base
                 </h4>
-                <p>
+                <p style="font-size:15pt;">
                     With a trusted platform like denari your organization can begin to scale and expand customer base and reach.
                 </p>
             </div>
@@ -82,7 +82,7 @@
                 <h4>
                     Manage Risk Better
                 </h4>
-                <p>
+                <p style="font-size:15pt;">
                     with deeper insights into customer lending profile, credit unions can effectively manage associated risks
                 </p>
             </div>
@@ -90,7 +90,7 @@
                 <h4>
                     Lower Service Cost
                 </h4>
-                <p>
+                <p style="font-size:15pt;">
                     Real-time access to cooperative accounts and all the right tools for applying for loans and withdrawals online.
                 </p>
             </div>
@@ -167,7 +167,7 @@
     <section id="pricing">
 
         <h1>Pricing</h1>
-        <div class="pricing-table row">
+        <div class="pricing-table row" style="padding-left:30em;">
             @*<div class="col-md-3" style="margin-right:-4.5em;">
                 <div class="price-component">
                     <p class="price-header">
@@ -183,13 +183,17 @@
 
             </div>*@
             <div class="col-md-3 price-bronze" >
-                <div class="price-component most-popular">
+                <div class="price-component most-popular" >
                     <p class="price-header">
                         <h2>bronze</h2>
-                        <span>0-500 Members</span>
+                        <span><b>0-200 Members</b></span>
                     </p><hr />
                     <p class="price-content" style="font-size:14pt; font-weight:bold;">
                         N25,250/Month
+                    </p>
+                    <p style="font-size:11pt;">
+                        <b>What you get:</b><br />
+                         Shared Server, SSL Certificate, Request custom features, Legacy data migration
                     </p>
                     <hr />
                     <button class="btn btn-default">Sign Up</button>
@@ -197,16 +201,20 @@
 
             </div>
             <div class="col-md-3" >
-                <div class="price-component">
+                <div class="price-component silver">
                     <p class="price-header">
-                        <h2>silver</h2>
-                        <span>501 - 1000 Members</span>
+                        <h2 style="color:white">silver</h2>
+                        <span><b>201 - 501 Members</b></span>
                     </p><hr />
                     <p class="price-content" style="font-size:14pt; font-weight:bold;">
                         N32,250/Month
                     </p>
+                    <p style="font-size:11pt;">
+                        <b>What you get:</b><br />
+                        Dedicated Server, SSL Certificate, Request custom features, Legacy data migration
+                    </p>
                     <hr />
-                    <button class="btn btn-default">Sign Up</button>
+                    <button class="btn btn-default" style="background:#424242 !important;">Sign Up</button>
                 </div>
 
             </div>
@@ -214,10 +222,14 @@
                 <div class="price-component">
                     <p class="price-header">
                         <h2>Gold</h2>
-                        <span>Above 1000 Members</span>
+                        <span>Above 500 Members</span>
                     </p><hr />
                     <p class="price-content" style="font-size:14pt; font-weight:bold;">
                         N45,250/Month
+                    </p>
+                    <p style="font-size:11pt;">
+                        <b>What you get:</b><br />
+                        Dedicated Server, SSL Certificate, Request custom features, Legacy data migration
                     </p>
                     <hr />
                     <button class="btn btn-default">Sign Up</button>
@@ -273,6 +285,15 @@
             }, 700);
         })
 
+        $('.most-popular').on('click', function () {
+            $(location).attr('href', '/home/start')
+        })
+        $('.silver').on('click', function () {
+            $(location).attr('href', '/home/start')
+        })
+        $('.last-price').on('click', function () {
+            $(location).attr('href', '/home/start')
+        })
         //register 
 
 
