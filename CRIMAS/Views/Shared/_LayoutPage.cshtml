@@ -24,7 +24,7 @@
                 <img style="width:150px; height:auto;" src="~/img/Logo-color6.jpg" />
             </li>
             <li class="hidden-xs hidden-md hidden-sm"><a href="~/">Home</a></li>
-            <li class="hidden-xs hidden-md hidden-sm"><a href="#">Features & benefits</a></li>
+            <li class="hidden-xs hidden-md hidden-sm"><a href="~/Features">Features & benefits</a></li>
             @* <li class="hidden-xs hidden-md hidden-sm"><a href="#">Blog</a></li>*@
             <li class="hidden-xs hidden-md hidden-sm"><a href="#">FAQ</a></li>
             @* <li class="hidden-xs hidden-md hidden-sm"><a href="#">Contact</a></li>*@
@@ -40,30 +40,29 @@
         <div class="wrap">
             <ul class="wrap-nav">
                 <li>
+                    <a href="~/">Home</a>
+
+                </li>
+                <li>
                     <a href="#">About Denari</a>
                     <ul>
                         <li><a href="#">The Company</a></li>
-                        <li><a href="#">Features & Benefits</a></li>
-                        @*<li><a href="#">Developers</a></li>
-                        <li><a href="#">Pets</a></li>*@
+                        <li><a href="~/Features">Features & Benefits</a></li>
+
                     </ul>
                 </li>
                 <li>
                     <a href="#">Services</a>
                     <ul>
                         <li><a href="#">FAQs</a></li>
-                        @*<li><a href="#">Development</a></li>
-                        <li><a href="#">Apps</a></li>
-                        <li><a href="#">Graphic design</a></li>
-                        <li><a href="#">Branding</a></li>*@
+
                     </ul>
                 </li>
                 <li>
                     <a href="#">Order</a>
                     <ul>
                         <li><a href="~/home/start" class="btn btn-primary">Place an order</a></li>
-                        @*<li><a href="#">Graphic</a></li>
-                        <li><a href="#">Apps</a></li>*@
+
                     </ul>
                 </li>
             </ul>
@@ -87,7 +86,7 @@
         @RenderBody()
     </div>
     <!--Footer-->
-    <section class="footer navbar-fixed-bottom">
+    <section id="footer" class="footer">
         <p>
             (c) 2016 All rights reserved by Digital Forte Enterprise Systems Ltd.
         </p>
@@ -106,6 +105,19 @@
             open = false;
         });
 
+    </script>
+    <script>
+
+        $(document).ready(function () {
+
+            var docHeight = $(window).height();
+            var footerHeight = $('#footer').height();
+            var footerTop = $('#footer').position().top + footerHeight;
+
+            if (footerTop < docHeight) {
+                $('#footer').css('margin-top', 10 + (docHeight - footerTop) + 'px');
+            }
+        });
     </script>
 </body>
 </html>

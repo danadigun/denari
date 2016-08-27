@@ -271,6 +271,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\setup.cs" />
+    <Compile Include="Controllers\Features.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1486,6 +1487,7 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\SiteUpdate-responsive.css" />
     <Content Include="Content\SiteUpdate.css" />
+    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1707,13 +1709,16 @@
     <Content Include="Images\User-Search01-WF.png" />
     <Content Include="Images\Users-WF.png" />
     <Content Include="Images\View Medium icons-WF.png" />
+    <Content Include="img\accurate_stone.jpg" />
     <Content Include="img\africa3.jpg" />
     <Content Include="img\dreamstimelarge_39464030.jpg" />
     <Content Include="img\dreamstimelarge_41957280.jpg" />
     <Content Include="img\dreamstimelarge_54278730.jpg" />
     <Content Include="img\dreamstime_l_135572.jpg" />
     <Content Include="img\dreamstime_l_14513276.jpg" />
+    <Content Include="img\holding-phone.jpg" />
     <Content Include="img\hourglass.gif" />
+    <Content Include="img\ledger-overload.jpg" />
     <Content Include="img\naira coins.png" />
     <Content Include="img\dreamstime_l_31990443.jpg" />
     <Content Include="img\dreamstime_xl_50592602.jpg" />
@@ -1721,6 +1726,7 @@
     <Content Include="img\logo 6.png" />
     <Content Include="img\logo 8.png" />
     <Content Include="img\Logo-color6.jpg" />
+    <Content Include="img\smart_naira.jpg" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2020,6 +2026,8 @@
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_variables.scss" />
+    <Content Include="Content\StyleSheet1.scss" />
+    <Content Include="Content\StyleSheet1.css.map" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -2545,6 +2553,7 @@
     <Content Include="Views\Home\requestConfirm.cshtml" />
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\start.cshtml" />
+    <Content Include="Views\Features\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

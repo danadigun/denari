@@ -5,8 +5,7 @@ body {
     background: #fff;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 12px;
-
-    padding-bottom: 100px; 
+    /*padding-bottom: 100px;*/
 }
 
 ul {
@@ -646,7 +645,8 @@ nav {
     }
 
 .footer {
-    height: 10vh;
+    /*height: 10vh;*/
+    height:150%;
     background-color: #333;
     color: white;
 }
@@ -749,7 +749,7 @@ nav {
 .control-group {
     display: inline-block;
     /*width: 200px;*/
-    width:100%;
+    width: 100%;
     height: 210px;
     margin: 10px;
     padding: 30px;
@@ -789,66 +789,208 @@ nav {
 /* Hover and focus states */
 .control:hover input ~ .control__indicator,
 .control input:focus ~ .control__indicator {
-	background: #ccc;
+    background: #ccc;
 }
 
 /* Checked state */
 .control input:checked ~ .control__indicator {
-	background: #01579b;
+    background: #01579b;
 }
 
 /* Hover state whilst checked */
 .control:hover input:not([disabled]):checked ~ .control__indicator,
 .control input:checked:focus ~ .control__indicator {
-	background: #01579b;
+    background: #01579b;
 }
 
 /* Disabled state */
 .control input:disabled ~ .control__indicator {
-	pointer-events: none;
-	opacity: .6;
-	background: #e6e6e6;
+    pointer-events: none;
+    opacity: .6;
+    background: #e6e6e6;
 }
 
 /* Check mark */
 .control__indicator:after {
-	position: absolute;
-	display: none;
-	content: '';
+    position: absolute;
+    display: none;
+    content: '';
 }
 
 /* Show check mark */
 .control input:checked ~ .control__indicator:after {
-	display: block;
+    display: block;
 }
 
 /* Checkbox tick */
 .control--checkbox .control__indicator:after {
-	top: 4px;
-	left: 8px;
-	width: 3px;
-	height: 8px;
-	transform: rotate(45deg);
-	/*border: solid #fff;*/
-	/*border-width: 0 2px 2px 0;*/
+    top: 4px;
+    left: 8px;
+    width: 3px;
+    height: 8px;
+    transform: rotate(45deg);
+    /*border: solid #fff;*/
+    /*border-width: 0 2px 2px 0;*/
 }
 
 /* Disabled tick colour */
 .control--checkbox input:disabled ~ .control__indicator:after {
-	border-color: #7b7b7b;
+    border-color: #7b7b7b;
 }
 
 /* Radio button inner circle */
 .control--radio .control__indicator:after {
-	top: 7px;
-	left: 7px;
-	width: 6px;
-	height: 6px;
-	border-radius: 50%;
-	background: #fff;
+    top: 7px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
 }
 
 /* Disabled circle colour */
 .control--radio input:disabled ~ .control__indicator:after {
-	background: #7b7b7b;
+    background: #7b7b7b;
+}
+
+/*Features*/
+#features-top {
+    background-image: url('../img/ledger-overload.jpg');
+    height: 50vh;
+    border-top:2px solid #01579b;
+}
+
+.features-leading-text {
+    float: left;
+    font-size: 44pt !important;
+    color: whitesmoke;
+    padding-top: 13vh;
+    padding-left: 10vh;
+    font-weight: lighter;
+}
+
+    .features-leading-text span {
+        display: block;
+        margin-top: -0.5em;
+    }
+
+    .features-leading-text .features-start {
+        margin-top: 0.5em;
+    }
+
+        .features-leading-text .features-start .call {
+            font-size: 14pt;
+            border-radius: 0pt;
+            background: #fde876;
+            color: black;
+            padding: 20px;
+            text-decoration: none;
+        }
+
+        .features-leading-text .features-start .readme {
+            font-size: 14pt;
+            border-radius: 0pt;
+            border: solid 2px #fde876;
+            /*background:#01579b;*/
+            color: white;
+            padding: 20px;
+            text-decoration: none;
+        }
+
+.readme:hover {
+    background: #fde876;
+    color: black !important;
+     transition-property: all .2s linear 0s;
+                -moz-transition: all .2s linear 0s;
+                -webkit-transition: all .2s linear 0s;
+                -o-transition: all .2s linear 0s;
+}
+
+.call:hover {
+    background: #ffb74d  !important;
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s;
+}
+
+#features-one {   
+    height: 100vh;   
+}
+#features-one  .header h1{
+    text-align:center;
+    padding-top:2em;
+    color:#01579b;
+    font-size:40pt;
+    padding-bottom:2em;
+}
+.feature-content {
+    padding-left:20em;
+   
+}
+.feature-content h1{
+    font-size:40pt;
+     padding-bottom:1em;
+     color:#757575
+}
+.feature-content p{
+    font-size:20pt;
+    color:#616161
+}
+
+.features-two{
+    height:100vh;
+    /*background:#ffb74d;*/
+    color:black;
+     background-image: linear-gradient( rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45) ), url('../img/holding-phone.jpg');
+     /*background-size: 400px auto;*/
+     background-repeat:no-repeat;
+     padding-top:10vh;
+
+}
+.feature-two-content{
+    text-align:center;
+    padding:50px;
+}
+.feature-two-content p{
+    font-size:15pt;
+    padding-left:150px;
+    padding-right:150px;
+    padding-top:20px;
+}
+
+ .alternate-call {
+            font-size: 14pt;
+            border-radius: 0pt;
+            background: #01579b;
+            color: white;
+            padding: 20px;
+            text-decoration: none;
+        }
+
+        .alternate-readme {
+            font-size: 14pt;
+            border-radius: 0pt;
+            border: solid 2px #fde876;
+            /*background:#01579b;*/
+            color: white;
+            padding: 20px;
+            text-decoration: none;
+        }
+
+.alternate-readme:hover {
+    background: #fde876;
+    color: black !important;
+     transition-property: all .2s linear 0s;
+                -moz-transition: all .2s linear 0s;
+                -webkit-transition: all .2s linear 0s;
+                -o-transition: all .2s linear 0s;
+}
+
+.alternate-call:hover {
+    background: #ffb74d  !important;
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s;
 }
