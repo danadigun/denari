@@ -1,10 +1,14 @@
 ﻿body {
 }
 
+/*Variables*/
+@import "_variables.scss";
+
+/*Previous Styles - Responsive Inclusive*/
 @import "_landing-general.scss";
 @import "_landing-phone.scss";
 @import "_landing-tablet.scss";
 @import "_landing-desktop.scss";
 
-/*Features styles*/
-@import "Features/_features_responsive.scss";
+/*responsive queries styles*/
+@import "_responsive.scss";

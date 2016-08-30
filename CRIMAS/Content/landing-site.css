@@ -1,3 +1,5 @@
+/*Variables*/
+/*Previous Styles - Responsive Inclusive*/
 body {
   margin: 0;
   padding: 0;
@@ -1410,12 +1412,78 @@ nav a:hover {
     color: black;
     background: #fde876;
     padding: 10px; } }
-/*Features styles*/
+/*responsive queries styles*/
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+@media only screen and (min-width: 64.063em) {
+  #lending-main {
+    background: #01579b;
+    color: white;
+    height: 60vh;
+    padding: 100px;
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/ }
+
+  #lending-main .call-to {
+    padding-top: 60px;
+    padding-bottom: 30px; }
+
+  #lending-main .call-to a {
+    font-size: 20pt;
+    border: white solid 2px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    color: white;
+    text-decoration: none; }
+
+  #lending-main .call-to a:hover {
+    background: #fde876;
+    color: black;
+    border: #fde876 solid 2px;
+    transition-property: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -webkit-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s; } }
 /* min-width 1025px, large screens */
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+  #lending-main {
+    background: #01579b;
+    color: white;
+    height: 60vh;
+    padding: 100px;
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/ }
+
+  #lending-main .call-to {
+    padding-top: 60px;
+    padding-bottom: 30px; }
+
+  #lending-main .call-to a {
+    font-size: 20pt;
+    border: white solid 2px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    color: white;
+    text-decoration: none; }
+
+  #lending-main .call-to a:hover {
+    background: #fde876;
+    color: black;
+    border: #fde876 solid 2px;
+    transition-property: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -webkit-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s; } }
 /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */

@@ -273,6 +273,7 @@
     <Compile Include="Controllers\api\setup.cs" />
     <Compile Include="Controllers\Features.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LendingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -530,8 +531,6 @@
     <Content Include="Content\bootstrap-material\bootstrap\js\tooltip.js" />
     <Content Include="Content\bootstrap-material\bootstrap\js\transition.js" />
     <Content Include="Content\bootstrap-material\bootstrap\package.js" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\EssentialJs\css\mobile\android-theme-dark\ej.mobile.android-dark.min.css" />
@@ -840,10 +839,6 @@
     <Content Include="Content\EssentialJs\js\external\jsviews.js" />
     <Content Include="Content\EssentialJs\js\external\properties.js" />
     <Content Include="Content\EssentialJs\js\external\qunit-1.11.0.js" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <None Include="bundleconfig.json" />
     <None Include="Content\EssentialJs\js\external\_references.js" />
     <Content Include="Content\EssentialJs\js\mobile\ej.mobile.accordion.min.js" />
@@ -1464,19 +1459,12 @@
     <Content Include="Content\landing-site.min.css">
       <DependentUpon>landing-site.css</DependentUpon>
     </Content>
-    <Content Include="Content\material-responsive-table.css">
-      <DependentUpon>material-responsive-table.less</DependentUpon>
-    </Content>
-    <Content Include="Content\material-responsive-table.min.css">
-      <DependentUpon>material-responsive-table.css</DependentUpon>
-    </Content>
     <Content Include="Content\materialize-v0.97.1\css\materialize.css" />
     <Content Include="Content\materialize-v0.97.1\css\materialize.min.css" />
     <Content Include="Content\materialize-v0.97.1\font\material-design-icons\LICENSE.txt" />
     <Content Include="Content\materialize-v0.97.1\font\material-design-icons\Material-Design-Icons.svg" />
     <Content Include="Content\materialize-v0.97.1\js\materialize.js" />
     <Content Include="Content\materialize-v0.97.1\js\materialize.min.js" />
-    <Content Include="Content\metro-bootstrap.css" />
     <Content Include="Content\metroui\css\modern-responsive.css" />
     <Content Include="Content\metroui\css\modern.css" />
     <Content Include="Content\metroui\css\theme-dark.css" />
@@ -1485,10 +1473,6 @@
     <Content Include="Content\metroui\images\preloader-w8-cycle-white.gif" />
     <Content Include="Content\metroui\images\preloader-w8-line-black.gif" />
     <Content Include="Content\metroui\images\preloader-w8-line-white.gif" />
-    <Content Include="Content\normalize.css" />
-    <Content Include="Content\PagedList.css" />
-    <Content Include="Content\SiteUpdate-responsive.css" />
-    <Content Include="Content\SiteUpdate.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -1985,10 +1969,6 @@
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.eot" />
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.ttf" />
     <Content Include="Content\EssentialJs\themes\common-images\ejicons.woff" />
-    <Content Include="Content\material-responsive-table.less" />
-    <Content Include="Content\material-responsive-table.css.map">
-      <DependentUpon>material-responsive-table.css</DependentUpon>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -2032,6 +2012,7 @@
     <Content Include="Content\sass\_landing-tablet.scss" />
     <Content Include="Content\sass\_landing-desktop.scss" />
     <Content Include="Content\sass\_landing-general.scss" />
+    <Content Include="Content\sass\lending\_lending_default.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -2527,7 +2508,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />
@@ -2558,13 +2538,16 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\start.cshtml" />
     <Content Include="Views\Features\index.cshtml" />
-    <Content Include="Content\sass\_features_responsive.scss" />
+    <Content Include="Content\sass\_responsive.scss" />
+    <Content Include="Views\Features\modules.cshtml" />
+    <Content Include="Views\Lending\index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\sass\Features\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608192321546_UpdatesToDenariCustomerDb.resx">

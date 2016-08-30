@@ -1,0 +1,15 @@
+﻿$primary-color:#01579b;
+$hover-orange:#fde876;
+
+//$time = .2s
+@mixin transition-time($time){
+      transition-property: all $time linear 0s;
+                -moz-transition: all $time linear 0s;
+                -webkit-transition: all $time linear 0s;
+                -o-transition: all $time linear 0s;
+}
+
+//linear gradient e.g linear-gradient(rgba(13, 71, 161, 0.45)
+@mixin overlay-background($rgb_color_opacity,  $imageUrl_string){
+ background-image: linear-gradient($rgb_color_opacity, $rgb_color_opacity), $imageUrl_string;
+}
