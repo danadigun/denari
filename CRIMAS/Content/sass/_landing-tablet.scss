@@ -1,0 +1,75 @@
+﻿body {
+}
+@media screen and (max-width:768px) {
+    #pricing .price-component {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #pricing .price-component {
+        width: 100% !important;
+    }
+}
+
+@media screen and (max-width:1025px) {
+    #pricing {
+        height: auto;
+    }
+
+        #pricing .pricing-table {
+            padding-left: 0em !important;
+            padding-bottom: 10em;
+        }
+
+        #pricing .price-component {
+            width: 246px;
+            /*height:auto;*/
+        }
+
+    .most-popular, .silver {
+        margin-top: 0px;
+        height: 400px !important;
+    }
+}
+
+@media screen and (max-width:1024px) and  (max-device-width: 1280px)  {
+    #pricing {
+        height: auto;
+    }
+
+        #pricing .pricing-table {
+            padding-left: 0em !important;
+            padding-bottom: 10em;
+        }
+
+        #pricing .price-component {
+            width: 246px;
+            /*height:auto;*/
+        }
+
+    .most-popular, .silver {
+        margin-top: 0px;
+        height: 400px !important;
+    }
+}
+
+@media (max-device-width: 1280px){
+    #pricing {
+        height: auto;
+    }
+
+        #pricing .pricing-table {
+            padding-left: 0em;
+            padding-bottom: 10em !important;
+        }
+
+        #pricing .price-component {
+            width: 246px !important;
+        }
+
+    .most-popular, .silver {
+        margin-top: 0px;
+        height: 400px !important;
+    }
+}

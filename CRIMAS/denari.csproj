@@ -844,6 +844,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <None Include="bundleconfig.json" />
     <None Include="Content\EssentialJs\js\external\_references.js" />
     <Content Include="Content\EssentialJs\js\mobile\ej.mobile.accordion.min.js" />
     <Content Include="Content\EssentialJs\js\mobile\ej.mobile.all.min.js" />
@@ -1459,9 +1460,10 @@
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
-    <Content Include="Content\landing-responsive-phones.css" />
-    <Content Include="Content\landing-responsive.css" />
-    <Content Include="Content\landing.css" />
+    <Content Include="Content\landing-site.css" />
+    <Content Include="Content\landing-site.min.css">
+      <DependentUpon>landing-site.css</DependentUpon>
+    </Content>
     <Content Include="Content\material-responsive-table.css">
       <DependentUpon>material-responsive-table.less</DependentUpon>
     </Content>
@@ -1487,7 +1489,6 @@
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\SiteUpdate-responsive.css" />
     <Content Include="Content\SiteUpdate.css" />
-    <Content Include="Content\StyleSheet1.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -2026,8 +2027,11 @@
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\font-awesome-4.6.3\scss\_variables.scss" />
-    <Content Include="Content\StyleSheet1.scss" />
-    <Content Include="Content\StyleSheet1.css.map" />
+    <Content Include="Content\sass\landing-site.scss" />
+    <Content Include="Content\sass\_landing-phone.scss" />
+    <Content Include="Content\sass\_landing-tablet.scss" />
+    <Content Include="Content\sass\_landing-desktop.scss" />
+    <Content Include="Content\sass\_landing-general.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -2554,6 +2558,7 @@
     <Content Include="Views\Shared\_LayoutPage.cshtml" />
     <Content Include="Views\Home\start.cshtml" />
     <Content Include="Views\Features\index.cshtml" />
+    <Content Include="Content\sass\_features_responsive.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
