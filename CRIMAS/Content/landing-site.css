@@ -1449,7 +1449,37 @@ nav a:hover {
     transition-property: all 0.2s linear 0s;
     -moz-transition: all 0.2s linear 0s;
     -webkit-transition: all 0.2s linear 0s;
-    -o-transition: all 0.2s linear 0s; } }
+    -o-transition: all 0.2s linear 0s; }
+
+  #lending-main .responsive-devices img {
+    margin-bottom: 5em; }
+
+  #lending-second {
+    height: auto;
+    margin-top: 5em;
+    padding-top: 5em;
+    padding-left: 30em;
+    padding-right: 30em;
+    padding-bottom: 30em; }
+
+  #lending-second h1 {
+    color: #01579b;
+    font-weight: lighter; }
+
+  #lending-second ul {
+    padding-left: 50px; }
+
+  #lending-second li {
+    list-style: none;
+    font-size: 15pt; }
+
+  #lending-second b {
+    padding-left: 50px;
+    font-size: 18pt;
+    color: #01579b; }
+
+  #lending-second .col-lg-6 {
+    padding-top: 70px; } }
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
   #lending-main {
@@ -1483,7 +1513,37 @@ nav a:hover {
     transition-property: all 0.2s linear 0s;
     -moz-transition: all 0.2s linear 0s;
     -webkit-transition: all 0.2s linear 0s;
-    -o-transition: all 0.2s linear 0s; } }
+    -o-transition: all 0.2s linear 0s; }
+
+  #lending-main .responsive-devices img {
+    margin-bottom: 5em; }
+
+  #lending-second {
+    height: auto;
+    margin-top: 5em;
+    padding-top: 5em;
+    padding-left: 30em;
+    padding-right: 30em;
+    padding-bottom: 30em; }
+
+  #lending-second h1 {
+    color: #01579b;
+    font-weight: lighter; }
+
+  #lending-second ul {
+    padding-left: 50px; }
+
+  #lending-second li {
+    list-style: none;
+    font-size: 15pt; }
+
+  #lending-second b {
+    padding-left: 50px;
+    font-size: 18pt;
+    color: #01579b; }
+
+  #lending-second .col-lg-6 {
+    padding-top: 70px; } }
 /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
