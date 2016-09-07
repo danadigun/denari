@@ -1578,6 +1578,7 @@
     <Content Include="Content\validetta-v1.0.1-dist\validetta.js" />
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.css" />
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.js" />
+    <Content Include="css\denari.css" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
@@ -1685,9 +1686,12 @@
     <Content Include="Images\Date.png" />
     <Content Include="Images\Debit-black.png" />
     <Content Include="Images\DebitAccount.png" />
+    <Content Include="Images\denari-logo-wihit.png" />
+    <Content Include="Images\denari-logo-wihite.jpg" />
     <Content Include="Images\denari.jpg" />
     <Content Include="Images\Denari.png" />
     <Content Include="Images\Denari.wdp" />
+    <Content Include="Images\Denari_logo_White.jpg" />
     <Content Include="Images\Details View.png" />
     <Content Include="Images\Document-Check.png" />
     <Content Include="Images\downloading_updates-48.png" />
@@ -1710,6 +1714,7 @@
     <Content Include="Images\Lock.png" />
     <Content Include="Images\logo 6.png" />
     <Content Include="Images\logo 8.png" />
+    <Content Include="Images\Logo-color6.jpg" />
     <Content Include="Images\Menu-01-WF.png" />
     <Content Include="Images\Money Deposit.png" />
     <Content Include="Images\moneybox-48.png" />
@@ -2042,6 +2047,11 @@
     <Content Include="Content\font-awesome-4.6.3\scss\_screen-reader.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_stacked.scss" />
     <Content Include="Content\font-awesome-4.6.3\scss\_variables.scss" />
+    <Content Include="css\sass\denari.scss" />
+    <Content Include="css\sass\_denari-responsive.scss" />
+    <Content Include="css\sass\_denari-general.scss" />
+    <Content Include="css\sass\side-nav\_side-nav-desktop.scss" />
+    <Content Include="css\sass\_denar-variables.scss" />
     <None Include="Properties\PublishProfiles\denari-crimas-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />

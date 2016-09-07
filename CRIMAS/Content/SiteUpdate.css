@@ -1,5 +1,4 @@
-﻿body {
-}
+﻿
 
 #nav-mobile .logo:hover {
     background: none;
@@ -20,7 +19,7 @@ main, footer {
     /*height: 300px;*/
     width: 65px;
     /*background: #F5F5F5;*/
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
     margin-bottom: 40px;
 }
 

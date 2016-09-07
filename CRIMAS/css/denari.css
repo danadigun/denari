@@ -1,0 +1,129 @@
+/*Legacy Css files*/
+@import url(../../Content/SiteUpdate-responsive.css);
+@import url(../../Content/SiteUpdate.css);
+/*Updates*/
+/* Define mobile styles */
+/* max-width 640px, mobile-only styles, use when QAing mobile issues */
+/* min-width 641px, medium screens */
+/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+@media only screen and (min-width: 64.063em) {
+  .logo-main {
+    margin-top: -3em;
+    margin-bottom: 3em;
+    /*background:#e1f5fe;*/
+    width: 100%;
+    border-bottom: 2px solid #01579b; }
+
+  .identity {
+    margin-top: -2em;
+    margin-bottom: 2em; }
+
+  .logo-main img {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px; }
+
+  .side-nav {
+    width: 250px !important;
+    background: whitesmoke; }
+
+  .side-nav li {
+    float: left;
+    padding-bottom: 0px !important; }
+
+  .side-nav a {
+    height: 50px !important;
+    font-size: 8pt !important; }
+
+  .side-nav .bold ul {
+    padding-top: -5em !important;
+    margin-left: -14px; }
+
+  .side-nav .collapsible {
+    background: whitesmoke; }
+
+  .side-nav .collapsible-body ul {
+    margin-top: -1.4em !important;
+    background: whitesmoke; }
+
+  .income {
+    margin-left: -2px; }
+
+  .align-top {
+    margin-top: -10px; }
+
+  .side-nav .fa {
+    color: #808080; }
+
+  .side-nav .fa:hover {
+    color: #01579b; }
+
+  .side-nav .fa:hover + a {
+    color: #01579b; }
+
+  .side-nav a:hover > .fa {
+    color: #01579b; } }
+/* min-width 1025px, large screens */
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+  .logo-main {
+    margin-top: -3em;
+    margin-bottom: 3em;
+    /*background:#e1f5fe;*/
+    width: 100%;
+    border-bottom: 2px solid #01579b; }
+
+  .identity {
+    margin-top: -2em;
+    margin-bottom: 2em; }
+
+  .logo-main img {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 15px; }
+
+  .side-nav {
+    width: 250px !important;
+    background: whitesmoke; }
+
+  .side-nav li {
+    float: left;
+    padding-bottom: 0px !important; }
+
+  .side-nav a {
+    height: 50px !important;
+    font-size: 8pt !important; }
+
+  .side-nav .bold ul {
+    padding-top: -5em !important;
+    margin-left: -14px; }
+
+  .side-nav .collapsible {
+    background: whitesmoke; }
+
+  .side-nav .collapsible-body ul {
+    margin-top: -1.4em !important;
+    background: whitesmoke; }
+
+  .income {
+    margin-left: -2px; }
+
+  .align-top {
+    margin-top: -10px; }
+
+  .side-nav .fa {
+    color: #808080; }
+
+  .side-nav .fa:hover {
+    color: #01579b; }
+
+  .side-nav .fa:hover + a {
+    color: #01579b; }
+
+  .side-nav a:hover > .fa {
+    color: #01579b; } }
+/* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
+/* min-width 1441px, xlarge screens */
+/* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
+/* min-width 1921px, xxlarge screens */
+
+/*# sourceMappingURL=denari.css.map */

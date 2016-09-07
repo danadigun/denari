@@ -12,11 +12,10 @@
 }
 
 <ul id="nav-mobile" class="side-nav fixed scrollbar" style="width: 340px; padding-top:3em; padding-bottom:15em;">
-    <li class="logo">
-       @* <h4 style="color:#01579b; padding-bottom:20px;">CRMPCS <small><i><b>Portal</b></i></small></h4>*@
-        <img src="~/Images/Logo-color6.jpg" style="width:150px; height:auto; padding-bottom:2em;" />
+    <li class="logo-main">
+        <img src="~/Images/Logo-color6.png" style="width:150px; height:auto; " />
     </li>
-    <li class="logo">    
+    <li class="logo identity">    
         <div>
             @{
                 if (User.IsInRole("Admin"))
@@ -30,7 +29,7 @@
 
                 }
             }
-            <hr />
+          @*  <hr />*@
         </div>
     </li>
     <li class="bold">
@@ -49,8 +48,8 @@
             }
         }
     </li>
-    <li class="bold no-padding" style="margin-bottom:1em">
-        <ul class="collapsible collapsible-accordion">
+    <li class="bold" >
+        <ul class="collapsible collapsible-accordion ">
             <li>
                 <a class="collapsible-header"><i class="fa fa-bolt" aria-hidden="true"></i> Loan management</a>
 
@@ -86,16 +85,16 @@
     @{
         if (User.IsInRole("Admin"))
         {
-            <li class="bold">
+            <li class="bold income align-top">
                 <a href="~/IncomeAnalysis">
-                    <i class="fa fa-line-chart" aria-hidden="true"></i> Income Analysis
+                    <i class="fa fa-line-chart" aria-hidden="true"></i>Income Analysis
                 </a>
             </li>
         }
     }
     <li class="bold">
         <ul class="collapsible collapsible-accordion">
-            <li style="margin-left:-15px; margin-bottom:10px;">
+            <li>
                 <a class="collapsible-header"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
 
                 <div class="collapsible-body">
@@ -118,7 +117,7 @@
             </li>
         </ul>
     </li>
-    <li class="bold">
+    <li class="bold align-top">
         <a href="~/CustomerSavings/EnterAccount">
             <i class="fa fa-server" aria-hidden="true"></i>Customer Savings
         </a>
@@ -126,7 +125,7 @@
     @{
         if (User.IsInRole("Admin"))
         {
-            <li class="bold no-padding" style="margin-bottom:1em">
+            <li class="bold" >
                 <ul class="collapsible collapsible-accordion">
                     <li>
 
@@ -147,7 +146,7 @@
                 </ul>
 
             </li>
-            <li class="bold">
+            <li class="bold align-top">
                         <a class="waves-effect waves-green" href="~/AddUser">
                             <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
                         </a>

@@ -1,0 +1,66 @@
+﻿@import "../_denar-variables.scss";
+
+.logo-main{
+    margin-top:-3em;
+    margin-bottom:3em;
+    /*background:#e1f5fe;*/
+    width:100%;
+    border-bottom:2px solid $primary-color;
+}
+.identity{
+    margin-top:-2em;
+    margin-bottom:2em;
+}
+.logo-main img{
+    padding-top:20px;
+    padding-bottom:20px;
+    padding-left:15px;
+}
+.side-nav{
+    width:250px!important;
+    background:$desktop-nav-background;
+}
+.side-nav li {
+    float: left;
+    padding-bottom:0px !important;
+}
+
+
+.side-nav a{
+    height:50px !important;
+    font-size:8pt !important;
+}
+.side-nav .bold ul{
+    padding-top:-5em!important;
+    margin-left:-14px;
+}
+
+.side-nav .collapsible{
+    background:$desktop-nav-background;
+
+}
+.side-nav .collapsible-body ul{
+    margin-top:-1.4em !important;
+    background:$desktop-nav-background;
+}
+.income{
+    margin-left:-2px;
+}
+
+.align-top{
+    margin-top:-10px;
+}
+
+
+.side-nav .fa{
+    color:$icon-color-gray;
+}
+.side-nav .fa:hover{
+    color: $primary-color;
+}
+.side-nav .fa:hover + a{
+   color:$primary-color; 
+}
+.side-nav a:hover > .fa{
+   color:$primary-color; 
+}
