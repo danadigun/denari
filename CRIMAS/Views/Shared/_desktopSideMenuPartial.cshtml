@@ -15,7 +15,7 @@
     <li class="logo-main">
         <img src="~/Images/Logo-color6.png" style="width:150px; height:auto; " />
     </li>
-    <li class="logo identity">    
+    <li class="logo identity">
         <div>
             @{
                 if (User.IsInRole("Admin"))
@@ -29,7 +29,7 @@
 
                 }
             }
-          @*  <hr />*@
+            @*  <hr />*@
         </div>
     </li>
     <li class="bold">
@@ -37,7 +37,8 @@
             if (User.IsInRole("Admin"))
             {
                 <a href="~/Home/admin">
-                    <i class="fa fa-home" aria-hidden="true"></i>Home
+                    <i class="icon ion-cube fa"></i>
+                    Transactions
                 </a>
             }
             else
@@ -48,10 +49,14 @@
             }
         }
     </li>
-    <li class="bold" >
+    <li class="bold">
         <ul class="collapsible collapsible-accordion ">
             <li>
-                <a class="collapsible-header"><i class="fa fa-bolt" aria-hidden="true"></i> Loan management</a>
+                <a class="collapsible-header">
+                    @*<i class="fa fa-bolt" aria-hidden="true"></i>*@
+                    <i class="icon ion-social-dropbox fa"></i>
+                    Loan management
+                </a>
 
                 <div class="collapsible-body">
                     <ul>
@@ -87,7 +92,9 @@
         {
             <li class="bold income align-top">
                 <a href="~/IncomeAnalysis">
-                    <i class="fa fa-line-chart" aria-hidden="true"></i>Income Analysis
+                    @*   <i class="fa fa-line-chart" aria-hidden="true"></i>*@
+                    <i class="ion ion-connection-bars fa"></i>
+                    Income Analysis
                 </a>
             </li>
         }
@@ -95,7 +102,11 @@
     <li class="bold">
         <ul class="collapsible collapsible-accordion">
             <li>
-                <a class="collapsible-header"><i class="fa fa-users" aria-hidden="true"></i> Customers</a>
+                <a class="collapsible-header">
+                    @*  <i class="fa fa-users" aria-hidden="true"></i>*@
+                    <i class="ion ion-android-people fa"></i>
+                    Customers
+                </a>
 
                 <div class="collapsible-body">
                     <ul>
@@ -119,13 +130,14 @@
     </li>
     <li class="bold align-top">
         <a href="~/CustomerSavings/EnterAccount">
-            <i class="fa fa-server" aria-hidden="true"></i>Customer Savings
+            <i class="ion ion-social-buffer fa"></i>
+            Customer Savings
         </a>
     </li>
     @{
         if (User.IsInRole("Admin"))
         {
-            <li class="bold" >
+            <li class="bold">
                 <ul class="collapsible collapsible-accordion">
                     <li>
 
@@ -147,16 +159,16 @@
 
             </li>
             <li class="bold align-top">
-                        <a class="waves-effect waves-green" href="~/AddUser">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>User access management
-                        </a>
-                    </li>
+                <a class="waves-effect waves-green" href="~/AddUser">
+                    <i class="ion ion-person-add fa" aria-hidden="true"></i>User access management
+                </a>
+            </li>
         }
     }
     @*<li class="bold">
-        <a class="waves-effect waves-green" href="~/Reconciliation">
-            <i class="fa fa-undo" aria-hidden="true"></i>Bank reconciliation
-        </a>
-    </li>*@
+            <a class="waves-effect waves-green" href="~/Reconciliation">
+                <i class="fa fa-undo" aria-hidden="true"></i>Bank reconciliation
+            </a>
+        </li>*@
 </ul>
 

@@ -1,0 +1,23 @@
+﻿@import "../_denar-variables.scss";
+
+#task-listings {
+    width:250px;
+    background:$primary-color;
+}
+#task-listings li{
+    width:100%;
+    float:left;
+    margin-left:0;
+    display:block;
+    color:white !important;
+
+}
+#task-listings li .ion{
+    font-family:'Segoe UI';
+    font-size:10pt;
+        color:white !important;
+
+}
+#task-listings li .ion:hover{
+    /*color:$primary-color*/
+}

@@ -4,22 +4,21 @@
 {
     
     <text>
-    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form pull-right", @style = "color: white; padding-top: 10px; padding-right: 10%;" }))
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
     {
         <text>
         @*Hello, You are Logged in as  <span style="color: White">@User.Identity.Name</span>*@
         </text>
         @Html.AntiForgeryToken()
-        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-primary" >
-            @*<img src="~/Images/Accessibility.png" />*@Sign out!</a>
+        <a href="javascript:document.getElementById('logoutForm').submit()"><i class="ion ion-power fa">&nbsp;&nbsp;Sign out!</i> </a>
     }
     </text>
 }
 else
 {   
-    <ul class="nav pull-right" style="margin-right: 12em; font-family: 'Microsoft JhengHei'">
-        <li><a  class="btn btn-primary" style="margin-bottom: 10px; margin-top: 19px;" href="~/Account/Login">
-            <img src="~/Images/Accessibility.png" />Login               
+    <ul class="nav pull-right " style="margin-right: 12em; font-family: 'Microsoft JhengHei'">
+        <li><a  style="margin-bottom: 10px; margin-top: 19px;" href="~/Account/Login">
+             Login               
         </a>
         </li>
     </ul>

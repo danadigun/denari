@@ -29,6 +29,8 @@
 .side-nav a{
     height:50px !important;
     font-size:8pt !important;
+    text-transform:capitalize;
+    font-weight:bold;
 }
 .side-nav .bold ul{
     padding-top:-5em!important;
@@ -44,7 +46,7 @@
     background:$desktop-nav-background;
 }
 .income{
-    margin-left:-2px;
+    margin-left:3px;
 }
 
 .align-top{
@@ -54,6 +56,19 @@
 
 .side-nav .fa{
     color:$icon-color-gray;
+    margin-right:-15px;
+}
+.side-nav .collapsible-header .fa{
+    margin-right:1px !important;
+}
+.side-nav .collapsible-body ul li .fa{
+    margin-right:5px !important;
+}
+.side-nav:not(:hover) > .collapsible-body {
+    background:$desktop-nav-background;
+}
+.side-nav .collapsible-body:not(:hover){
+    background:$desktop-nav-background !important;
 }
 .side-nav .fa:hover{
     color: $primary-color;

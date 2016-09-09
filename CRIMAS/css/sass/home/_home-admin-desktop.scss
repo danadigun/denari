@@ -1,0 +1,11 @@
+﻿@import "../_denar-variables.scss";
+main, footer {
+    padding-left: 340px;
+}
+
+.dashboard{
+    font-family: 'Lato', sans-serif;
+}
+.dashboard h1{
+    font-weight:bold; color:$icon-color-gray;
+}

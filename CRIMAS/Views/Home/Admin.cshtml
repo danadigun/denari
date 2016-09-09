@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Admin home";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
@@ -8,10 +9,31 @@
 
     System.Threading.Thread.CurrentThread.CurrentCulture = cultureInfo;
     var db = new CRIMAS.Models.CrimasDb();
+
 }
 
 @using CRIMAS.SupportClasses
-<div class="card card-small" style="width:80%; margin-right:auto; margin-left:auto;">
+
+  @*<h1>Loan Management</h1>
+  <h5>Loan Applications(princial only): @Model.total_loanApplications</h5>
+  <h5>Total Loan Repayment (pricipal + interest): @Model.total_loanRepayment</h5>
+  <h5>Completed Loans(principal only): @Model.total_CompletedLoans</h5>
+  <h5>Outstanding Loans(principal only): @Model.total_OutstandingLoans</h5>
+  <br />
+<h1>Profit on Loans</h1>
+<h5>Profit on Loans: @Model.total_profit</h5>
+<br />
+  <h1>Customer Management</h1>
+<h5>Total Customers : @Model.total_customers</h5>
+<h5>Total SavingsBalanace : @Model.total_savingsBalance </h5>
+<br />
+<h1>Dividend Management</h1>
+<h5>Percentage Dividend paid: @Model.total_percentageDividends</h5>
+<h5>Dividends paid: @Model.total_DividendsPaid</h5>*@
+<div class="dashboard" >
+    <h1>Overview</h1>
+</div>
+@*<div class="card card-small" style="width:80%; margin-right:auto; margin-left:auto;">
     <div class="card-content">
         <div class="card-title" style="color:black">
             Staff Strength
@@ -85,4 +107,4 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@

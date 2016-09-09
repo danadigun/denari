@@ -7,6 +7,7 @@ using CRIMAS.SupportClasses;
 using CRIMAS.Models;
 using CRIMAS.Services;
 using CRIMAS.Repository;
+using CRIMAS.Models.ViewModels;
 
 namespace CRIMAS.Controllers
 {
@@ -16,17 +17,14 @@ namespace CRIMAS.Controllers
         private CrimasDb _context;
         private ILoan _loan;
 
-        public HomeController(
-            ICurrency currency,
-            CrimasDb context, 
-            ILoan loan
-            )
+        public HomeController(ICurrency currency,CrimasDb context,ILoan loan)
         {
             _currency = currency;
-            _context = context;
+           _context = context;
             _loan = loan;
         }
-        /*CRIMAS Webportal - Cashier DashBoard*/
+
+        /*Cashier DashBoard*/
         [Authorize(Roles="Cashier")]
         public ActionResult Cashier()
         {
@@ -38,55 +36,118 @@ namespace CRIMAS.Controllers
             return View(activeLoanAgreements);
         }
 
-        /*CRIMAS Webportal - Supervisor DashBoard*/
+        /*Supervisor DashBoard*/
         [Authorize(Roles = "Supervisor")]
         public ActionResult Supervisor()
         {
             return View();
         }
 
-        /*CRIMAS Webportal - Manager DashBoard*/
+        /*Manager DashBoard*/
         [Authorize(Roles = "Manager")]
         public ActionResult Manager()
         {
             return View();
         }
 
-        /*CRIMAS Webportal - Admin DashBoard*/
-        [Authorize(Roles = "Admin")]
-        [Authorize]
-        public ActionResult Admin()
+        /*
+         * Denari - Admin DashBoard. Display dashboard data according to year.
+         * Default to current year if no year is passed as parameter
+         */
+        [Authorize(Roles = "Admin")]      
+        public ActionResult Admin(int? year)
         {
-            if (_context.Customers.ToList().Count() == 0)
-            {
-                return Redirect("~/Error/ErrorCode?ErrorCode=19086D");
+            var viewModel = new AdminManagementViewModel();
+            if (year.HasValue)
+            {              
+                populateAdminViewModel(year, viewModel);
+                return View(viewModel);
             }
-            if (_context.CustomerSavings.ToList().Count() == 0)
+            else
             {
-                return Redirect("~/Error/ErrorCode?ErrorCode=19086D1");
-            }
-             return View();
+                year = DateTime.Now.Year;
+
+                populateAdminViewModel(year, viewModel);
+                return View(viewModel);
+
+            }         
 
         }
 
+        /// <summary>
+        /// Populates Admin-View-Model
+        /// </summary>
+        /// <param name="year">year of report</param>
+        /// <param name="viewModel">viewmodel to populate</param>
+        private void populateAdminViewModel(int? year, AdminManagementViewModel viewModel)
+        {
+
+            #region Loan Management
+
+                 #region all loan applications
+                 viewModel.total_loanApplications = _context.Loans.Where(x=>x.DateCreated.Year==year).ToList()
+                                .Select(x=>x.amount).Sum();
+
+                  #endregion
+
+                 #region completed loans
+                     viewModel.total_CompletedLoans = _context.Loans.Where(x=>x.LoanStatus=="completed").ToList()
+                            .Where(x=>x.DateCreated.Year==year).Select(x=>x.amount).Sum();
+                 #endregion
+
+                 #region outstanding loans
+
+                    viewModel.total_OutstandingLoans = _context.Loans.Where(x => x.LoanStatus == "active").ToList()
+                                                       .Where(x=>x.DateCreated.Year==year).Select(x => x.amount).Sum();
+
+            #endregion
+
+            #endregion
+
+            #region Customer Management
+
+                 #region total customers
+                 viewModel.total_customers = _context.Customers.Count();
+            #endregion
+
+                 #region Customer Savings
+          
+                 var credit   = _context.CustomerSavings.Where(x => x.DateCreated.Year == year).ToList().Select(x => x.Credit).Sum();
+                 var debit = _context.CustomerSavings.Where(x => x.DateCreated.Year == year).ToList().Select(x => x.Debit).Sum();
+                 viewModel.total_savingsBalance = credit - debit;
+
+            #endregion
+
+            #endregion
+
+            #region Dividends management
+
+                #region Dividends Paid
+                     viewModel.total_DividendsPaid = _context.DividendSummary.ToList()
+                                        .Where(x=>x.dateCreated.Year==year)
+                                        .Select(x => x.total_amount).Sum();
+                #endregion
+
+                #region percentage dividend
+             viewModel.total_percentageDividends = _context.Dividends.ToList()
+                                        .Where(x => x.dateCreated.Year == year)
+                                        .Select(x => x.percentage).Sum();
+            #endregion
+
+            #endregion
+
+            #region profit
+            var loanRepayment = _context.LoanTransactions.Where(x => x.DateCreated.Contains(year.ToString())).ToList()
+                                        .Where(x => x.Narration == "Loan Repayment").ToList()
+                                        .Select(x => x.Cr).Sum();
+            viewModel.total_loanRepayment = loanRepayment;
+            viewModel.total_profit = loanRepayment - viewModel.total_loanApplications;
+            #endregion
+        }
 
         public ActionResult Index()
         {
             return Redirect("~/Account/Login");
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your app description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
 
         public ActionResult SendEmail(string email)
