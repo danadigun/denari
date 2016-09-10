@@ -109,12 +109,12 @@ font-family:'Microsoft JhengHei';
    .cust-stats .ion{
        margin-right:1em;
        color:white;
-       padding:20px;
-       padding-right:25px;
-       padding-left:25px;
+       padding:10px;
+       padding-right:12.5px;
+       padding-left:12.5px;
        background:$primary-color-rgb-chart;
        border-radius:50%;
-       font-size:30pt;
+       font-size:20pt;
    }
     .cust-stats span{
         font-size:10pt; 
@@ -122,7 +122,7 @@ font-family:'Microsoft JhengHei';
         /*margin-top:-5em;*/
     }
     .cust-stats h5{
-        margin-bottom:-0.5em;
+        /*margin-bottom:-0.5em;*/
     }
     .cust-stats .ion-ios-arrow-thin-up,   .cust-stats .ion-ios-arrow-thin-down{
         background:none;

@@ -3421,6 +3421,9 @@
     <Content Include="css\sass\side-nav\_side-nav-mobile.scss" />
     <Content Include="css\sass\home\_home-admin-mobile.scss" />
     <Content Include="css\sass\home\_home-admin-desktop.scss" />
+    <Content Include="css\sass\widgets\_date_picker_materialize_custom.scss" />
+    <Content Include="css\sass\loan\_create-loan-desktop.scss" />
+    <Content Include="css\sass\loan\_create-loan-general.scss" />
     <None Include="Properties\PublishProfiles\denari-crimas-build.pubxml" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />

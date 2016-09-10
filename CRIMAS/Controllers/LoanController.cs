@@ -19,6 +19,7 @@ using System.Net;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class LoanController : Controller
     {
         private CrimasDb _context;

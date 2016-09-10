@@ -9,16 +9,26 @@
 
 @using (Html.BeginForm("create", "Loan", FormMethod.Post, new { id = "formCreateLoan", enctype = "multipart/form-data" }))
 {
-    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+    <div class="card animated fadeIn" style="width:80%; margin-left:auto; margin-right:auto;">
         <div class="card-content">
 
             <div class="card-title" style="color:black">
-                <a href="~/Home/cashier" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>
-                <span> <img src="~/Images/loan-agr.png" /> Create a new Loan agreement</span><hr />
+                @*<a href="~/Home/cashier" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>*@
+                <span>
+                  @*  <img src="~/Images/loan-agr.png" />*@
+                    @*<i class="ion ion-plus"></i>*@
+                    Setup a new Loan
+                </span><hr />
             </div>
 
-            <div class="card-panel" style="background-color:#0078d7; color:white;">
+            <div class="card-panel notice" >
                 Enter details below to set up a loan for a customer.
+                <a><i class="ion ion-android-close"></i></a>
+                <script>
+                    $('.ion-android-close').click(function () {
+                        $('.notice').fadeOut();
+                    })
+                </script>
             </div>
 
             <span style="color:red">@Html.ValidationSummary()</span>
@@ -64,10 +74,10 @@
                 </div>
 
                 <div class="col s12">
-                    <label style="font-weight:bold">Upload Signed Agreement Form</label>
+                    <label style="font-weight:bold">Attach 1page scanned agreement document </label>
                     <div class="file-field">
                         <div class="btn">
-                            <span>Image</span>
+                            <span><i class="ion ion-android-attach"></i></span>
                             <input type="file" name="fileAgreement" id="fileAgreement">
                         </div>
                         <div class="file-path-wrapper">
@@ -77,10 +87,10 @@
                 </div>
 
                 <div class="col s12">
-                    <label style="font-weight:bold">Upload Signed Irrevocable Authority Form</label>
+                    <label style="font-weight:bold">Attach 1page scanned Irrevocable Authority </label>
                     <div class="file-field">
                         <div class="btn">
-                            <span>Image</span>
+                            <span><i class="ion ion-android-attach"></i></span>
                             <input type="file" name="fileIrrevocable" id="fileIrrevocable">
                         </div>
                         <div class="file-path-wrapper">
@@ -90,10 +100,10 @@
                 </div>
 
                 <div class="col s12">
-                    <label style="font-weight:bold">Upload Duly Signed Guarantors Forms</label>
+                    <label style="font-weight:bold">Attach 1page scanned Guarantors document</label>
                     <div class="file-field">
                         <div class="btn">
-                            <span>Image</span>
+                            <span><i class="ion ion-android-attach"></i></span>
                             <input type="file" name="fileGuarantors" id="fileGuarantors">
                         </div>
                         <div class="file-path-wrapper">
@@ -104,7 +114,7 @@
 
             </div>
             <div class="card-action">
-                <button style="float:right;" type="submit" class="waves-effect waves-light btn">Create loan agreement</button>
+                <button style="float:right;" type="submit" class="waves-effect waves-light btn">Create new loan for this customer</button>
                 <br />
             </div>
         </div>

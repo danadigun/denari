@@ -10,6 +10,7 @@ using CRIMAS.Models.ViewModels;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class CustomerSavingsController : Controller
     {
         private CrimasDb db = new CrimasDb();

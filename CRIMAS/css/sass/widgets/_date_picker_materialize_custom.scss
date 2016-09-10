@@ -1,0 +1,30 @@
+﻿@import "../_denar-variables.scss";
+
+.picker__holder{
+    background:none !important;
+}
+
+.picker__date-display {
+    
+    background-color:$primary-color;
+  
+}
+
+.picker__weekday-display {
+    background-color: $primary-color;
+    
+}
+.picker__close, .picker__today {
+   
+    color: $primary-color;
+}
+
+picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+   
+    background-color: $primary-color;
+   
+}
+
+.picker__day.picker__day--today {
+    color: $primary-color;
+}

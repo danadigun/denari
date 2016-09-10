@@ -8,6 +8,7 @@ using PagedList;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class AddUserController : Controller
     {
         private CrimasDb db = new CrimasDb();

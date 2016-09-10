@@ -1,0 +1,29 @@
+﻿@import "../_denar-variables.scss";
+
+#formCreateLoan .card-title span .ion{
+    color:$primary-color;
+    font-size:30pt;
+    padding-right:1em;
+}
+
+#formCreateLoan .file-field .btn{
+    background:whitesmoke; color:black;
+    border:1px solid $primary-color;
+    /*border-radius:50%;*/
+}
+
+#formCreateLoan .notice{
+   /*background-color:$primary-color-rgb-chart;*/ 
+   color:black;
+   border:1px solid $primary-color;
+   background:whitesmoke;
+   margin-bottom:2em;
+}
+
+#formCreateLoan .notice a{
+    float:right;
+}
+#formCreateLoan .notice a .ion{
+    font-size:20pt;
+    color:$primary-color;
+}

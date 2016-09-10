@@ -17,6 +17,7 @@ using System.Configuration;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class CustomerController : Controller
     {
         private CrimasDb db = new CrimasDb();

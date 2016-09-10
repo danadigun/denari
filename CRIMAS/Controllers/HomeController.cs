@@ -11,6 +11,7 @@ using CRIMAS.Models.ViewModels;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private ICurrency _currency;

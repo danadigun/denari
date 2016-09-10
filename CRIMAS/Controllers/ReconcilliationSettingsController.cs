@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class ReconcilliationSettingsController : Controller
     {
         private Repository<ReconciliationProperties> _repo;

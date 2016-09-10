@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         //

@@ -1,5 +1,9 @@
 ﻿/*Legacy Css files*/
+@import "_denar-variables.scss";
 @import "../../Content/SiteUpdate-responsive.css";
 @import "../../Content/SiteUpdate.css";
 
 /*Updates*/
+@import "widgets/_date_picker_materialize_custom.scss";
+@import "loan/_create-loan-general.scss";
+

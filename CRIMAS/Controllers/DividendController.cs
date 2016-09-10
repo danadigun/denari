@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class DividendController : Controller
     {
         private DividendManagement _ctx;

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class IncomeAnalysisController : Controller
     {
         private Models.CrimasDb db;

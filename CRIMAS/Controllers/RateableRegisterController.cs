@@ -7,6 +7,7 @@ using PagedList;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class RateableRegisterController : Controller
     {
         private Models.CrimasDb db;

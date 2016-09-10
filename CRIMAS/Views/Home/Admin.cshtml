@@ -225,28 +225,20 @@
 
                 </div>
                 <div class="col s4 cust-stats">
+                    
                     <div class="col s12">
                         <h5>
                             <i class="ion ion-android-people fa"></i> @Model.total_customers
                         </h5>
-                        <span>Customer Strength</span>
+                     @*   <span>Customer Strength</span>*@
                     </div>
                     <div class="col s12">
                         <h5>
                             <i class="ion ion-social-buffer fa"></i>
                             @string.Format("{0:C}", @Model.total_savingsBalance)
-                            @if (@Model.total_savingsBalance < 0)
-                            {
-                                <i style="color:red" class="ion ion-ios-arrow-thin-down"></i>
-
-                            }
-                            else
-                            {
-                                <i style="color:darkseagreen" class="ion ion-ios-arrow-thin-up"></i>
-
-                            }
+                           
                         </h5>
-                        <span>Total Savings</span>
+                       @* <span>Total Savings</span>*@
                     </div>                    
                 </div>
             </div>

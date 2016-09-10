@@ -2,6 +2,49 @@
 @import url(../../Content/SiteUpdate-responsive.css);
 @import url(../../Content/SiteUpdate.css);
 /*Updates*/
+.picker__holder {
+  background: none !important; }
+
+.picker__date-display {
+  background-color: #01579b; }
+
+.picker__weekday-display {
+  background-color: #01579b; }
+
+.picker__close, .picker__today {
+  color: #01579b; }
+
+picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+  background-color: #01579b; }
+
+.picker__day.picker__day--today {
+  color: #01579b; }
+
+#formCreateLoan .card-title span .ion {
+  color: #01579b;
+  font-size: 30pt;
+  padding-right: 1em; }
+
+#formCreateLoan .file-field .btn {
+  background: whitesmoke;
+  color: black;
+  border: 1px solid #01579b;
+  /*border-radius:50%;*/ }
+
+#formCreateLoan .notice {
+  /*background-color:$primary-color-rgb-chart;*/
+  color: black;
+  border: 1px solid #01579b;
+  background: whitesmoke;
+  margin-bottom: 2em; }
+
+#formCreateLoan .notice a {
+  float: right; }
+
+#formCreateLoan .notice a .ion {
+  font-size: 20pt;
+  color: #01579b; }
+
 /* Define mobile styles */
 @media only screen and (max-width: 40em) {
   #mobile-demo {
@@ -45,7 +88,129 @@
     padding: 20px; }
 
   div.cashier-main {
-    padding: 0px; } }
+    padding: 0px; }
+
+  .dashboard {
+    font-family: 'Lato', sans-serif; }
+
+  .dashboard #annualProfitChart {
+    margin-top: 2em !important; }
+
+  .dashboard .header h1 {
+    font-weight: bolder;
+    color: #808080;
+    font-size: 20pt; }
+
+  .dashboard .header h1 #toggle-control {
+    float: right;
+    font-size: 9pt; }
+
+  .dashboard .header h1 #toggle-control select {
+    font-family: 'Microsoft JhengHei'; }
+
+  .dashboard .header h1 .ion {
+    padding-right: 1em;
+    color: #01579b; }
+
+  .dashboard .stats {
+    margin-top: 1em;
+    font-weight: bolder;
+    color: #01579b; }
+
+  .dashboard .stats label {
+    font-family: 'Microsoft JhengHei';
+    color: white; }
+
+  .dashboard .stats .stats-content .stats-data {
+    font-family: 'Microsoft JhengHei';
+    font-weight: lighter;
+    background: rgba(1, 87, 155, 0.5);
+    color: white;
+    padding: 20px; }
+
+  .dashboard .stats .stats-content .stats-data h1 {
+    font-size: 20pt; }
+
+  .dashboard .stats .stats-content .stats-data .ion-stats-bars {
+    color: white;
+    float: right;
+    font-size: 30pt; }
+
+  .dashboard .top-lenders {
+    padding-top: 3em !important; }
+
+  .dashboard .top-lenders .header > div {
+    padding-bottom: 3em;
+    padding-top: 3em; }
+
+  .dashboard .top-lenders .header h1 {
+    font-size: 20pt; }
+
+  .dashboard .top-lenders .header h1 .ion-ios-alarm {
+    color: #01579b;
+    padding-right: 1em; }
+
+  .lender-person {
+    font-family: 'Microsoft JhengHei';
+    text-transform: capitalize !important;
+    background: whitesmoke; }
+
+  .lender-person .ion {
+    color: white;
+    background: #808080;
+    font-size: 30pt;
+    /*border: 1px solid $icon-color-gray;*/
+    padding: 20px;
+    /*border-radius:48%;*/ }
+
+  .lender-person .lender-image img {
+    width: 70px;
+    height: auto;
+    border: 1px solid whitesmoke;
+    margin-left: -10px; }
+
+  .lender-person .lender-name {
+    padding-top: 20px;
+    /*padding-left:-10em;*/ }
+
+  .lender-person .lender-name span {
+    font-size: 18pt;
+    color: black;
+    float: left;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold; }
+
+  .lender-person .lender-name label {
+    float: right; }
+
+  .cust-stats {
+    font-family: 'Microsoft JhengHei';
+    color: #808080; }
+
+  .cust-stats .ion {
+    margin-right: 1em;
+    color: white;
+    padding: 20px;
+    padding-right: 25px;
+    padding-left: 25px;
+    background: rgba(1, 87, 155, 0.5);
+    border-radius: 50%;
+    font-size: 20pt; }
+
+  .cust-stats span {
+    font-size: 10pt;
+    margin-left: 10em;
+    /*margin-top:-5em;*/ }
+
+  .cust-stats h5 {
+    /*margin-bottom:-0.5em;*/
+    font-size: 14pt !important; }
+
+  .cust-stats .ion-ios-arrow-thin-up, .cust-stats .ion-ios-arrow-thin-down {
+    background: none;
+    font-size: 18pt;
+    margin-left: -1em;
+    font-weight: bold; } }
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (min-width: 40.063em) {
   #task-listings {
@@ -71,7 +236,129 @@
     padding: 20px; }
 
   div.cashier-main {
-    padding: 0px; } }
+    padding: 0px; }
+
+  .dashboard {
+    font-family: 'Lato', sans-serif; }
+
+  .dashboard #annualProfitChart {
+    margin-top: 2em !important; }
+
+  .dashboard .header h1 {
+    font-weight: bolder;
+    color: #808080;
+    font-size: 20pt; }
+
+  .dashboard .header h1 #toggle-control {
+    float: right;
+    font-size: 9pt; }
+
+  .dashboard .header h1 #toggle-control select {
+    font-family: 'Microsoft JhengHei'; }
+
+  .dashboard .header h1 .ion {
+    padding-right: 1em;
+    color: #01579b; }
+
+  .dashboard .stats {
+    margin-top: 1em;
+    font-weight: bolder;
+    color: #01579b; }
+
+  .dashboard .stats label {
+    font-family: 'Microsoft JhengHei';
+    color: white; }
+
+  .dashboard .stats .stats-content .stats-data {
+    font-family: 'Microsoft JhengHei';
+    font-weight: lighter;
+    background: rgba(1, 87, 155, 0.5);
+    color: white;
+    padding: 20px; }
+
+  .dashboard .stats .stats-content .stats-data h1 {
+    font-size: 20pt; }
+
+  .dashboard .stats .stats-content .stats-data .ion-stats-bars {
+    color: white;
+    float: right;
+    font-size: 30pt; }
+
+  .dashboard .top-lenders {
+    padding-top: 3em !important; }
+
+  .dashboard .top-lenders .header > div {
+    padding-bottom: 3em;
+    padding-top: 3em; }
+
+  .dashboard .top-lenders .header h1 {
+    font-size: 20pt; }
+
+  .dashboard .top-lenders .header h1 .ion-ios-alarm {
+    color: #01579b;
+    padding-right: 1em; }
+
+  .lender-person {
+    font-family: 'Microsoft JhengHei';
+    text-transform: capitalize !important;
+    background: whitesmoke; }
+
+  .lender-person .ion {
+    color: white;
+    background: #808080;
+    font-size: 30pt;
+    /*border: 1px solid $icon-color-gray;*/
+    padding: 20px;
+    /*border-radius:48%;*/ }
+
+  .lender-person .lender-image img {
+    width: 70px;
+    height: auto;
+    border: 1px solid whitesmoke;
+    margin-left: -10px; }
+
+  .lender-person .lender-name {
+    padding-top: 20px;
+    /*padding-left:-10em;*/ }
+
+  .lender-person .lender-name span {
+    font-size: 18pt;
+    color: black;
+    float: left;
+    font-family: 'Lato', sans-serif;
+    font-weight: bold; }
+
+  .lender-person .lender-name label {
+    float: right; }
+
+  .cust-stats {
+    font-family: 'Microsoft JhengHei';
+    color: #808080; }
+
+  .cust-stats .ion {
+    margin-right: 1em;
+    color: white;
+    padding: 20px;
+    padding-right: 25px;
+    padding-left: 25px;
+    background: rgba(1, 87, 155, 0.5);
+    border-radius: 50%;
+    font-size: 20pt; }
+
+  .cust-stats span {
+    font-size: 10pt;
+    margin-left: 10em;
+    /*margin-top:-5em;*/ }
+
+  .cust-stats h5 {
+    /*margin-bottom:-0.5em;*/
+    font-size: 14pt !important; }
+
+  .cust-stats .ion-ios-arrow-thin-up, .cust-stats .ion-ios-arrow-thin-down {
+    background: none;
+    font-size: 18pt;
+    margin-left: -1em;
+    font-weight: bold; } }
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
   #mobile-demo {
@@ -306,12 +593,12 @@
   .cust-stats .ion {
     margin-right: 1em;
     color: white;
-    padding: 20px;
-    padding-right: 25px;
-    padding-left: 25px;
+    padding: 10px;
+    padding-right: 12.5px;
+    padding-left: 12.5px;
     background: rgba(1, 87, 155, 0.5);
     border-radius: 50%;
-    font-size: 30pt; }
+    font-size: 20pt; }
 
   .cust-stats span {
     font-size: 10pt;
@@ -319,7 +606,7 @@
     /*margin-top:-5em;*/ }
 
   .cust-stats h5 {
-    margin-bottom: -0.5em; }
+    /*margin-bottom:-0.5em;*/ }
 
   .cust-stats .ion-ios-arrow-thin-up, .cust-stats .ion-ios-arrow-thin-down {
     background: none;

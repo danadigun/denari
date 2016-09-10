@@ -9,6 +9,7 @@ using CRIMAS.Models;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class LoanTransactionController : Controller
     {
         private CrimasDb db = new CrimasDb();

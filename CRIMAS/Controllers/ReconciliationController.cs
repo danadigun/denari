@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace CRIMAS.Controllers
 {
+    [Authorize]
     public class ReconciliationController : Controller
     {
         private Repository<BankReconciliation> _repository;
