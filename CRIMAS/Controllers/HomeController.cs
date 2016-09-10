@@ -59,13 +59,15 @@ namespace CRIMAS.Controllers
         {
             var viewModel = new AdminManagementViewModel();
             if (year.HasValue)
-            {              
+            {
+                viewModel.year = year.Value;            
                 populateAdminViewModel(year, viewModel);
                 return View(viewModel);
             }
             else
             {
                 year = DateTime.Now.Year;
+                viewModel.year = year.Value;
 
                 populateAdminViewModel(year, viewModel);
                 return View(viewModel);
@@ -81,6 +83,7 @@ namespace CRIMAS.Controllers
         /// <param name="viewModel">viewmodel to populate</param>
         private void populateAdminViewModel(int? year, AdminManagementViewModel viewModel)
         {
+            viewModel.year = year.Value;
 
             #region Loan Management
 
@@ -143,8 +146,70 @@ namespace CRIMAS.Controllers
             viewModel.total_loanRepayment = loanRepayment;
             viewModel.total_profit = loanRepayment - viewModel.total_loanApplications;
             #endregion
+
+            #region profit monthly
+            
+            viewModel.profit_jan = getmonthlyProfit(1, year.Value);
+            viewModel.profit_feb = getmonthlyProfit(2, year.Value);
+            viewModel.profit_mar = getmonthlyProfit(3, year.Value);
+            viewModel.profit_apr = getmonthlyProfit(4, year.Value);
+            viewModel.profit_may = getmonthlyProfit(5, year.Value);
+            viewModel.profit_jun = getmonthlyProfit(6, year.Value);
+            viewModel.profit_jul = getmonthlyProfit(7, year.Value);
+            viewModel.profit_aug = getmonthlyProfit(8, year.Value);
+            viewModel.profit_sept = getmonthlyProfit(9, year.Value);
+            viewModel.profit_oct = getmonthlyProfit(10, year.Value);
+            viewModel.profit_nov = getmonthlyProfit(11, year.Value);
+            viewModel.profit_dec = getmonthlyProfit(12, year.Value);
+
+            #endregion
+
+            #region top five borrowers
+                 viewModel.outstanding_LoanApplicants = getTopLoanApplicants(year.Value);
+            #endregion
+        }
+        /// <summary>
+        /// returns monthly profit within a particular year
+        /// </summary>
+        /// <param name="month"></param>
+        /// <param name="year"></param>
+        /// <returns></returns>
+        private decimal getmonthlyProfit(int month, int year)
+        {
+            var repayments = _context.LoanTransactions.Where(x => x.DateCreated.Contains(year.ToString())).ToList()
+                                    .Where(x => x.Narration == "Loan Repayment").ToList();
+
+            var monthly_loans_applied = _context.Loans.Where(x => x.DateCreated.Year == year).ToList()
+                                        .Where(x => x.DateCreated.Month == month).Select(x => x.amount).Sum();
+
+            var monthly_repayment = (from s in repayments where Convert.ToDateTime(s.DateCreated).Month == month select s.Cr).ToList().Sum();
+
+            var profit = monthly_repayment - monthly_loans_applied;
+
+            return Convert.ToDecimal(profit);
+
         }
 
+        /// <summary>
+        /// returns the top five borrowers
+        /// </summary>
+        /// <returns></returns>
+        private List<Customer> getTopLoanApplicants(int year)
+        {
+            //get all loan applications that are active
+            var activeLoans = _context.Loans.Where(x => x.LoanStatus == "active")
+                .Where(x => x.DateCreated.Year == year)
+                .OrderBy(x => x.amount).Take(5).ToList();
+
+            //get all top five customers
+            List<Customer> topFiveBorrowers = new List<Customer>();
+            foreach(var loan in activeLoans)
+            {
+                var customer = _context.Customers.Where(x => x.AccountNo == loan.AccountNo).FirstOrDefault();
+                topFiveBorrowers.Add(customer);
+            }
+            return topFiveBorrowers;
+        }
         public ActionResult Index()
         {
             return Redirect("~/Account/Login");

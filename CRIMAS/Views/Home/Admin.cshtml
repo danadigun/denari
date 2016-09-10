@@ -14,97 +14,245 @@
 
 @using CRIMAS.SupportClasses
 
-  @*<h1>Loan Management</h1>
-  <h5>Loan Applications(princial only): @Model.total_loanApplications</h5>
-  <h5>Total Loan Repayment (pricipal + interest): @Model.total_loanRepayment</h5>
-  <h5>Completed Loans(principal only): @Model.total_CompletedLoans</h5>
-  <h5>Outstanding Loans(principal only): @Model.total_OutstandingLoans</h5>
-  <br />
-<h1>Profit on Loans</h1>
-<h5>Profit on Loans: @Model.total_profit</h5>
-<br />
-  <h1>Customer Management</h1>
-<h5>Total Customers : @Model.total_customers</h5>
-<h5>Total SavingsBalanace : @Model.total_savingsBalance </h5>
-<br />
-<h1>Dividend Management</h1>
-<h5>Percentage Dividend paid: @Model.total_percentageDividends</h5>
-<h5>Dividends paid: @Model.total_DividendsPaid</h5>*@
-<div class="dashboard" >
-    <h1>Overview</h1>
-</div>
-@*<div class="card card-small" style="width:80%; margin-right:auto; margin-left:auto;">
-    <div class="card-content">
-        <div class="card-title" style="color:black">
-            Staff Strength
-            <a href="~/AddUser/create" class="btn btn-primary" style="font-size:10pt; background:green; float:right;">+ add new user</a>
-            <hr />
-        </div>
-        <div class="row">
-            <div class="col s4 " style="text-align:center;">
-                <div class="card-panel" style="border-left:3px solid #e53935">
-                    <span><img src="~/Images/Users-WF.png" /></span>
-                    <h5 style="color:#e53935">@db.UserProfiles.Count()</h5>
-                    <hr />
-                    Total Staff Strength
-                </div>
-            </div>
-            <div class="col s4 " style="text-align:center">
-                <div class="card-panel" style="border-right:3px solid green; background:green; color:white;">
-                    <span><img src="~/Images/Banker-01-WF.png" /></span>
-                    <h5 >@db.UserProfiles.Where(x => x.role == "Cashier").Count()</h5>
-                    <hr />
-                    Cashiers
-                </div>
-            </div>
-            <div class="col s4 " style="text-align:center">
-                <div class="card-panel" style="border-right:3px solid #827717; background:#827717; color:white;">
-                    <span><img src="~/Images/User-Lock-WF.png" /></span>
-                    <h5>@db.UserProfiles.Where(x=>x.role=="Admin").Count()</h5>
-                    <hr />
-                   Administrators
-                </div>
-            </div>
-           
-        </div>
-        <div class="row">
-            <div class="col s12">
-                <b>Customer Savings</b><hr />
-                <table class="customerMaster">
-                    <tr class="cust-header">
-                        <td style="color:#ff6a00; text-align:center;"><img src="~/Images/User Profile 1-WF.png" /><br />Customer Strength</td>
-                        <td style="color:green; text-align:center;">
 
-                            <img src="~/Images/ATM-01-WF.png" /><br /> Total Credits
-                        </td>
-                        <td style="color:red;  text-align:center;">
 
-                            <img src="~/Images/ATM-03-WF.png" /><br /> Total Debits
-                        </td>
-                        <td style="color:blue; text-align:center;">
+<div class="dashboard">
+    <div class="header">
+        <h1>
+            <i class="ion ion-cube"></i>Business Transactions for @Model.year
+            <span id="toggle-control">
+                <form class="row" method="post" action="~/Home/admin">
+                    @* <input name="year" pattern="\d{1,15}" required />*@
+                    <div class="input-field col s8">
+                        <select name="year">
+                            <option value="" disabled selected>Select year</option>
+                            @{
+                                for (int i = 0; i < 35; i++)
+                                {
+                                    var currentYear = DateTime.Now.Year - i;
+                                    <option value="@currentYear">@currentYear</option>
+                                }
+                            }
 
-                            <img src="~/Images/balance.png" /><br /> Balance
-                        </td>
-                    </tr>
+                        </select>
+                    </div>
+                    <div class="input-field col s4">
+                        <button class="btn btn-floating" type="submit"><i class="material-icons">refresh</i></button>
+
+                    </div>
+                </form>
+            </span>
+        </h1>
+    </div>
+    <div>
+        <canvas id="annualProfitChart" height="50" style="padding-bottom:20px;"></canvas>
+        <script>
+            var ctx = document.getElementById("annualProfitChart");
+            var annualProfitChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
+                    datasets: [{
+                        label: 'monthly profit on loans [NGN]',
+                        data: [
+                            @Model.profit_jan,
+                            @Model.profit_feb,
+                            @Model.profit_mar,
+                            @Model.profit_apr,
+                            @Model.profit_may,
+                            @Model.profit_jun,
+                            @Model.profit_jul,
+                            @Model.profit_aug,
+                            @Model.profit_sept,
+                            @Model.profit_oct,
+                            @Model.profit_nov,
+                            @Model.profit_dec
+                        ],
+                        backgroundColor: "rgba(1, 87, 155, 0.5)",
+                        borderColor: "rgba(1, 87, 155, 1)",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            },
+                            gridLines: {
+                                display: false,
+                                //color: "rgba(255, 255, 255, 1)"
+                            }
+                        }],
+                        xAxes: [{
+                            gridLines: {
+                                display: true,
+                                color: "rgba(255, 255, 255, 1)"
+                            }
+                        }]
+                    },
+
+                }
+            });
+        </script>
+    </div>
+    <div class="stats row">
+        <div class="col s4">
+            <div class="stats-content hoverable">
+                <div class="stats-data">
                     @{
-                        var customerStrength = db.Customers.Count();
+                        if (@Model.total_profit < 0)
+                        {
+                            <label>Loss on Loans </label>
+                            <h1>
+                                @string.Format("{0:C}", @Model.total_profit)
+                                <i class="ion ion-ios-arrow-thin-down" style="color:red"></i>
+                                <i class="ion ion-stats-bars"></i>
 
-                        var totalCredits = db.CustomerSavings.Select(x => x.Credit).Sum();
-                        var totalDebits = db.CustomerSavings.Select(x => x.Debit).Sum();
+                            </h1>
 
-                       
-                        var balance = totalCredits - totalDebits;
+                        }
+                        else
+                        {
+                            <label>Profit on Loans</label>
+                            <h1>
+                                @string.Format("{0:C}", @Model.total_profit)
+                                <i class="ion ion-ios-arrow-thin-up" style="color:lightgreen"></i>
+                                <i class="ion ion-stats-bars"></i>
 
-                        <tr class="sub">
-                            <td style="text-align:center;  color:#ff6a00;">@customerStrength</td>
-                            <td style="text-align:center;color:green">@string.Format("{0:C}", @totalCredits)</td>
-                            <td style=" text-align:center;color:red">@string.Format("{0:C}", @totalDebits)</td>
-                            <td style=" text-align:center;color:blue">@string.Format("{0:C}", @balance)</td>
-                        </tr>
+                            </h1>
+
+                        }
                     }
-                </table>
-
+                </div>
             </div>
+        </div>
+        <div class="col s4">
+            <div class="stats-content hoverable">
+                <div class="stats-data">
+                    <label>Total Loans repayed (principal + Interest)</label>
+                    <h1>
+                        @string.Format("{0:C}", @Model.total_loanRepayment)
+                        <i class="ion ion-stats-bars"></i>
+                    </h1>
+                </div>
+            </div>
+
+        </div>
+        <div class="col s4">
+            <div class="stats-content hoverable">
+                <div class="stats-data">
+                    <label>Outstanding Loans</label>
+                    <h1>
+                        @string.Format("{0:C}", @Model.total_OutstandingLoans)
+                        @{
+                            if (@Model.total_OutstandingLoans != 0)
+                            {
+                                <i class="ion ion-ios-arrow-thin-down" style="color:red"></i>
+                            }
+                            else
+                            {
+                                <i class="ion ion-ios-arrow-thin-up" style="color:lightgreen"></i>
+
+                            }
+                        }
+                        <i class="ion ion-stats-bars"></i>
+                    </h1>
+                </div>
+            </div>
+
         </div>
     </div>
-</div>*@
+    @{
+        <div class="top-lenders">
+            <div class="header">
+                <h1>
+                    <i class="ion ion-ios-alarm"></i>Top 5 Outstanding loan applications
+                </h1>
+            </div>
+            <div class="row">
+                <div class="col s8">
+                    @if (Model.outstanding_LoanApplicants.Count != 0)
+                    {
+                       
+                            foreach (var applicant in Model.outstanding_LoanApplicants)
+                            {
+                                <a href="~/Customer/FindCustomer?searchString=@applicant.AccountNo">
+                                    <div class="row lender-person hoverable">
+                                        <div class="col s3">
+                                            <div class="lender-image">
+                                                @if (applicant.image != null)
+                                                {
+                                                <img class="hoverable" src="~/Customer/RetrieveImage/@applicant.CustomerId">
+
+                                                }
+                                                else
+                                                {
+                                                <i class="ion ion-person"></i>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col s9">
+                                            <div class="lender-name ">
+                                                <span class="app-name">@applicant.Name</span>
+                                                <label>@applicant.AccountNo</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+                            <script>
+                                var links = document.getElementsByClassName("app-name");
+                                for (var i = 0; i < links.length; i++) {
+                                    links[i].innerHTML = links[i].innerHTML.toLowerCase();
+                                }
+                            </script>
+                        
+                            <div>
+                                <a style="float:right; font-family:'Microsoft JhengHei'" class="btn btn-primary" href="~/customer">+ view more</a>
+                            </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <span style="font-family:'Microsoft JhengHei'">
+                                        <i style="color:darkseagreen" class="ion ion-checkmark"></i><i>&nbsp;There are no outstanding loans this year.</i>
+                                    </span>
+                                </div>
+                            }
+
+
+                </div>
+                <div class="col s4 cust-stats">
+                    <div class="col s12">
+                        <h5>
+                            <i class="ion ion-android-people fa"></i> @Model.total_customers
+                        </h5>
+                        <span>Customer Strength</span>
+                    </div>
+                    <div class="col s12">
+                        <h5>
+                            <i class="ion ion-social-buffer fa"></i>
+                            @string.Format("{0:C}", @Model.total_savingsBalance)
+                            @if (@Model.total_savingsBalance < 0)
+                            {
+                                <i style="color:red" class="ion ion-ios-arrow-thin-down"></i>
+
+                            }
+                            else
+                            {
+                                <i style="color:darkseagreen" class="ion ion-ios-arrow-thin-up"></i>
+
+                            }
+                        </h5>
+                        <span>Total Savings</span>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+
+   }
+
+</div>

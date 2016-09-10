@@ -10,6 +10,9 @@ namespace CRIMAS.Models.ViewModels
     /// </summary>
     public class AdminManagementViewModel
     {
+        /*Business year*/
+        public int year { get; set; }
+
         /*Loan Management*/
         public decimal total_loanApplications { get; set; }
         public decimal total_OutstandingLoans { get; set; }
@@ -31,6 +34,23 @@ namespace CRIMAS.Models.ViewModels
         public decimal total_profit_q1 { get; set; }
         public decimal total_profit_q2 { get; set; }
         public decimal total_profit_q3 { get; set; }
+
+        /*Profit monthly*/
+        public decimal profit_jan { get; set; }
+        public decimal profit_feb { get; set; }
+        public decimal profit_mar { get; set; }
+        public decimal profit_apr { get; set; }
+        public decimal profit_may { get; set; }
+        public decimal profit_jun { get; set; }
+        public decimal profit_jul { get; set; }
+        public decimal profit_aug { get; set; }
+        public decimal profit_sept { get; set; }
+        public decimal profit_oct { get; set; }
+        public decimal profit_nov { get; set; }
+        public decimal profit_dec { get; set; }
+
+        /*top 5 outstanding loans*/
+        public List<Customer> outstanding_LoanApplicants { get; set; }
 
     }
 }

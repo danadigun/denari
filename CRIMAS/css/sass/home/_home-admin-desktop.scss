@@ -6,6 +6,127 @@ main, footer {
 .dashboard{
     font-family: 'Lato', sans-serif;
 }
-.dashboard h1{
-    font-weight:bold; color:$icon-color-gray;
+.dashboard #annualProfitChart{
+    margin-top:2em !important;   
 }
+.dashboard .header h1{
+    font-weight:bolder; color:$icon-color-gray;
+    font-size:20pt;
+}
+.dashboard .header h1 #toggle-control{
+    float:right;
+    font-size:9pt;
+ 
+}
+.dashboard .header h1 #toggle-control select{
+font-family:'Microsoft JhengHei';
+}
+ .dashboard .header h1 .ion{
+     padding-right:1em;
+     color:$primary-color;
+ }
+
+ .dashboard .stats{
+     margin-top:1em;
+     font-weight:bolder;
+     color:$primary-color;
+ }
+
+  .dashboard .stats label{
+      font-family:'Microsoft JhengHei';
+      color:white;
+  }
+   .dashboard .stats .stats-content .stats-data{
+       font-family:'Microsoft JhengHei';
+       font-weight:lighter;
+       background:$primary-color-rgb-chart;
+       color:white;
+       padding:20px;
+   }
+   .dashboard .stats .stats-content .stats-data h1{
+       font-size:20pt;
+   }
+
+   .dashboard .stats .stats-content .stats-data .ion-stats-bars{
+       color:white;
+       float:right;
+       font-size:30pt;
+   }
+ .dashboard .top-lenders{
+     padding-top:3em !important;
+ }
+ .dashboard .top-lenders .header > div{
+     padding-bottom:3em;
+     padding-top:3em;
+ }
+  .dashboard .top-lenders .header h1{
+      font-size:20pt;
+  }
+  .dashboard .top-lenders .header h1 .ion-ios-alarm{
+      color:$primary-color;
+      padding-right:1em;
+  }
+
+  .lender-person{
+     font-family:'Microsoft JhengHei';
+     text-transform:capitalize !important;
+     background:whitesmoke;
+  }
+
+  .lender-person .ion{
+      color:white;
+      background: $icon-color-gray;
+      font-size:30pt;
+      /*border: 1px solid $icon-color-gray;*/
+      padding:20px;
+      /*border-radius:48%;*/
+  }
+  .lender-person .lender-image img{
+      width:70px;
+      height:auto;
+      border:1px solid whitesmoke;
+      margin-left:-10px;
+  }
+  .lender-person .lender-name {
+      padding-top:20px;
+      /*padding-left:-10em;*/
+  }
+  .lender-person .lender-name span{
+      font-size:18pt;
+      color:black;
+      float:left;
+      font-family: 'Lato', sans-serif;
+      font-weight:bold;
+  }
+
+   .lender-person .lender-name label{
+       float:right;
+   }
+   .cust-stats{
+       font-family:'Microsoft JhengHei';
+       color:$icon-color-gray;
+   }
+   .cust-stats .ion{
+       margin-right:1em;
+       color:white;
+       padding:20px;
+       padding-right:25px;
+       padding-left:25px;
+       background:$primary-color-rgb-chart;
+       border-radius:50%;
+       font-size:30pt;
+   }
+    .cust-stats span{
+        font-size:10pt; 
+        margin-left:10em;
+        /*margin-top:-5em;*/
+    }
+    .cust-stats h5{
+        margin-bottom:-0.5em;
+    }
+    .cust-stats .ion-ios-arrow-thin-up,   .cust-stats .ion-ios-arrow-thin-down{
+        background:none;
+        font-size:18pt;
+        margin-left:-1em;
+        font-weight:bold;
+    }
