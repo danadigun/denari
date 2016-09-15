@@ -2014,6 +2014,8 @@
     <Content Include="Content\sass\_landing-desktop.scss" />
     <Content Include="Content\sass\_landing-general.scss" />
     <Content Include="Content\sass\lending\_lending_default.scss" />
+    <Content Include="Content\sass\home\_home_desktop.scss" />
+    <Content Include="Content\sass\home\_home_mobile.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />

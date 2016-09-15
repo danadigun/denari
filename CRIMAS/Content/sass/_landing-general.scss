@@ -565,14 +565,14 @@ nav {
 
 .most-popular {
     background-color: #ffb74d !important;
-    height: 350px !important;
+    height: 450px !important;
     margin-top: -3em;
     color:black;
     border:1px solid #ffb74d !important;
 }
 .silver {
     background-color: #757575   !important;
-    height: 350px !important;
+    height: 450px !important;
     margin-top: -3em;
     color:white;
     border:1px solid #757575   !important;
@@ -586,6 +586,9 @@ nav {
         margin-top: 3em;
     }
 
+    .price-component  select .form-control{
+        border:1px solid #01579b !important;
+    }
 .price-component:hover {
     background: #01579b !important;
     border: none;
@@ -605,8 +608,13 @@ nav {
         background-color: #72a4cb;
         color: white;
     }
+    .price-component:hover > select option {
+        /*background-color: #72a4cb;*/
+        color: black;
+    }
     .last-price{
         margin-top:-3em;
+        height:450px;
     }
 .newsletter {
     height: 20vh;

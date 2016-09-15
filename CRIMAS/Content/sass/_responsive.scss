@@ -1,5 +1,7 @@
 ﻿// Small screens
-@media only screen { } /* Define mobile styles */
+@media only screen { 
+    @import "home/_home_mobile.scss";
+} /* Define mobile styles */
 
 @media only screen and (max-width: 40em) { } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
@@ -17,6 +19,7 @@
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
     @import "lending/_lending_default.scss";
+    @import "home/_home_desktop.scss";
 } /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
 
 
