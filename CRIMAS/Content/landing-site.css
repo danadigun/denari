@@ -1407,7 +1407,7 @@ nav a:hover {
   .price-component {
     margin-bottom: 2em;
     padding-bottom: 1em;
-    /*height:500px;*/ }
+    height: 500px; }
 
   .silver {
     margin-bottom: 5em;
