@@ -1405,7 +1405,14 @@ nav a:hover {
 /*responsive queries styles*/
 @media only screen {
   .price-component {
-    margin-bottom: 2em; } }
+    margin-bottom: 2em;
+    padding-bottom: 1em;
+    /*height:500px;*/ }
+
+  .silver {
+    margin-bottom: 5em;
+    padding-bottom: 3em;
+    height: 500px; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 /* min-width 641px, medium screens */
