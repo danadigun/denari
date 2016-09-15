@@ -22,11 +22,9 @@
                 <div class="card-title" style="color:black">
                     <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
                     <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#ffab40" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
-                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                   Outstanding Loan Applications <hr />
                 </div>
-                <p>
-                    <img src="~/Images/Garbage Empty.png" />You do not have any active loan agreement(s).
-                </p>
+                @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "You do not have any outstanding loans")
             </div>
 
             <p style="padding-left: 20px">
@@ -46,11 +44,12 @@
                     <a title="check loan status" href="~/Loan/EnterAccountNo" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light blue"><img src="~/Images/ATM-02-WF.png" /></a>
                     <a title="Create a new loan agreement" href="~/Loan/create" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#0078d7; color:white;" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Add.png" style="margin-top:2px;" /></a>
                     <a title="Export data" href="~/ExportData/ExportLoanAgreement" style="float:right;margin-right:25px; margin-top:0.5em; background-color:#0078d7; color:white;" class="btn btn-floating  waves-effect waves-light "><img src="~/Images/Excel Online.png" style="margin-top:2px;" /></a>
-                    <img src="~/Images/loan-agr.png" /> Loan Agreements <hr />
+                    Outstanding Loan Applications <hr />
                 </div>
-                <p style="padding-left: 40px; padding-top:10px; font-style:italic; ">
-                    <img src="~/Images/Submit.png" />You have @totalLoan outstanding loan agreement(s).
-                </p>
+               
+                @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "You have the following outstanding loans")
+
+
             </div>
 
             <br />
@@ -87,7 +86,7 @@
                     <td>Start</td>
                     <td>End</td>
                     <td>Monthly<br />Installment</td>
-                    <td style="width:48px;">&nbsp;</td>
+                   @* <td style="width:48px;">&nbsp;</td>*@
                 </tr>
                 @foreach (var item in Model)
                 {
@@ -125,20 +124,20 @@
                         <td><strong style="color:red; font-size:15pt;">₦ @item.amount.ToString("#,##0.00")</strong></td>
                         <td><strong>@Html.DisplayFor(modelItem => item.InterestRate)%</strong></td>
                         <td style="text-align:center;"><strong> @Html.DisplayFor(modelItem => item.Duration) </strong></td>
-                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToLongDateString()</strong></td>
-                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToLongDateString()</strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfCommencement.ToShortDateString()</strong></td>
+                        <td style="font-size:7.5pt; text-align:center; width:5%;"><strong>@item.DateOfTermination.ToShortDateString()</strong></td>
                         <td style="font-size:12pt; text-align:center; width:10%;">
                             <strong>
                                @* @string.Format("{0:0.00}", installment)*@
                                 ₦@installment.ToString("#,##0.00")
                             </strong>
                         </td>
-                        <td>
+                        @*<td>
                             @if (User.IsInRole("Admin"))
                             {
                                 <a title="Terminate or remove loan" href="@Url.Action("Delete", "Loan", new { id = item.Id })" class="btn btn-floating  waves-effect waves-light" style="background:#c62828">x</a>
                             }
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </table>

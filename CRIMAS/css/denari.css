@@ -31,19 +31,35 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
   border: 1px solid #01579b;
   /*border-radius:50%;*/ }
 
-#formCreateLoan .notice {
+.card .notice {
   /*background-color:$primary-color-rgb-chart;*/
   color: black;
   border: 1px solid #01579b;
   background: whitesmoke;
   margin-bottom: 2em; }
 
-#formCreateLoan .notice a {
+.card .notice a {
   float: right; }
 
-#formCreateLoan .notice a .ion {
+.card .notice a .ion {
   font-size: 20pt;
   color: #01579b; }
+
+.customer-list .account {
+  background: #01579b;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  display: inline-block;
+  width: 100px; }
+
+.customer-list .cust-name {
+  color: black; }
+
+.customer-list .cust-name:hover {
+  background: gray;
+  color: black;
+  padding: 3px; }
 
 /* Define mobile styles */
 @media only screen and (max-width: 40em) {

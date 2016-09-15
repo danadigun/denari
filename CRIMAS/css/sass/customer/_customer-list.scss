@@ -1,0 +1,20 @@
+﻿@import "../_denar-variables.scss";
+
+.customer-list  .account{
+    background:$primary-color;
+    color:white;
+    padding:10px;
+     text-align:center;
+    display: inline-block;
+  width: 100px;
+}
+
+.customer-list  .cust-name{
+    color:black;
+    
+ }
+.customer-list  .cust-name:hover{
+    background:gray;
+    color:black;
+    padding:3px;
+}

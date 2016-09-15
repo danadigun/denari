@@ -5,25 +5,22 @@
     font-size:30pt;
     padding-right:1em;
 }
-
 #formCreateLoan .file-field .btn{
     background:whitesmoke; color:black;
     border:1px solid $primary-color;
     /*border-radius:50%;*/
 }
-
-#formCreateLoan .notice{
+.card .notice{
    /*background-color:$primary-color-rgb-chart;*/ 
    color:black;
    border:1px solid $primary-color;
    background:whitesmoke;
    margin-bottom:2em;
 }
-
-#formCreateLoan .notice a{
+.card .notice a{
     float:right;
 }
-#formCreateLoan .notice a .ion{
+.card .notice a .ion{
     font-size:20pt;
     color:$primary-color;
 }

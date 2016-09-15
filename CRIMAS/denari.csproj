@@ -3424,6 +3424,7 @@
     <Content Include="css\sass\widgets\_date_picker_materialize_custom.scss" />
     <Content Include="css\sass\loan\_create-loan-desktop.scss" />
     <Content Include="css\sass\loan\_create-loan-general.scss" />
+    <Content Include="css\sass\loan\_outstanding-view.scss" />
     <None Include="Properties\PublishProfiles\denari-crimas-build.pubxml" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
@@ -15021,6 +15022,7 @@
     <Content Include="Views\Shared\_mobileSideMenuPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Loan\_UpdateForms.cshtml" />
+    <Content Include="Views\Shared\_notice_partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

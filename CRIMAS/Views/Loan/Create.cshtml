@@ -13,23 +13,13 @@
         <div class="card-content">
 
             <div class="card-title" style="color:black">
-                @*<a href="~/Home/cashier" style="float:right;margin-right:25px; background-color:#0078d7; color:white;" class="btn btn-floating btn-large waves-effect waves-light"><img src="~/Images/Home.png" /></a>*@
-                <span>
-                  @*  <img src="~/Images/loan-agr.png" />*@
-                    @*<i class="ion ion-plus"></i>*@
+                <span>                
                     Setup a new Loan
                 </span><hr />
             </div>
-
-            <div class="card-panel notice" >
-                Enter details below to set up a loan for a customer.
-                <a><i class="ion ion-android-close"></i></a>
-                <script>
-                    $('.ion-android-close').click(function () {
-                        $('.notice').fadeOut();
-                    })
-                </script>
-            </div>
+            <!--Notice-->
+            @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "Enter details below to set up a loan for a customer")
+          
 
             <span style="color:red">@Html.ValidationSummary()</span>
 

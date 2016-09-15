@@ -25,11 +25,11 @@
         Thread.CurrentThread.CurrentCulture = cultureInfo;
     }
 
-    <div class="card" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
+    <div class="card customer-list" style="width:80%; margin-left:auto; margin-right:auto; margin-top:2em;">
         <div class="card-content">
 
             <div class="card-title" style="color:black">
-                <span class="view-cistomer-header">Customers Enrolled - <b style="color:#ff6a00">@db.Customers.Count()</b></span>
+                <span class="view-cistomer-header">Customers Enrolled - <b style="color:#0078d7">@db.Customers.Count()</b></span>
                 <span class="view-customer-controls">
                     <a href="~/ExportData/ExportCustomerData" class="btn  btn-primary" style="float:right;" title="Export customer data to excel">
                         <img src="~/Images/Excel Online.png" />
@@ -38,24 +38,24 @@
                 </span>
             </div>
 
-            <table class="table striped table-bordered" >
-                <tr style="font-size:9pt; background-color: #0078d7; color:white;">
+            <table class="table  bordered" >
+                <tr style="font-size:9pt; border: 1px solid gray; background:whitesmoke; color:black;">
                     <td>
-                        Image
+                        &nbsp;
                     </td>
                     <td>
-                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, search, sortBy = "name", sortOrder = tempSort })">
+                        <a style="color:gray; font-weight:bold;"  href="@Url.Action("Index", new { page = curPage, search, sortBy = "name", sortOrder = tempSort })">
                             Customer <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
                     </td>
                     <td>
-                        <a style="color:white" href="@Url.Action("Index", new { page = curPage, search, sortBy = "account", sortOrder = tempSort })">
+                        <a  style="color:gray; font-weight:bold;"  href="@Url.Action("Index", new { page = curPage, search, sortBy = "account", sortOrder = tempSort })">
                             Account No. <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
                         </a>
                     </td>
-                    <td>Employer</td>
-                    <td>Balance</td>
-                    <td>&nbsp;</td>
+                    <td  style="color:gray; font-weight:bold;">Employer</td>
+                    <td  style="color:gray; font-weight:bold;">Savings Balance[NGN]</td>
+                    @*<td>&nbsp;</td>*@
                 </tr>
 
                 @foreach (var item in customers)
@@ -76,7 +76,7 @@
 
                     var imageUrl = string.IsNullOrEmpty(item.ImageUrl) ? "/images/user-48.png" : item.ImageUrl;
 
-                    <tr>
+                    <tr style="text-transform:uppercase; background:#fafafa">
                         <td class="td-image">
                             @*<img src="@imageUrl" alt="No Image"/>*@
 
@@ -92,13 +92,13 @@
 
                             }
                         </td>
-                        <td>@item.Name</td>
-                        <td>@item.AccountNo</td>
+                        <td><a class="cust-name"  href="~/Customer/FindCustomer?searchString=@item.AccountNo">@item.Name</a></td>
+                        <td><span class="account">@item.AccountNo</span></td>
                         <td>@item.OfficeAddress</td>
-                        <td style="color:orangered; font-weight:bold">
+                        <td style="color:#0078d7; font-weight:bold">
                            @string.Format("{0:C}", @balance)
                         </td>
-                        <td>
+                        @*<td>
                             @if (User.IsInRole("Admin"))
                             {
                                 <a title="remove this customer" href="~/Customer/Delete/@item.CustomerId" class="btn btn-floating  waves-effect waves-light" style="float:right; background:#b71c1c ;  margin-right:10px; margin-top:2px; font-size:10pt;">
@@ -108,7 +108,7 @@
                             <a title="view customer account details" href="~/Customer/FindCustomer?searchString=@item.AccountNo" class="btn btn-floating  waves-effect waves-light" style="float:right;  margin-right:10px; margin-top:2px; font-size:10pt;">
                                 <img style="margin-top:2px;" src="~/Images/View Medium icons-WF.png" />
                             </a>
-                        </td>
+                        </td>*@
                     </tr>
                 }
             </table>
@@ -133,6 +133,7 @@
                 border-radius: 25px;
                 height: 50px;
                 width: 50px;
+                background-color:#eeeeee ;
             }
     </style>
 
