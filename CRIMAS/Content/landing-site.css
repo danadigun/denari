@@ -1405,83 +1405,79 @@ nav a:hover {
 /*responsive queries styles*/
 @media only screen {
   .price-component {
-    margin-bottom: 2em;
+    margin-bottom: 5em;
     padding-bottom: 1em;
     height: 500px; }
 
-  .silver {
+  .silver, .most-popular {
     margin-bottom: 5em;
     padding-bottom: 3em;
-    height: 500px; } }
+    height: 600px; }
+
+  #pricing {
+    padding-left: 15% !important;
+    /*padding-right: 10%;*/ }
+
+  #payment-options h1 {
+    padding-bottom: 10%;
+    padding-top: 10%; }
+
+  #payment-options {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2.5%;
+    /*margin-top:100%;*/ }
+
+  #payment-options img {
+    width: 80px !important;
+    height: auto; }
+
+  #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 2px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: none; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
+@media only screen and (min-width: 40.063em) {
+  .price-component {
+    margin-bottom: 5em;
+    padding-bottom: 1em;
+    height: 500px; }
+
+  .silver, .most-popular {
+    margin-bottom: 5em;
+    padding-bottom: 3em;
+    height: 600px; }
+
+  #pricing {
+    padding-left: 15% !important;
+    /*padding-right: 10%;*/ }
+
+  #payment-options h1 {
+    padding-bottom: 10%;
+    padding-top: 10%; }
+
+  #payment-options {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2.5%;
+    /*margin-top:100%;*/ }
+
+  #payment-options img {
+    width: 80px !important;
+    height: auto; }
+
+  #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 2px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: none; } }
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 @media only screen and (min-width: 64.063em) {
-  #lending-main {
-    background: #01579b;
-    color: white;
-    height: 60vh;
-    padding: 100px;
-    /*text-align:center;*/
-    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
-    /*background-position-y:bottom;
-    background-repeat:no-repeat;*/
-    /*background-size:2056px 1025px;*/ }
-
-  #lending-main .call-to {
-    padding-top: 60px;
-    padding-bottom: 30px; }
-
-  #lending-main .call-to a {
-    font-size: 20pt;
-    border: white solid 2px;
-    padding: 20px;
-    padding-right: 40px;
-    padding-left: 40px;
-    color: white;
-    text-decoration: none; }
-
-  #lending-main .call-to a:hover {
-    background: #fde876;
-    color: black;
-    border: #fde876 solid 2px;
-    transition-property: all 0.2s linear 0s;
-    -moz-transition: all 0.2s linear 0s;
-    -webkit-transition: all 0.2s linear 0s;
-    -o-transition: all 0.2s linear 0s; }
-
-  #lending-main .responsive-devices img {
-    margin-bottom: 5em; }
-
-  #lending-second {
-    height: auto;
-    margin-top: 5em;
-    padding-top: 5em;
-    padding-left: 30em;
-    padding-right: 30em;
-    padding-bottom: 30em; }
-
-  #lending-second h1 {
-    color: #01579b;
-    font-weight: lighter; }
-
-  #lending-second ul {
-    padding-left: 50px; }
-
-  #lending-second li {
-    list-style: none;
-    font-size: 15pt; }
-
-  #lending-second b {
-    padding-left: 50px;
-    font-size: 18pt;
-    color: #01579b; }
-
-  #lending-second .col-lg-6 {
-    padding-top: 70px; } }
-/* min-width 1025px, large screens */
-@media only screen and (min-width: 64.063em) and (max-width: 90em) {
   #lending-main {
     background: #01579b;
     color: white;
@@ -1550,12 +1546,136 @@ nav a:hover {
     height: 150%;
     background-color: #333;
     color: white;
-    /*margin-top: 20%;*/ }
+    margin-top: 20%; }
 
   #pricing .last-price {
     margin-left: 0em !important;
-    margin-top: 0em !important; } }
+    margin-top: 0em !important; }
+
+  #pricing {
+    padding-left: 15% !important;
+    /*padding-right: 10%;*/ }
+
+  #payment-options h1 {
+    padding-bottom: 10%; }
+
+  #payment-options {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2.5%; }
+
+  #payment-options img {
+    width: 150px !important;
+    height: auto; }
+
+  #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 2px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: none; } }
+/* min-width 1025px, large screens */
+@media only screen and (min-width: 64.063em) and (max-width: 90em) {
+  /*@import "lending/_lending_default.scss";*/
+  /*@import "home/_home_desktop.scss";*/ }
 /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
+@media only screen and (min-width: 90.063em) {
+  #lending-main {
+    background: #01579b;
+    color: white;
+    height: 60vh;
+    padding: 100px;
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/ }
+
+  #lending-main .call-to {
+    padding-top: 60px;
+    padding-bottom: 30px; }
+
+  #lending-main .call-to a {
+    font-size: 20pt;
+    border: white solid 2px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    color: white;
+    text-decoration: none; }
+
+  #lending-main .call-to a:hover {
+    background: #fde876;
+    color: black;
+    border: #fde876 solid 2px;
+    transition-property: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -webkit-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s; }
+
+  #lending-main .responsive-devices img {
+    margin-bottom: 5em; }
+
+  #lending-second {
+    height: auto;
+    margin-top: 5em;
+    padding-top: 5em;
+    padding-left: 30em;
+    padding-right: 30em;
+    padding-bottom: 30em; }
+
+  #lending-second h1 {
+    color: #01579b;
+    font-weight: lighter; }
+
+  #lending-second ul {
+    padding-left: 50px; }
+
+  #lending-second li {
+    list-style: none;
+    font-size: 15pt; }
+
+  #lending-second b {
+    padding-left: 50px;
+    font-size: 18pt;
+    color: #01579b; }
+
+  #lending-second .col-lg-6 {
+    padding-top: 70px; }
+
+  .footer {
+    /* height: 10vh; */
+    height: 150%;
+    background-color: #333;
+    color: white;
+    margin-top: 20%; }
+
+  #pricing .last-price {
+    margin-left: 0em !important;
+    margin-top: 0em !important; }
+
+  #pricing {
+    padding-left: 15% !important;
+    /*padding-right: 10%;*/ }
+
+  #payment-options h1 {
+    padding-bottom: 10%; }
+
+  #payment-options {
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 2.5%; }
+
+  #payment-options img {
+    width: 150px !important;
+    height: auto; }
+
+  #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 2px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: none; } }
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 /* min-width 1921px, xxlarge screens */

@@ -1703,7 +1703,9 @@
     <Content Include="img\dreamstime_l_14513276.jpg" />
     <Content Include="img\holding-phone.jpg" />
     <Content Include="img\hourglass.gif" />
+    <Content Include="img\interswitch.png" />
     <Content Include="img\ledger-overload.jpg" />
+    <Content Include="img\mastercard.png" />
     <Content Include="img\naira coins.png" />
     <Content Include="img\dreamstime_l_31990443.jpg" />
     <Content Include="img\dreamstime_xl_50592602.jpg" />
@@ -1713,6 +1715,8 @@
     <Content Include="img\Logo-color6.jpg" />
     <Content Include="img\responsive_devices.png" />
     <Content Include="img\smart_naira.jpg" />
+    <Content Include="img\verve.png" />
+    <Content Include="img\visa-card.png" />
     <Content Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2544,6 +2548,7 @@
     <Content Include="Content\sass\_responsive.scss" />
     <Content Include="Views\Features\modules.cshtml" />
     <Content Include="Views\Lending\index.cshtml" />
+    <Content Include="Views\Home\orderRequest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

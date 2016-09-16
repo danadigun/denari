@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+    var plan_name =ViewBag.plan_name;
+    var members = ViewBag.members;
+    var amount = ViewBag.amount;
+}
+
+<div class="col-lg-7">
+    <div class="signup" style="width: 70%; margin-right:auto; margin-left:auto;">
+        @*  <p>We just need a few details to get your deployement ready.</p>*@
+        <h1>You have requested for @plan_name</h1>
+        <form id="form-access" style="padding:50px;">
+            <h2 class="visible-xs visible-md visible-sm"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Denari Setup</h2><class ="visible-xs visible-md visible-sm" hr />
+            <div class="form-group">
+                <label style="font-weight:bold; font-size:14pt; color:#01579b ">Business details</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Contact Person fullname" required>
+            </div>
+            <div class="form-group">
+                <input type="email" value="@user_email" class="form-control" id="email" placeholder="Email*" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="CompanyName" placeholder="Business Name" required>
+            </div>
+            <div class="form-group" style="padding-top:20px">
+                <label style="font-weight:bold; font-size:14pt; color:#01579b ">Please tell us your location</label>
+                <select class="form-control" id="Location" placeholder="Location" required>
+                    <option>Lagos</option>
+                </select>
+
+            </div>
+            
+            @*<div class="control-group subs" style="margin-bottom:20px;">
+                <label style="font-weight:bold; font-size:14pt; color:#01579b; padding-bottom:20px ">Please select your subscription plan</label>
+                <label class="control control--radio">
+                    Bronze subscription at <b>N25,000[NGN]/month</b>
+                    <input type="radio" name="subscription_type" value="2525000" required />
+                    <div class="control__indicator"></div>
+                </label>
+                <label class="control control--radio">
+                    Silver subscription at <b>N32,250[NGN]/month</b>
+                    <input type="radio" name="subscription_type" value="3225000" required />
+                    <div class="control__indicator"></div>
+                </label>
+                <label class="control control--radio">
+                    Gold subscription at <b>N42,250[NGN]/month</b>
+                    <input type="radio" name="subscription_type" value="4225000" required />
+                    <div class="control__indicator"></div>
+                </label>
+            </div>*@
+
+            <button id="requestaccess" type="submit" class="btn btn-default">place order!</button>
+
+        </form>
+        <span id="spinner" style="color:#01579b; font-size:16pt; text-align:center;">
+            Please wait we are getting things ready..<img src="~/img/hourglass.gif" />
+
+        </span>
+    </div>
+
+</div>
