@@ -1570,7 +1570,7 @@ nav a:hover {
     height: auto; }
 
   #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    padding: 2px;
+    padding: 0px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: none; } }
@@ -1672,7 +1672,7 @@ nav a:hover {
     height: auto; }
 
   #payment-options .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    padding: 2px;
+    padding: 0px;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: none; } }

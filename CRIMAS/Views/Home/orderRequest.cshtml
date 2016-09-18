@@ -5,10 +5,34 @@
     var amount = ViewBag.amount;
 }
 
-<div class="col-lg-7">
+<div>
     <div class="signup" style="width: 70%; margin-right:auto; margin-left:auto;">
         @*  <p>We just need a few details to get your deployement ready.</p>*@
-        <h1>You have requested for @plan_name</h1>
+        <h1>You have requested for @ViewBag.plan_name plan</h1><br />
+        <h5>Details</h5>
+        <div>
+            <table class="table table-striped">
+                <tr>
+                    <td><b>Denari Micro-Credit Banking platform subscription</b></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>@ViewBag.plan_name (at @amount/Month)</td>
+                    <td>@amount</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>Total amount to bill: @amount</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button>Proceed to checkout</button>
+                        <button>cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
         <form id="form-access" style="padding:50px;">
             <h2 class="visible-xs visible-md visible-sm"><i class="fa fa-hourglass-start" aria-hidden="true"></i> Denari Setup</h2><class ="visible-xs visible-md visible-sm" hr />
             <div class="form-group">
@@ -16,7 +40,7 @@
                 <input type="text" name="name" class="form-control" id="name" placeholder="Contact Person fullname" required>
             </div>
             <div class="form-group">
-                <input type="email" value="@user_email" class="form-control" id="email" placeholder="Email*" required>
+                <input type="email"  class="form-control" id="email" placeholder="Email*" required>
             </div>
             <div class="form-group">
                 <input type="text" class="form-control" id="phone" placeholder="Phone Number" required>
@@ -56,8 +80,10 @@
         </form>
         <span id="spinner" style="color:#01579b; font-size:16pt; text-align:center;">
             Please wait we are getting things ready..<img src="~/img/hourglass.gif" />
-
         </span>
     </div>
 
 </div>
+<script>
+    $('#form-access').hide(); $('#spinner').hide();
+</script>

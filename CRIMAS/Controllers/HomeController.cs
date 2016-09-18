@@ -69,59 +69,63 @@ namespace CRIMAS.Controllers
         {
             string plan_name = null;
             string members = null;
+
+            //remove comma from numbers
+            plan = plan.Replace(",", "");
+
             decimal amount = Convert.ToInt32(plan) * 100;
 
             switch (plan)
             {
-                case "25,250":
+                case "25250":
                     {
                          plan_name = "Bronze - 3Months";
                          members = "0-100";
                          break;
                     }
-                case "23,900":
+                case "23900":
                     {
                         plan_name = "Bronze - 12Months";
                         members = "0-100";
                         break;
                     }
-                case "20,200":
+                case "20200":
                     {
                         plan_name = "Bronze - 36Months";
                         members = "0-100";
                         break;
                     }
-                case "32,250":
+                case "32250":
                     {
                          plan_name = "Silver - 3Months";
                         members = "101-300";
                         break;
                     }
-                case "30,600":
+                case "30600":
                     {
                         plan_name = "Silver - 12Months";
                         members = "101-300";
                         break;
                     }
-                case "25,800":
+                case "25800":
                     {
                          plan_name = "Silver - 36Months";
                         members = "101-300";
                         break;
                     }
-                case "42,250":
+                case "42250":
                     {
                         plan_name = "Gold - 3 Months";
                         members = "Above 300";
                         break;
                     }
-                case "40,100":
+                case "40100":
                     {
                         plan_name = "Gold - 12 Months";
                         members = "Above 300";
                         break;
                     }
-                case "36,200":
+                case "36200":
                     {
                         plan_name = "Gold - 36 Months";
                         members = "Above 300";
