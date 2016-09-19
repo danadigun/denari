@@ -27,7 +27,7 @@ namespace CRIMAS.Repository.artifacts
         {
             //posts dividend to all customers 
             decimal percentage_dividend = percentage / 100;
-            var accounts = db.CustomerSavings.ToList();
+            var accounts = db.Customers.ToList();
 
             decimal initial_dividend_amount = 0;
             int _dividend_id = new Random().Next();
@@ -40,9 +40,9 @@ namespace CRIMAS.Repository.artifacts
             {
                 foreach (var account in accounts)
                 {
-                    var customerName = db.Customers.Where(x => x.AccountNo == account.AccountNo).Select(x => x.Name).FirstOrDefault();
-                    var credits = db.CustomerSavings.Where(x => x.AccountNo == account.AccountNo).Select(x => x.Credit).Sum();
-                    var debits = db.CustomerSavings.Where(x => x.AccountNo == account.AccountNo).Select(x => x.Debit).Sum();
+                    //var customerName = db.Customers.Where(x => x.AccountNo == account.AccountNo).Select(x => x.Name).FirstOrDefault();
+                    var credits = db.CustomerSavings.Where(x => x.AccountNo == account.AccountNo).ToList().Select(x => x.Credit).Sum();
+                    var debits = db.CustomerSavings.Where(x => x.AccountNo == account.AccountNo).ToList().Select(x => x.Debit).Sum();
 
                     var balance = credits - debits;
 

@@ -316,6 +316,7 @@
     <Compile Include="Repository\artifacts\DenariCronJobs.cs" />
     <Compile Include="Repository\artifacts\DividendManagement.cs" />
     <Compile Include="Repository\artifacts\Repository.cs" />
+    <Compile Include="Repository\artifacts\SmsTransactionManagement.cs" />
     <Compile Include="Repository\artifacts\UserProfileManagement.cs" />
     <Compile Include="Repository\contracts\ICustomerLoanTransaction.cs">
       <SubType>Code</SubType>
@@ -341,6 +342,11 @@
     <Compile Include="SupportClasses\ExtendedSimpleMembershipProvider.cs" />
     <Compile Include="SupportClasses\FileHelper.cs" />
     <Compile Include="SupportClasses\HtmlExtensions.cs" />
+    <Compile Include="Web References\com.clickatell.api\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\animate.css" />
@@ -15023,6 +15029,11 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Loan\_UpdateForms.cshtml" />
     <Content Include="Views\Shared\_notice_partial.cshtml" />
+    <None Include="Web References\com.clickatell.api\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\com.clickatell.api\webservice.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -15034,6 +15045,25 @@
     <EmbeddedResource Include="Migrations\201608231529467_InitialMigration.resx">
       <DependentUpon>201608231529467_InitialMigration.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://api.clickatell.com/soap/webservice.php%3fWSDL">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.clickatell.api\</RelPath>
+      <UpdateFromURL>https://api.clickatell.com/soap/webservice.php%3fWSDL</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>CRIMAS_com_clickatell_api_PushServerWS</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

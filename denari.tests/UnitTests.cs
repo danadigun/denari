@@ -46,5 +46,14 @@ namespace denari.tests
                 UserName="daniel.adigun@digitalforte.ng"
             });
         }
+
+        [TestMethod]
+        public void send_sms_test()
+        {
+            var sms = new SmsTransactionManagement();
+            string[] numbers = { "2347038025189", "2348181792431" };
+
+            sms.sendMessage("This is Denari. an update has been made",numbers);
+        }
     }
 }

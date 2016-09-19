@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using CRIMAS.Models;
 using CRIMAS.Models.ViewModels;
+using CRIMAS.Repository.artifacts;
 
 namespace CRIMAS.Controllers
 {
@@ -85,6 +86,7 @@ namespace CRIMAS.Controllers
         public ActionResult CreditAccount(CustomerSavings customersavings)
         {
             var customerAccount = db.CustomerSavings.Where(m => m.AccountNo == customersavings.AccountNo);
+            var customer = db.Customers.Where(x => x.AccountNo == customersavings.AccountNo).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
@@ -104,7 +106,20 @@ namespace CRIMAS.Controllers
 
                 db.CustomerSavings.Add(customersavings);
                 db.SaveChanges();
-                //return RedirectToAction("~/CustomerSavings/Details/"+customersavings.Id);
+
+                //send sms credit alert
+                var sms = new SmsTransactionManagement();
+                string[] phoneNo = { customer.phone.ToString() };
+                var credit = db.CustomerSavings.Where(x => x.AccountNo == customersavings.AccountNo).ToList().Select(x => x.Credit).Sum();
+                var debit = db.CustomerSavings.Where(x => x.AccountNo == customersavings.AccountNo).ToList().Select(x => x.Debit).Sum();
+                var balance = credit - debit;
+
+                sms.sendMessage("A credit of NGN" + customersavings.Credit
+                    + " occurred on your account. Date: "
+                    + customersavings.DateCreated
+                    + "Details: DEPOSIT/INT" +
+                    "Balance: NGN" + balance, phoneNo);
+                
                 return Redirect("~/CustomerSavings/Details/" + customersavings.Id);
             }
 
