@@ -29,7 +29,7 @@
                     <div class="col s4">
                             <label style="font-weight: bold">&nbsp;&nbsp;Account no.</label>
                             <div>                               
-                                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", required="required" })
+                                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", required="required", @value= @ViewBag.accountNo})
                             </div>
                     </div>
                     <div class="col s8">

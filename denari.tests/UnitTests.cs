@@ -55,5 +55,19 @@ namespace denari.tests
 
             sms.sendMessage("This is Denari. an update has been made",numbers);
         }
+
+        [TestMethod]
+        public void send_credit_alert_test()
+        {
+            var sms = new SmsTransactionManagement();
+            sms.sendCreditAlert("15078", 2500, "Deposit/INT");
+        }
+
+        [TestMethod]
+        public void send_debit_alert_test()
+        {
+            var sms = new SmsTransactionManagement();
+            sms.sendDebitAlert("15078", 2500, "SAVINGS WITHDRAWAL");
+        }
     }
 }

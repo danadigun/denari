@@ -74,8 +74,9 @@ namespace CRIMAS.Controllers
         //
         // GET: /CustomerSavings/CreditAccount
 
-        public ActionResult CreditAccount()
+        public ActionResult CreditAccount(string accountNo)
         {
+            ViewBag.accountNo = accountNo;
             return View();
         }
 
@@ -109,16 +110,7 @@ namespace CRIMAS.Controllers
 
                 //send sms credit alert
                 var sms = new SmsTransactionManagement();
-                string[] phoneNo = { customer.phone.ToString() };
-                var credit = db.CustomerSavings.Where(x => x.AccountNo == customersavings.AccountNo).ToList().Select(x => x.Credit).Sum();
-                var debit = db.CustomerSavings.Where(x => x.AccountNo == customersavings.AccountNo).ToList().Select(x => x.Debit).Sum();
-                var balance = credit - debit;
-
-                sms.sendMessage("A credit of NGN" + customersavings.Credit
-                    + " occurred on your account. Date: "
-                    + customersavings.DateCreated
-                    + "Details: DEPOSIT/INT" +
-                    "Balance: NGN" + balance, phoneNo);
+                sms.sendCreditAlert(customersavings.AccountNo, customersavings.Credit, customersavings.TransactionMsg);
                 
                 return Redirect("~/CustomerSavings/Details/" + customersavings.Id);
             }
@@ -153,6 +145,10 @@ namespace CRIMAS.Controllers
 
                 db.CustomerSavings.Add(customersavings);
                 db.SaveChanges();
+
+                //send sms debit alert
+                var sms = new SmsTransactionManagement();
+                sms.sendDebitAlert(customersavings.AccountNo, customersavings.Debit, customersavings.TransactionMsg);
 
                 return Redirect("~/CustomerSavings/DebitDetails/" + customersavings.Id);
             }
