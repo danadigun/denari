@@ -81,7 +81,6 @@ namespace CRIMAS.Controllers.api
             return false;
         }
 
-
         [HttpPost]
         public void paySuccess(string transactionId)
         {
@@ -93,6 +92,70 @@ namespace CRIMAS.Controllers.api
                 _context.SaveChanges();
             }
            
+        }
+
+        [HttpPost]
+        public bool requestDemo(DenariCustomer customer)
+        {
+            if (customer != null)
+            {
+                //check if the customer email exists
+                var _email = _context.DenariCustomers.Where(x => x.email == customer.email).FirstOrDefault();
+
+                if (_email != null)
+                {
+                    return false;
+                }
+                else
+                {
+                    //save customer
+                    customer.hasPayed = false;
+                    _context.DenariCustomers.Add(customer);
+                    _context.SaveChanges();
+                
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public string requestLive(int Subscription_type)
+        {
+           
+            switch (Subscription_type)
+            {
+                case 1:
+                    return "https://paystack.com/pay/FBJP9E9v2u";
+                    //break;
+                case 2:
+                    return "https://paystack.com/pay/PCRqFJNMtX";
+                    //break;
+                case 3:
+                    return "https://paystack.com/pay/OeFyhM1cXI";
+                    //break;
+                case 4:
+                    return "https://paystack.com/pay/E0FzPMXEsZ";
+                    //break;
+                case 5:
+                    return "https://paystack.com/pay/9BrAZODdRy";
+                    //break;
+                case 6:
+                    return "https://paystack.com/pay/HjomsKiYYv";
+                    //break;
+                case 7:
+                    return "https://paystack.com/pay/VSLesw1GwJ";
+                    //break;
+                case 8:
+                    return "https://paystack.com/pay/Pqa8uFqrfV";
+                    //break;
+                case 9:
+                    return "https://paystack.com/pay/R0EB3mfDRs";
+                    //break;
+                default:
+                    return null;
+                    //break;
+            }
         }
     }
 }

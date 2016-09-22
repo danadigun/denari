@@ -867,6 +867,20 @@ nav a:hover {
   -webkit-transition: all .2s linear 0s;
   -o-transition: all .2s linear 0s; }
 
+.header-order {
+  background: #01579b;
+  color: white;
+  padding: 40px; }
+
+.pay-options {
+  text-align: center;
+  padding-top: 40px; }
+
+.pay-options img {
+  width: 140px;
+  height: auto;
+  padding: 20px; }
+
 /**General widths*/
 @media screen and (max-width: 833px) {
   .signup {
@@ -1437,7 +1451,11 @@ nav a:hover {
     padding: 2px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: none; } }
+    border-top: none; }
+
+  .subs .proceed {
+    float: none !important;
+    width: 100% !important; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (min-width: 40.063em) {
@@ -1474,7 +1492,11 @@ nav a:hover {
     padding: 2px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: none; } }
+    border-top: none; }
+
+  .subs .proceed {
+    float: none !important;
+    width: 100% !important; } }
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 @media only screen and (min-width: 64.063em) {
@@ -1573,7 +1595,11 @@ nav a:hover {
     padding: 0px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: none; } }
+    border-top: none; }
+
+  .subs .proceed {
+    float: right !important;
+    width: 20% !important; } }
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
   /*@import "lending/_lending_default.scss";*/
@@ -1675,7 +1701,11 @@ nav a:hover {
     padding: 0px;
     line-height: 1.42857143;
     vertical-align: top;
-    border-top: none; } }
+    border-top: none; }
+
+  .subs .proceed {
+    float: right !important;
+    width: 20% !important; } }
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 /* min-width 1921px, xxlarge screens */
