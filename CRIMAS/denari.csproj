@@ -2020,6 +2020,7 @@
     <Content Include="Content\sass\lending\_lending_default.scss" />
     <Content Include="Content\sass\home\_home_desktop.scss" />
     <Content Include="Content\sass\home\_home_mobile.scss" />
+    <Content Include="Content\sass\Features\_Pricing_Table.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -2555,7 +2556,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\sass\Features\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608192321546_UpdatesToDenariCustomerDb.resx">

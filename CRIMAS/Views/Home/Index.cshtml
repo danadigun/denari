@@ -130,91 +130,106 @@
 <section id="pricing">
 
     <h1>Pricing</h1>
-    <div class="pricing-table row" style="padding-left:30em;">
-
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12  price-bronze">
-            <div class="price-component most-popular">
-               <form method="post" action="~/Home/orderRequest">
-                   <p class="price-header">
-                       <h2>bronze</h2>
-                       <span><b>0-100 Members</b></span>
-                   </p><hr />
-                   <p class="price-content" style="font-size:14pt; font-weight:bold;">
-                       N<span id="bronze-val">20,200</span>/Month
-                   </p>
-                   <p style="font-size:11pt;">
-                       <b>What you get:</b><br />
-                       Shared Server, SSL Certificate, Request custom features, Legacy data migration
-                   </p>
-                   <p>
-                       <select id="bronze-select" name="plan" class="form-control">
-                           <option value="25,250">3months plan - N25,250/month</option>
-                           <option value="23,900">12months plan - N23,900/month</option>
-                           <option value="20,200">36months plan - N20,200/month</option>
-                       </select>
-                   </p>
-                   <hr />
-                   <button class="btn btn-default">Order Now</button>
-               </form>
-            </div>
-
-        </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <div class="price-component silver">
-               <form method="post" action="~/Home/orderRequest">
-                   <p class="price-header">
-                       <h2 style="color:white">silver</h2>
-                       <span><b>101 - 300 Members</b></span>
-                   </p><hr />
-                   <p class="price-content" style="font-size:14pt; font-weight:bold;">
-                       N<span id="silver-val">25,800</span>/Month
-                   </p>
-                   <p style="font-size:11pt;">
-                       <b>What you get:</b><br />
-                       Dedicated Server, SSL Certificate, Request custom features, Legacy data migration
-                   </p>
-                   <p>
-                       <select id="silver-select" name="plan" class="form-control">
-                           <option value="32,250">3months plan - N32,250/month</option>
-                           <option value="30,600">12months plan - N30,600/month</option>
-                           <option value="25,800">36months plan - N25,800/month</option>
-                       </select>
-                   </p>
-                   <hr />
-                   <button class="btn btn-default" style="background:#424242 !important;">Order Now</button>
-               </form>
-            </div>
-
-        </div>
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 last-price">
-            <div class="price-component">
-                <p class="price-header">
-                    <h2>Gold</h2>
-                    <span>Above 300 Members</span>
-                </p><hr />
-                <p class="price-content" style="font-size:14pt; font-weight:bold;">
-                    N<span id="gold-val">36,200</span>/Month
-                </p>
-                <p style="font-size:11pt;">
-                    <b>What you get:</b><br />
-                    Dedicated Server, SSL Certificate, Request custom features, Legacy data migration
-                </p>
-                <p>
-                    <select id="gold-select" name="plan" class="form-control">
-                        <option value="42,250">3months plan - N42,250/month</option>
-                        <option value="40,150">12months plan - N40,100/month</option>
-                        <option value="36,200">36months plan - N36,200/month</option>
-                    </select>
-                </p>
-                <hr />
-                <button class="btn btn-default">Order Now</button>
-            </div>
-        </div>
+    <div class="pricing-container">
+     
+        <ul class="pricing-list bounce-invert">
+            <li>
+                <ul class="pricing-wrapper">
+                    <li data-type="monthly" class="is-visible">
+                        <header class="pricing-header">
+                            <h2>Bronze</h2>
+                            <div class="price">
+                                <span class="currency">₦</span>
+                                <span class="value">22,250</span>
+                                <span class="duration">mo</span>
+                            </div>
+                        </header>
+                        <div class="pricing-body">
+                            <ul class="pricing-features">
+                                <li><em>0-100</em> Members</li>
+                                <li><em></em> Shared Server</li>
+                                <li><em></em> SSL Certificate</li>
+                                <li><em></em> Request custom features</li>
+                                <li><em></em> Legacy Data Migration</li>
+                                <li><em>Unlimited</em> User Licenses</li>
+                                <li><em>10%</em> Discount for 12-Months subscription</li>
+                                <li><em>20%</em> Discount for 36-Months subscription</li>
+                                <li><em>24/7</em> Support</li>
+                            </ul>
+                        </div>
+                        <footer class="pricing-footer">
+                            <a class="select" href="~/home/start">Sign Up</a>
+                        </footer>
+                    </li>
+                </ul>
+            </li>
+            <li class="exclusive">
+                <ul class="pricing-wrapper">
+                    <li data-type="monthly" class="is-visible">
+                        <header class="pricing-header">
+                            <h2>Silver</h2>
+                            <div class="price">
+                                <span class="currency">₦</span>
+                                <span class="value">32,250</span>
+                                <span class="duration">mo</span>
+                            </div>
+                        </header>
+                        <div class="pricing-body">
+                            <ul class="pricing-features">
+                                <li><em>101-300</em> Members</li>
+                                <li><em></em> Shared Server</li>
+                                <li><em></em> SSL Certificate</li>
+                                <li><em></em> Request custom features</li>
+                                <li><em></em> Legacy Data Migration</li>
+                                <li><em>Unlimited</em> User Licenses</li>
+                                <li><em>10%</em> Discount for 12-Months subscription</li>
+                                <li><em>20%</em> Discount for 36-Months subscription</li>
+                                <li><em>24/7</em> Support</li>
+                            </ul>
+                        </div>
+                        <footer class="pricing-footer">
+                            <a class="select" href="~/home/start">Sign Up</a>
+                        </footer>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <ul class="pricing-wrapper">
+                    <li data-type="monthly" class="is-visible">
+                        <header class="pricing-header">
+                            <h2>Gold</h2>
+                            <div class="price">
+                                <span class="currency">₦</span>
+                                <span class="value">45,250</span>
+                                <span class="duration">mo</span>
+                            </div>
+                        </header>
+                        <div class="pricing-body">
+                            <ul class="pricing-features">
+                                <li><em>Unlimited</em>&nbsp;Members</li>
+                                <li><em></em> Shared Server</li>
+                                <li><em></em> SSL Certificate</li>
+                                <li><em></em> Request custom features</li>
+                                <li><em></em> Legacy Data Migration</li>
+                                <li><em>Unlimited</em> User Licenses</li>
+                                <li><em>10%</em> Discount for 12-Months subscription</li>
+                                <li><em>20%</em> Discount for 36-Months subscription</li>
+                                <li><em>24/7</em> Support</li>
+                            </ul>
+                        </div>
+                        <footer class="pricing-footer">
+                            <a class="select" href="~/home/start">Sign Up</a>
+                        </footer>
+                    </li>                  
+                </ul>
+            </li>
+        </ul>
     </div>
+   
 </section>
 
 <div id="payment-options" class="row visible-lg hidden-md hidden-sm hidden-xs" >
-        <h1 >Payment options</h1>
+        <h1 style="margin-top:7em;">Payment options</h1>
             <table class="table responsive-table">
                 <tr>
                     <td><img src="~/img/mastercard.png" /></td>
@@ -276,6 +291,8 @@
     //    $(location).attr('href', '/home/start')
     //})
     //register
+
+
 
 
 
