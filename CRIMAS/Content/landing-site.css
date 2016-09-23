@@ -741,44 +741,6 @@ nav a:hover {
 .control--radio input:disabled ~ .control__indicator:after {
   background: #7b7b7b; }
 
-/*Features*/
-#features-top {
-  background-image: url("../img/ledger-overload.jpg");
-  height: 50vh;
-  border-top: 2px solid #01579b; }
-
-.features-leading-text {
-  float: left;
-  font-size: 44pt !important;
-  color: whitesmoke;
-  padding-top: 13vh;
-  padding-left: 10vh;
-  font-weight: lighter; }
-
-.features-leading-text span {
-  display: block;
-  margin-top: -0.5em; }
-
-.features-leading-text .features-start {
-  margin-top: 0.5em; }
-
-.features-leading-text .features-start .call {
-  font-size: 14pt;
-  border-radius: 0pt;
-  background: #fde876;
-  color: black;
-  padding: 20px;
-  text-decoration: none; }
-
-.features-leading-text .features-start .readme {
-  font-size: 14pt;
-  border-radius: 0pt;
-  border: solid 2px #fde876;
-  /*background:#01579b;*/
-  color: white;
-  padding: 20px;
-  text-decoration: none; }
-
 .readme:hover {
   background: #fde876;
   color: black !important;
@@ -793,47 +755,6 @@ nav a:hover {
   -moz-transition: all .2s linear 0s;
   -webkit-transition: all .2s linear 0s;
   -o-transition: all .2s linear 0s; }
-
-#features-one {
-  height: 100vh; }
-
-#features-one .header h1 {
-  text-align: center;
-  padding-top: 2em;
-  color: #01579b;
-  font-size: 40pt;
-  padding-bottom: 2em; }
-
-.feature-content {
-  padding-left: 20em; }
-
-.feature-content h1 {
-  font-size: 40pt;
-  padding-bottom: 1em;
-  color: #757575; }
-
-.feature-content p {
-  font-size: 20pt;
-  color: #616161; }
-
-.features-two {
-  height: 100vh;
-  /*background:#ffb74d;*/
-  color: black;
-  background-image: linear-gradient(rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45)), url("../img/holding-phone.jpg");
-  /*background-size: 400px auto;*/
-  background-repeat: no-repeat;
-  padding-top: 10vh; }
-
-.feature-two-content {
-  text-align: center;
-  padding: 50px; }
-
-.feature-two-content p {
-  font-size: 15pt;
-  padding-left: 150px;
-  padding-right: 150px;
-  padding-top: 20px; }
 
 .alternate-call {
   font-size: 14pt;
@@ -2010,7 +1931,158 @@ nav a:hover {
 
   .subs .proceed {
     float: none !important;
-    width: 100% !important; } }
+    width: 100% !important; }
+
+  #lending-main {
+    background: #01579b;
+    color: white;
+    height: 60vh;
+    padding: 50px;
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/ }
+
+  #lending-main .call-to {
+    padding-top: 60px;
+    padding-bottom: 30px; }
+
+  #lending-main .call-to a {
+    font-size: 20pt;
+    border: white solid 2px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    color: white;
+    text-decoration: none; }
+
+  #lending-main .call-to a:hover {
+    background: #fde876;
+    color: black;
+    border: #fde876 solid 2px;
+    transition-property: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -webkit-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s; }
+
+  #lending-main .responsive-devices img {
+    margin-bottom: 5em; }
+
+  #lending-second {
+    height: auto;
+    margin-top: 5em;
+    padding-top: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-bottom: 30em; }
+
+  #lending-second h1 {
+    color: #01579b;
+    font-weight: lighter; }
+
+  #lending-second ul {
+    padding-left: 50px; }
+
+  #lending-second li {
+    list-style: none;
+    font-size: 15pt; }
+
+  #lending-second b {
+    padding-left: 50px;
+    font-size: 18pt;
+    color: #01579b; }
+
+  #lending-second .col-lg-6 {
+    padding-top: 70px; }
+
+  /*Features*/
+  #features-top {
+    /*background-image: url('../img/ledger-overload.jpg');*/
+    background: #004d40;
+    height: 50vh;
+    /*border-top:2px solid #01579b;*/ }
+
+  .features-leading-text {
+    text-align: center;
+    font-size: 24pt !important;
+    color: whitesmoke;
+    padding-top: 13vh;
+    padding-left: 10vh;
+    font-weight: lighter; }
+
+  .features-leading-text span {
+    display: block;
+    margin-top: -0.5em; }
+
+  .features-leading-text .features-start {
+    margin-top: 0.5em; }
+
+  .features-leading-text .features-start .call {
+    font-size: 12pt;
+    border-radius: 0pt;
+    background: #fde876;
+    color: black;
+    padding: 10px;
+    text-decoration: none; }
+
+  .features-leading-text .features-start .readme {
+    font-size: 12pt;
+    border-radius: 0pt;
+    border: solid 2px #fde876;
+    /*background:#01579b;*/
+    color: white;
+    padding: 10px;
+    text-decoration: none; }
+
+  #features-one {
+    height: 100vh; }
+
+  #features-one .header h1 {
+    text-align: center;
+    padding-top: 2em;
+    color: #01579b;
+    font-size: 40pt;
+    padding-bottom: 2em; }
+
+  .feature-content {
+    padding-left: 1em; }
+
+  .feature-content h1 {
+    font-size: 18pt;
+    padding-bottom: 1em;
+    color: #757575; }
+
+  .feature-content p {
+    font-size: 20pt;
+    color: #616161; }
+
+  .features-two {
+    height: 100vh;
+    /*background:#ffb74d;*/
+    color: black;
+    background-image: linear-gradient(rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45)), url("../img/holding-phone.jpg");
+    /*background-size: 400px auto;*/
+    background-repeat: no-repeat;
+    padding-top: 10vh; }
+
+  .feature-two-content {
+    text-align: center;
+    padding: 10px; }
+
+  .feature-two-content p {
+    font-size: 15pt;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px; }
+
+  .alternate-call {
+    font-size: 10pt;
+    border-radius: 0pt;
+    background: #01579b;
+    color: white !important;
+    padding: 10px;
+    text-decoration: none; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (min-width: 40.063em) {
@@ -2051,7 +2123,158 @@ nav a:hover {
 
   .subs .proceed {
     float: none !important;
-    width: 100% !important; } }
+    width: 100% !important; }
+
+  #lending-main {
+    background: #01579b;
+    color: white;
+    height: 60vh;
+    padding: 50px;
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/ }
+
+  #lending-main .call-to {
+    padding-top: 60px;
+    padding-bottom: 30px; }
+
+  #lending-main .call-to a {
+    font-size: 20pt;
+    border: white solid 2px;
+    padding: 20px;
+    padding-right: 40px;
+    padding-left: 40px;
+    color: white;
+    text-decoration: none; }
+
+  #lending-main .call-to a:hover {
+    background: #fde876;
+    color: black;
+    border: #fde876 solid 2px;
+    transition-property: all 0.2s linear 0s;
+    -moz-transition: all 0.2s linear 0s;
+    -webkit-transition: all 0.2s linear 0s;
+    -o-transition: all 0.2s linear 0s; }
+
+  #lending-main .responsive-devices img {
+    margin-bottom: 5em; }
+
+  #lending-second {
+    height: auto;
+    margin-top: 5em;
+    padding-top: 5em;
+    padding-left: 3em;
+    padding-right: 3em;
+    padding-bottom: 30em; }
+
+  #lending-second h1 {
+    color: #01579b;
+    font-weight: lighter; }
+
+  #lending-second ul {
+    padding-left: 50px; }
+
+  #lending-second li {
+    list-style: none;
+    font-size: 15pt; }
+
+  #lending-second b {
+    padding-left: 50px;
+    font-size: 18pt;
+    color: #01579b; }
+
+  #lending-second .col-lg-6 {
+    padding-top: 70px; }
+
+  /*Features*/
+  #features-top {
+    /*background-image: url('../img/ledger-overload.jpg');*/
+    background: #004d40;
+    height: 50vh;
+    /*border-top:2px solid #01579b;*/ }
+
+  .features-leading-text {
+    text-align: center;
+    font-size: 24pt !important;
+    color: whitesmoke;
+    padding-top: 13vh;
+    padding-left: 10vh;
+    font-weight: lighter; }
+
+  .features-leading-text span {
+    display: block;
+    margin-top: -0.5em; }
+
+  .features-leading-text .features-start {
+    margin-top: 0.5em; }
+
+  .features-leading-text .features-start .call {
+    font-size: 12pt;
+    border-radius: 0pt;
+    background: #fde876;
+    color: black;
+    padding: 10px;
+    text-decoration: none; }
+
+  .features-leading-text .features-start .readme {
+    font-size: 12pt;
+    border-radius: 0pt;
+    border: solid 2px #fde876;
+    /*background:#01579b;*/
+    color: white;
+    padding: 10px;
+    text-decoration: none; }
+
+  #features-one {
+    height: 100vh; }
+
+  #features-one .header h1 {
+    text-align: center;
+    padding-top: 2em;
+    color: #01579b;
+    font-size: 40pt;
+    padding-bottom: 2em; }
+
+  .feature-content {
+    padding-left: 1em; }
+
+  .feature-content h1 {
+    font-size: 18pt;
+    padding-bottom: 1em;
+    color: #757575; }
+
+  .feature-content p {
+    font-size: 20pt;
+    color: #616161; }
+
+  .features-two {
+    height: 100vh;
+    /*background:#ffb74d;*/
+    color: black;
+    background-image: linear-gradient(rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45)), url("../img/holding-phone.jpg");
+    /*background-size: 400px auto;*/
+    background-repeat: no-repeat;
+    padding-top: 10vh; }
+
+  .feature-two-content {
+    text-align: center;
+    padding: 10px; }
+
+  .feature-two-content p {
+    font-size: 15pt;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px; }
+
+  .alternate-call {
+    font-size: 10pt;
+    border-radius: 0pt;
+    background: #01579b;
+    color: white !important;
+    padding: 10px;
+    text-decoration: none; } }
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 @media only screen and (min-width: 64.063em) {
@@ -2095,8 +2318,8 @@ nav a:hover {
     height: auto;
     margin-top: 5em;
     padding-top: 5em;
-    padding-left: 30em;
-    padding-right: 30em;
+    padding-left: 20em;
+    padding-right: 20em;
     padding-bottom: 30em; }
 
   #lending-second h1 {
@@ -2154,7 +2377,87 @@ nav a:hover {
 
   .subs .proceed {
     float: right !important;
-    width: 20% !important; } }
+    width: 20% !important; }
+
+  /*Features*/
+  #features-top {
+    /*background-image: url('../img/ledger-overload.jpg');*/
+    background: #004d40;
+    height: 50vh;
+    /*border-top:2px solid #01579b;*/ }
+
+  .features-leading-text {
+    text-align: center;
+    font-size: 44pt !important;
+    color: whitesmoke;
+    padding-top: 13vh;
+    padding-left: 10vh;
+    font-weight: lighter; }
+
+  .features-leading-text span {
+    display: block;
+    margin-top: -0.5em; }
+
+  .features-leading-text .features-start {
+    margin-top: 0.5em; }
+
+  .features-leading-text .features-start .call {
+    font-size: 14pt;
+    border-radius: 0pt;
+    background: #fde876;
+    color: black;
+    padding: 20px;
+    text-decoration: none; }
+
+  .features-leading-text .features-start .readme {
+    font-size: 14pt;
+    border-radius: 0pt;
+    border: solid 2px #fde876;
+    /*background:#01579b;*/
+    color: white;
+    padding: 20px;
+    text-decoration: none; }
+
+  #features-one {
+    height: 100vh; }
+
+  #features-one .header h1 {
+    text-align: center;
+    padding-top: 2em;
+    color: #01579b;
+    font-size: 40pt;
+    padding-bottom: 2em; }
+
+  .feature-content {
+    padding-left: 20em; }
+
+  .feature-content h1 {
+    font-size: 40pt;
+    padding-bottom: 1em;
+    color: #757575; }
+
+  .feature-content p {
+    font-size: 20pt;
+    color: #616161; }
+
+  .features-two {
+    height: 100vh;
+    /*background:#ffb74d;*/
+    color: black;
+    background-image: linear-gradient(rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45)), url("../img/holding-phone.jpg");
+    /*background-size: 400px auto;*/
+    background-repeat: no-repeat;
+    padding-top: 10vh; }
+
+  .feature-two-content {
+    text-align: center;
+    padding: 50px; }
+
+  .feature-two-content p {
+    font-size: 15pt;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 20px; } }
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
   /*@import "lending/_lending_default.scss";*/
@@ -2201,8 +2504,8 @@ nav a:hover {
     height: auto;
     margin-top: 5em;
     padding-top: 5em;
-    padding-left: 30em;
-    padding-right: 30em;
+    padding-left: 20em;
+    padding-right: 20em;
     padding-bottom: 30em; }
 
   #lending-second h1 {

@@ -1,0 +1,96 @@
+﻿/*Features*/
+#features-top {
+    /*background-image: url('../img/ledger-overload.jpg');*/
+    background:#004d40;
+    height: 50vh;
+    /*border-top:2px solid #01579b;*/
+}
+
+.features-leading-text {
+    text-align: center;
+    font-size: 24pt !important;
+    color: whitesmoke;
+    padding-top: 13vh;
+    padding-left: 10vh;
+    font-weight: lighter;
+}
+
+    .features-leading-text span {
+        display: block;
+        margin-top: -0.5em;
+    }
+
+    .features-leading-text .features-start {
+        margin-top: 0.5em;
+    }
+
+        .features-leading-text .features-start .call {
+            font-size: 12pt;
+            border-radius: 0pt;
+            background: #fde876;
+            color: black;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .features-leading-text .features-start .readme {
+            font-size: 12pt;
+            border-radius: 0pt;
+            border: solid 2px #fde876;
+            /*background:#01579b;*/
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+        }
+        #features-one {   
+    height: 100vh;   
+}
+#features-one  .header h1{
+    text-align:center;
+    padding-top:2em;
+    color:#01579b;
+    font-size:40pt;
+    padding-bottom:2em;
+}
+.feature-content {
+    padding-left:1em;
+   
+}
+.feature-content h1{
+    font-size:18pt;
+     padding-bottom:1em;
+     color:#757575
+}
+.feature-content p{
+    font-size:20pt;
+    color:#616161
+}
+
+.features-two{
+    height:100vh;
+    /*background:#ffb74d;*/
+    color:black;
+     background-image: linear-gradient( rgba(255, 183, 77, 0.45), rgba(255, 183, 77, 0.45) ), url('../img/holding-phone.jpg');
+     /*background-size: 400px auto;*/
+     background-repeat:no-repeat;
+     padding-top:10vh;
+
+}
+.feature-two-content{
+    text-align:center;
+    padding:10px;
+}
+.feature-two-content p{
+    font-size:15pt;
+    padding-left:10px;
+    padding-right:10px;
+    padding-top:20px;
+}
+.alternate-call {
+    font-size: 10pt;
+    border-radius: 0pt;
+    background: #01579b;
+    color: white !important;
+    padding: 10px;
+    text-decoration: none;
+}

@@ -1,0 +1,71 @@
+﻿@import "../_variables.scss";
+
+#lending-main{
+    background: $primary-color;
+    color:white;
+    height:60vh;
+    padding: 50px;
+
+    /*text-align:center;*/
+    /*@include overlay-background(rgba(13, 71, 161, 0.85),url('../../../img/vector_software.jpg'));*/
+    /*background-position-y:bottom;
+    background-repeat:no-repeat;*/
+    /*background-size:2056px 1025px;*/
+}
+#lending-main .call-to {
+    padding-top:60px;
+    padding-bottom:30px;
+}
+
+#lending-main .call-to a{
+    font-size:20pt;
+    border:white solid 2px;
+    padding:20px;
+    padding-right:40px;
+    padding-left:40px;
+ 
+    color:white;
+    text-decoration:none;
+
+}
+
+#lending-main .call-to a:hover{
+    background:$hover-orange;
+    color:black;
+     border:$hover-orange solid 2px;
+     @include transition-time(.2s);
+}
+#lending-main .responsive-devices img{
+   margin-bottom:5em;
+  
+}
+#lending-second{
+    height:auto;
+    margin-top:5em;
+    padding-top:5em;
+    padding-left:3em;
+    padding-right:3em;
+     padding-bottom:30em;
+    
+}
+#lending-second h1{
+    color:$primary-color;
+    font-weight:lighter;
+}
+
+#lending-second ul{
+    padding-left:50px;
+}
+#lending-second li{
+    list-style:none;    
+    font-size:15pt;
+
+}
+#lending-second b{
+    padding-left:50px;
+    font-size:18pt;
+    color:$primary-color;
+}
+#lending-second .col-lg-6{
+    padding-top:70px;
+}
