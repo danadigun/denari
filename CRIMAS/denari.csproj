@@ -289,6 +289,10 @@
     <Compile Include="Migrations\201608221354116_ajfnlkjanflakfg.Designer.cs">
       <DependentUpon>201608221354116_ajfnlkjanflakfg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609231012274_addeDateCreated.cs" />
+    <Compile Include="Migrations\201609231012274_addeDateCreated.Designer.cs">
+      <DependentUpon>201609231012274_addeDateCreated.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\DenariDb.cs" />
@@ -3042,6 +3046,8 @@
     <Content Include="img\africa3.jpg" />
     <Content Include="img\denar-iphone-6.png" />
     <Content Include="img\denari-apple-tablet.png" />
+    <Content Include="img\denari-hand-apple-mobile.png" />
+    <Content Include="img\denari-surface.png" />
     <Content Include="img\dreamstimelarge_39464030.jpg" />
     <Content Include="img\dreamstimelarge_41957280.jpg" />
     <Content Include="img\dreamstimelarge_54278730.jpg" />
@@ -3059,6 +3065,7 @@
     <Content Include="img\logo 6.png" />
     <Content Include="img\logo 8.png" />
     <Content Include="img\Logo-color6.jpg" />
+    <Content Include="img\PicApp - Microsoft Surface 3 Pro .png" />
     <Content Include="img\responsive_devices.png" />
     <Content Include="img\smart_naira.jpg" />
     <Content Include="img\verve.png" />
@@ -3389,6 +3396,8 @@
     <Content Include="Content\ionicons-2.0.1\scss\_ionicons-variables.scss" />
     <Content Include="Content\sass\Features\_feature-page-desktop.scss" />
     <Content Include="Content\sass\Features\_feature-page-mobile.scss" />
+    <Content Include="Content\sass\order\_order-mobile.scss" />
+    <Content Include="Content\sass\order\_order-desktop.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -3934,6 +3943,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608221354116_ajfnlkjanflakfg.resx">
       <DependentUpon>201608221354116_ajfnlkjanflakfg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609231012274_addeDateCreated.resx">
+      <DependentUpon>201609231012274_addeDateCreated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

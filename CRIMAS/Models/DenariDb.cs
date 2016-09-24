@@ -25,6 +25,7 @@ namespace CRIMAS.Models
         public string CompanyName { get; set; }
         public string Location { get; set; }
         public bool hasPayed { get; set; }
+        public DateTime dateCreated { get; set; }
         List<CustomerTransaction> transactions { get; set; }
     }
 

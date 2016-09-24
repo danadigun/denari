@@ -1,4 +1,6 @@
-﻿.footer {
+﻿
+
+.footer {
     /* height: 10vh; */
     height: 150%;
     background-color: #333;
@@ -41,4 +43,38 @@
 .subs .proceed{
   float:right !important; 
   width:20% !important;
+}
+
+.feature-row{
+    margin-top:-8em; 
+    width:105%; 
+    height:auto;
+    padding-left:20px; padding-right:40%;
+    background:#2d3e50; color:white;
+    
+}
+
+.feature-row p .fa, .feature-row p{
+  color:white !important;
+}
+
+#key-features {
+    background-color: white;
+     height: auto; 
+     padding-left: 0; 
+     padding-right: 0; 
+     padding-bottom: 10%; 
+}
+#banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+.lead-phone{
+   width:700px !important; 
+   height:auto !important;
+    margin-left:13em!important;
 }

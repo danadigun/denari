@@ -1933,6 +1933,20 @@ nav a:hover {
     float: none !important;
     width: 100% !important; }
 
+  .feature-row {
+    margin-top: -5.7em;
+    width: 100%;
+    height: 100vh;
+    background: none;
+    color: #444; }
+
+  .feature-row p .fa, .feature-row p {
+    color: #444 !important; }
+
+  .lead-phone {
+    width: 400px !important;
+    height: auto !important; }
+
   #lending-main {
     background: #01579b;
     color: white;
@@ -2082,7 +2096,10 @@ nav a:hover {
     background: #01579b;
     color: white !important;
     padding: 10px;
-    text-decoration: none; } }
+    text-decoration: none; }
+
+  .header-order, .signup {
+    width: 95% !important; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (min-width: 40.063em) {
@@ -2125,6 +2142,20 @@ nav a:hover {
     float: none !important;
     width: 100% !important; }
 
+  .feature-row {
+    margin-top: -5.7em;
+    width: 100%;
+    height: 100vh;
+    background: none;
+    color: #444; }
+
+  .feature-row p .fa, .feature-row p {
+    color: #444 !important; }
+
+  .lead-phone {
+    width: 400px !important;
+    height: auto !important; }
+
   #lending-main {
     background: #01579b;
     color: white;
@@ -2274,7 +2305,10 @@ nav a:hover {
     background: #01579b;
     color: white !important;
     padding: 10px;
-    text-decoration: none; } }
+    text-decoration: none; }
+
+  .header-order, .signup {
+    width: 95% !important; } }
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 @media only screen and (min-width: 64.063em) {
@@ -2379,6 +2413,37 @@ nav a:hover {
     float: right !important;
     width: 20% !important; }
 
+  .feature-row {
+    margin-top: -8em;
+    width: 105%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 40%;
+    background: #2d3e50;
+    color: white; }
+
+  .feature-row p .fa, .feature-row p {
+    color: white !important; }
+
+  #key-features {
+    background-color: white;
+    height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 10%; }
+
+  #banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center; }
+
+  .lead-phone {
+    width: 700px !important;
+    height: auto !important;
+    margin-left: 13em !important; }
+
   /*Features*/
   #features-top {
     /*background-image: url('../img/ledger-overload.jpg');*/
@@ -2457,7 +2522,10 @@ nav a:hover {
     font-size: 15pt;
     padding-left: 150px;
     padding-right: 150px;
-    padding-top: 20px; } }
+    padding-top: 20px; }
+
+  .header-order, .signup {
+    width: 60% !important; } }
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
   /*@import "lending/_lending_default.scss";*/
@@ -2563,7 +2631,41 @@ nav a:hover {
 
   .subs .proceed {
     float: right !important;
-    width: 20% !important; } }
+    width: 20% !important; }
+
+  .feature-row {
+    margin-top: -8em;
+    width: 105%;
+    height: auto;
+    padding-left: 20px;
+    padding-right: 40%;
+    background: #2d3e50;
+    color: white; }
+
+  .feature-row p .fa, .feature-row p {
+    color: white !important; }
+
+  #key-features {
+    background-color: white;
+    height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 10%; }
+
+  #banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center; }
+
+  .lead-phone {
+    width: 700px !important;
+    height: auto !important;
+    margin-left: 13em !important; }
+
+  .header-order, .signup {
+    width: 60% !important; } }
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 /* min-width 1921px, xxlarge screens */

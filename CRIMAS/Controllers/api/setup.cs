@@ -110,6 +110,7 @@ namespace CRIMAS.Controllers.api
                 {
                     //save customer
                     customer.hasPayed = false;
+                    customer.dateCreated = DateTime.Now;
                     _context.DenariCustomers.Add(customer);
                     _context.SaveChanges();
                 
