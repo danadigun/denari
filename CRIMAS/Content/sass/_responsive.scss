@@ -4,6 +4,8 @@
     @import "lending/_lending-mobile.scss";
     @import "Features/_feature-page-mobile.scss";
     @import"order/_order-mobile.scss";
+    @import "nav/_nav_mobile.scss";
+    @import"faqs/_faq_mobile.scss";
 } /* Define mobile styles */
 
 @media only screen and (max-width: 40em) { } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
@@ -15,6 +17,8 @@
       @import "lending/_lending-mobile.scss";
       @import "Features/_feature-page-mobile.scss";
       @import"order/_order-mobile.scss";
+      @import "nav/_nav_mobile.scss";
+          @import"faqs/_faq_mobile.scss";
 } /* min-width 641px, medium screens */
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) { } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
@@ -26,6 +30,8 @@
      @import "home/_home_desktop.scss";
      @import "Features/_feature-page-desktop.scss";
      @import"order/_order-desktop.scss";
+     @import "nav/_nav_desktop.scss";
+     @import"faqs/_faq_desktop.scss";
 } /* min-width 1025px, large screens */
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
@@ -39,6 +45,7 @@
      @import "lending/_lending_default.scss";
     @import "home/_home_desktop.scss";
     @import "order/_order-desktop.scss";
+    @import "nav/_nav_desktop.scss";
 } /* min-width 1441px, xlarge screens */
 
 @media only screen and (min-width: 90.063em) and (max-width: 120em) { } /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */

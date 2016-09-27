@@ -20,7 +20,7 @@ namespace CRIMAS.Controllers.api
         public setupController()
         {
             _context = new DenariDb();
-            _paystackClient = new RestClient { BaseUrl = "https://api.paystack.co/" };
+            //_paystackClient = new RestClient { BaseUrl = "https://api.paystack.co/" };
 
         }
 
@@ -113,7 +113,16 @@ namespace CRIMAS.Controllers.api
                     customer.dateCreated = DateTime.Now;
                     _context.DenariCustomers.Add(customer);
                     _context.SaveChanges();
-                
+
+
+                    //Send thank you SMS to customer
+                    Notification.sendThankYouSms(customer);
+
+
+                    //send Notifications - SMS & EMail
+                    Notification.sendDemoRequestSms(customer);
+                    Notification.sendDemoRequestEmail(customer);
+                   
                     return true;
                 }
             }
@@ -158,5 +167,11 @@ namespace CRIMAS.Controllers.api
                     //break;
             }
         }
+
+        [HttpGet]
+        public string getPhone(string email)
+        {
+            return _context.DenariCustomers.FirstOrDefault(x => x.email == email).phone;
+        } 
     }
 }

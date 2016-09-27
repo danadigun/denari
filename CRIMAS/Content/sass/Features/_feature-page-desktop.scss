@@ -38,7 +38,16 @@
             border-radius: 0pt;
             border: solid 2px #fde876;
             /*background:#01579b;*/
-            color: white;
+            color: white !important;
+            padding: 20px;
+            text-decoration: none;
+        }
+         .features-leading-text .features-start .readme:hover {
+            font-size: 14pt;
+            border-radius: 0pt;
+            border: solid 2px #fde876;
+            /*background:#01579b;*/
+            color: black !important;
             padding: 20px;
             text-decoration: none;
         }

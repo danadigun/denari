@@ -1,0 +1,26 @@
+﻿
+
+nav {
+    padding: 0;
+    height: 70px !important;
+    background:#2d3e50;
+}
+
+nav, nav .button {
+    padding: 5px;
+}
+
+ nav .btn-open:after {
+    color: white !important;
+    content: "\f0c9";
+    font-family: "FontAwesome";
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s;
+}
+
+ .setup {
+    padding-top: 0em;
+    background-image: linear-gradient(rgba(255, 250, 250, 0.45), rgba(255, 250, 250, 0.45)), url(../img/dreamstime_xl_50592602.jpg);
+}

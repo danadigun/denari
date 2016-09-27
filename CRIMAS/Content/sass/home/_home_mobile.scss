@@ -58,3 +58,41 @@
     width:400px !important;
     height:auto!important;
 }
+
+/*Animated background*/
+
+#top {
+    /*background-image: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45)), url(../img/dreamstimelarge_41957280.jpg);*/
+background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../../img/internet.jpg');
+/*background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    /* padding-left: 15em; */
+    /* padding-right: 30em; */
+    height: 80vh;
+    color: white;
+    animation: animatedBackground 70s linear infinite;
+}
+@keyframes animatedBackground {
+	from { background-position: 0 0; }
+	to { background-position: 600px 0; }
+}
+
+#banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+.hero-heading .hero-sub-heading h3 {
+    font-weight: lighter;
+    font-size: 20pt;
+}
+.getStarted{
+     
+    padding-top: 0em !important;
+
+}

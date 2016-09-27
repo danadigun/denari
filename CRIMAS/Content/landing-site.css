@@ -373,7 +373,8 @@ nav a:hover {
   height: 100vh;
   padding-left: 10%;
   padding-right: 10%;
-  /*border-top:2px solid #01579b;*/ }
+  /*border-top:2px solid #01579b;*/
+  margin-top: -10%; }
 
 #benefits h1 {
   text-align: center;
@@ -1947,6 +1948,39 @@ nav a:hover {
     width: 400px !important;
     height: auto !important; }
 
+  /*Animated background*/
+  #top {
+    /*background-image: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45)), url(../img/dreamstimelarge_41957280.jpg);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../../img/internet.jpg");
+    /*background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    /* padding-left: 15em; */
+    /* padding-right: 30em; */
+    height: 80vh;
+    color: white;
+    animation: animatedBackground 70s linear infinite; }
+
+  @keyframes animatedBackground {
+    from {
+      background-position: 0 0; }
+    to {
+      background-position: 600px 0; } }
+  #banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center; }
+
+  .hero-heading .hero-sub-heading h3 {
+    font-weight: lighter;
+    font-size: 20pt; }
+
+  .getStarted {
+    padding-top: 0em !important; }
+
   #lending-main {
     background: #01579b;
     color: white;
@@ -2099,7 +2133,50 @@ nav a:hover {
     text-decoration: none; }
 
   .header-order, .signup {
-    width: 95% !important; } }
+    width: 95% !important; }
+
+  nav {
+    padding: 0;
+    height: 70px !important;
+    background: #2d3e50; }
+
+  nav, nav .button {
+    padding: 5px; }
+
+  nav .btn-open:after {
+    color: white !important;
+    content: "\f0c9";
+    font-family: "FontAwesome";
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s; }
+
+  .setup {
+    padding-top: 0em;
+    background-image: linear-gradient(rgba(255, 250, 250, 0.45), rgba(255, 250, 250, 0.45)), url(../img/dreamstime_xl_50592602.jpg); }
+
+  #faqs {
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #808080; }
+
+  #faqs h1 {
+    padding-bottom: 0.5em;
+    color: #01579b;
+    text-align: center; }
+
+  #faqs div {
+    padding-bottom: 1em !important; }
+
+  #faqs div h4 {
+    font-size: 12pt;
+    font-weight: bolder;
+    color: #01579b; }
+
+  #faqs div p {
+    font-size: 12pt; } }
 /* Define mobile styles */
 /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 @media only screen and (min-width: 40.063em) {
@@ -2156,6 +2233,39 @@ nav a:hover {
     width: 400px !important;
     height: auto !important; }
 
+  /*Animated background*/
+  #top {
+    /*background-image: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45)), url(../img/dreamstimelarge_41957280.jpg);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../../img/internet.jpg");
+    /*background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    /* padding-left: 15em; */
+    /* padding-right: 30em; */
+    height: 80vh;
+    color: white;
+    animation: animatedBackground 70s linear infinite; }
+
+  @keyframes animatedBackground {
+    from {
+      background-position: 0 0; }
+    to {
+      background-position: 600px 0; } }
+  #banner {
+    background-color: #2d3e50;
+    height: 10em;
+    padding: 10px;
+    color: white;
+    text-align: center; }
+
+  .hero-heading .hero-sub-heading h3 {
+    font-weight: lighter;
+    font-size: 20pt; }
+
+  .getStarted {
+    padding-top: 0em !important; }
+
   #lending-main {
     background: #01579b;
     color: white;
@@ -2308,7 +2418,50 @@ nav a:hover {
     text-decoration: none; }
 
   .header-order, .signup {
-    width: 95% !important; } }
+    width: 95% !important; }
+
+  nav {
+    padding: 0;
+    height: 70px !important;
+    background: #2d3e50; }
+
+  nav, nav .button {
+    padding: 5px; }
+
+  nav .btn-open:after {
+    color: white !important;
+    content: "\f0c9";
+    font-family: "FontAwesome";
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s; }
+
+  .setup {
+    padding-top: 0em;
+    background-image: linear-gradient(rgba(255, 250, 250, 0.45), rgba(255, 250, 250, 0.45)), url(../img/dreamstime_xl_50592602.jpg); }
+
+  #faqs {
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    color: #808080; }
+
+  #faqs h1 {
+    padding-bottom: 0.5em;
+    color: #01579b;
+    text-align: center; }
+
+  #faqs div {
+    padding-bottom: 1em !important; }
+
+  #faqs div h4 {
+    font-size: 12pt;
+    font-weight: bolder;
+    color: #01579b; }
+
+  #faqs div p {
+    font-size: 12pt; } }
 /* min-width 641px, medium screens */
 /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 @media only screen and (min-width: 64.063em) {
@@ -2444,6 +2597,32 @@ nav a:hover {
     height: auto !important;
     margin-left: 13em !important; }
 
+  /*Animated background*/
+  #top {
+    /*background-image: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45)), url(../img/dreamstimelarge_41957280.jpg);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../../img/internet.jpg");
+    /*background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    /* padding-left: 15em; */
+    /* padding-right: 30em; */
+    height: 80vh;
+    color: white;
+    animation: animatedBackground 70s linear infinite; }
+
+  @keyframes animatedBackground {
+    from {
+      background-position: 0 0; }
+    to {
+      background-position: 600px 0; } }
+  .hero-heading .hero-sub-heading h3 {
+    font-weight: lighter;
+    font-size: 30pt; }
+
+  .getStarted {
+    padding-top: 5em !important; }
+
   /*Features*/
   #features-top {
     /*background-image: url('../img/ledger-overload.jpg');*/
@@ -2479,7 +2658,16 @@ nav a:hover {
     border-radius: 0pt;
     border: solid 2px #fde876;
     /*background:#01579b;*/
-    color: white;
+    color: white !important;
+    padding: 20px;
+    text-decoration: none; }
+
+  .features-leading-text .features-start .readme:hover {
+    font-size: 14pt;
+    border-radius: 0pt;
+    border: solid 2px #fde876;
+    /*background:#01579b;*/
+    color: black !important;
     padding: 20px;
     text-decoration: none; }
 
@@ -2525,7 +2713,47 @@ nav a:hover {
     padding-top: 20px; }
 
   .header-order, .signup {
-    width: 60% !important; } }
+    width: 60% !important; }
+
+  nav {
+    padding: 0;
+    height: 70px !important;
+    background: white; }
+
+  nav, nav .button {
+    padding: 5px; }
+
+  nav .btn-open:after {
+    color: #01579b !important;
+    content: "\f0c9";
+    font-family: "FontAwesome";
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s;
+    font-weight: lighter; }
+
+  #faqs {
+    padding-top: 5em;
+    padding-left: 13em;
+    padding-right: 13em;
+    color: #808080; }
+
+  #faqs h1 {
+    padding-bottom: 2em;
+    color: #01579b;
+    text-align: center; }
+
+  #faqs div {
+    padding-bottom: 2em !important; }
+
+  #faqs div h4 {
+    font-size: 20pt;
+    font-weight: bolder;
+    color: #01579b; }
+
+  #faqs div p {
+    font-size: 17pt; } }
 /* min-width 1025px, large screens */
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
   /*@import "lending/_lending_default.scss";*/
@@ -2664,8 +2892,52 @@ nav a:hover {
     height: auto !important;
     margin-left: 13em !important; }
 
+  /*Animated background*/
+  #top {
+    /*background-image: linear-gradient(rgba(13, 71, 161, 0.45), rgba(13, 71, 161, 0.45)), url(../img/dreamstimelarge_41957280.jpg);*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../../img/internet.jpg");
+    /*background-repeat:repeat-x;*/
+    text-align: center;
+    padding-top: 10em;
+    padding-bottom: 10em;
+    /* padding-left: 15em; */
+    /* padding-right: 30em; */
+    height: 80vh;
+    color: white;
+    animation: animatedBackground 70s linear infinite; }
+
+  @keyframes animatedBackground {
+    from {
+      background-position: 0 0; }
+    to {
+      background-position: 600px 0; } }
+  .hero-heading .hero-sub-heading h3 {
+    font-weight: lighter;
+    font-size: 30pt; }
+
+  .getStarted {
+    padding-top: 5em !important; }
+
   .header-order, .signup {
-    width: 60% !important; } }
+    width: 60% !important; }
+
+  nav {
+    padding: 0;
+    height: 70px !important;
+    background: white; }
+
+  nav, nav .button {
+    padding: 5px; }
+
+  nav .btn-open:after {
+    color: #01579b !important;
+    content: "\f0c9";
+    font-family: "FontAwesome";
+    transition-property: all .2s linear 0s;
+    -moz-transition: all .2s linear 0s;
+    -webkit-transition: all .2s linear 0s;
+    -o-transition: all .2s linear 0s;
+    font-weight: lighter; } }
 /* min-width 1441px, xlarge screens */
 /* min-width 1441px and max-width 1920px, use when QAing xlarge screen-only issues */
 /* min-width 1921px, xxlarge screens */

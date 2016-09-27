@@ -80,8 +80,8 @@
       <HintPath>..\packages\HangFire.Web.0.9.1\lib\net40\HangFire.Web.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mandrill.API, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mandrill.API.0.0.2\lib\net40\Mandrill.API.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -126,6 +126,10 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC3.3.2.1.0\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="OneApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OneApi.1.0.0.0\lib\net35\OneApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
@@ -138,8 +142,8 @@
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=104.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.104.0\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=102.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.102.7\lib\net35\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -270,6 +274,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\Notification.cs" />
     <Compile Include="Controllers\api\setup.cs" />
     <Compile Include="Controllers\Features.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -292,6 +297,10 @@
     <Compile Include="Migrations\201609231012274_addeDateCreated.cs" />
     <Compile Include="Migrations\201609231012274_addeDateCreated.Designer.cs">
       <DependentUpon>201609231012274_addeDateCreated.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609252358538_kjasbflaf.cs" />
+    <Compile Include="Migrations\201609252358538_kjasbflaf.Designer.cs">
+      <DependentUpon>201609252358538_kjasbflaf.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -2881,6 +2890,7 @@
     <Content Include="Content\validetta-v1.0.1-dist\validetta.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\ionicons.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\less\wells.less" />
     <Content Include="Content\less\variables.less" />
@@ -3053,8 +3063,10 @@
     <Content Include="img\dreamstimelarge_54278730.jpg" />
     <Content Include="img\dreamstime_l_135572.jpg" />
     <Content Include="img\dreamstime_l_14513276.jpg" />
+    <Content Include="img\galaxy.jpg" />
     <Content Include="img\holding-phone.jpg" />
     <Content Include="img\hourglass.gif" />
+    <Content Include="img\internet.jpg" />
     <Content Include="img\interswitch.png" />
     <Content Include="img\ledger-overload.jpg" />
     <Content Include="img\mastercard.png" />
@@ -3398,6 +3410,13 @@
     <Content Include="Content\sass\Features\_feature-page-mobile.scss" />
     <Content Include="Content\sass\order\_order-mobile.scss" />
     <Content Include="Content\sass\order\_order-desktop.scss" />
+    <Content Include="Content\sass\nav\_nav_mobile.scss" />
+    <Content Include="Content\sass\nav\_nav_desktop.scss" />
+    <Content Include="fonts\ionicons.eot" />
+    <Content Include="fonts\ionicons.ttf" />
+    <Content Include="fonts\ionicons.woff" />
+    <Content Include="Content\sass\faqs\_faq_desktop.scss" />
+    <Content Include="Content\sass\faqs\_faq_mobile.scss" />
     <None Include="Properties\PublishProfiles\danri-landing-build.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Images\Vibrate.png" />
@@ -3927,6 +3946,7 @@
     <Content Include="Views\Features\modules.cshtml" />
     <Content Include="Views\Lending\index.cshtml" />
     <Content Include="Views\Home\orderRequest.cshtml" />
+    <Content Include="Views\Home\faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -3946,6 +3966,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609231012274_addeDateCreated.resx">
       <DependentUpon>201609231012274_addeDateCreated.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609252358538_kjasbflaf.resx">
+      <DependentUpon>201609252358538_kjasbflaf.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

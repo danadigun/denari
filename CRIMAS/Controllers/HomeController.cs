@@ -150,5 +150,10 @@ namespace CRIMAS.Controllers
             return View();
         }
 
+        public ActionResult faq()
+        {
+            return View();
+        }
+
     }
 }

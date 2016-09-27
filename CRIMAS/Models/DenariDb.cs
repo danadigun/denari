@@ -15,6 +15,7 @@ namespace CRIMAS.Models
         public DbSet<UserProfile> UserProfiles { get; set; } //user profiles
         public DbSet<DenariCustomer> DenariCustomers { get; set; }
         public DbSet<CustomerTransaction> CustomerTransactions { get; set; }
+        public DbSet<DenariState> DenariStates { get; set; }
     }
     public class DenariCustomer
     {
@@ -36,5 +37,11 @@ namespace CRIMAS.Models
         public int amount { get; set; }
         public string subscription_type { get; set; }
         public DenariCustomer customer { get; set; }
+    }
+
+    public class DenariState
+    {
+        public int Id { get; set; }
+        public string States { get; set; }
     }
 }

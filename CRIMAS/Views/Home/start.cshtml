@@ -1,8 +1,11 @@
-﻿@{
+﻿@using CRIMAS.Models;
+@{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     ViewBag.Title = "Process denari order";
 
     string user_email = ViewBag.email;
+    var db = new DenariDb();
+    var states = db.DenariStates.ToList();
 }
 
 
@@ -64,7 +67,13 @@
                     <div class="form-group" style="padding-top:20px">
                         <label style="font-weight:bold; font-size:14pt; color:#01579b ">Please tell us your location</label>
                         <select class="form-control" id="Location" placeholder="Location" required>
-                            <option>Lagos</option>
+                          @*  <option>Lagos</option>*@
+                            @{
+                                foreach (var state in states)
+                                {
+                                    <option>@state.States</option>
+                                }
+                            }
                         </select>
 
                     </div>

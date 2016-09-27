@@ -8,6 +8,7 @@
     <link href="~/Content/landing-site.css" rel="stylesheet" />
     <link href="~/Content/font-awesome-4.6.3/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/animate.css" rel="stylesheet" />
+    <link href="~/Content/ionicons-2.0.1/css/ionicons.min.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -29,13 +30,13 @@
 <body>
     <nav>
         <ul>
-            <li class="brand" style="float:left;">
-                <img style="width:150px; height:auto;" src="~/img/Logo-color6.jpg" />
+            <li class="brand hidden-xs hidden-md hidden-sm" style="float:left;">
+                <img  style="width:150px; height:auto;" src="~/img/Logo-color6.jpg" />
             </li>
             <li class="hidden-xs hidden-md hidden-sm"><a href="~/">Home</a></li>
             <li class="hidden-xs hidden-md hidden-sm"><a href="~/Features">Features & benefits</a></li>
              <li class="hidden-xs hidden-md hidden-sm"><a href="~/Lending">Micro-lending</a></li>
-            <li class="hidden-xs hidden-md hidden-sm"><a href="#">FAQ</a></li>
+            <li class="hidden-xs hidden-md hidden-sm"><a href="~/Home/faq">FAQ</a></li>
             @* <li class="hidden-xs hidden-md hidden-sm"><a href="#">Contact</a></li>*@
             <li class="hidden-xs hidden-md hidden-sm"><a href="~/home/start" class="btn btn-primary">Place an order</a></li>
 
@@ -63,7 +64,7 @@
                 <li>
                     <a href="#">Services</a>
                     <ul>
-                        <li><a href="#">FAQs</a></li>
+                        <li><a href="~/Home/faq">FAQs</a></li>
 
                     </ul>
                 </li>
@@ -76,18 +77,23 @@
                 </li>
             </ul>
             <div class="social">
-                <a href="#">
+                @*<a href="#">
                     <div class="social-icon">
                         <i class="fa fa-facebook"></i>
                     </div>
-                </a>
-                <a href="#">
+                </a>*@
+                <a href="https://twitter.com/denari_ng">
                     <div class="social-icon">
                         <i class="fa fa-twitter"></i>
                     </div>
                 </a>
 
 
+            </div>
+            <div>
+                <p style="font-size:10pt">
+                    <b>Customer Support: </b><a href="mailto:contact@digitalforte.ng">contact@digitalforte.ng</a><br /><br />
+                </p>
             </div>
         </div>
     </div>
@@ -96,9 +102,12 @@
     </div>
     <!--Footer-->
     <section id="footer" class="footer visible-lg hidden-md hidden-sm hidden-xs">
-        <p>
-            (c) 2016 All rights reserved by Digital Forte Enterprise Systems Ltd.
+        <p style="font-size:10pt">
+            (c) 2016 All rights reserved by Digital Forte Enterprise Systems Ltd.<br /><br />
+            <b>Customer Support: </b><a href="mailto:contact@digitalforte.ng">contact@digitalforte.ng</a><br /><br />
+            <a href="https://twitter.com/denari_ng"><i style="font-size:16pt; color:white" class="ion ion-social-twitter"></i></a>
         </p>
+       
     </section>
 
     <script>
