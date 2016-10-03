@@ -1,0 +1,77 @@
+﻿@using CRIMAS.Models;
+@{
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+}
+
+<div class="jumbotron">
+    <form action="~/Loan/SaveUploadedFile?loanId=1&accountNo=2"
+          method="post" enctype="multipart/form-data"
+          class="dropzone" id="dropzoneForm"
+          style="width: 100%; background: whitesmoke; border: 1px dashed black;">
+        <div class="dz-message" data-dz-message>
+            <span style="font-size:18pt; text-align:center">
+                <i class="ion ion-ios-cloud-upload-outline"></i><br />
+                Click to upload or drag/drop loan application documents
+            </span><br />
+            <span><i>You can add multiple pages(.jpg, .png, .pdf, .doc, .docx). Max Size: 2.5mb</i></span><br />
+            <span><i>Files are uploaded automatically immediately.</i></span>         
+        </div>
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+            <input type="submit" value="Upload" />
+        </div>
+    </form>   
+</div>
+
+<script>
+  // myDropzone is the configuration for the element that has an id attribute
+  // with the value my-dropzone (or myDropzone)
+    $(function () {
+        Dropzone.options.dropzoneForm = {
+            uploadMultiple: true, 
+            maxFilesize: 2.5,  
+            acceptedFiles: ".jpeg,.jpg,.png,.gif,.pdf, .doc, .docx",
+
+            init: function () {
+                this.on("success", function (file, response) {
+
+                    // Create the remove button
+
+                    var removeButton = Dropzone.createElement("<button class=\"delete btn btn-floating\"><i class=\"ion ion-ios-close-empty\"></i></button>");
+                    var previewButton = Dropzone.createElement("<a href=" + response.docUrl + " target='_blank' class=\"preview btn btn-floating\"><i class=\" ion ion-ios-search\"></i></a>");
+
+                    // Capture the Dropzone instance as closure.
+                    var _this = this;
+
+                    // Listen to the click event - remove 
+                    removeButton.addEventListener("click", function (e) {
+                        // Make sure the button click doesn't submit the form:
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Remove the file preview.
+                        _this.removeFile(file);
+                        // If you want to the delete the file on the server as well,
+                        // you can do the AJAX request here.
+                        $.ajax({
+                            type: 'POST',
+                            url: '/Loan/removeLoanFile',
+                            data: response
+                        }).done(function (data) {
+                            console.log(data);
+                        }).fail(function () {
+                            concole.log('unable to remove file from server')
+                        })
+                    });
+
+                    //Listed to the click event - preview
+                    previewButton.addEventListener
+                    // Add the button to the file preview element.
+                    file.previewElement.appendChild(removeButton);
+                    file.previewElement.appendChild(previewButton);
+                });                              
+            }
+        };
+    })
+</script>
+

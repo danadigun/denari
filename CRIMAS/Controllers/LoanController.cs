@@ -96,15 +96,22 @@ namespace CRIMAS.Controllers
         // POST: /Loan/Create
         [HttpPost]
 
-        public ActionResult Create(Loan loan, HttpPostedFileBase fileAgreement, HttpPostedFileBase fileIrrevocable, HttpPostedFileBase fileGuarantors)
+        public ActionResult CreateLoan()
         {
+            var loan = new Models.Loan();
+            loan.AccountNo = Request.Form["AccountNo"].ToString();
+            loan.Duration = Request.Form["Duration"].ToString();
+            loan.DateOfCommencement = Convert.ToDateTime(Request.Form["DateOfCommencement"].ToString());
+            loan.amount = Convert.ToDecimal(Request.Form["amount"].ToString());
+            loan.InterestRate = Convert.ToDecimal(Request.Form["InterestRate"].ToString());
+
             if (ModelState.IsValid)
             {
 
                 if (!_context.Customers.Any(x => x.AccountNo == loan.AccountNo))
                 {
-                    ModelState.AddModelError("Account Not Exists", "Account does not exists.");
-                    return View(loan);
+                    //ModelState.AddModelError("Account Not Exists", "Account does not exists.");
+                    return Json(new { error = "Account does not exists" });
                 }
 
                 var deposit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Sum(x => x.Credit - x.Debit);
@@ -112,8 +119,8 @@ namespace CRIMAS.Controllers
 
                 if (deposit <= percent)
                 {
-                    ModelState.AddModelError("No 10% Deposit", "This customer has no 10% deposit in his/her account.");
-                    return View(loan);
+                    //ModelState.AddModelError("No 10% Deposit", "This customer has no 10% deposit in his/her account.");
+                    return Json(new { error = "This customer has no 10% deposit in his/her account." });
                 }
 
                 loan.LoanStatus = "active"; //set loan status to active
@@ -160,58 +167,8 @@ namespace CRIMAS.Controllers
                 _context.LoanInterests.Add(loanInterest);
                 _context.Borrows.Add(amountBorred);
 
-                #region  Validate & upload scanned documents
-
-
-                string extension_fileAgreementName = string.Empty;
-                string extension_fileIrrevocableName = string.Empty;
-                string extension_fileGuarantorsName = string.Empty;
-
-                if ((fileAgreement != null && fileAgreement.ContentLength > 0)
-                    && (fileIrrevocable != null && fileIrrevocable.ContentLength > 0)
-                    && (fileGuarantors != null && fileGuarantors.ContentLength > 0))
-                {
-                    //check extensions
-                    extension_fileAgreementName = Path.GetExtension(fileAgreement.FileName);
-                    extension_fileIrrevocableName = Path.GetExtension(fileIrrevocable.FileName);
-                    extension_fileGuarantorsName = Path.GetExtension(fileGuarantors.FileName);
-
-                    bool checkAgreement = (extension_fileAgreementName != ".jpg" && extension_fileAgreementName != ".jpeg" && extension_fileAgreementName != ".png");
-                    bool checkIrrevocable = (extension_fileIrrevocableName != ".jpg" && extension_fileIrrevocableName != ".jpeg" && extension_fileIrrevocableName != ".png");
-                    bool checkGuarantor = (extension_fileGuarantorsName != ".jpg" && extension_fileGuarantorsName != ".jpeg" && extension_fileGuarantorsName != ".png");
-
-                    if (checkAgreement && checkIrrevocable && checkGuarantor)
-                    {
-                        ModelState.AddModelError("Invalid Image", "Please upload .jpg or .png image.");
-                        return View(loan);
-                    }
-                    else
-                    {
-                        using (var reader = new BinaryReader(fileAgreement.InputStream))
-                        {
-                            loan.ImgAgreement = reader.ReadBytes(fileAgreement.ContentLength);
-
-                        }
-                        using (var reader = new BinaryReader(fileIrrevocable.InputStream))
-                        {
-                            loan.ImgIrrevocable = reader.ReadBytes(fileIrrevocable.ContentLength);
-                        }
-
-                        using (var reader = new BinaryReader(fileGuarantors.InputStream))
-                        {
-                            loan.ImgGuarantors = reader.ReadBytes(fileGuarantors.ContentLength);
-
-                        }
-                    }
-
-                }
-                else
-                {
-                    ModelState.AddModelError("Invalid Image", "Please upload all three (3) scanned documents to proceed.");
-                    return View(loan);
-                }
-
-                ////create a loan transaction record  for principal loan disbursement & total interest due                   
+                
+                //create a loan transaction record  for principal loan disbursement & total interest due                   
 
                 loan.LoanTransactions = new List<LoanTransaction> {
                     new LoanTransaction {
@@ -238,13 +195,17 @@ namespace CRIMAS.Controllers
                 _context.Loans.Add(loan);
                 _context.SaveChanges();
 
+                //upload attached documents
+                this.uploadWithDropZone(loan.Id, Convert.ToInt32(loan.AccountNo));
+                //#endregion
 
-                #endregion
 
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return Json(new {  LoanId = loan.Id, accountNo = loan.AccountNo, Message ="Loan successfully created" });
             }
 
-            return View(loan);
+            return Json(new { error = "Error on page. unable to add details" });
+            //return View(loan);
         }
 
         public ActionResult UpdateForms(int loan_id, HttpPostedFileBase fileAgreement, HttpPostedFileBase fileIrrevocable, HttpPostedFileBase fileGuarantors)
@@ -721,5 +682,162 @@ namespace CRIMAS.Controllers
             return new HttpStatusCodeResult(HttpStatusCode.OK);
 
         }
+
+        public ActionResult SaveUploadedFile(int? loanId, int? accountNo)
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            int docId = 0;
+            string docUrl = "";
+            string header = Request.Headers.Get("Origin");
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\LoanDocs", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        var fileName1 = Path.GetFileName(file.FileName);
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+
+                        //update db
+                        var loanDocument = new LoanDocument
+                        {
+                            accountNo = accountNo.Value,
+                            docUrl = header+"\\Images\\LoanDocs\\imagepath\\" + file.FileName,
+                            //docUrl = path + file.FileName,
+                            LoanId = loanId.Value
+                        };
+                        _context.LoanDocuments.Add(loanDocument);
+                        _context.SaveChanges();
+
+                        docId = loanDocument.Id;
+                        docUrl = loanDocument.docUrl;
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message =  fName, Id = docId, docUrl= docUrl });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
+        }
+
+        public ActionResult removeLoanFile(LoanDocumentResponse response)
+        {
+            string path = string.Format("{0}Images\\LoanDocs\\imagepath", Server.MapPath(@"\"));
+            string file = string.Format("{0}\\{1}", path, response.Message);
+            try
+            {
+                var file_record = _context.LoanDocuments.Find(response.Id);
+                if(file_record != null)
+                {
+                    _context.LoanDocuments.Remove(file_record);
+                }
+                _context.SaveChanges();
+               System.IO.File.Delete(file);
+            }
+
+            catch
+            {
+                return Json(new { Message = "unable to remove file "+response.Message });
+            }
+            return Json(new { Message = "successfully removed "+response.Message });
+        }
+
+       
+        public ActionResult UploadTest()
+        {
+            return View();
+        }
+
+        public bool uploadWithDropZone(int? loanId, int? accountNo)
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            int docId = 0;
+            string docUrl = "";
+            string header = Request.Headers.Get("Origin");
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+
+                        var originalDirectory = new DirectoryInfo(string.Format("{0}Images\\LoanDocs", Server.MapPath(@"\")));
+
+                        string pathString = System.IO.Path.Combine(originalDirectory.ToString(), "imagepath");
+
+                        var fileName1 = Path.GetFileName(file.FileName);
+
+                        bool isExists = System.IO.Directory.Exists(pathString);
+
+                        if (!isExists)
+                            System.IO.Directory.CreateDirectory(pathString);
+
+                        var path = string.Format("{0}\\{1}", pathString, file.FileName);
+                        file.SaveAs(path);
+
+
+                        //update db
+                        var loanDocument = new LoanDocument
+                        {
+                            accountNo = accountNo.Value,
+                            docUrl = header + "\\Images\\LoanDocs\\imagepath\\" + file.FileName,
+                            //docUrl = path + file.FileName,
+                            LoanId = loanId.Value
+                        };
+                        _context.LoanDocuments.Add(loanDocument);
+                        _context.SaveChanges();
+
+                        docId = loanDocument.Id;
+                        docUrl = loanDocument.docUrl;
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+            return isSavedSuccessfully;
+
+            
+        }
+
     }
 }

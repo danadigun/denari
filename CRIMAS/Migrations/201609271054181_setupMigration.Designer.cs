@@ -7,13 +7,13 @@ namespace CRIMAS.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class setupMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(setupMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201608231529467_InitialMigration"; }
+            get { return "201609271054181_setupMigration"; }
         }
         
         string IMigrationMetadata.Source

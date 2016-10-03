@@ -7,128 +7,161 @@
 
 @*@onsubmit = "return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront')"*@
 
-@using (Html.BeginForm("create", "Loan", FormMethod.Post, new { id = "formCreateLoan", enctype = "multipart/form-data" }))
-{
-    <div class="card animated fadeIn" style="width:80%; margin-left:auto; margin-right:auto;">
-        <div class="card-content">
+<span class="notice-main" style="text-align:center"></span>
+<div id="loan-create" class="card animated fadeIn" style="width:80%; margin-left:auto; margin-right:auto; height:auto;">
+    <form  id="loan_create_form" class="card-content" enctype="multipart/form-data" method="POST">
 
-            <div class="card-title" style="color:black">
-                <span>                
-                    Setup a new Loan
-                </span><hr />
+        <div class="card-title" style="color:black">
+            <span>
+                Step 1: Loan Details
+            </span><hr />
+        </div>
+        <!--Notice-->
+        @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "Enter details below to set up a loan for a customer")
+
+
+        @*  <span style="color:red">@Html.ValidationSummary()</span>*@
+
+        <div class="row">
+
+            <div class="col s6">
+                <label for="accountNo" style="font-weight:bold">Account no.</label>
+                <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
+                @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required = "required", @pattern = "[-+]?[0-9]*[.,]?[0-9]+" })
+                @Html.ValidationMessageFor(m => m.AccountNo, String.Empty, new { @class = "ValidationMessage" })
             </div>
-            <!--Notice-->
-            @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "Enter details below to set up a loan for a customer")
-          
 
-            <span style="color:red">@Html.ValidationSummary()</span>
+            <div class="col s6">
+                <label style="font-weight:bold">Amount</label>
+                <span class="add-on"><b>₦</b></span>
+                @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @placeholder = "specify amount", required = "required" })
+                @Html.ValidationMessageFor(m => m.amount, String.Empty, new { @class = "ValidationMessage" })
+            </div>
 
-            <div class="row">
+            <div class="col s6">
+                <label style="font-weight:bold">Duration [month(s)]</label>
+                @Html.TextBoxFor(model => model.Duration, new { @placeholder = "Specify loan duration in months.", type = "number", min = "1", required = "required" })
+                @Html.ValidationMessageFor(m => m.Duration, String.Empty, new { @class = "ValidationMessage" })
+            </div>
 
-                <div class="col s6">
-                    <label for="accountNo" style="font-weight:bold">Account no.</label>
-                    <span class="add-on"><img src="~/Images/Customer-small.png" /></span>
-                    @Html.TextBoxFor(model => model.AccountNo, new { @placeholder = "Enter customer's account no.", @name = "accountNo", required = "required" })
-                    @*@Html.ValidationMessageFor(m => m.AccountNo, String.Empty, new { @class = "ValidationMessage" })*@
-                </div>
-
-                <div class="col s6">
-                    <label style="font-weight:bold">Amount</label>
-                    <span class="add-on"><b>₦</b></span>
-                    @Html.TextBoxFor(Model => Model.amount, string.Empty, new { @placeholder = "specify amount", required = "required" })
-                    @*@Html.ValidationMessageFor(m => m.amount, String.Empty, new { @class = "ValidationMessage" })*@
-                </div>
-
-                <div class="col s6">
-                    <label style="font-weight:bold">Duration [month(s)]</label>
-                    @Html.TextBoxFor(model => model.Duration, new { @placeholder = "Specify loan duration in months.", type = "number", min = "1", required = "required" })
-                    @*@Html.ValidationMessageFor(m => m.Duration, String.Empty, new { @class = "ValidationMessage" })*@
-                </div>
-
-                <div class="col s6">
-                    <label style="font-weight:bold">Date of commencement</label>
-                    @Html.TextBoxFor(model => model.DateOfCommencement, new { @placeholder = "Enter date of commencement of facility.", type = "date", required = "required" })
-                    @*@Html.ValidationMessageFor(m => m.DateOfCommencement, String.Empty, new { @class = "ValidationMessage" })*@
-                </div>
-                <script>
+            <div class="col s6">
+                <label style="font-weight:bold">Date of commencement</label>
+                @Html.TextBoxFor(model => model.DateOfCommencement, new { @placeholder = "Enter date of commencement of facility.", type = "date", required = "required" })
+                @Html.ValidationMessageFor(m => m.DateOfCommencement, String.Empty, new { @class = "ValidationMessage" })
+            </div>
+            <script>
                     $('#DateOfCommencement').pickadate({
                         selectMonths: true, // Creates a dropdown to control month
                         //selectYears: 100, // Creates a dropdown of 15 years to control year
                     });
-                </script>
+            </script>
 
-                <div class="col s6">
-                    <label style="font-weight:bold">Approved interest rate %</label>
-                    @Html.TextBoxFor(model => model.InterestRate, new { @placeholder = "Specify interest rate.", type = "number", min = "1", required = "required" })
-                    @*@Html.ValidationMessageFor(m => m.InterestRate, String.Empty, new { @class = "ValidationMessage" })*@
-                </div>
-
-                <div class="col s12">
-                    <label style="font-weight:bold">Attach 1page scanned agreement document </label>
-                    <div class="file-field">
-                        <div class="btn">
-                            <span><i class="ion ion-android-attach"></i></span>
-                            <input type="file" name="fileAgreement" id="fileAgreement">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input id="ImgAgreementUrl" name="ImgAgreementUrl" class="file-path validate" type="text" placeholder="Upload Signed Agreement Form" required="required">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12">
-                    <label style="font-weight:bold">Attach 1page scanned Irrevocable Authority </label>
-                    <div class="file-field">
-                        <div class="btn">
-                            <span><i class="ion ion-android-attach"></i></span>
-                            <input type="file" name="fileIrrevocable" id="fileIrrevocable">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input id="ImgIrrevocableUrl" name="ImgIrrevocableUrl" class="file-path validate" type="text" placeholder="Upload Signed Irrevocable Authority Form" required="required">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col s12">
-                    <label style="font-weight:bold">Attach 1page scanned Guarantors document</label>
-                    <div class="file-field">
-                        <div class="btn">
-                            <span><i class="ion ion-android-attach"></i></span>
-                            <input type="file" name="fileGuarantors" id="fileGuarantors">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input id="ImgGuarantorsUrl" name="ImgGuarantorsUrl" class="file-path validate" type="text" placeholder="Duly Signed Guarantors Forms" required="required">
-                        </div>
-                    </div>
-                </div>
-
+            <div class="col s6">
+                <label style="font-weight:bold">Approved interest rate %</label>
+                @Html.TextBoxFor(model => model.InterestRate, new { @placeholder = "Specify interest rate.", type = "number", min = "1", required = "required" })
+                @Html.ValidationMessageFor(m => m.InterestRate, String.Empty, new { @class = "ValidationMessage" })
             </div>
-            <div class="card-action">
-                <button style="float:right;" type="submit" class="waves-effect waves-light btn">Create new loan for this customer</button>
-                <br />
+
+
+            <div class="dropzone col s12" id="my-dropzone" name="mainFileUploader">
+
+                <div class="dz-message" data-dz-message>
+                    <span style="font-size:18pt; text-align:center">
+                        <i class="ion ion-ios-cloud-upload-outline"></i><br />
+                        Click to upload or drag/drop loan application documents
+                    </span><br />
+                    <span><i>You can add multiple pages(.jpg, .png, .pdf, .doc, .docx). Max Size: 2.5mb</i></span><br />
+                    <span><i>Files are uploaded automatically immediately.</i></span>
+                </div>
+                <div class="fallback">
+                    <input name="file" type="file" multiple required />
+                </div>
             </div>
+
         </div>
-    </div>
-}
+        <div class="card-action">
+            <button id="formCreateLoan_post" style="float:right;" type="submit" class="waves-effect waves-light btn">Next</button>
+            <br />
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        Dropzone.options.myDropzone = {
+            url: "/Loan/CreateLoan",
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 100,
+            maxFilesize: 2.5,
+            acceptedFiles: "image/*, .pdf, .doc, .docx",
+
+            init: function () {
+
+                var submitButton = document.querySelector("#formCreateLoan_post");
+                var wrapperThis = this;
+
+                submitButton.addEventListener("click", function (e) {
+                    wrapperThis.processQueue();
+                    e.preventDefault();
+                });
+
+                this.on("addedfile", function (file) {
+
+                    // Create the remove button
+                    var removeButton = Dropzone.createElement("<button class='btn btn-float dark'>Remove File</button>");
+
+                    // Listen to the click event
+                    removeButton.addEventListener("click", function (e) {
+                        // Make sure the button click doesn't submit the form:
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Remove the file preview.
+                        wrapperThis.removeFile(file);
+                        // If you want to the delete the file on the server as well,
+                        // you can do the AJAX request here.
+                    });
+
+                    // Add the button to the file preview element.
+                    file.previewElement.appendChild(removeButton);
+                });
+
+                this.on('sendingmultiple', function (data, xhr, formData) {
+                    $('.notice').html("<div class=\"progress\"> <p>setting up loan details...</p><div class=\"indeterminate\"></div></div>");
+                    formData.append("AccountNo", $("input[name=AccountNo]").val());
+                    formData.append("amount", $("input[name=amount]").val());
+                    formData.append("Duration", $("input[name=Duration]").val());
+                    formData.append("DateOfCommencement", $("input[name=DateOfCommencement]").val());
+                    formData.append("InterestRate", $("input[name=InterestRate]").val());
+                });
+
+                this.on('success', function (file, response) {
+                    $('.notice').html(response.Message);
+                    sweetAlert("Success", response.Message, "success");
+                    $(location).attr('href', '/Loan');
+                });
+
+                this.on('error', function (file, response) {
+                    //alert('unable to create new loan')
+                    $('.notice').addClass('has-error');
+                    $('.notice').html(response.error
+                })
+
+
+            }
+        };
+    })
+</script>
+
+
 @section Scripts {
 
-    @*@Scripts.Render("~/bundles/jqueryval")*@
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/bundles/jqueryui")
 
-    <script>
-        $(document).ready(function () {
-            $('#formCreateLoan').submit(function () {
-                if ($('#DateOfCommencement').val() != "") {
-                    return confirm('Are you sure you want to create this loan agreement? Please confirm that the customer has paid 10% of loan amount upfront');
-                }
-                else {
-                    alert("Please select the date loan deduction commences. ");
-                    return false;
-                }
-            });
-        })
-    </script>
 }
 
 <style>
@@ -138,5 +171,39 @@
 
     .file-field .btn, .file-field .btn-large {
         margin-top: 5px;
+    }
+
+    #dropZone {
+        background: gray;
+        border: black dashed 3px;
+        width: 200px;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+
+    .dropzone {
+        border: 2px dashed #0087F7;
+        border-radius: 5px;
+        background: white;
+    }
+
+    .has-error {
+        color: red !important;
+    }
+
+    .success {
+        color: green !important;
+        font-weight: bold;
+        font-size: 16pt;
+    }
+
+    .picker {
+        line-height: 1.2;
+    }
+
+    .picker__day-display {
+        font-size: 1.5rem;
+        font-weight: 400;
     }
 </style>

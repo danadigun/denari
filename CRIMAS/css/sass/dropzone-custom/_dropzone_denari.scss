@@ -1,0 +1,25 @@
+﻿ #dropZone {
+        background: gray;
+        border: black dashed 3px;
+        width: 200px;
+        padding: 50px;
+        text-align: center;
+        color: white;
+    }
+ #dropZone span{
+     width:100%;
+ }
+ /*.dz-preview button{
+     border-radius:50%;
+ }*/
+ .dropzone .dz-preview.dz-image-preview {
+    background: transparent !important;
+}
+  .dropzone .preview{
+      margin-left:40px;
+  }
+
+   .dropzone .delete {
+    background: #64b5f6;
+    color: white;
+}

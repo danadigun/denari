@@ -2,70 +2,86 @@
 @using System.Threading;
 
 @model IEnumerable<CRIMAS.Models.LoanTransaction>
-    @{
-        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+@{
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
-        //Set Culture info for currency
-        CultureInfo cultureInfo = new CultureInfo("en-US");
-        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+    //Set Culture info for currency
+    CultureInfo cultureInfo = new CultureInfo("en-US");
+    cultureInfo.NumberFormat.CurrencySymbol = "₦";
 
-        Thread.CurrentThread.CurrentCulture = cultureInfo;
+    Thread.CurrentThread.CurrentCulture = cultureInfo;
 
-        int loan_id = Convert.ToInt32(ViewBag.LoanId);
+    int loan_id = Convert.ToInt32(ViewBag.LoanId);
 
-        var _context = new CRIMAS.Models.CrimasDb();
-        var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
-        int i = 1;
+    var _context = new CRIMAS.Models.CrimasDb();
+    var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
+    var loan_docs = _context.LoanDocuments.Where(x => x.Id == loan_id).ToList();
+    int i = 1;
 
-        decimal total_Cr = 0;
-        decimal total_Dr = 0;
-    }
-
-
-    <div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
+    decimal total_Cr = 0;
+    decimal total_Dr = 0;
+}
 
 
-        <!--Loan Details-->
-        <div class="card">
-            <div class="card-content">
-                <br /> <h5>Loan Details</h5><hr /><br />
-                <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
+<div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
 
-                <table class="table bordered striped">
-                    <tr>
 
-                        <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white; width:30%;">Principal Amount</td>
-                        <td style="float:right; padding-right:40px; font-weight:bold; font-size:17pt;">@string.Format("{0:C}", loan.amount)</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Interest </td>
-                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration)) (@loan.InterestRate %)</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Principal + Interest </td>
-                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount + (loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration))) </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Tenure</td>
-                        <td style="float:right; padding-right:40px; font-size:14pt;">@loan.Duration Months</td>
-                    </tr>
+    <!--Loan Details-->
+    <div class="card">
+        <div class="card-content">
+            <br /> <h5>Loan Details</h5><hr /><br />
+            <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
 
-                </table>
-            </div>
+            <table class="table bordered striped">
+                <tr>
+
+                    <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white; width:30%;">Principal Amount</td>
+                    <td style="float:right; padding-right:40px; font-weight:bold; font-size:17pt;">@string.Format("{0:C}", loan.amount)</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Interest </td>
+                    <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration)) (@loan.InterestRate %)</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Principal + Interest </td>
+                    <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount + (loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration))) </td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Tenure</td>
+                    <td style="float:right; padding-right:40px; font-size:14pt;">@loan.Duration Months</td>
+                </tr>
+
+            </table>
         </div>
-        <span style="color:red">@Html.ValidationSummary()</span>
+    </div>
+    <span style="color:red">@Html.ValidationSummary()</span>
 
-        <ul class="collapsible" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
-                <div class="collapsible-body">
-                    <div style="padding:50px;">
-                        @Html.Raw(TempData["msg"])
-                        @using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
+            <div class="collapsible-body">
+                <div style="padding:50px;">
+                    @Html.Raw(TempData["msg"])
+                    @{
+                            if (loan_docs.Count() == 0)
+                            {
+                                <i style="text-align:center">There are no documents for this loan application</i>
+                                <button style="float:right" class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Add documents</button>
+                            }
+                            else
+                            {
+                                foreach (var file in loan_docs)
+                                {
+                        <img class="materialboxed" data-caption="loan document _ @file.LoanId" width="250" src="@file.docUrl">
+                                }
+                            }
+
+                    }
+                    @*@using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
                         {
                             <table class="table bordered striped">
                                 <input type="hidden" name="loan_id" value="@loan_id" />
@@ -107,29 +123,29 @@
                                 </tr>
 
                             </table>
-                        }
-                    </div>
-
-
-
+                        }*@
                 </div>
-            </li>
 
-        </ul>
-        <!--Loan Statement-->
-        <div class="card">
-            <div class="card-content">
-                <h5>Loan Statement</h5><hr />
-                <table class="table bordered striped">
-                    <tr style="background-color:#0078d7; color:white;">
-                        <td>S/N</td>
-                        <td>Date</td>
-                        <td>Transaction Msg</td>
-                        <td>Cr</td>
-                        <td>Dr</td>
-                        <td>Balance</td>
-                    </tr>
-                    @foreach (var transaction in Model)
+
+
+            </div>
+        </li>
+
+    </ul>
+    <!--Loan Statement-->
+    <div class="card">
+        <div class="card-content">
+            <h5>Loan Statement</h5><hr />
+            <table class="table bordered striped">
+                <tr style="background-color:#0078d7; color:white;">
+                    <td>S/N</td>
+                    <td>Date</td>
+                    <td>Transaction Msg</td>
+                    <td>Cr</td>
+                    <td>Dr</td>
+                    <td>Balance</td>
+                </tr>
+                @foreach (var transaction in Model)
                     {
                     <tr>
                         <td>@i</td>
@@ -140,11 +156,11 @@
 
                         @if ((transaction.Cr - transaction.Dr) < 0)
                             {
-                            <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
+                        <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
                             }
                             else
                             {
-                            <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
+                        <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
                             }
 
                     </tr>
@@ -153,64 +169,75 @@
                         total_Cr = total_Cr + transaction.Cr;
                         total_Dr = total_Dr + transaction.Dr;
                     }
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><b>Total</b></td>
-                        <td>&nbsp;</td>
-                        <td><b> @string.Format("{0:C}", @total_Cr)</b></td>
-                        <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
-                        <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
-                    </tr>
-                </table>
-
-            </div>
-
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><b>Total</b></td>
+                    <td>&nbsp;</td>
+                    <td><b> @string.Format("{0:C}", @total_Cr)</b></td>
+                    <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
+                    <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
+                </tr>
+            </table>
 
         </div>
 
 
-
     </div>
-    @section Scripts {
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-                $('.materialboxed').materialbox();
-
-                //$('.material-placeholder').each(function () {
-                //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
-                //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
-                //    $(this).append(a);
-                //});
-
-            });
 
 
-         
 
-        </script>
+</div>
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Modal Header</h4>
+        <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="btn modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.materialboxed').materialbox();
+
+            //$('.material-placeholder').each(function () {
+            //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
+            //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
+            //    $(this).append(a);
+            //});
+          
+                $('.modal-trigger').leanModal();
+            
+        });
+
+
+
+
+    </script>
+}
+<style>
+    .material-placeholder {
+        float: left;
+        margin: 0 5px;
     }
-    <style>
-        .material-placeholder {
+
+        .material-placeholder img {
             float: left;
-            margin: 0 5px;
         }
 
-            .material-placeholder img {
-                float: left;
-            }
-
-            .material-placeholder a {
-                float: left;
-            }
-
-                .material-placeholder a i {
-                    font-size: 20px;
-                    margin: 13px 0 0 2px;
-                }
-
-        .card {
-            overflow: inherit !important;
+        .material-placeholder a {
+            float: left;
         }
-    </style>
-   
+
+            .material-placeholder a i {
+                font-size: 20px;
+                margin: 13px 0 0 2px;
+            }
+
+    .card {
+        overflow: inherit !important;
+    }
+</style>
