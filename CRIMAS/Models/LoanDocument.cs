@@ -11,6 +11,7 @@ namespace CRIMAS.Models
         public int LoanId { get; set; }
         public int accountNo { get; set; }
         public string docUrl { get; set; }
+        public string filename { get; set; }
     }
 
 

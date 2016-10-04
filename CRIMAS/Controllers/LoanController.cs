@@ -16,6 +16,7 @@ using CRIMAS.SupportClasses;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
+using CRIMAS.Models.ViewModels;
 
 namespace CRIMAS.Controllers
 {
@@ -523,7 +524,12 @@ namespace CRIMAS.Controllers
         public ActionResult statement(int loanId)
         {
             ViewBag.LoanId = loanId;
-            return View(_context.LoanTransactions.Where(x => x.Loan.Id == loanId).ToList());
+            var statement = new LoanStatementViewModel();
+
+            statement.LoanTransactions = _context.LoanTransactions.Where(x => x.Loan.Id == loanId).ToList();
+            statement.loanDocuments = _context.LoanDocuments.Where(x => x.LoanId == loanId).ToList();
+
+            return View(statement);
         }
 
        
@@ -750,28 +756,7 @@ namespace CRIMAS.Controllers
             }
         }
 
-        public ActionResult removeLoanFile(LoanDocumentResponse response)
-        {
-            string path = string.Format("{0}Images\\LoanDocs\\imagepath", Server.MapPath(@"\"));
-            string file = string.Format("{0}\\{1}", path, response.Message);
-            try
-            {
-                var file_record = _context.LoanDocuments.Find(response.Id);
-                if(file_record != null)
-                {
-                    _context.LoanDocuments.Remove(file_record);
-                }
-                _context.SaveChanges();
-               System.IO.File.Delete(file);
-            }
-
-            catch
-            {
-                return Json(new { Message = "unable to remove file "+response.Message });
-            }
-            return Json(new { Message = "successfully removed "+response.Message });
-        }
-
+        
        
         public ActionResult UploadTest()
         {

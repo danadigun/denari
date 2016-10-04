@@ -1,10 +1,10 @@
 ﻿@using System.Globalization;
 @using System.Threading;
 
-@model IEnumerable<CRIMAS.Models.LoanTransaction>
+
 @{
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
-
+    ViewBag.title = "Loan Details";
     //Set Culture info for currency
     CultureInfo cultureInfo = new CultureInfo("en-US");
     cultureInfo.NumberFormat.CurrencySymbol = "₦";
@@ -15,7 +15,8 @@
 
     var _context = new CRIMAS.Models.CrimasDb();
     var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
-    var loan_docs = _context.LoanDocuments.Where(x => x.Id == loan_id).ToList();
+
+    var loan_docs = Model.loanDocuments;
     int i = 1;
 
     decimal total_Cr = 0;
@@ -63,11 +64,11 @@
     <ul class="collapsible" data-collapsible="accordion">
         <li>
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
-            <div class="collapsible-body">
-                <div style="padding:50px;">
+            <div class="collapsible-body notice">
+                <div style="padding-bottom:150px; padding-top:50px; padding-left:20px; padding-right:20px; min-height:500px">
                     @Html.Raw(TempData["msg"])
                     @{
-                            if (loan_docs.Count() == 0)
+                            if (Model.loanDocuments.Count == 0)
                             {
                                 <i style="text-align:center">There are no documents for this loan application</i>
                                 <button style="float:right" class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Add documents</button>
@@ -76,54 +77,13 @@
                             {
                                 foreach (var file in loan_docs)
                                 {
-                        <img class="materialboxed" data-caption="loan document _ @file.LoanId" width="250" src="@file.docUrl">
-                                }
+                                  <img class="materialboxed" data-caption="loan document _ @file.LoanId" width="75" src="@file.docUrl">
                             }
+                            <button class="waves-effect waves-light btn btn-floating modal-trigger" href="#modal1">+ </button>
+                        }
 
                     }
-                    @*@using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
-                        {
-                            <table class="table bordered striped">
-                                <input type="hidden" name="loan_id" value="@loan_id" />
-                                <tr>
-                                    <td><b>Signed Loan application agreement form</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
-                                             src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileAgreement" id="fileAgreement" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Signed Irrevocable authority form</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
-                                             src="~/Loan/RetrieveIrrevocable?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileIrrevocable" id="fileIrrevocable" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Signed Guarantor's forms</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
-                                             src="~/Loan/RetrieveGurantor?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileGuarantors" id="fileGuarantors" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button class="btn btn-primary" type="submit">update all forms</button>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                </tr>
-
-                            </table>
-                        }*@
+               
                 </div>
 
 
@@ -145,7 +105,7 @@
                     <td>Dr</td>
                     <td>Balance</td>
                 </tr>
-                @foreach (var transaction in Model)
+                @foreach (var transaction in Model.LoanTransactions)
                     {
                     <tr>
                         <td>@i</td>
@@ -190,15 +150,31 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal bottom-sheet">
     <div class="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
+        <h4>Attach loan documents</h4>
+        <form enctype="multipart/form-data" method="POST">
+            <div class="dropzone col s12" id="my-dropzone" name="mainFileUploader">
+
+                <div class="dz-message" data-dz-message>
+                    <span style="font-size:18pt; text-align:center">
+                        <i class="ion ion-ios-cloud-upload-outline"></i><br />
+                        Click to upload or drag/drop scanned pages of loan application documents
+                    </span><br />
+                 
+                </div>
+                <div class="fallback">
+                    <input name="file" type="file" multiple required />
+                </div>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="btn modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
+        <button id="formCreateLoan_post" style="float:right;" type="submit" class="btn modal-action modal-close waves-effect waves-green btn-flat">Upload</button>
+   </div>     
 </div>
+
+   
 @section Scripts {
-    <script type="text/javascript">
+<script type="text/javascript">
 
         $(document).ready(function () {
             $('.materialboxed').materialbox();
@@ -208,15 +184,81 @@
             //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
             //    $(this).append(a);
             //});
-          
-                $('.modal-trigger').leanModal();
-            
+
+            $('.modal-trigger').leanModal();
+
+           
+
         });
 
 
 
 
-    </script>
+</script>
+
+<script>
+    $(function () {
+        Dropzone.options.myDropzone = {
+            url: "/LoanDocument/add",
+            autoProcessQueue: false,
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFiles: 100,
+            maxFilesize: 2.5,
+            acceptedFiles: "image/*",
+
+            init: function () {
+
+                var submitButton = document.querySelector("#formCreateLoan_post");
+                var wrapperThis = this;
+
+                submitButton.addEventListener("click", function (e) {
+                    wrapperThis.processQueue();
+                    e.preventDefault();
+                });
+
+                this.on("addedfile", function (file) {
+
+                    // Create the remove button
+                    var removeButton = Dropzone.createElement("<button class='btn btn-float dark'>Remove File</button>");
+
+                    // Listen to the click event
+                    removeButton.addEventListener("click", function (e) {
+                        // Make sure the button click doesn't submit the form:
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Remove the file preview.
+                        wrapperThis.removeFile(file);
+                        // If you want to the delete the file on the server as well,
+                        // you can do the AJAX request here.
+                    });
+
+                    // Add the button to the file preview element.
+                    file.previewElement.appendChild(removeButton);
+                });
+
+                this.on('sendingmultiple', function (data, xhr, formData) {
+                    $('.notice').html("<div class=\"progress\"> <p>setting up loan details...</p><div class=\"indeterminate\"></div></div>");
+                    formData.append("AccountNo", @loan.AccountNo);
+                    formData.append("LoanId", @loan.Id);
+
+                });
+
+                this.on('success', function (file, response) {
+                    $('.notice').html(response.Message);
+                    sweetAlert("Success", response.Message, "success");
+                    $(location).attr('href', '/Loan/statement?loanId=@loan.Id');
+                });
+
+                this.on('error', function (file, response) {
+                    sweetAlert("error", "unable to upload documents", "error");
+                })
+            }
+        };
+    })
+</script>
+   
 }
 <style>
     .material-placeholder {
