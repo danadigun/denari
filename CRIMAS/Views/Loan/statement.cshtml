@@ -1,216 +1,348 @@
 ﻿@using System.Globalization;
 @using System.Threading;
 
-@model IEnumerable<CRIMAS.Models.LoanTransaction>
-    @{
-        Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
 
-        //Set Culture info for currency
-        CultureInfo cultureInfo = new CultureInfo("en-US");
-        cultureInfo.NumberFormat.CurrencySymbol = "₦";
+@{
+    Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+    ViewBag.title = "Loan Details";
+    //Set Culture info for currency
+    CultureInfo cultureInfo = new CultureInfo("en-US");
+    cultureInfo.NumberFormat.CurrencySymbol = "₦";
 
-        Thread.CurrentThread.CurrentCulture = cultureInfo;
+    Thread.CurrentThread.CurrentCulture = cultureInfo;
 
-        int loan_id = Convert.ToInt32(ViewBag.LoanId);
+    int loan_id = Convert.ToInt32(ViewBag.LoanId);
 
-        var _context = new CRIMAS.Models.CrimasDb();
-        var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
-        int i = 1;
-
-        decimal total_Cr = 0;
-        decimal total_Dr = 0;
-    }
+    var _context = new CRIMAS.Models.CrimasDb();
+    var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
 
 
-    <div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
+    var loan_docs = Model.loanDocuments;
+    int i = 1;
+
+    decimal total_Cr = 0;
+    decimal total_Dr = 0;
+}
 
 
-        <!--Loan Details-->
-        <div class="card">
-            <div class="card-content">
-                <br /> <h5>Loan Details</h5><hr /><br />
-                <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
+<div style="width:70%; margin-left:auto; margin-right:auto; padding-top:30px;">
 
-                <table class="table bordered striped">
-                    <tr>
 
-                        <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
-                        <td>&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white; width:30%;">Principal Amount</td>
-                        <td style="float:right; padding-right:40px; font-weight:bold; font-size:17pt;">@string.Format("{0:C}", loan.amount)</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Interest </td>
-                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration)) (@loan.InterestRate %)</td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Principal + Interest </td>
-                        <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount + (loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration))) </td>
-                    </tr>
-                    <tr>
-                        <td style="background-color:#0078d7; color:white;">Tenure</td>
-                        <td style="float:right; padding-right:40px; font-size:14pt;">@loan.Duration Months</td>
-                    </tr>
+    <!--Loan Details-->
+    <div class="card">
+        <div class="card-content">
+            <br />
+            <h5>
+                Loan Details
+                <img style="width:50px; float:right" id="ProfileImage" name="file" class="circle responsive-img valign" src="/Customer/RetrieveImage/1">
+            </h5><hr /><br />
+            <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
 
-                </table>
-            </div>
+            <table class="table bordered striped">
+                <tr>
+
+                    <td style="float:left; text-transform:uppercase">Customer Id - <b>@loan.Customername</b></td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white; width:30%;">Principal Amount</td>
+                    <td style="float:right; padding-right:40px; font-weight:bold; font-size:17pt;">@string.Format("{0:C}", loan.amount)</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Interest </td>
+                    <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration)) (@loan.InterestRate %)</td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Principal + Interest </td>
+                    <td style="float:right; padding-right:40px; font-weight:bold;font-size:14pt;">@string.Format("{0:C}", loan.amount + (loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration))) </td>
+                </tr>
+                <tr>
+                    <td style="background-color:#0078d7; color:white;">Tenure</td>
+                    <td style="float:right; padding-right:40px; font-size:14pt;">@loan.Duration Months</td>
+                </tr>
+
+            </table>
         </div>
-        <span style="color:red">@Html.ValidationSummary()</span>
+    </div>
+    <span style="color:red">@Html.ValidationSummary()</span>
 
-        <ul class="collapsible" data-collapsible="accordion">
-            <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
-                <div class="collapsible-body">
-                    <div style="padding:50px;">
-                        @Html.Raw(TempData["msg"])
-                        @using (Html.BeginForm("UpdateForms", "Loan", FormMethod.Post, new { id = "update_loanForms", enctype = "multipart/form-data" }))
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header"><i style="color:#0078d7" class="ion ion-ios-cloud-upload"></i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
+            <div class="collapsible-body notice">
+                <div style="padding-bottom:150px; padding-top:10px; padding-left:20px; padding-right:20px; min-height:200px">
+                    @Html.Raw(TempData["msg"])
+                    @{
+                        if (Model.loanDocuments.Count == 0)
                         {
-                            <table class="table bordered striped">
-                                <input type="hidden" name="loan_id" value="@loan_id" />
-                                <tr>
-                                    <td><b>Signed Loan application agreement form</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Signed Agreement Form" title="Signed Agreement Form"
-                                             src="~/Loan/RetrieveAgreement?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileAgreement" id="fileAgreement" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Signed Irrevocable authority form</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Signed Irrevocable Authority Form" title="Signed Irrevocable Authority Form"
-                                             src="~/Loan/RetrieveIrrevocable?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileIrrevocable" id="fileIrrevocable" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><b>Signed Guarantor's forms</b></td>
-                                    <td>
-                                        <img class="materialboxed" data-caption="Duly Signed Guarantors Forms" title="Duly Signed Guarantors Forms"
-                                             src="~/Loan/RetrieveGurantor?loan_id=@loan_id" height="30" width="30" />
-                                    </td>
-                                    <td>
-                                        <input type="file" name="fileGuarantors" id="fileGuarantors" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <button class="btn btn-primary" type="submit">update all forms</button>
-                                    </td>
-                                    <td>&nbsp;</td>
-                                </tr>
+                            <i style="text-align:center">There are no documents for this loan application</i>
+                                <button style="float:right" class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Add documents</button>
+                        }
+                        else
+                        {
+                            <p>
+                                <span style="display:block">
+                                    <i>Click on image thumbnail to enlarge&nbsp;&nbsp;</i>
+                                    <button style="float:right" class="waves-effect waves-light btn btn-flat  modal-trigger" href="#modal1">+ Add new document </button>
+                                </span>
+                            </p><hr /><br />
+                            <table class="table bordered table-condensed striped">
 
+                                @foreach (var file in loan_docs)
+                                {
+                                    <tr id="doc_@file.Id">
+                                        <td>
+                                            <img class="materialboxed" data-caption="loan document _ @file.LoanId" width="20" src="@file.docUrl">
+
+                                        </td>
+                                        <td>
+                                            <span>&nbsp; @file.filename</span>
+                                            <a onclick="removeDoc(@file.Id)" style="float:right; color:red; font-size:16pt; cursor:pointer">
+                                                <i class="ion ion-trash-a"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
                             </table>
                         }
-                    </div>
-
+                    }
 
 
                 </div>
-            </li>
 
-        </ul>
-        <!--Loan Statement-->
-        <div class="card">
-            <div class="card-content">
-                <h5>Loan Statement</h5><hr />
-                <table class="table bordered striped">
-                    <tr style="background-color:#0078d7; color:white;">
-                        <td>S/N</td>
-                        <td>Date</td>
-                        <td>Transaction Msg</td>
-                        <td>Cr</td>
-                        <td>Dr</td>
-                        <td>Balance</td>
-                    </tr>
-                    @foreach (var transaction in Model)
+
+
+            </div>
+        </li>
+
+    </ul>
+    <!--Loan Statement-->
+    <div class="card">
+        <div class="card-content">
+            <h5>Loan Statement</h5><hr />
+            <table class="table bordered striped">
+                <tr style="background-color:#0078d7; color:white;">
+                    <td>S/N</td>
+                    <td>Date</td>
+                    <td>Transaction Msg</td>
+                    <td>Cr</td>
+                    <td>Dr</td>
+                    <td>Balance</td>
+                </tr>
+                @foreach (var transaction in Model.LoanTransactions)
                     {
-                    <tr>
-                        <td>@i</td>
-                        <td>@transaction.DateCreated</td>
-                        <td>@transaction.Narration</td>
-                        <td>@transaction.Cr</td>
-                        <td>@transaction.Dr</td>
+                <tr>
+                    <td>@i</td>
+                    <td>@transaction.DateCreated</td>
+                    <td>@transaction.Narration</td>
+                    <td>@transaction.Cr</td>
+                    <td>@transaction.Dr</td>
 
-                        @if ((transaction.Cr - transaction.Dr) < 0)
+                    @if ((transaction.Cr - transaction.Dr) < 0)
                             {
-                            <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
+                        <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
                             }
                             else
                             {
-                            <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
+                        <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
                             }
 
-                    </tr>
+                </tr>
                         i++;
 
                         total_Cr = total_Cr + transaction.Cr;
                         total_Dr = total_Dr + transaction.Dr;
                     }
-                    <tr>
-                        <td>&nbsp;</td>
-                        <td><b>Total</b></td>
-                        <td>&nbsp;</td>
-                        <td><b> @string.Format("{0:C}", @total_Cr)</b></td>
-                        <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
-                        <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
-                    </tr>
-                </table>
-
-            </div>
-
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><b>Total</b></td>
+                    <td>&nbsp;</td>
+                    <td><b> @string.Format("{0:C}", @total_Cr)</b></td>
+                    <td><b> @string.Format("{0:C}", @total_Dr)</b></td>
+                    <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
+                </tr>
+            </table>
 
         </div>
 
 
-
     </div>
-    @section Scripts {
-        <script type="text/javascript">
 
-            $(document).ready(function () {
-                $('.materialboxed').materialbox();
 
-                //$('.material-placeholder').each(function () {
-                //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
-                //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
-                //    $(this).append(a);
-                //});
 
+</div>
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <h4>Attach loan documents</h4>
+        <form enctype="multipart/form-data" method="POST">
+            <div class="dropzone col s12" id="my-dropzone" name="mainFileUploader">
+
+                <div class="dz-message" data-dz-message>
+                    <span style="font-size:18pt; text-align:center">
+                        <i class="ion ion-ios-cloud-upload-outline"></i><br />
+                        Click to upload or drag/drop scanned pages of loan application documents
+                    </span><br />
+
+                </div>
+                <div class="fallback">
+                    <input name="file" type="file" multiple required />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button id="formCreateLoan_post" style="float:right;" type="submit" class="btn modal-action modal-close waves-effect waves-green btn-flat">Upload</button>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.materialboxed').materialbox();
+
+            //$('.material-placeholder').each(function () {
+            //    var url = '/Loan/Download?imageUrl=' + $(this).find('img').attr('src');
+            //    var a = '<a href="' + url + '" title="download"><i class="material-icons right">file_download</i></a>';
+            //    $(this).append(a);
+            //});
+
+            $('.modal-trigger').leanModal();
+
+
+        });
+
+        //remove document
+        function removeDoc(id){
+            //alert(id);
+            swal({  
+                title: " ",
+                text: "Are you sure you want to remove this document? You will not be able to recover this loan file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                //post to delete api
+                $('button.confirm').html("please wait...");
+                $.ajax({
+
+                    url : '/LoanDocument/remove?docId='+id,
+                    type:'POST',
+
+                }).done(function(response){
+
+                    if(response.error){
+                        swal("Error",
+                            "Unable to remove file", "error");
+                    }
+                    else{
+                        swal("Deleted!",
+                             response.Message, "success");
+                        $('#doc_'+id).fadeOut();
+                    }                   
+                   
+                }).fail(function(response){
+                    swal("Error",
+                   "Unable to remove file", "error");
+                })
+                
             });
-
-
-         
-
-        </script>
-    }
-    <style>
-        .material-placeholder {
-            float: left;
-            margin: 0 5px;
         }
 
-            .material-placeholder img {
-                float: left;
-            }
 
-            .material-placeholder a {
-                float: left;
-            }
 
-                .material-placeholder a i {
-                    font-size: 20px;
-                    margin: 13px 0 0 2px;
+
+    </script>
+
+    <script>
+        $(function () {
+            Dropzone.options.myDropzone = {
+                url: "/LoanDocument/add",
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 100,
+                maxFiles: 100,
+                maxFilesize: 5,
+                acceptedFiles: "image/*",
+
+                init: function () {
+
+                    var submitButton = document.querySelector("#formCreateLoan_post");
+                    var wrapperThis = this;
+
+                    submitButton.addEventListener("click", function (e) {
+                        wrapperThis.processQueue();
+                        e.preventDefault();
+                    });
+
+                    this.on("addedfile", function (file) {
+
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-float dark'>Remove File</button>");
+
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            // Remove the file preview.
+                            wrapperThis.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                        });
+
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                    });
+
+                    this.on('sendingmultiple', function (data, xhr, formData) {
+                        $('.notice').html("<div class=\"progress\"> <p>setting up loan details...</p><div class=\"indeterminate\"></div></div>");
+                        formData.append("AccountNo", @loan.AccountNo);
+                        formData.append("LoanId", @loan.Id);
+
+                    });
+
+                    this.on('success', function (file, response) {
+                        $('.notice').html(response.Message);
+                        sweetAlert("Success", response.Message, "success");
+                        $(location).attr('href', '/Loan/statement?loanId=@loan.Id');
+                    });
+
+                    this.on('error', function (file, response) {
+                        sweetAlert("error", "unable to upload documents", "error");
+                    })
                 }
+            };
+        })
+    </script>
 
-        .card {
-            overflow: inherit !important;
+}
+<style>
+    .material-placeholder {
+        float: left;
+        margin: 0 5px;
+    }
+
+        .material-placeholder img {
+            float: left;
         }
-    </style>
-   
+
+        .material-placeholder a {
+            float: left;
+        }
+
+            .material-placeholder a i {
+                font-size: 20px;
+                margin: 13px 0 0 2px;
+            }
+
+    .card {
+        overflow: inherit !important;
+    }
+</style>

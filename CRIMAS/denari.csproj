@@ -285,6 +285,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IncomeAnalysisController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\LoanDocumentController.cs" />
     <Compile Include="Controllers\LoanTransactionController.cs" />
     <Compile Include="Controllers\RateableRegisterController.cs" />
     <Compile Include="Controllers\ReconciliationController.cs" />
@@ -292,9 +293,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608231529467_InitialMigration.cs" />
-    <Compile Include="Migrations\201608231529467_InitialMigration.Designer.cs">
-      <DependentUpon>201608231529467_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\201609271054181_setupMigration.cs" />
+    <Compile Include="Migrations\201609271054181_setupMigration.Designer.cs">
+      <DependentUpon>201609271054181_setupMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609281239014_added_document_url.cs" />
+    <Compile Include="Migrations\201609281239014_added_document_url.Designer.cs">
+      <DependentUpon>201609281239014_added_document_url.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610031518177_added-new-field-toLoanDocuments.cs" />
+    <Compile Include="Migrations\201610031518177_added-new-field-toLoanDocuments.Designer.cs">
+      <DependentUpon>201610031518177_added-new-field-toLoanDocuments.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountModels.cs" />
@@ -306,10 +315,12 @@
     <Compile Include="Models\CustomerSavings.cs" />
     <Compile Include="Models\DividendManagementModels.cs" />
     <Compile Include="Models\Loan.cs" />
+    <Compile Include="Models\LoanDocument.cs" />
     <Compile Include="Models\LoanInterest.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\ViewModels\AdminManagementViewModel.cs" />
     <Compile Include="Models\ViewModels\CheckAccountViewModel.cs" />
+    <Compile Include="Models\ViewModels\LoanStatementViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -3443,7 +3454,6 @@
     <Content Include="css\sass\loan\_create-loan-desktop.scss" />
     <Content Include="css\sass\loan\_create-loan-general.scss" />
     <Content Include="css\sass\loan\_outstanding-view.scss" />
-    <None Include="Properties\PublishProfiles\denari-crimas-build.pubxml" />
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
     <Content Include="Images\Wrench.png" />
@@ -3456,8 +3466,18 @@
     <Content Include="Scripts\cldr\event.js" />
     <Content Include="Scripts\cldr\supplemental.js" />
     <Content Include="Scripts\cldr\unresolved.js" />
+    <Content Include="Scripts\dropzone\basic.css" />
+    <Content Include="Scripts\dropzone\basic.min.css" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.js" />
+    <Content Include="Scripts\dropzone\dropzone-amd-module.min.js" />
+    <Content Include="Scripts\dropzone\dropzone.css" />
+    <Content Include="Scripts\dropzone\dropzone.js" />
+    <Content Include="Scripts\dropzone\dropzone.min.css" />
+    <Content Include="Scripts\dropzone\dropzone.min.js" />
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\foundation.min.js" />
+    <Content Include="css\sass\dropzone-custom\_dropzone_denari.scss" />
+    <None Include="Properties\PublishProfiles\app.denari.ng.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\globalize.js" />
     <Content Include="Scripts\globalize\currency.js" />
@@ -15041,6 +15061,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Loan\_UpdateForms.cshtml" />
     <Content Include="Views\Shared\_notice_partial.cshtml" />
+    <Content Include="Views\Loan\UploadTest.cshtml" />
     <None Include="Web References\com.clickatell.api\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -15052,11 +15073,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201608231529467_InitialMigration.resx">
-      <DependentUpon>201608231529467_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -15076,6 +15092,17 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>CRIMAS_com_clickatell_api_PushServerWS</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609271054181_setupMigration.resx">
+      <DependentUpon>201609271054181_setupMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609281239014_added_document_url.resx">
+      <DependentUpon>201609281239014_added_document_url.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610031518177_added-new-field-toLoanDocuments.resx">
+      <DependentUpon>201610031518177_added-new-field-toLoanDocuments.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
