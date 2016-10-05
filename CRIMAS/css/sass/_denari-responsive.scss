@@ -4,6 +4,7 @@
 @media only screen and (max-width: 40em) {
     @import "side-nav/_side-nav-mobile.scss";
     @import "home/_home-admin-mobile.scss";
+    @import "dropzone-custom/_dropzone_denari.scss";
 
 } /* max-width 640px, mobile-only styles, use when QAing mobile issues */
 
@@ -12,10 +13,12 @@
 @media only screen and (min-width: 40.063em) { 
     @import "side-nav/_side_nav_settings-desktop.scss";
     @import "home/_home-admin-mobile.scss";
+     @import "dropzone-custom/_dropzone_denari.scss";
 } /* min-width 641px, medium screens */
 
 @media only screen and (min-width: 40.063em) and (max-width: 64em) {
     @import "side-nav/_side-nav-mobile.scss";
+      @import "dropzone-custom/_dropzone_denari.scss";
    
 } /* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
 
@@ -25,12 +28,14 @@
     @import "side-nav/_side-nav-desktop.scss";
     @import "side-nav/_side_nav_settings-desktop.scss";
     @import "home/_home-admin-desktop.scss";
+      @import "dropzone-custom/_dropzone_denari.scss";
 
 } /* min-width 1025px, large screens */
 
 @media only screen and (min-width: 64.063em) and (max-width: 90em) {
     @import "side-nav/_side-nav-desktop.scss";
     @import "side-nav/_side_nav_settings-desktop.scss";
+      @import "dropzone-custom/_dropzone_denari.scss";
 } /* min-width 1025px and max-width 1440px, use when QAing large screen-only issues */
 
 

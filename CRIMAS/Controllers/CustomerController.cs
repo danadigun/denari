@@ -125,6 +125,7 @@ namespace CRIMAS.Controllers
                 string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
 
                 customer.AccountNo = CustomerAccountNo;
+                customer.phone = "234" + customer.phone;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
 
                 db.Customers.Add(customer);

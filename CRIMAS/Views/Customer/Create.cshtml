@@ -17,9 +17,9 @@
     <div class="card" style="width:70%; margin-left:auto; margin-right:auto;">
         <div class="card-content">
             <span class="card-title" style="color:black">
-                <img src="~/Images/User Profile 1-WF.png" />Enroll a new Customer<hr />
+                Enroll a new Customer<hr />
             </span>
-            <div class="card-panel" style="background:#827717 ; color:white">
+            <div class="card-panel" style="background:whitesmoke ; color:black; border:1px solid rgb(1, 87, 155)">
                 Enter details below to enroll new customer into the system.
             </div>
             <br />
@@ -72,10 +72,15 @@
                     <label style="font-weight: bold">Residential address</label>
                     @Html.TextBoxFor(model => model.ResidentialAddress, new { @placeholder = "Residential address details.", required = "required" })
                 </div>
-
+              
                 <div class="input-field col s6 ">
                     <label style="font-weight: bold">Phone</label>
-                    @Html.TextBoxFor(model => model.phone, new { @placeholder = "", required = "required" })
+                    <span class="prefix" style="padding-bottom:13px; padding-top:7px;font-size:12pt;
+                            border:1px solid gainsboro;
+                             color:rgb(1, 87, 155); background:whitesmoke; margin-top:5px;">
+                        +234
+                    </span>
+                    @Html.TextBoxFor(model => model.phone, new { @placeholder = "enter number without first 0..", required = "required",  maxlength = 10 })
                 </div>
                 <div class="input-field col s6 ">
                     <label style="font-weight: bold">Email (optional)</label>
@@ -149,3 +154,11 @@
         box-sizing: border-box;
     }
 </style>
+<script>
+    $('input[name=phone]').on('input propertychange paste', function (e) {
+        var reg = /^0+/gi;
+        if (this.value.match(reg)) {
+            this.value = this.value.replace(reg, '');
+        }
+    });
+</script>
