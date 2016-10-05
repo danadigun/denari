@@ -27,7 +27,7 @@ namespace CRIMAS.Repository.artifacts
             SMSClient smsClient = new SMSClient(configuration);
 
             //prepare message
-            SMSRequest smsRequest = new SMSRequest("Denari", message, numbers);
+            SMSRequest smsRequest = new SMSRequest("CrMPCS", message, numbers);
 
             // Store request id because we can later query for the delivery status with it:
             var requestId = smsClient.SmsMessagingClient.SendSMS(smsRequest);
