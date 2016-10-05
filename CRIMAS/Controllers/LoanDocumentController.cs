@@ -55,7 +55,7 @@ namespace CRIMAS.Controllers
                 return Json(new { Message = "successfully removed " + doc.filename });
             }else
             {
-                return Json(new { Message = "unable to remove file " + doc.filename });
+                return Json(new { error = "unable to remove file " + doc.filename });
             }
            
         }

@@ -16,6 +16,7 @@
     var _context = new CRIMAS.Models.CrimasDb();
     var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
 
+
     var loan_docs = Model.loanDocuments;
     int i = 1;
 
@@ -30,7 +31,11 @@
     <!--Loan Details-->
     <div class="card">
         <div class="card-content">
-            <br /> <h5>Loan Details</h5><hr /><br />
+            <br />
+            <h5>
+                Loan Details
+                <img style="width:50px; float:right" id="ProfileImage" name="file" class="circle responsive-img valign" src="/Customer/RetrieveImage/1">
+            </h5><hr /><br />
             <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
 
             <table class="table bordered striped">
@@ -65,12 +70,12 @@
         <li>
             <div class="collapsible-header"><i style="color:#0078d7" class="ion ion-ios-cloud-upload"></i>View/update loan application forms - Loan agreements, guarantors and irrevocable autority</div>
             <div class="collapsible-body notice">
-                <div style="padding-bottom:150px; padding-top:10px; padding-left:20px; padding-right:20px; min-height:500px">
+                <div style="padding-bottom:150px; padding-top:10px; padding-left:20px; padding-right:20px; min-height:200px">
                     @Html.Raw(TempData["msg"])
                     @{
-                            if (Model.loanDocuments.Count == 0)
-                            {
-                                <i style="text-align:center">There are no documents for this loan application</i>
+                        if (Model.loanDocuments.Count == 0)
+                        {
+                            <i style="text-align:center">There are no documents for this loan application</i>
                                 <button style="float:right" class="waves-effect waves-light btn modal-trigger" href="#modal1">+ Add documents</button>
                         }
                         else
@@ -82,17 +87,17 @@
                                 </span>
                             </p><hr /><br />
                             <table class="table bordered table-condensed striped">
-                               
+
                                 @foreach (var file in loan_docs)
                                 {
-                                    <tr>
+                                    <tr id="doc_@file.Id">
                                         <td>
                                             <img class="materialboxed" data-caption="loan document _ @file.LoanId" width="20" src="@file.docUrl">
 
                                         </td>
                                         <td>
                                             <span>&nbsp; @file.filename</span>
-                                            <a href="~/LoanDocument/remove?docId=@file.Id" style="float:right; color:red; font-size:16pt;">
+                                            <a onclick="removeDoc(@file.Id)" style="float:right; color:red; font-size:16pt; cursor:pointer">
                                                 <i class="ion ion-trash-a"></i>
                                             </a>
                                         </td>
@@ -101,8 +106,8 @@
                             </table>
                         }
                     }
-                   
-               
+
+
                 </div>
 
 
@@ -126,14 +131,14 @@
                 </tr>
                 @foreach (var transaction in Model.LoanTransactions)
                     {
-                    <tr>
-                        <td>@i</td>
-                        <td>@transaction.DateCreated</td>
-                        <td>@transaction.Narration</td>
-                        <td>@transaction.Cr</td>
-                        <td>@transaction.Dr</td>
+                <tr>
+                    <td>@i</td>
+                    <td>@transaction.DateCreated</td>
+                    <td>@transaction.Narration</td>
+                    <td>@transaction.Cr</td>
+                    <td>@transaction.Dr</td>
 
-                        @if ((transaction.Cr - transaction.Dr) < 0)
+                    @if ((transaction.Cr - transaction.Dr) < 0)
                             {
                         <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
                             }
@@ -142,7 +147,7 @@
                         <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
                             }
 
-                    </tr>
+                </tr>
                         i++;
 
                         total_Cr = total_Cr + transaction.Cr;
@@ -178,7 +183,7 @@
                         <i class="ion ion-ios-cloud-upload-outline"></i><br />
                         Click to upload or drag/drop scanned pages of loan application documents
                     </span><br />
-                 
+
                 </div>
                 <div class="fallback">
                     <input name="file" type="file" multiple required />
@@ -188,12 +193,12 @@
     </div>
     <div class="modal-footer">
         <button id="formCreateLoan_post" style="float:right;" type="submit" class="btn modal-action modal-close waves-effect waves-green btn-flat">Upload</button>
-   </div>     
+    </div>
 </div>
 
-   
+
 @section Scripts {
-<script type="text/javascript">
+    <script type="text/javascript">
 
         $(document).ready(function () {
             $('.materialboxed').materialbox();
@@ -206,78 +211,117 @@
 
             $('.modal-trigger').leanModal();
 
-           
 
         });
 
+        //remove document
+        function removeDoc(id){
+            //alert(id);
+            swal({  
+                title: " ",
+                text: "Are you sure you want to remove this document? You will not be able to recover this loan file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+            function(){
+                //post to delete api
+                $('button.confirm').html("please wait...");
+                $.ajax({
+
+                    url : '/LoanDocument/remove?docId='+id,
+                    type:'POST',
+
+                }).done(function(response){
+
+                    if(response.error){
+                        swal("Error",
+                            "Unable to remove file", "error");
+                    }
+                    else{
+                        swal("Deleted!",
+                             response.Message, "success");
+                        $('#doc_'+id).fadeOut();
+                    }                   
+                   
+                }).fail(function(response){
+                    swal("Error",
+                   "Unable to remove file", "error");
+                })
+                
+            });
+        }
 
 
 
-</script>
 
-<script>
-    $(function () {
-        Dropzone.options.myDropzone = {
-            url: "/LoanDocument/add",
-            autoProcessQueue: false,
-            uploadMultiple: true,
-            parallelUploads: 100,
-            maxFiles: 100,
-            maxFilesize: 2.5,
-            acceptedFiles: "image/*",
+    </script>
 
-            init: function () {
+    <script>
+        $(function () {
+            Dropzone.options.myDropzone = {
+                url: "/LoanDocument/add",
+                autoProcessQueue: false,
+                uploadMultiple: true,
+                parallelUploads: 100,
+                maxFiles: 100,
+                maxFilesize: 5,
+                acceptedFiles: "image/*",
 
-                var submitButton = document.querySelector("#formCreateLoan_post");
-                var wrapperThis = this;
+                init: function () {
 
-                submitButton.addEventListener("click", function (e) {
-                    wrapperThis.processQueue();
-                    e.preventDefault();
-                });
+                    var submitButton = document.querySelector("#formCreateLoan_post");
+                    var wrapperThis = this;
 
-                this.on("addedfile", function (file) {
-
-                    // Create the remove button
-                    var removeButton = Dropzone.createElement("<button class='btn btn-float dark'>Remove File</button>");
-
-                    // Listen to the click event
-                    removeButton.addEventListener("click", function (e) {
-                        // Make sure the button click doesn't submit the form:
+                    submitButton.addEventListener("click", function (e) {
+                        wrapperThis.processQueue();
                         e.preventDefault();
-                        e.stopPropagation();
-
-                        // Remove the file preview.
-                        wrapperThis.removeFile(file);
-                        // If you want to the delete the file on the server as well,
-                        // you can do the AJAX request here.
                     });
 
-                    // Add the button to the file preview element.
-                    file.previewElement.appendChild(removeButton);
-                });
+                    this.on("addedfile", function (file) {
 
-                this.on('sendingmultiple', function (data, xhr, formData) {
-                    $('.notice').html("<div class=\"progress\"> <p>setting up loan details...</p><div class=\"indeterminate\"></div></div>");
-                    formData.append("AccountNo", @loan.AccountNo);
-                    formData.append("LoanId", @loan.Id);
+                        // Create the remove button
+                        var removeButton = Dropzone.createElement("<button class='btn btn-float dark'>Remove File</button>");
 
-                });
+                        // Listen to the click event
+                        removeButton.addEventListener("click", function (e) {
+                            // Make sure the button click doesn't submit the form:
+                            e.preventDefault();
+                            e.stopPropagation();
 
-                this.on('success', function (file, response) {
-                    $('.notice').html(response.Message);
-                    sweetAlert("Success", response.Message, "success");
-                    $(location).attr('href', '/Loan/statement?loanId=@loan.Id');
-                });
+                            // Remove the file preview.
+                            wrapperThis.removeFile(file);
+                            // If you want to the delete the file on the server as well,
+                            // you can do the AJAX request here.
+                        });
 
-                this.on('error', function (file, response) {
-                    sweetAlert("error", "unable to upload documents", "error");
-                })
-            }
-        };
-    })
-</script>
-   
+                        // Add the button to the file preview element.
+                        file.previewElement.appendChild(removeButton);
+                    });
+
+                    this.on('sendingmultiple', function (data, xhr, formData) {
+                        $('.notice').html("<div class=\"progress\"> <p>setting up loan details...</p><div class=\"indeterminate\"></div></div>");
+                        formData.append("AccountNo", @loan.AccountNo);
+                        formData.append("LoanId", @loan.Id);
+
+                    });
+
+                    this.on('success', function (file, response) {
+                        $('.notice').html(response.Message);
+                        sweetAlert("Success", response.Message, "success");
+                        $(location).attr('href', '/Loan/statement?loanId=@loan.Id');
+                    });
+
+                    this.on('error', function (file, response) {
+                        sweetAlert("error", "unable to upload documents", "error");
+                    })
+                }
+            };
+        })
+    </script>
+
 }
 <style>
     .material-placeholder {
