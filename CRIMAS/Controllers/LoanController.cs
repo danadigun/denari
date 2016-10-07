@@ -175,8 +175,8 @@ namespace CRIMAS.Controllers
                     new LoanTransaction {
                          DateCreated = DateTime.Now.ToShortDateString(),
                          AccountNo = loan.AccountNo,
-                         Cr = loan.amount, //Dr
-                         Dr = decimal.Parse("0"),//Cr
+                         Cr = loan.amount, //Cr - Borrow
+                         Dr = decimal.Parse("0"),//Dr - Refund
                          createdby = User.Identity.Name.ToString(),
                          Narration = "Loan Disbursement",
                          Loan = loan

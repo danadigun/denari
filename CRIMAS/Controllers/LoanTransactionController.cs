@@ -47,15 +47,15 @@ namespace CRIMAS.Controllers
         // POST: /LoanTransaction/Create
 
         [HttpPost]
-        public ActionResult Create(LoanTransaction loantransaction, string accountNO)
+        public ActionResult Create(LoanTransaction loantransaction)
         {
-            ViewBag.AccountNo = accountNO;
+            ViewBag.AccountNo = loantransaction.AccountNo;
 
-            var CustomerAccount = db.Customers.Where(m => m.AccountNo == loantransaction.AccountNo);
+            var customer = db.Customers.Where(m => m.AccountNo == loantransaction.AccountNo);
 
             if (ModelState.IsValid)
             {
-                if (CustomerAccount.Count() != 0)
+                if (customer != null)
                 {
                     loantransaction.DateCreated = DateTime.Now.ToShortDateString();
                     loantransaction.Cr = 0;
