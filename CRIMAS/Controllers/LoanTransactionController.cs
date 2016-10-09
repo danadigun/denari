@@ -9,6 +9,7 @@ using CRIMAS.Models;
 
 namespace CRIMAS.Controllers
 {
+    
     [Authorize]
     public class LoanTransactionController : Controller
     {
@@ -45,17 +46,45 @@ namespace CRIMAS.Controllers
 
         //
         // POST: /LoanTransaction/Create
-
         [HttpPost]
-        public ActionResult Create(LoanTransaction loantransaction, string accountNO)
+        public ActionResult CheckActiveLoan(string accountNo)
         {
-            ViewBag.AccountNo = accountNO;
+            var activeloans = db.Loans.Where(x => x.AccountNo == accountNo).Where(x => x.LoanStatus == "active").ToList();
 
-            var CustomerAccount = db.Customers.Where(m => m.AccountNo == loantransaction.AccountNo);
+            return Json(new { Loans = activeloans });
+        }
+        
+        [HttpPost]
+        public ActionResult add(int loanId, decimal amount)
+        {
+            var loan = db.Loans.SingleOrDefault(x=>x.Id==loanId);
+            if(loan != null)
+            {
+                db.LoanTransactions.Add(new LoanTransaction
+                {
+                    AccountNo = loan.AccountNo,
+                    Cr = 0,
+                    createdby = User.Identity.Name,
+                    DateCreated = DateTime.Now.ToLongDateString(),
+                    Dr = amount,
+                    Loan = loan,
+                    Narration = "Loan Repayment"
+                });
+                db.SaveChanges();
+                return Json(true);
+            }
+            return Json(false);
+        }
+        [HttpPost]
+        public ActionResult Create(LoanTransaction loantransaction)
+        {
+            ViewBag.AccountNo = loantransaction.AccountNo;
+
+            var customer = db.Customers.Where(m => m.AccountNo == loantransaction.AccountNo);
 
             if (ModelState.IsValid)
             {
-                if (CustomerAccount.Count() != 0)
+                if (customer != null)
                 {
                     loantransaction.DateCreated = DateTime.Now.ToShortDateString();
                     loantransaction.Cr = 0;
@@ -63,11 +92,12 @@ namespace CRIMAS.Controllers
 
                     db.LoanTransactions.Add(loantransaction);
                     db.SaveChanges();
-                    return Redirect("~/LoanTransaction/Details/"+loantransaction.id);
+
+                    return Json(new { Message = "Successfully made loan repayment of " + loantransaction.Dr + " for customer : "+loantransaction.AccountNo });
                 }
                 else
                 {
-                    return Redirect("~/CustomerSavings/AccountNotFound");
+                    return Json(new { Error = "Unable to make loan repayment" });
                 }
               
             }

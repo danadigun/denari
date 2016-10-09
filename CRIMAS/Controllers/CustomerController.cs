@@ -75,7 +75,17 @@ namespace CRIMAS.Controllers
 
             return View(customer.ToPagedList(pageNumber, pageSize));
         }
-        //
+        
+        [HttpGet]
+        public ActionResult exist(string accountNo)
+        {
+            var customer = _customerRepository.GetAll().Where(x => x.AccountNo == accountNo).FirstOrDefault();
+            if(customer != null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
         //GET: /Customer/FindCustomer/?search=09876
         public ActionResult FindCustomer(string searchString)
         {
