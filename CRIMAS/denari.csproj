@@ -3457,6 +3457,7 @@
     <Content Include="Images\Vibrate.png" />
     <Content Include="Images\Warning Message.png" />
     <Content Include="Images\Wrench.png" />
+    <Content Include="Repository\money-format.js" />
     <Content Include="Scripts\AjaxScripts\BankReconciliation.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />

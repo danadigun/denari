@@ -1,12 +1,25 @@
-﻿@model CRIMAS.Models.LoanTransaction
+﻿@using System.Globalization;
+@using System.Threading;
+@using CRIMAS.Models;
+
+@model CRIMAS.Models.LoanTransaction
 
 @{
     ViewBag.Title = "Loan repayment";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    //Set Culture info for currency
+    CultureInfo cultureInfo = new CultureInfo("en-US");
+    cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+    Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+    var db = new CrimasDb();
+
 }
 
  
-<form name="post-repayment">
+<form name="post-repayment" class="post-form">
    
     <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
         <div class="card-content">
@@ -51,15 +64,23 @@
 <div class="result" style="width:80%; margin-left:auto; margin-right:auto;">
     <div class="card">
         <div class="card-content">
-            <h5></h5><br />
-            <button style="float:right" class="btn btn-flat apply">Apply</button><br />
+            <!--Notice-->
+            @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "")
+            <br />
 
-            <table class="table bordered striped">
-                <tr>
+            <div style="padding-bottom:2em;">
+                <span class="customer-details" style="float:left; font-size:17pt; font-weight:bold; padding-bottom:1em;"></span>
+                <button style="float:right; background:gray; color:white;" class="btn btn-flat cancel">cancel</button>
+                <button style="float:right; margin-right:20px; background:green; color:white;" class="btn btn-flat apply">Apply</button>
+
+            </div>
+            <table class="table bordered striped" style="margin-top:2em !important;">
+                <tr style="background:#0078d7; color:white;">
                     <td>Date Issued</td>
-                    <td>Amount</td>
+                    <td>Amount </td>
                     <td>Interest</td>
                     <td>Duration</td>
+                    <td>Statement</td>
                     <td>&nbsp;</td>
                 </tr>
             </table>
@@ -99,7 +120,8 @@
                 }
             },
             submitHandler: function (form) {
-
+                //busy icon
+                $('.card-action .progress').fadeIn();
                 $.ajax({
 
                     type: 'POST',
@@ -108,25 +130,34 @@
 
                 }).done(function (result) {
 
+                    //callback
+                    var loans = result.Loans;
+                    var customerId = result.CustomerId;
+
                     //busy icon
                     $('.card-action .progress').fadeIn();
 
-                    $('.result h5').html("Select which loans you want to apply repayment")
+                    $('.result .notice').html("<em><b>" + loans[0].Customername + "</b></em> has <em><b>" + loans.length + "</b></em> loans. please select which loan(s) you want to apply this repayment to")
                     $('.result').fadeIn();
                     $('.post').hide();
-                    $('.notice').hide();
+                    $('.post-form .notice').hide();
                     $('.apply').fadeIn();
 
-                    var loans = result.Loans;
+                   
 
                     if (result.Loans) {
+                        
+                        $('.customer-details').html("<img width=\"60\" class=\"circle\"  src=\"/Customer/RetrieveImage/"+customerId+"\">"+" "+loans[0].Customername);
+
                         $.each(loans, function (index, value) {
                             $('.result table').append(
                                 "<tr> " +
-                                "<td>" +ToJavaScriptDate (value.DateCreated) + "</td>" +
-                                "<td>" + value.amount + "</td>" +
-                                "<td>" + value.InterestRate + "</td>" +
-                                "<td>" + value.Duration + "</td>" +
+                                "<td> <b>" +ToJavaScriptDate (value.DateCreated) + "</b></td>" +
+                                "<td> <b>" + "₦"+ value.amount.toMoney() + "</b></td>" +
+                                "<td><b>" + value.InterestRate.toMoney() +"%"+ "</b></td>" +
+                                "<td> <b>" + value.Duration + " Months" + "</b></td>" +
+                                "<td>" + "<a class=\"btn btn-flat \" onclick=\"window.open(this.href, 'Loan statement', 'width=1420, height=900, left=24, top=24, scrollbars, resizable'); return false;\" href=\"/Loan/statement?loanId=" + value.Id + "\">View statement</a>" + "</td>" +
+
                                 "<td>" + " <input type=\"checkbox\" id=\"app-" + value.Id + "\" value=" + value.Id + " />" +
                                 " <label for=\"app-" + value.Id + "\">&nbsp;</label>" +
                                 "</td>" +
@@ -146,17 +177,30 @@
         //apply checked
         $('.apply').click(function () {
 
+            var i = 0;
+
             $('.result table input[type=checkbox]').each(function (index) {
 
                 if ($(this).prop("checked") == true) {
 
+                    i = 1;
                     $.ajax({
                         type: 'POST',
                         url: '/LoanTransaction/add?loanId='+$(this).val()+"&amount="+$('input[name=Dr]').val(),
                     })
-                }
+                } 
             })
-            alert('repayment has successfully been applied');
+
+            //we get here is no button is checked
+            if (i == 0) {
+                swal('error', 'Please select a loan from the list', "error");
+
+            } else {
+                swal('success', 'repayment has successfully been applied to customer account', "success");
+                $(location).attr('href', '/Customer/FindCustomer?searchString=' + $('input[name=AccountNo]').val());
+
+            }
+           
         })
         function ToJavaScriptDate(value) {
             var pattern = /Date\(([^)]+)\)/;
@@ -166,7 +210,7 @@
         }
     });
 </script>
-
+<script src="~/Repository/money-format.js"></script>
 <style>
     input.error{
         color:red !important;
