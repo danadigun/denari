@@ -142,7 +142,8 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     font-weight: lighter;
     background: rgba(1, 87, 155, 0.5);
     color: white;
-    padding: 20px; }
+    padding: 20px;
+    margin-bottom: 1em; }
 
   .dashboard .stats .stats-content .stats-data h1 {
     font-size: 20pt; }
@@ -207,15 +208,15 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     margin-right: 1em;
     color: white;
     padding: 20px;
-    padding-right: 25px;
-    padding-left: 25px;
-    background: rgba(1, 87, 155, 0.5);
+    /*padding-right:25px;*/
+    /*padding-left:25px;*/
+    /*background:$primary-color-rgb-chart;*/
     border-radius: 50%;
     font-size: 20pt; }
 
   .cust-stats span {
     font-size: 10pt;
-    margin-left: 10em;
+    /*margin-left:10em;*/
     /*margin-top:-5em;*/ }
 
   .cust-stats h5 {
@@ -227,6 +228,25 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     font-size: 18pt;
     margin-left: -1em;
     font-weight: bold; }
+
+  .cust-stats .cust-div {
+    background: rgba(1, 87, 155, 0.5);
+    color: white;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    padding-top: 1em; }
+
+  .cust-stats .cust-div .title {
+    font-size: 10pt;
+    display: block;
+    text-align: right;
+    padding-right: 1em; }
+
+  .cust-stats .cust-div .main {
+    text-align: right;
+    display: block;
+    padding-right: 1em;
+    font-size: 16pt; }
 
   #dropZone {
     background: gray;
@@ -314,7 +334,8 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     font-weight: lighter;
     background: rgba(1, 87, 155, 0.5);
     color: white;
-    padding: 20px; }
+    padding: 20px;
+    margin-bottom: 1em; }
 
   .dashboard .stats .stats-content .stats-data h1 {
     font-size: 20pt; }
@@ -379,15 +400,15 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     margin-right: 1em;
     color: white;
     padding: 20px;
-    padding-right: 25px;
-    padding-left: 25px;
-    background: rgba(1, 87, 155, 0.5);
+    /*padding-right:25px;*/
+    /*padding-left:25px;*/
+    /*background:$primary-color-rgb-chart;*/
     border-radius: 50%;
     font-size: 20pt; }
 
   .cust-stats span {
     font-size: 10pt;
-    margin-left: 10em;
+    /*margin-left:10em;*/
     /*margin-top:-5em;*/ }
 
   .cust-stats h5 {
@@ -399,6 +420,25 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     font-size: 18pt;
     margin-left: -1em;
     font-weight: bold; }
+
+  .cust-stats .cust-div {
+    background: rgba(1, 87, 155, 0.5);
+    color: white;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    padding-top: 1em; }
+
+  .cust-stats .cust-div .title {
+    font-size: 10pt;
+    display: block;
+    text-align: right;
+    padding-right: 1em; }
+
+  .cust-stats .cust-div .main {
+    text-align: right;
+    display: block;
+    padding-right: 1em;
+    font-size: 16pt; }
 
   #dropZone {
     background: gray;
@@ -682,15 +722,15 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     margin-right: 1em;
     color: white;
     padding: 10px;
-    padding-right: 12.5px;
-    padding-left: 12.5px;
-    background: rgba(1, 87, 155, 0.5);
+    /*padding-right:12.5px;*/
+    /*padding-left:12.5px;*/
+    /*background:$primary-color-rgb-chart;*/
     border-radius: 50%;
     font-size: 20pt; }
 
   .cust-stats span {
     font-size: 10pt;
-    margin-left: 10em;
+    /*margin-left:10em;*/
     /*margin-top:-5em;*/ }
 
   .cust-stats h5 {
@@ -701,6 +741,25 @@ picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__d
     font-size: 18pt;
     margin-left: -1em;
     font-weight: bold; }
+
+  .cust-stats .cust-div {
+    background: rgba(1, 87, 155, 0.5);
+    color: white;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    padding-top: 1em; }
+
+  .cust-stats .cust-div .title {
+    font-size: 10pt;
+    display: block;
+    text-align: right;
+    padding-right: 1em; }
+
+  .cust-stats .cust-div .main {
+    text-align: right;
+    display: block;
+    padding-right: 1em;
+    font-size: 16pt; }
 
   #dropZone {
     background: gray;

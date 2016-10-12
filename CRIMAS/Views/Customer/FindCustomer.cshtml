@@ -58,9 +58,6 @@
 
                 var finishedLoan = db.Loans.Where(x => x.AccountNo == item.AccountNo || x.Customername.Contains(item.Name)).Where(x => x.LoanStatus == "completed").ToList();
 
-
-
-
                 var savingsCredit = 0m;
                 var savingsDebit = 0m;
                 if (db.CustomerSavings.Count() != 0)
@@ -116,7 +113,7 @@
                             <div class="card" >
                                 <div class="card-content">
                                     <h5>
-                                        <img src="~/Images/Coin-01-WF.png" />Account Summary
+                                        <img src="~/Images/Coin-01-WF.png" />Savings Summary
                                         <a style="float:right" class="btn btn-primary" href="~/CustomerSavings/CheckAccount?accountno=@item.AccountNo">view account status</a>
                                     </h5><hr /><br />
 
@@ -140,11 +137,12 @@
                                 </div>
                             </div>
 
-                            //Loans
+                          //Loans
                             <div class="card" >
                                 <div class="card-content">
                                     <h5 >
                                         <img src="~/Images/loan-agr.png" /> Outstanding loans 
+                                        <a style="float:right" class="btn btn-primary" href="~/LoanTransaction/create?accountno=@item.AccountNo">Amortization</a>
                                     </h5><hr /><br />
                                     <table class="table bordered striped" style="font-size:10pt;">
                                         <tr style="background-color:#0078d7; color:white;">
@@ -163,8 +161,10 @@
                                             <tr>
                                                 <td>@record.DateCreated.ToLongDateString()</td>
                                                 <td>
-                                                    @string.Format("{0:C}",
-                                                          record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
+                                                    @{
+                                                        var pricipal_interest = record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
+                                                    }
+                                                    @string.Format("{0:C}", pricipal_interest)
                                                 </td>
                                                 <td>
                                                     @string.Format("{0:C}",
@@ -172,9 +172,24 @@
 
                                                 </td>
                                                 <td>
-                                                    @*  @record.LoanTransactions.Select(x => x.refund).FirstOrDefault();*@
+                                                    @{
+                                                        var transactions = db.LoanTransactions.Where(x => x.Loan.Id == record.Id).ToList();
+
+                                                        var total_paid = Convert.ToDecimal(transactions.Select(x => x.Dr).Sum());
+
+
+                                                    }
+                                                    @string.Format("{0:C}", total_paid)
+
+
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                    @{
+                                                        var outstanding = pricipal_interest - total_paid;
+                                                    }
+                                                    @string.Format("{0:C}", outstanding)
+                                                </td>
+
                                                 <td>
                                                     @string.Format("{0:C}", (record.amount * 0.1m))
                                                 </td>
