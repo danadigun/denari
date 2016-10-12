@@ -3474,7 +3474,6 @@
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\foundation.min.js" />
     <Content Include="css\sass\dropzone-custom\_dropzone_denari.scss" />
-    <None Include="Properties\PublishProfiles\app.denari.ng.pubxml" />
     <None Include="Properties\PublishProfiles\crimas.denari.ng.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\globalize.js" />
