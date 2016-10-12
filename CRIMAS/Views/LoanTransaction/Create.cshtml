@@ -100,7 +100,7 @@
                 AccountNo: {
                     required: true,
                     digits: true,
-                    remote: 'http://localhost:3330/Customer/exist',
+                    remote: document.location.origin+'/Customer/exist',
                 },
                 Dr: {
                     required: true,
