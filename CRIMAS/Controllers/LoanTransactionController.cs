@@ -9,6 +9,7 @@ using CRIMAS.Models;
 
 namespace CRIMAS.Controllers
 {
+    
     [Authorize]
     public class LoanTransactionController : Controller
     {
@@ -38,43 +39,67 @@ namespace CRIMAS.Controllers
         //
         // GET: /LoanTransaction/Create
 
-        public ActionResult Create()
+        public ActionResult Create(string accountNo = "")
         {
+            ViewBag.AccountNo = accountNo;
             return View();
         }
 
         //
         // POST: /LoanTransaction/Create
-
         [HttpPost]
-        public ActionResult Create(LoanTransaction loantransaction, string accountNO)
+        public ActionResult CheckActiveLoan(string accountNo)
         {
-            ViewBag.AccountNo = accountNO;
+            var activeloans = db.Loans.Where(x => x.AccountNo == accountNo).Where(x => x.LoanStatus == "active").ToList();
+            var Customer_Id = db.Customers.FirstOrDefault(x => x.AccountNo == accountNo).CustomerId;
 
-            var CustomerAccount = db.Customers.Where(m => m.AccountNo == loantransaction.AccountNo);
-
-            if (ModelState.IsValid)
+            return Json(new {CustomerId = Customer_Id,  Loans = activeloans });
+        }
+        
+        [HttpPost]
+        public ActionResult add(int loanId, decimal amount)
+        {
+            var loan = db.Loans.SingleOrDefault(x=>x.Id==loanId);
+        
+            if(loan != null)
             {
-                if (CustomerAccount.Count() != 0)
-                {
-                    loantransaction.DateCreated = DateTime.Now.ToShortDateString();
-                    loantransaction.Cr = 0;
-                    loantransaction.createdby = User.Identity.Name.ToString();
+                var total_cr = db.LoanTransactions.Where(x => x.Loan.Id == loanId).Select(x => x.Cr).Sum();
+                var total_dr = db.LoanTransactions.Where(x => x.Loan.Id == loanId).Select(x => x.Dr).Sum();
 
-                    db.LoanTransactions.Add(loantransaction);
+                if(total_cr > total_dr)
+                {
+                    db.LoanTransactions.Add(new LoanTransaction
+                    {
+                        AccountNo = loan.AccountNo,
+                        Cr = 0,
+                        createdby = User.Identity.Name,
+                        DateCreated = DateTime.Now.ToLongDateString(),
+                        Dr = amount,
+                        Loan = loan,
+                        Narration = "Loan Repayment"
+                    });
                     db.SaveChanges();
-                    return Redirect("~/LoanTransaction/Details/"+loantransaction.id);
+
+                    var cr = db.LoanTransactions.Where(x => x.Loan.Id == loanId).Select(x => x.Cr).Sum();
+                    var dr = db.LoanTransactions.Where(x => x.Loan.Id == loanId).Select(x => x.Dr).Sum();
+                    if (cr <= dr)
+                    {
+                        loan.LoanStatus = "Completed";
+                        db.SaveChanges();
+                    }
                 }
                 else
                 {
-                    return Redirect("~/CustomerSavings/AccountNotFound");
+                    loan.LoanStatus = "Completed";
+                    db.SaveChanges();
                 }
-              
+               
+                return Json(true);
             }
-
-            return View(loantransaction);
+            return Json(false);
         }
 
+        
         //
         // GET: /LoanTransaction/Edit/5
 

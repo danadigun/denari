@@ -97,7 +97,7 @@
         </script>
     </div>
     <div class="stats row">
-        <div class="col s4">
+        <div class="col s12 m4">
             <div class="stats-content hoverable">
                 <div class="stats-data">
                     @{
@@ -127,7 +127,7 @@
                 </div>
             </div>
         </div>
-        <div class="col s4">
+        <div class="col s12 m4">
             <div class="stats-content hoverable">
                 <div class="stats-data">
                     <label>Total Loans repayed (principal + Interest)</label>
@@ -139,7 +139,7 @@
             </div>
 
         </div>
-        <div class="col s4">
+        <div class="col s12 m4">
             <div class="stats-content hoverable">
                 <div class="stats-data">
                     <label>Outstanding Loans</label>
@@ -171,7 +171,7 @@
                 </h1>
             </div>
             <div class="row">
-                <div class="col s8">
+                <div class="col s12 m8">
                     @if (Model.outstanding_LoanApplicants.Count != 0)
                     {
                        
@@ -210,7 +210,7 @@
                             </script>
                         
                             <div>
-                                <a style="float:right; font-family:'Microsoft JhengHei'" class="btn btn-primary" href="~/customer">+ view more</a>
+                                <a style="float:right; font-family:'Microsoft JhengHei'" class="btn btn-primary hide-on-small-and-down" href="~/customer">+ view more</a>
                             </div>
                             }
                             else
@@ -224,20 +224,24 @@
 
 
                 </div>
-                <div class="col s4 cust-stats">
+                <div class="col s12 m4 cust-stats">
                     
                     <div class="col s12">
-                        <h5>
-                            <i class="ion ion-android-people fa"></i> @Model.total_customers
-                        </h5>
+                        <div class="cust-div">
+                            <span class="title">Customer strength</span>
+                            <i class="ion ion-android-people fa"></i> <span class="main">@Model.total_customers</span>
+                        </div>
                      @*   <span>Customer Strength</span>*@
                     </div>
                     <div class="col s12">
-                        <h5>
+                        <div class="cust-div">
+                            <span class="title">Total Savings Balance</span>
+
                             <i class="ion ion-social-buffer fa"></i>
-                            @string.Format("{0:C}", @Model.total_savingsBalance)
-                           
-                        </h5>
+                            <span class="main">
+                                @string.Format("{0:C}", @Model.total_savingsBalance)
+                            </span>
+                        </div>
                        @* <span>Total Savings</span>*@
                     </div>                    
                 </div>

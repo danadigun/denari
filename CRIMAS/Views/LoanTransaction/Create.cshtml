@@ -1,53 +1,225 @@
-﻿@model CRIMAS.Models.LoanTransaction
+﻿@using System.Globalization;
+@using System.Threading;
+@using CRIMAS.Models;
+
+@model CRIMAS.Models.LoanTransaction
 
 @{
     ViewBag.Title = "Loan repayment";
     Layout = "~/Views/Shared/_CashierLayoutPageWithCommonTasks.cshtml";
+
+    //Set Culture info for currency
+    CultureInfo cultureInfo = new CultureInfo("en-US");
+    cultureInfo.NumberFormat.CurrencySymbol = "₦";
+
+    Thread.CurrentThread.CurrentCulture = cultureInfo;
+
+    var db = new CrimasDb();
+
 }
 
+ 
+<form name="post-repayment" class="post-form">
+   
+    <div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
+        <div class="card-content">
 
-
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-<div class="card" style="width:80%; margin-left:auto; margin-right:auto;">
-    <div class="card-content">
-
-        <div class="card-title" style="color:black">
-            <span>
-                <img src="~/Images/Document-Check.png" style="padding-right: 10px;" />Customer monthly loan repayment.<hr />
-            </span>
-        </div>
-        <br />
-
-        <div class="row">
-            <div class="add-user-heading alert alert-info">
-                <span style="float: right; padding-right: 20px"></span>
-                <p><strong>Heads Up!</strong>  Please enter account number and amount to repay customer loan for the month.</p>
-            </div><br />
-           
-            <div class="col s6">
-                <label><img src="~/Images/Customer-small.png" /><b>&nbsp;&nbsp;Account number:</b></label>
-               @* <label>@ViewBag.AccountNo</label>*@
-                <input type="text" required name="AccountNo" value="@ViewBag.AccountNo" />
-                @Html.ValidationMessageFor(model => model.AccountNo, string.Empty, new { @class = "ValidationMessage" })
-            </div>
-
-            <div class="col s6">
-                <label><b>Amount to refund:</b></label>
-                @Html.EditorFor(model => model.Cr)
-                @Html.ValidationMessageFor(model => model.Cr, string.Empty, new { @class = "ValidationMessage" })
+            <div class="card-title" style="color:black">
+                <span>
+                   Customer monthly loan repayment.<hr />
+                </span>
             </div>
             <br />
-          
+            <!--Notice-->
+            @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "Please enter account number and amount to repay customer loan for the month.")
+
+
+            <div class="row">
+              
+                <div class="col s6">
+                    <label><b>Account number:</b></label>
+                    <input type="text"  name="AccountNo" value="@ViewBag.AccountNo" />
+                </div>
+
+                <div class="col s6">
+                    <label><b>Amount to refund:</b></label>
+                    <input type="text"  name="Dr" id="Dr" />
+                </div>
+                <br />
+
+            </div>
+            <div class="card-action">
+                
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
+                
+                <input type="submit" class="btn btn-success post" value="Make loan payment" />
+                <a href="@Url.Action("Index","Loan")" class="btn btn-info post">Back to loan list</a>
+            </div>
         </div>
-        <div class="card-action">
-            <input type="submit" class="btn btn-success" value="Make loan payment" />
-            <a href="@Url.Action("Index","Loan")" class="btn btn-info">Back to loan list</a>
+    
+    </div>
+</form>
+<div class="result" style="width:80%; margin-left:auto; margin-right:auto;">
+    <div class="card">
+        <div class="card-content">
+            <!--Notice-->
+            @Html.Partial("~/Views/Shared/_notice_partial.cshtml", "")
+            <br />
+
+            <div style="padding-bottom:2em;">
+                <span class="customer-details" style="float:left; font-size:17pt; font-weight:bold; padding-bottom:1em;"></span>
+                <button style="float:right; background:gray; color:white;" class="btn btn-flat cancel">cancel</button>
+                <button style="float:right; margin-right:20px; background:green; color:white;" class="btn btn-flat apply">Apply</button>
+
+            </div>
+            <table class="table bordered striped" style="margin-top:2em !important;">
+                <tr style="background:#0078d7; color:white;">
+                    <td>Date Issued</td>
+                    <td>Amount </td>
+                    <td>Interest</td>
+                    <td>Duration</td>
+                    <td>Statement</td>
+                    <td>&nbsp;</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
-}
+<script>
+    $(function () {
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        $('.result').hide();
+        $('.card-action .progress').hide();
+        $('.apply').hide();
+
+        $('form[name=post-repayment]').validate({
+
+            rules: {
+                AccountNo: {
+                    required: true,
+                    digits: true,
+                    remote: 'http://localhost:3330/Customer/exist',
+                },
+                Dr: {
+                    required: true,
+                    //digits: true,
+                    number:true
+                }
+            },
+            messages: {
+                AccountNo: {
+                    required: 'Please enter customer <em><b>Account Number<b></em>.',
+                    digits: 'You can only enter <em><b>numbers</b></em> here',
+                    remote: $.validator.format("{0} is not associated with any account! Would you like to <a href=\"/customer/create\"><em><b>add new customer</d></em></a> ? "),
+                },
+                Dr: {
+                    required: 'Please enter amount to repay',
+                    number: 'You can only enter <em><b>numbers</b></em> here',
+                }
+            },
+            submitHandler: function (form) {
+                //busy icon
+                $('.card-action .progress').fadeIn();
+                $.ajax({
+
+                    type: 'POST',
+                    url: '/LoanTransaction/CheckActiveLoan',
+                    data: $(form).serialize()
+
+                }).done(function (result) {
+
+                    //callback
+                    var loans = result.Loans;
+                    var customerId = result.CustomerId;
+
+                    //busy icon
+                    $('.card-action .progress').fadeIn();
+
+                    $('.result .notice').html("<em><b>" + loans[0].Customername + "</b></em> has <em><b>" + loans.length + "</b></em> loans. please select which loan(s) you want to apply this repayment to")
+                    $('.result').fadeIn();
+                    $('.post').hide();
+                    $('.post-form .notice').hide();
+                    $('.apply').fadeIn();
+
+                   
+
+                    if (result.Loans) {
+                        
+                        $('.customer-details').html("<img width=\"60\" class=\"circle\"  src=\"/Customer/RetrieveImage/"+customerId+"\">"+" "+loans[0].Customername);
+
+                        $.each(loans, function (index, value) {
+                            $('.result table').append(
+                                "<tr> " +
+                                "<td> <b>" +ToJavaScriptDate (value.DateCreated) + "</b></td>" +
+                                "<td> <b>" + "₦"+ value.amount.toMoney() + "</b></td>" +
+                                "<td><b>" + value.InterestRate.toMoney() +"%"+ "</b></td>" +
+                                "<td> <b>" + value.Duration + " Months" + "</b></td>" +
+                                "<td>" + "<a class=\"btn btn-flat \" onclick=\"window.open(this.href, 'Loan statement', 'width=1420, height=900, left=24, top=24, scrollbars, resizable'); return false;\" href=\"/Loan/statement?loanId=" + value.Id + "\">View statement</a>" + "</td>" +
+
+                                "<td>" + " <input type=\"checkbox\" id=\"app-" + value.Id + "\" value=" + value.Id + " />" +
+                                " <label for=\"app-" + value.Id + "\">&nbsp;</label>" +
+                                "</td>" +
+                                "</tr>" 
+                             );
+                        })
+                        $('.card-action .progress').fadeOut();
+                    }
+
+                }).fail(function () {
+                    alert('unable to complete request');
+                })
+            }
+        });
+            
+       
+        //apply checked
+        $('.apply').click(function () {
+
+            var i = 0;
+
+            $('.result table input[type=checkbox]').each(function (index) {
+
+                if ($(this).prop("checked") == true) {
+
+                    i = 1;
+                    $.ajax({
+                        type: 'POST',
+                        url: '/LoanTransaction/add?loanId='+$(this).val()+"&amount="+$('input[name=Dr]').val(),
+                    })
+                } 
+            })
+
+            //we get here is no button is checked
+            if (i == 0) {
+                swal('error', 'Please select a loan from the list', "error");
+
+            } else {
+                swal('success', 'repayment has successfully been applied to customer account', "success");
+                $(location).attr('href', '/Customer/FindCustomer?searchString=' + $('input[name=AccountNo]').val());
+
+            }
+           
+        })
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
+        }
+    });
+</script>
+<script src="~/Repository/money-format.js"></script>
+<style>
+    input.error{
+        color:red !important;
+        font-weight:bold;      
+    }
+    input[type=text]{
+        font-size:19pt; color:blue;
+    }
+    /*.result{
+        padding:1em;
+    }*/
+</style>
