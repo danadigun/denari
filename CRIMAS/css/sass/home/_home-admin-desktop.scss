@@ -110,15 +110,15 @@ font-family:'Microsoft JhengHei';
        margin-right:1em;
        color:white;
        padding:10px;
-       padding-right:12.5px;
-       padding-left:12.5px;
-       background:$primary-color-rgb-chart;
+       /*padding-right:12.5px;*/
+       /*padding-left:12.5px;*/
+       /*background:$primary-color-rgb-chart;*/
        border-radius:50%;
        font-size:20pt;
    }
     .cust-stats span{
         font-size:10pt; 
-        margin-left:10em;
+        /*margin-left:10em;*/
         /*margin-top:-5em;*/
     }
     .cust-stats h5{
@@ -130,3 +130,25 @@ font-family:'Microsoft JhengHei';
         margin-left:-1em;
         font-weight:bold;
     }
+
+    .cust-stats .cust-div{
+        background:$primary-color-rgb-chart;
+        color:white;
+        margin-bottom:1em;
+        padding-bottom:1em;
+        padding-top:1em;
+    }
+
+     .cust-stats .cust-div .title{
+        font-size:10pt;
+        display:block;
+        text-align:right;
+        padding-right:1em;  
+      }
+
+     .cust-stats .cust-div .main{
+         text-align:right;
+         display:block;
+         padding-right:1em;
+         font-size:16pt;
+      }
