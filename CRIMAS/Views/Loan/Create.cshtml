@@ -137,9 +137,17 @@
                 });
 
                 this.on('success', function (file, response) {
-                    $('.notice').html(response.Message);
-                    sweetAlert("Success", response.Message, "success");
-                    $(location).attr('href', '/Loan');
+                    if (response.error) {
+                        $('.notice').html(response.error);
+
+                    } else {
+                        sweetAlert("Success", response.Message, "success");
+                        $('.notice').html(response.Message);
+                        $(location).attr('href', '/Loan');
+
+                    }
+                   
+                  
                 });
 
                 this.on('error', function (file, response) {
