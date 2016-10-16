@@ -38,31 +38,37 @@ namespace CRIMAS.Repository.artifacts
         public void sendCreditAlert(string accountNo, decimal creditAmount, string transaction_msg)
         {
             var customer = _db.Customers.Where(x => x.AccountNo == accountNo).FirstOrDefault();
-            string[] phoneNo = { customer.phone.ToString() };
-            var credit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Credit).Sum();
-            var debit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Debit).Sum();
-            var balance = credit - debit;
+            if (customer.phone != null)
+            {
+                string[] phoneNo = { customer.phone.ToString() };
+                var credit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Credit).Sum();
+                var debit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Debit).Sum();
+                var balance = credit - debit;
 
-            sendMessage("A credit of NGN" + creditAmount.ToString()
-                + " occurred on your account. Date: "
-                + DateTime.Now.ToShortDateString()
-                + transaction_msg +
-                "Balance: NGN" + balance, phoneNo);
+                sendMessage("A credit of NGN" + creditAmount.ToString()
+                    + " occurred on your account. Date: "
+                    + DateTime.Now.ToShortDateString()
+                    + " " + transaction_msg +
+                    "Balance: NGN" + balance, phoneNo);
+            }
         }
 
         public void sendDebitAlert(string accountNo, decimal debitAmount, string transaction_msg)
         {
             var customer = _db.Customers.Where(x => x.AccountNo == accountNo).FirstOrDefault();
-            string[] phoneNo = { customer.phone.ToString() };
-            var credit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Credit).Sum();
-            var debit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Debit).Sum();
-            var balance = credit - debit;
+            if(customer.phone != null)
+            {
+                string[] phoneNo = { customer.phone.ToString() };
+                var credit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Credit).Sum();
+                var debit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Debit).Sum();
+                var balance = credit - debit;
 
-            sendMessage("A debit of NGN" + debitAmount
-                + " occurred on your account. Date: "
-                + DateTime.Now.ToShortDateString()
-                + "Details: "+ transaction_msg +
-                "Balance: NGN" + balance, phoneNo);
+                sendMessage("A debit of NGN" + debitAmount
+                    + " occurred on your account. Date: "
+                    + DateTime.Now.ToShortDateString()
+                    + "Details: " + transaction_msg +
+                    "Balance: NGN" + balance, phoneNo);
+            }
         }
     }
 }

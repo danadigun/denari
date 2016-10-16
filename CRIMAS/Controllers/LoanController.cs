@@ -115,7 +115,11 @@ namespace CRIMAS.Controllers
                     return Json(new { error = "Account does not exists" });
                 }
 
-                var deposit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Sum(x => x.Credit - x.Debit);
+                var deposit_credit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x => x.Credit).DefaultIfEmpty(0).Sum();
+                var deposit_debit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x => x.Debit).DefaultIfEmpty(0).Sum();
+
+                var deposit = deposit_credit - deposit_debit;
+
                 var percent = loan.amount * Convert.ToDecimal(0.10);
 
                 if (deposit <= percent)
