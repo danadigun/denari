@@ -27,7 +27,7 @@ namespace CRIMAS.Repository.artifacts
             SMSClient smsClient = new SMSClient(configuration);
 
             //prepare message
-            SMSRequest smsRequest = new SMSRequest("Denari", message, numbers);
+            SMSRequest smsRequest = new SMSRequest("CrMPCS", message, numbers);
 
             // Store request id because we can later query for the delivery status with it:
             var requestId = smsClient.SmsMessagingClient.SendSMS(smsRequest);
@@ -38,7 +38,7 @@ namespace CRIMAS.Repository.artifacts
         public void sendCreditAlert(string accountNo, decimal creditAmount, string transaction_msg)
         {
             var customer = _db.Customers.Where(x => x.AccountNo == accountNo).FirstOrDefault();
-            if (customer.phone != null)
+            if(customer.phone != null)
             {
                 string[] phoneNo = { customer.phone.ToString() };
                 var credit = _db.CustomerSavings.Where(x => x.AccountNo == accountNo).ToList().Select(x => x.Credit).Sum();
@@ -48,9 +48,10 @@ namespace CRIMAS.Repository.artifacts
                 sendMessage("A credit of NGN" + creditAmount.ToString()
                     + " occurred on your account. Date: "
                     + DateTime.Now.ToShortDateString()
-                    + " " + transaction_msg +
+                    + " "+transaction_msg +
                     "Balance: NGN" + balance, phoneNo);
             }
+           
         }
 
         public void sendDebitAlert(string accountNo, decimal debitAmount, string transaction_msg)

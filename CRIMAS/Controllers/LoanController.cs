@@ -114,9 +114,8 @@ namespace CRIMAS.Controllers
                     //ModelState.AddModelError("Account Not Exists", "Account does not exists.");
                     return Json(new { error = "Account does not exists" });
                 }
-
-                var deposit_credit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x => x.Credit).DefaultIfEmpty(0).Sum();
-                var deposit_debit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x => x.Debit).DefaultIfEmpty(0).Sum();
+                var deposit_credit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x=>x.Credit).DefaultIfEmpty(0).Sum();
+                var deposit_debit = _context.CustomerSavings.Where(x => x.AccountNo == loan.AccountNo).Select(x=>x.Debit).DefaultIfEmpty(0).Sum();
 
                 var deposit = deposit_credit - deposit_debit;
 
@@ -179,8 +178,8 @@ namespace CRIMAS.Controllers
                     new LoanTransaction {
                          DateCreated = DateTime.Now.ToShortDateString(),
                          AccountNo = loan.AccountNo,
-                         Cr = loan.amount, //Cr - Borrow
-                         Dr = decimal.Parse("0"),//Dr - Refund
+                         Cr = loan.amount, //Dr
+                         Dr = decimal.Parse("0"),//Cr
                          createdby = User.Identity.Name.ToString(),
                          Narration = "Loan Disbursement",
                          Loan = loan
