@@ -132,9 +132,9 @@ namespace CRIMAS.Controllers
             {
                 
 
-                string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
+                //string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
 
-                customer.AccountNo = CustomerAccountNo;
+                //customer.AccountNo = CustomerAccountNo;
                 customer.phone = "234" + customer.phone;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
 
@@ -143,7 +143,7 @@ namespace CRIMAS.Controllers
                 //Credit the customer's account with seed money
                 var credit = new CustomerSavings
                 {
-                    AccountNo = CustomerAccountNo,
+                    AccountNo = customer.AccountNo,
                     Credit = 0,
                     Debit = 0,
                     //DateCreated=DateTime.Now.ToShortDateString(),
@@ -274,11 +274,25 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var customer_updating = db.Customers.Find(customer.CustomerId);
+                if (customer_updating != null)
+                {
+                    customer_updating.AccountNo = customer.AccountNo;
+                    customer_updating.Name = customer.Name;
+                    customer_updating.NextOfkin = customer.NextOfkin;
+                    customer_updating.OfficeAddress = customer.OfficeAddress;
+                    customer_updating.phone = customer.phone;
+                    customer_updating.ResidentialAddress = customer.ResidentialAddress;
+                    customer_updating.StateOfOrigin = customer.StateOfOrigin;
+                    customer_updating.employer = customer.employer;
+                    customer_updating.Email = customer.Email;
+
+
+                    db.SaveChanges();
+                    return Json(new { Message = "Successfully updated customer record" });
+                }
             }
-            return View(customer);
+            return Json(new { error = "Unable to update record" });
         }
 
         //
