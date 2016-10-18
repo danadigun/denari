@@ -11,18 +11,30 @@ using WebMatrix.WebData;
 using CRIMAS.Models;
 using CRIMAS.SupportClasses;
 using System.Configuration;
+using System.Data.Entity;
 
 namespace CRIMAS.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        public AccountController()
+        {
+            //var  server = new Microsoft.SqlServer.Server(".\\SQLEXPRESS");
+            //Database database = new Database(server, dbName);
+            //database.Refresh();
+            //server.KillAllProcesses(dbName);
+            //database.DatabaseOptions.UserAccess = DatabaseUserAccess.Single;
+            //database.Alter(TerminationClause.RollbackTransactionsImmediately);
+        }
         //
         // GET: /Account/Login
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+           
+
             ViewBag.Message = TempData["Message"];
             ViewBag.MessageType = TempData["MessageType"];
 
@@ -36,10 +48,7 @@ namespace CRIMAS.Controllers
             {
                 return Redirect("~/Home/Cashier");
             }
-            //if (User.IsInRole("Manager"))
-            //{
-            //    return Redirect("~/Home/Cashier");
-            //}
+           
             return View();
         }
 

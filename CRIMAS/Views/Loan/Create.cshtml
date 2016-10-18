@@ -68,10 +68,9 @@
                 <div class="dz-message" data-dz-message>
                     <span style="font-size:18pt; text-align:center">
                         <i class="ion ion-ios-cloud-upload-outline"></i><br />
-                        Click to upload or drag/drop loan application documents
+                        Click to upload or drag/drop scanned copies of loan application documents
                     </span><br />
-                    <span><i>You can add multiple pages(.jpg, .png, .pdf, .doc, .docx). Max Size: 2.5mb</i></span><br />
-                    <span><i>Files are uploaded automatically immediately.</i></span>
+                    <span><i>Max file Size: 5mb</i></span><br />
                 </div>
                 <div class="fallback">
                     <input name="file" type="file" multiple required />
@@ -94,8 +93,8 @@
             uploadMultiple: true,
             parallelUploads: 100,
             maxFiles: 100,
-            maxFilesize: 2.5,
-            acceptedFiles: "image/*, .pdf, .doc, .docx",
+            maxFilesize: 5,
+            acceptedFiles: "image/*",
 
             init: function () {
 
@@ -147,6 +146,8 @@
                         $(location).attr('href', '/Loan');
 
                     }
+                   
+                  
                 });
 
                 this.on('error', function (file, response) {
@@ -157,7 +158,7 @@
 
 
             }
-        }
+        };
     })
 </script>
 

@@ -15,6 +15,7 @@
 
     var _context = new CRIMAS.Models.CrimasDb();
     var loan = _context.Loans.FirstOrDefault(x => x.Id == loan_id);
+    var customerID = _context.Customers.FirstOrDefault(x => x.AccountNo == loan.AccountNo).CustomerId;
 
 
     var loan_docs = Model.loanDocuments;
@@ -34,7 +35,7 @@
             <br />
             <h5>
                 Loan Details
-                <img style="width:50px; float:right" id="ProfileImage" name="file" class="circle responsive-img valign" src="/Customer/RetrieveImage/1">
+                <img style="width:50px; float:right" id="ProfileImage" name="file" class="circle responsive-img valign" src="/Customer/RetrieveImage/@customerID">
             </h5><hr /><br />
             <p style="padding-bottom:20px;"> Date Issued : <i>@loan.DateCreated.ToLongDateString()</i></p>
 
