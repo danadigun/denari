@@ -25,10 +25,14 @@
             <br />
             <div class="row">
 
-                <div class="input-field col s12">
+                <div class="input-field col s4">
+                    <label for="name" style="font-weight: bold">Account Number</label>
+                    @Html.TextBoxFor(model => model.AccountNo, string.Empty, new { @placeholder = "XXXX-XXX", @class = "validate", @id = "AccountNo", required = "required", @pattern= "[-+]?[0-9]*[.,]?[0-9]+" })
+                </div>
+                <div class="input-field col s8" style="margin-top:-1px; margin-bottom:1px;">
                     <div class="file-field input-field">
                         <div class="btn">
-                            <span>Image</span>
+                            <span>Profile picture</span>
                             <input type="file" name="file" id="file">
                         </div>
                         <div class="file-path-wrapper">

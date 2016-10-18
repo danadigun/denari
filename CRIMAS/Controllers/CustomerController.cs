@@ -132,9 +132,9 @@ namespace CRIMAS.Controllers
             {
                 
 
-                string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
+                //string CustomerAccountNo = new Random().Next(10000, 90000).ToString();
 
-                customer.AccountNo = CustomerAccountNo;
+                //customer.AccountNo = CustomerAccountNo;
                 customer.phone = "234" + customer.phone;
                 customer.DateCreated = DateTime.Now.ToShortDateString();
 
@@ -143,7 +143,7 @@ namespace CRIMAS.Controllers
                 //Credit the customer's account with seed money
                 var credit = new CustomerSavings
                 {
-                    AccountNo = CustomerAccountNo,
+                    AccountNo = customer.AccountNo,
                     Credit = 0,
                     Debit = 0,
                     //DateCreated=DateTime.Now.ToShortDateString(),
@@ -276,9 +276,9 @@ namespace CRIMAS.Controllers
             {
                 db.Entry(customer).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new {Message = "Successfully updated customer record" });
             }
-            return View(customer);
+            return Json(new { error = "Unable to update record" });
         }
 
         //
