@@ -48,6 +48,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bugsnag, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bugsnag.1.3.0.0\lib\Net35\Bugsnag.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
       <Private>True</Private>
@@ -292,10 +296,6 @@
     <Compile Include="Controllers\ReconcilliationSettingsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609271054181_setupMigration.cs" />
-    <Compile Include="Migrations\201609271054181_setupMigration.Designer.cs">
-      <DependentUpon>201609271054181_setupMigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201609281239014_added_document_url.cs" />
     <Compile Include="Migrations\201609281239014_added_document_url.Designer.cs">
@@ -3051,6 +3051,7 @@
     <Content Include="Images\Credit-black.png" />
     <Content Include="Images\CreditAccount.png" />
     <Content Include="Images\Crimas-header.png" />
+    <Content Include="Images\crimas_logo.png" />
     <Content Include="Images\Customer%282%29.png" />
     <Content Include="Images\Customer-small.png" />
     <Content Include="Images\Customer-WF.png" />
@@ -3478,7 +3479,7 @@
     <Content Include="Scripts\floating-1.12.js" />
     <Content Include="Scripts\foundation.min.js" />
     <Content Include="css\sass\dropzone-custom\_dropzone_denari.scss" />
-    <None Include="Properties\PublishProfiles\app.denari.ng.pubxml" />
+    <None Include="Properties\PublishProfiles\crimas.denari.ng.pubxml" />
     <None Include="Scripts\jquery-1.11.3.intellisense.js" />
     <Content Include="Scripts\globalize.js" />
     <Content Include="Scripts\globalize\currency.js" />
@@ -15095,9 +15096,6 @@
     </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609271054181_setupMigration.resx">
-      <DependentUpon>201609271054181_setupMigration.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609281239014_added_document_url.resx">
       <DependentUpon>201609281239014_added_document_url.cs</DependentUpon>
     </EmbeddedResource>
