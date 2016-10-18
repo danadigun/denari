@@ -83,12 +83,12 @@
 
                     @if (item.image != null)
                     {
-                        <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                    <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/Customer/RetrieveImage/@item.CustomerId" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
                     }
                     else
                     {
-                        <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
+                    <img id="ProfileImage" name="file" class="circle responsive-img valign" src="~/images/user-48.png" /> @Html.DisplayFor(modelItem => item.Name)<hr />
 
                     }
 
@@ -109,8 +109,8 @@
             </div>
 
 
-                                       //account Summary
-                                      <div class="card">
+            //account Summary
+            <div class="card">
                 <div class="card-content">
                     <h5>
                         <img src="~/Images/Coin-01-WF.png" />Savings Summary
@@ -137,8 +137,8 @@
                 </div>
             </div>
 
-                                      //Loans
-                                       <div class="card">
+            //Loans
+            <div class="card">
                 <div class="card-content">
                     <h5>
                         <img src="~/Images/loan-agr.png" /> Outstanding loans
@@ -158,46 +158,46 @@
                         @foreach (var record in customerLoan)
                         {
 
-                            <tr>
-                                <td>@record.DateCreated.ToLongDateString()</td>
-                                <td>
-                                    @{
+                        <tr>
+                            <td>@record.DateCreated.ToLongDateString()</td>
+                            <td>
+                                @{
                                         var pricipal_interest = record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
-                                    }
-                                    @string.Format("{0:C}", pricipal_interest)
-                                </td>
-                                <td>
-                                    @string.Format("{0:C}",
+                                }
+                                @string.Format("{0:C}", pricipal_interest)
+                            </td>
+                            <td>
+                                @string.Format("{0:C}",
                                                          (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
 
-                                </td>
-                                <td>
-                                    @{
+                            </td>
+                            <td>
+                                @{
                                         var transactions = db.LoanTransactions.Where(x => x.Loan.Id == record.Id).ToList();
 
                                         var total_paid = Convert.ToDecimal(transactions.Select(x => x.Dr).Sum());
 
 
-                                    }
-                                    @string.Format("{0:C}", total_paid)
+                                }
+                                @string.Format("{0:C}", total_paid)
 
 
-                                </td>
-                                <td>
-                                    @{
+                            </td>
+                            <td>
+                                @{
                                         var outstanding = pricipal_interest - total_paid;
-                                    }
-                                    @string.Format("{0:C}", outstanding)
-                                </td>
+                                }
+                                @string.Format("{0:C}", outstanding)
+                            </td>
 
-                                <td>
-                                    @string.Format("{0:C}", (record.amount * 0.1m))
-                                </td>
-                                <td>
-                                    <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
+                            <td>
+                                @string.Format("{0:C}", (record.amount * 0.1m))
+                            </td>
+                            <td>
+                                <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                                             outstanding_totalInterest = outstanding_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
                                             outstanding_totalPrincipalPlusInterest = outstanding_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
                                         }
@@ -221,139 +221,139 @@
                 </div>
             </div>
 
-                                        //finished loans
-                                        <ul class="card collapsible" data-collapsible="accordion">
-                                            <li>
-                                                <div class="collapsible-header">
-                                                    <span style="float:right; padding-right:2em;">
-                                                        <b> Finished loans </b>
-                                                    </span>
-                                                    <i class="material-icons">restore</i>
+                                    //finished loans
+                                    <ul class="card collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <span style="float:right; padding-right:2em;">
+                                                    <b> Finished loans </b>
+                                                </span>
+                                                <i class="material-icons">restore</i>
 
-                                                </div>
-                                                <div class="collapsible-body card-content">
-                                                    <div>
-                                                        <div class="card-content">
+                                            </div>
+                                            <div class="collapsible-body card-content">
+                                                <div>
+                                                    <div class="card-content">
 
-                                                            <table class="table bordered striped" style="font-size:10pt;">
-                                                                <tr style="background-color:gray; color:white;">
-                                                                    <td>Date Issued</td>
-                                                                    <td>Principal + Interest</td>
-                                                                    <td>Interest</td>
-                                                                    <td>Total Paid</td>
-                                                                    <td>Outstanding</td>
-                                                                    <td>Encumbered</td>
-                                                                    <td>Loan Statement</td>
-                                                                </tr>
+                                                        <table class="table bordered striped" style="font-size:10pt;">
+                                                            <tr style="background-color:gray; color:white;">
+                                                                <td>Date Issued</td>
+                                                                <td>Principal + Interest</td>
+                                                                <td>Interest</td>
+                                                                <td>Total Paid</td>
+                                                                <td>Outstanding</td>
+                                                                <td>Encumbered</td>
+                                                                <td>Loan Statement</td>
+                                                            </tr>
 
-                                                                @foreach (var record in finishedLoan)
+                                                            @foreach (var record in finishedLoan)
                                                                 {
 
-                                                                    <tr>
-                                                                        <td>@record.DateCreated.ToLongDateString()</td>
-                                                                        <td>
-                                                                            @string.Format("{0:C}",
+                                                                <tr>
+                                                                    <td>@record.DateCreated.ToLongDateString()</td>
+                                                                    <td>
+                                                                        @string.Format("{0:C}",
                                                           record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
-                                                                        </td>
-                                                                        <td>
-                                                                            @string.Format("{0:C}",
+                                                                    </td>
+                                                                    <td>
+                                                                        @string.Format("{0:C}",
                                                          (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration)))
 
-                                                                        </td>
-                                                                        <td>
-                                                                            @*  @record.LoanTransactions.Select(x => x.refund).FirstOrDefault();*@
-                                                                        </td>
-                                                                        <td></td>
-                                                                        <td>
-                                                                            @string.Format("{0:C}", (record.amount * 0.1m))
-                                                                        </td>
-                                                                        <td>
-                                                                            <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
+                                                                    </td>
+                                                                    <td>
+                                                                        @*  @record.LoanTransactions.Select(x => x.refund).FirstOrDefault();*@
+                                                                    </td>
+                                                                    <td></td>
+                                                                    <td>
+                                                                        @string.Format("{0:C}", (record.amount * 0.1m))
+                                                                    </td>
+                                                                    <td>
+                                                                        <a href="~/Loan/statement?loanId=@record.Id">View Statement </a>
 
-                                                                        </td>
-                                                                    </tr>
+                                                                    </td>
+                                                                </tr>
                                                                     finished_totalInterest = finished_totalInterest + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
                                                                     finished_totalPrincipalPlusInterest = finished_totalPrincipalPlusInterest + record.amount + (record.amount * (record.InterestRate / 100) * Convert.ToDecimal(record.Duration));
                                                                 }
-                                                                <tr>
-                                                                    <td><b>Total:</b></td>
-                                                                    <td>
-                                                                        <b>@string.Format("{0:C}", finished_totalPrincipalPlusInterest)</b>
-                                                                    </td>
-                                                                    <td>
-                                                                        <b>@string.Format("{0:C}", @finished_totalInterest)</b>
-                                                                    </td>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>
-                                                                        <b>@string.Format("{0:C}", encumbered)</b>
-                                                                    </td>
-                                                                    <td></td>
-                                                                </tr>
-                                                            </table>
+                                                            <tr>
+                                                                <td><b>Total:</b></td>
+                                                                <td>
+                                                                    <b>@string.Format("{0:C}", finished_totalPrincipalPlusInterest)</b>
+                                                                </td>
+                                                                <td>
+                                                                    <b>@string.Format("{0:C}", @finished_totalInterest)</b>
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td>
+                                                                    <b>@string.Format("{0:C}", encumbered)</b>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        </table>
 
-                                                        </div>
                                                     </div>
                                                 </div>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
 
-                                        //Customer personal details
-                                        <ul class="card collapsible" data-collapsible="accordion">
-                                            <li>
-                                                <div class="collapsible-header">
-                                                    <span style=" float:right; padding-right:2em;"><b>Customer personal details</b> </span>
-                                                    <i class="material-icons">perm_identity</i>
-                                                </div>
-                                                <div class="collapsible-body card-content">
-                                                    <table class="table striped" style="font-size:10pt;">
+                                    //Customer personal details
+                                    <ul class="card collapsible" data-collapsible="accordion">
+                                        <li>
+                                            <div class="collapsible-header">
+                                                <span style=" float:right; padding-right:2em;"><b>Customer personal details</b> </span>
+                                                <i class="material-icons">perm_identity</i>
+                                            </div>
+                                            <div class="collapsible-body card-content">
+                                                <table class="table striped" style="font-size:10pt;">
 
-                                                        <tr>
-                                                            <td><b>Employer</b></td>
-                                                            <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.employer)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>Office Address</b></td>
-                                                            <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>Residence</b></td>
-                                                            <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>Next of Kin</b></td>
-                                                            <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.NextOfkin)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td><b>State of origin</b></td>
-                                                            <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>&nbsp;</td>
-                                                            <td style="float:right; padding-right:20px;">
-                                                                <button data-target="modal1" class="btn btn-flat modal-edit">Edit</button>
-                                                            </td>
+                                                    <tr>
+                                                        <td><b>Employer</b></td>
+                                                        <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.employer)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Office Address</b></td>
+                                                        <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.OfficeAddress)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Residence</b></td>
+                                                        <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.ResidentialAddress)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>Next of Kin</b></td>
+                                                        <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.NextOfkin)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><b>State of origin</b></td>
+                                                        <td style="float:right; padding-right:20px;">@Html.DisplayFor(modelItem => item.StateOfOrigin)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td style="float:right; padding-right:20px;">
+                                                            <button data-target="modal1" class="btn btn-flat modal-edit">Edit</button>
+                                                        </td>
 
-                                                        </tr>
-                                                    </table>
-                                                </div>
+                                                    </tr>
+                                                </table>
+                                            </div>
 
-                                            </li>
-                                        </ul>
+                                        </li>
+                                    </ul>
 
-                                        //Image Upload
-                                        <ul class="card collapsible" data-collapsible="accordion">
-                                            <li style="text-align:center">
-                                                <div class="collapsible-header">
-                                                    <span style="float:right;padding-right:2em;">
-                                                        <b> Update customer profile image </b>
-                                                    </span>
-                                                    <i class="material-icons">filter_drama</i>
+                                    //Image Upload
+                                    <ul class="card collapsible" data-collapsible="accordion">
+                                        <li style="text-align:center">
+                                            <div class="collapsible-header">
+                                                <span style="float:right;padding-right:2em;">
+                                                    <b> Update customer profile image </b>
+                                                </span>
+                                                <i class="material-icons">filter_drama</i>
 
-                                                </div>
-                                                <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto; padding-bottom:3em;">
-                                                    <br />
-                                                    @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                            </div>
+                                            <div class="collapsible-body" style="width:60%; margin-left:auto; margin-right:auto; padding-bottom:3em;">
+                                                <br />
+                                                @using (Html.BeginForm("UploadImage", "Customer", new { customerId = item.CustomerId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
                                         {
 
                                                     <div class="input-field col s9">
@@ -373,117 +373,84 @@
                                                         </div>
                                                     </div>
                                         }
-                                                </div>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
 
-                                        //modal
+                                    //modal
                                         <!-- Modal Structure -->
-                                        <div id="modal1" class="modal" style="height:auto">
-                                            <form name="update-customer" method="post" action="~/Customer/Edit">
+                                    <div id="modal1" class="modal" style="height:80%">
+                                        <form name="update-customer" method="post" action="~/Customer/Edit">
 
-                                                <div class="modal-content">
-                                                    <h4>Update Customer Details</h4>
-                                                    <div class="row">
+                                            <div class="modal-content">
+                                                <h4 style="font-size:13pt;">Update Customer Details</h4><hr />
+                                                <div class="row">
 
-                                                        <input type="hidden" value="@item.CustomerId" name="CustomerId" />
-                                                        <div class="input-field col s4">
-                                                            <select required >
-                                                                <option value="" disabled selected>Select Title</option>
-                                                                <option>Mr.</option>
-                                                                <option>Mrs.</option>
-                                                                <option>Miss.</option>
-                                                                <option>Dr.</option>
-                                                                <option>Engr.</option>
-                                                                <option>Chief.</option>
-                                                                <option>Prof.</option>
-                                                                <option>Others</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="input-field col s8">
+                                                    <input type="hidden" value="@item.CustomerId" name="CustomerId" />
 
-                                                            <input type="text" name="Name" placeholder="Full name" id="Name" required="required"  value="@item.Name" />
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="input-field col s12">
-                                                                <input type="text" name="NextOfkin" placeholder="Next of Kin" required="required"  value="@item.NextOfkin" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="input-field col s12">
-                                                            <input type="text" name="employer" placeholder="Employer name" required="required"  value="@item.employer" />
-                                                        </div>
-                                                        <div class="input-field col s12">
-                                                            <input type="text" name="OfficeAddress" placeholder="Office Address" required="required" value="@item.OfficeAddress" />
+                                                    <div class="input-field col s12">
+                                                        <label><b>Account No</b></label><br />
 
-                                                        </div>
-                                                        <div class="input-field col s12">
-                                                            <input type="text" name="ResidentialAddress" placeholder="Residential Address" required="required"  @item.ResidentialAddress />
+                                                        <input type="text" name="AccountNo" placeholder="Account no" id="AccountNo" required="required" value="@item.AccountNo" />
+                                                    </div>
 
-                                                        </div>
+                                                    <div class="input-field col s12">
+                                                        <label><b>Name</b></label><br />
 
-                                                        <div class="input-field col s6 ">
-                                                            <span class="prefix" style="padding-bottom:13px; padding-top:7px;font-size:12pt;
-                                                       border:1px solid gainsboro;
-                                                        color:rgb(1, 87, 155); background:whitesmoke; margin-top:5px;">
-                                                                +234
-                                                            </span>
-                                                            <input type="text" name="phone" placeholder="Enter phone number without first 0" required="required"  maxlength=10 value="@item.phone" />
+                                                        <input type="text" name="Name" placeholder="Full name" id="Name" required="required" value="@item.Name" />
+                                                    </div>
 
-                                                        </div>
-                                                        <div class="input-field col s6 ">
-                                                            <input type="text" name="Email" placeholder="email address" required="required"  value="@item.Email" />
+                                                    <div class="input-field col s12">
+                                                        <label><b>Next of Kin</b></label><br />
+                                                        <input type="text" name="NextOfkin" placeholder="Next of Kin" required="required" value="@item.NextOfkin" />
+                                                    </div>
 
-                                                        </div>
-                                                        <div class="input-field col s12">
-                                                            <select id="StateOfOrigin" name="StateOfOrigin">
-                                                                <option value="" disabled selected>Select State</option>
-                                                                <option>Akwa Ibom </option>
-                                                                <option>Abia </option>
-                                                                <option>Adamawa </option>
-                                                                <option>Anambra </option>
-                                                                <option>Bauchi</option>
-                                                                <option>Bayelsa</option>
-                                                                <option>Benue </option>
-                                                                <option>Borno</option>
-                                                                <option>Cross River</option>
-                                                                <option>Delta</option>
-                                                                <option>Enugu</option>
-                                                                <option>Federal Capital Territory</option>
-                                                                <option>Gombe</option>
-                                                                <option>Imo</option>
-                                                                <option>Jigawa</option>
-                                                                <option>Kaduna</option>
-                                                                <option>Kano</option>
-                                                                <option>Katsina</option>
-                                                                <option>Kebbi</option>
-                                                                <option>Kogi</option>
-                                                                <option>Kwara</option>
-                                                                <option>Lagos</option>
-                                                                <option>Nasarawa</option>
-                                                                <option>Niger</option>
-                                                                <option>Ogun</option>
-                                                                <option>Ondo</option>
-                                                                <option>Osun</option>
-                                                                <option>Oyo</option>
-                                                                <option>Plateau</option>
-                                                                <option>Rivers</option>
-                                                                <option>Sokoto</option>
-                                                                <option>Taraba</option>
-                                                                <option>Yobe</option>
-                                                                <option>Zamfara</option>
-                                                            </select>
-                                                        </div>
-                                                    </div><br />
+                                                    <div class="input-field col s12">
+                                                        <label><b>Employer</b></label><br />
 
+                                                        <input type="text" name="employer" placeholder="Employer name" required="required" value="@item.employer" />
+                                                    </div>
+                                                    <div class="input-field col s12">
+                                                        <label><b>Office Address</b></label><br />
+
+                                                        <input type="text" name="OfficeAddress" placeholder="Office Address" required="required" value="@item.OfficeAddress" />
+                                                    </div>
+                                                    <div class="input-field col s12">
+                                                        <label><b>Residential Address</b></label><br />
+
+                                                        <input type="text" name="ResidentialAddress" placeholder="Residential Address" required="required" value="@item.ResidentialAddress" />
+
+                                                    </div>
+
+                                                    <div class="input-field col s12 ">
+                                                        <label><b>Phone <i>e.g. 234XXXXXXXXX</i></b></label><br />
+
+                                                        <input type="text" name="phone" placeholder="Phone number" required="required" value="@item.phone" />
+
+                                                    </div>
+                                                    <div class="input-field col s12 ">
+                                                        <label><b>Email</b></label><br />
+
+                                                        <input type="text" name="Email" placeholder="email address" required="required" value="@item.Email" />
+
+                                                    </div>
+                                                    <div class="input-field col s12">
+                                                        <label><b>State of Origin</b></label><br />
+
+                                                        <input type="text" name="StateOfOrigin" placeholder="State of Origin" required="required" value="@item.StateOfOrigin" />
+
+                                                    </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="submit" class="btn  waves-effect waves-green btn-flat">Update record</button>
-                                                </div>
-                                            </form>
 
-                                        </div>
-                                            }
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn  waves-effect waves-green btn-flat">Update record</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
                                         }
+                                    }
 
 </div>
 
@@ -510,12 +477,40 @@
     .collapsible-header, .collapsible-body {
         border-bottom: none !important;
     }
-    
-    .modal input{
-        padding-left:10px;
-        padding-right:10px;
+
+    .modal input {
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 50px;
+        /*margin-bottom:2px;
+        width:80%;*/
+        /*margin-left:auto;
+        margin-right:auto;*/
     }
 
+    .modal {
+        display: none;
+        position: fixed;
+        left: 0;
+        right: 0;
+        background-color: #fafafa;
+        padding: 10px;
+        padding-right:15px;
+        min-height: 95%;
+        max-height: 100%;
+        width: 40%;
+        margin: auto;
+        overflow-y: auto;
+        border-radius: 2px;
+        will-change: top, opacity;
+        margin-top: -5%;
+    }
+
+    input:required {
+        border: 1px solid gray;
+        border-bottom: 2px solid gray;
+    }
+   
 </style>
 
 <script>
@@ -544,15 +539,17 @@
             submitHandler: function (form) {
                 $.ajax({
                     url: form.action,
-                    data: form.serialize(),
-                    type : form.method
+                    data: $(form).serialize(),
+                    type: form.method
                 }).done(function (data) {
-                    if (data.message) {
-                        alert(data.message)
+                    if (data.Message) {
+                        swal('success', 'successfully updated customer details', "success");
+                        $(location).attr('href', '/Customer/FindCustomer?searchString=' + $('input[name=AccountNo]').val());
+
                     }
 
                     if (data.error) {
-                        alert(data.error)
+                        swal('error', 'unable to customer details', "error");
                     }
                 })
             }
@@ -561,12 +558,4 @@
     });
 
 
-</script>
-<script>
-    $('input[name=phone]').on('input propertychange paste', function (e) {
-        var reg = /^0+/gi;
-        if (this.value.match(reg)) {
-            this.value = this.value.replace(reg, '');
-        }
-    });
 </script>

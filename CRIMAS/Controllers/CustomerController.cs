@@ -274,9 +274,23 @@ namespace CRIMAS.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return Json(new {Message = "Successfully updated customer record" });
+                var customer_updating = db.Customers.Find(customer.CustomerId);
+                if (customer_updating != null)
+                {
+                    customer_updating.AccountNo = customer.AccountNo;
+                    customer_updating.Name = customer.Name;
+                    customer_updating.NextOfkin = customer.NextOfkin;
+                    customer_updating.OfficeAddress = customer.OfficeAddress;
+                    customer_updating.phone = customer.phone;
+                    customer_updating.ResidentialAddress = customer.ResidentialAddress;
+                    customer_updating.StateOfOrigin = customer.StateOfOrigin;
+                    customer_updating.employer = customer.employer;
+                    customer_updating.Email = customer.Email;
+
+
+                    db.SaveChanges();
+                    return Json(new { Message = "Successfully updated customer record" });
+                }
             }
             return Json(new { error = "Unable to update record" });
         }
