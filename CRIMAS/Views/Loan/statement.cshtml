@@ -23,6 +23,7 @@
 
     decimal total_Cr = 0;
     decimal total_Dr = 0;
+    decimal interest_amount = loan.amount * loan.InterestRate * 0.01m * Convert.ToDecimal(loan.Duration);
 }
 
 
@@ -126,34 +127,60 @@
                     <td>S/N</td>
                     <td>Date</td>
                     <td>Transaction Msg</td>
-                    <td>Cr</td>
                     <td>Dr</td>
+                    <td>Cr</td>
                     <td>Balance</td>
                 </tr>
+                @{
+                    decimal loan_applied = loan.amount + interest_amount;
+                }
                 @foreach (var transaction in Model.LoanTransactions)
-                    {
+                {
+                    
                 <tr>
                     <td>@i</td>
                     <td>@transaction.DateCreated</td>
                     <td>@transaction.Narration</td>
                     <td>@transaction.Cr</td>
                     <td>@transaction.Dr</td>
-
                     @if ((transaction.Cr - transaction.Dr) < 0)
-                            {
-                        <td>@string.Format("{0:C}", (transaction.Cr - transaction.Dr) * -1)</td>
-                            }
-                            else
-                            {
-                        <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
-                            }
-
-                </tr>
-                        i++;
-
-                        total_Cr = total_Cr + transaction.Cr;
-                        total_Dr = total_Dr + transaction.Dr;
+                    {
+                         <td>@string.Format("{0:C}", (loan_applied  - transaction.Dr))</td>
                     }
+                    else
+                    {
+                        if (transaction.Narration == "Interest Due")
+                        {
+
+                             <td> @string.Format("{0:C}", (transaction.Cr + loan.amount))</td>
+
+                        }
+
+                        else
+                        {
+                            if (transaction.Narration == "Loan Repayment")
+                            {
+
+                                <td>@string.Format("{0:C}", (loan_applied - transaction.Dr))</td>
+
+
+                            }
+                            if (transaction.Narration == "Loan Disbursement")
+                            {
+                                    <td> @string.Format("{0:C}", (transaction.Cr - transaction.Dr) * 1)</td>
+
+                                }
+
+                            }
+                        }
+                </tr>
+                    i++;
+
+                    total_Cr = total_Cr + transaction.Cr;
+                    total_Dr = total_Dr + transaction.Dr;
+
+                    loan_applied = total_Cr - total_Dr;
+                }
                 <tr>
                     <td>&nbsp;</td>
                     <td><b>Total</b></td>
@@ -163,6 +190,7 @@
                     <td><b> @string.Format("{0:C}", @total_Cr - @total_Dr)</b></td>
                 </tr>
             </table>
+
 
         </div>
 
