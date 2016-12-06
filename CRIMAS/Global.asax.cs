@@ -11,6 +11,7 @@ using HangFire;
 using CRIMAS.Repository.artifacts;
 using HangFire.SqlServer;
 using Bugsnag.Clients;
+using CRIMAS.SupportClasses;
 
 namespace CRIMAS
 {
@@ -49,8 +50,10 @@ namespace CRIMAS
 
             //  Notify.  This will get configuration from the web.config
             //  and gather all known errors and report them.  It's just that simple!
-            var bugsnag = new BaseClient("486389d17f72b81a6dfdb1239f3e6d18");
-            bugsnag.Notify(ex);
+            //var bugsnag = new BaseClient("486389d17f72b81a6dfdb1239f3e6d18");
+            //bugsnag.Notify(ex);
+
+            EmailHelper.SendMail("daniel.adigun@digitalforte.ng", "Exception/Bug", ex.StackTrace);
 
             // Clear the error from the server
             Server.ClearError();
